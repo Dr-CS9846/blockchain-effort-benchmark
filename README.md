@@ -1,68 +1,62 @@
-# Blockchain Software Effort Benchmark — Reproducibility Backbone
+# Blockchain Effort Benchmark
 
-A scientifically governed evidence repository for the PhD research
-*"Proof of Effort — A Blockchain-Aware Extension of COCOMO II."*
+This project answers one question: **how much developer effort does it take to build a blockchain software project, and can we estimate it before the work starts?**
 
-**Declared role: a reproducibility backbone (Option B).** It stores the scripts,
-datasets, locked outputs, and provenance needed to reproduce the calibration end to
-end. Every data point traces to a public commit; nothing is hand-entered.
+It does that by measuring real, completed Web3 Foundation grant projects — how big the delivered code is, and how much development actually went into it — and using those measurements to calibrate a COCOMO-style effort model.
 
-> Scope discipline: this repo is **not** the whole thesis. It is the infrastructure
-> for the parts of the thesis it can genuinely support — effort calibration and its
-> reproducibility. Blockchain *performance* benchmark suites (e.g. Blockbench,
-> TrustedBench) measure system throughput/latency, **not** development effort, and are
-> referenced only as related work — never imported as a calibration data layer.
+It is part of the PhD research *"Proof of Effort — A Blockchain-Aware Extension of COCOMO II."*
 
-## Layered architecture
+---
 
-```
-data/
-  calibration/        effort ground-truth: the verified W3F set + the manifest + measurements
-  external_holdout/   independent sources (ESP / audit-mined) — labelled NON-calibration
-scripts/
-  extract/            produce measurements from public sources (resolve, clone, cloc, git-effort)
-  validate/           environment check + calibration + Conte (1986) verdict
-provenance/
-  source_map.md       every artifact classified by the decision rule (evidence vs pipeline vs context)
-  canonical_factsheet.md   the single source of truth for locked numbers
-  change_log.md       dated, append-only audit trail
-reports/              locked outputs (measurements-derived results, provenance stamps, figures)
-docs/
-  method/             how the pipeline works (WORKFLOW.md)
-  limitations/        documented threats to validity
-  related_work/       external context (incl. performance benchmarks, as citations only)
-```
+## What this is, and what it is NOT
 
-## The decision rule (governs every file)
+**This IS** an *effort-estimation* project. "Benchmark" here means a **labelled dataset** used to calibrate and test cost-estimation models — the same sense as the PROMISE software-engineering datasets. It measures two things from each project's public Git repository:
 
-- proves **effort** → `data/calibration/`
-- proves the **pipeline** → `scripts/` + `provenance/`
-- proves blockchain **context / system behaviour** → `external_holdout/` or `docs/related_work/`
-- proves **none** of these → archive or remove
+- **Size** — lines of code in the delivered software (`cloc`).
+- **Effort** — months of actual development activity (`git` history).
 
-## Reproduce — one command
+**This is NOT** a performance benchmark. There is **no** throughput/TPS measurement, no transaction load testing, no relayers, no stress-test harness, and no node-performance tooling anywhere in this repo. Performance-benchmark suites like Blockbench or TrustedBench measure how *fast a blockchain runs* — a completely different question — and appear here only as cited related work, never as data.
+
+If you remember one thing: **this measures the effort to *build* the software, not the speed of the *running* blockchain.**
+
+---
+
+## How it works
+
+For each completed grant project, an automated, repeatable pipeline:
+
+1. Finds the delivered code repository and the exact commit that was accepted.
+2. Measures its **size** (KSLOC) with `cloc`.
+3. Measures the **effort** that went into it (active developer-months from the Git history).
+4. Fits and tests a simple estimation model: `Effort = A × Size^E`.
+
+Every number traces back to a public commit. Nothing is typed in by hand.
+
+## Run it yourself
 
 ```bash
-make quickcheck   # reproduces the honest baseline + figures (needs only python+numpy)
-make all          # full pipeline: setup → resolve → measure → calibrate → figures (needs git + cloc)
-make verify       # re-runs the baseline and confirms it matches the committed result (determinism gate)
+make quickcheck   # reproduce the headline result + figures (needs Python + numpy only)
+make all          # the whole pipeline end-to-end (also needs git + cloc)
+make verify       # re-run and confirm the numbers match exactly
 ```
 
-No `make`? Use the portable equivalent: `bash run_all.sh`.
+No `make`? Use `bash run_all.sh`. The same pipeline also runs automatically on GitHub Actions and publishes fresh results to a separate `rolling` branch — the published `main` only changes through a reviewed, tagged release (see `provenance/release_policy.md`).
 
-The same pipeline runs automatically on GitHub Actions (`.github/workflows/measure.yml`):
-resolve → measure → calibrate → publish to the non-authoritative `rolling` branch
-(never `main`; see `provenance/release_policy.md`).
+## Where things live
 
-## Documentation
-- `docs/DATASHEET.md` — dataset datasheet (Gebru et al. *Datasheets for Datasets* structure).
-- `docs/method/WORKFLOW.md` — detailed runbook.
-- `provenance/` — fact sheet, source map, change log, release policy.
+```
+data/calibration/   the project data + the measurements
+data/raw/           frozen, hash-stamped copies of the original public sources
+scripts/extract/    find repos, measure size + effort, freeze sources
+scripts/validate/   environment check + the calibration/estimation model
+reports/            results and figures
+provenance/         source map, fact sheet, change log, release policy, claims ledger
+docs/               method, limitations, and the dataset datasheet
+```
 
-## What it measures
-Size (KSLOC via `cloc` on the delivered commit) and effort (active person-months via
-`git log`), measured **independently**, then fit as `PM = A · KSLOC^E` by deterministic
-MLE and evaluated by LOOCV against Conte et al. (1986). Full detail in `docs/method/WORKFLOW.md`.
+## Honest status
+
+This is an early-stage corpus. The pipeline runs end-to-end and has produced its first real, commit-traced measurements, but only a few projects are measured so far and the model is not yet calibrated on enough points to draw conclusions. Results and limitations are reported as they are — see `provenance/claims_ledger.md` and `docs/limitations/`.
 
 ## License
-Code: MIT. Data derived from public Web3 Foundation grant repositories.
+Code: MIT. Data is derived from public Web3 Foundation grant repositories.
