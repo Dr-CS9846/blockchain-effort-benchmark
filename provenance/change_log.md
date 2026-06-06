@@ -2,6 +2,12 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (effort window anchored on delivered-commit date, not paperwork date)
+- After the shallow-clone fix, real cutoffs gave 5/9 non-zero effort (Fennel 4, Societal 4, bright 12, fair 15, lastic 10 PM). But 4 (AdMeta, AgriDot, ParaSpell, Roloi) were still 0.
+- ROOT CAUSE: the effort window was anchored on the delivery-FILE (milestone-paperwork) date. Code is typically committed weeks-to-months BEFORE the milestone is formally submitted, so the planned-duration window sat *after* the work and caught no commits (the delivered commit predated the window start).
+- FIX: measure_repos.py now anchors the window on the DELIVERED COMMIT's own committer date (commit_date(sha)); since = commit_date - planned_duration; falls back to delivery cutoff_date if commit date unknown. The 5 working repos are unaffected (their cutoff-resolved commit date ~= cutoff). Commit RESOLUTION still uses the paperwork date to reject post-cutoff pins (an as-delivered commit cannot post-date its own delivery) - that stays correct.
+- Next push should rescue the commit-pinned zeros (unless a repo is a single squashed import = genuinely no git-effort signal, which we then document/drop).
+
 ## 2026-05-30 (CRITICAL fix: shallow-clone defeated delivery dates -> all effort=0)
 - DIAGNOSIS (run #7): the window-start bound zeroed ALL effort. Root cause found via reports/resolved_repos.csv: delivered_date = 2026-04-15 for EVERY project (impossible). The resolver cloned the W3F delivery repo with `--depth 1`; a shallow clone collapses every file's "last commit" onto the single tip commit, so `git log -1 -- <file>` returned one uniform recent date for all files. Wrong cutoff (~2026) -> grant window [cutoff-duration, cutoff] landed in 2026 where these 2022-2023 repos have no commits -> active_person_months=0 everywhere. (Run #6 only "worked" because it had no since-bound: until=2026 still captured all history.)
 - FIX: resolve_repos_online.py clone() takes shallow flag; delivery repo now cloned FULL (real per-file dates), grants repo stays shallow (links only). delivery_file_date now takes the EARLIEST (add) commit = true submission moment, not a later edit.

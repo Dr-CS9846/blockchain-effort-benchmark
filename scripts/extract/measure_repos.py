@@ -120,6 +120,11 @@ def count_sloc(repo_dir, subdir=""):
 def _reachable(repo_dir, sha):
     return _run(["git", "cat-file", "-e", sha + "^{commit}"], cwd=repo_dir).returncode == 0
 
+def commit_date(repo_dir, sha):
+    """Committer date (YYYY-MM-DD) of a resolved sha, or '' if unknown."""
+    r = _run(["git", "show", "-s", "--format=%cs", sha], cwd=repo_dir)
+    return r.stdout.strip()[:10] if r.returncode == 0 else ""
+
 def resolve_commit(repo_dir, commit_sha="", cutoff_date=""):
     """Return (sha, source). source in {commit, cutoff, head}. A pinned commit
     that is NOT in this repo (e.g. it belonged to a sibling repo in the delivery)
@@ -273,7 +278,13 @@ def main():
             if co.returncode != 0:
                 raise RuntimeError(f"checkout failed for {sha[:12]}: {co.stderr[:160]}")
             kc, ka, top = count_sloc(repo_dir, row.get("subdir",""))
-            cutoff = row.get("cutoff_date", "")
+            # Anchor the effort window on the DELIVERED COMMIT's own date, not the
+            # milestone-paperwork (delivery-file) date: code is typically committed
+            # weeks-to-months before the milestone is formally submitted, so a window
+            # anchored on the paperwork date sits *after* the work and catches nothing.
+            # Falls back to the delivery cutoff_date if the commit date is unknown.
+            cdate = commit_date(repo_dir, sha)
+            cutoff = cdate or row.get("cutoff_date", "")
             since = window_since(row.get("since_date",""), cutoff, row.get("planned_duration_months",""))
             apm, tc, da = active_person_months(repo_dir, sha, since, cutoff, a.min_commits)
             out_row.update({"resolved_commit": sha, "commit_source": csource,
