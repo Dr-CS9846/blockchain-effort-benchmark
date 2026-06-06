@@ -51,13 +51,18 @@ def commit_in_text(t):
 
 def match_delivery_files(files, pid, pname):
     """Return delivery files whose name (before -milestone) matches the project."""
-    keys = [k for k in {slug(pid), slug(pname)} if k]
+    # prefix-based to avoid substring collisions (e.g. 'lastic' in 'eLASTIClabs',
+    # 'tdot' in 'daTDOT'). A delivery file matches only if its stem starts with the
+    # project key (or vice-versa), or they share a >=6-char prefix.
+    keys = [k for k in {slug(pid), slug(pname)} if len(k) >= 4]
     hits = []
     for f in files:
         stem = slug(os.path.basename(f).split("-milestone")[0].replace(".md", ""))
         if not stem: continue
         for k in keys:
-            if stem == k or stem in k or k in stem or (len(stem) >= 5 and stem[:6] == k[:6]):
+            if (stem == k or stem.startswith(k)
+                    or (len(k) >= 6 and k.startswith(stem))
+                    or (len(stem) >= 6 and len(k) >= 6 and stem[:6] == k[:6])):
                 hits.append(f); break
     return sorted(set(hits))
 

@@ -1,14 +1,14 @@
 project_id,project_name,repo_url,commit_sha,cutoff_date,since_date,subdir,planned_fte,planned_duration_months,planned_pm,cost_usd,application_url,notes
-AdMeta,AdMeta,https://github.com/AdMetaNetwork/admeta,,,,,2.0,2.0,4.0,12000.0,github.com/w3f/Grants-Program/blob/master/applications/AdMeta.md,primary from Development Status; set cutoff_date to milestone-1 acceptance before final measure
-Afloat,Afloat Tax Infrastructure Polkadot Integration,,,,,,2.0,2.54,5.08,46200.0,github.com/w3f/Grants-Program/blob/master/applications/Afloat.md,
-AgriDot,AgriDot,,,,,,1.0,4.0,4.0,10000.0,github.com/w3f/Grants-Program/blob/master/applications/AgriDot.md,
-Coinversation,Coinversation,,,,,,3.0,6.0,18.0,28000.0,github.com/w3f/Grants-Program/blob/master/applications/Coinversation.md,
-Fennel_Protocol,Fennel Protocol,,,,,,3.0,3.0,9.0,50000.0,github.com/w3f/Grants-Program/blob/master/applications/Fennel_Protocol.md,
-ParaSpell_follow_up,ParaSpell XCM SDK,,,,,,1.0,2.0,2.0,10000.0,github.com/w3f/Grants-Program/blob/master/applications/ParaSpell_follow_up.md,
-Roloi,Roloi,,,,,,1.5,3.0,4.5,10000.0,github.com/w3f/Grants-Program/blob/master/applications/Roloi.md,
-Societal,Societal,https://github.com/sctllabs/societal-node,,,,,3.0,4.0,12.0,30000.0,github.com/w3f/Grants-Program/blob/master/applications/Societal.md,confirmed from delivery record (Delivered at)
-Web3Go,Web3Go,,,,,,2.0,3.0,6.0,40000.0,github.com/w3f/Grants-Program/blob/master/applications/Web3Go.md,
-bright_treasury,Bright Treasury,,,,,,1.0,3.0,3.0,28500.0,github.com/w3f/Grants-Program/blob/master/applications/bright_treasury.md,prior auto-suggest was wrong (tutorial repo); resolve via delivery record
-fair_squares,Fair Squares,,,,,,2.5,5.0,12.5,48000.0,github.com/w3f/Grants-Program/blob/master/applications/fair_squares.md,
-lastic,Lastic,,,,,,2.0,3.0,6.0,30000.0,github.com/w3f/Grants-Program/blob/master/applications/lastic.md,
-tdot,tDOT,,,,,,2.0,2.0,4.0,14000.0,github.com/w3f/Grants-Program/blob/master/applications/tdot.md,
+AdMeta,AdMeta,https://github.com/AdMetaNetwork/admeta,d133bce5adaa41dc2acffa8f10b63928d22751b4,,,,2.0,2.0,4.0,12000.0,github.com/w3f/Grants-Program/blob/master/applications/AdMeta.md,confirmed delivered commit (admeta_milestone_1)
+Afloat,Afloat Tax Infrastructure Polkadot Integration,,,,,,2.0,2.54,5.08,46200.0,github.com/w3f/Grants-Program/blob/master/applications/Afloat.md,EXCLUDED per attribution rule: deliverable sits inside hashed-substrate whole-chain monorepo (not separable)
+AgriDot,AgriDot,https://github.com/kacena123/AgriDot,c54553b96181ed2a46c53c8c3073c5fe1c4c257a,,,,1.0,4.0,4.0,10000.0,github.com/w3f/Grants-Program/blob/master/applications/AgriDot.md,confirmed delivered commit (agridot_m1); delivered Web3 repo not the PoC
+Coinversation,Coinversation,,,,,,3.0,6.0,18.0,28000.0,github.com/w3f/Grants-Program/blob/master/applications/Coinversation.md,EXCLUDED per attribution rule: no code delivery found (only white-paper)
+Fennel_Protocol,Fennel Protocol,https://github.com/fennelLabs/Fennel-Protocol,37cc301f03ebd7eef83b589385fe566bfa777aa2,,,,3.0,3.0,9.0,50000.0,github.com/w3f/Grants-Program/blob/master/applications/Fennel_Protocol.md,confirmed delivered commit; primary chain repo (lib/cli/server are components)
+ParaSpell_follow_up,ParaSpell XCM SDK,https://github.com/paraspell/sdk,2747e85a0683fa652b8799365ac9cefd25251512,,,,1.0,2.0,2.0,10000.0,github.com/w3f/Grants-Program/blob/master/applications/ParaSpell_follow_up.md,confirmed delivered commit (ParaSpell-followup-m1)
+Roloi,Roloi,https://github.com/RoloiMoney/roloi-polkadot-w3f-grant,,,,,1.5,3.0,4.5,10000.0,github.com/w3f/Grants-Program/blob/master/applications/Roloi.md,RoloiMoney W3F-grant repo (disambiguated from NeoPower/tempora); set cutoff_date
+Societal,Societal,https://github.com/sctllabs/societal-node,,,,,3.0,4.0,12.0,30000.0,github.com/w3f/Grants-Program/blob/master/applications/Societal.md,primary chain repo; multiple Societal grants - set cutoff_date for as-delivered
+Web3Go,Web3Go,https://github.com/web3go-xyz/web3go-xyz-v2,,,,,2.0,3.0,6.0,40000.0,github.com/w3f/Grants-Program/blob/master/applications/Web3Go.md,primary repo (multi-repo deliverable - under-counts); set cutoff_date
+bright_treasury,Bright Treasury,https://github.com/bright/bright-tresury,,,,,1.0,3.0,3.0,28500.0,github.com/w3f/Grants-Program/blob/master/applications/bright_treasury.md,single repo across 3 milestones; set cutoff_date
+fair_squares,Fair Squares,https://github.com/Fair-Squares/fair-squares,,,,,2.5,5.0,12.5,48000.0,github.com/w3f/Grants-Program/blob/master/applications/fair_squares.md,single repo across 5 milestones; set cutoff_date
+lastic,Lastic,https://github.com/LasticXYZ/LasticUI,,,,,2.0,3.0,6.0,30000.0,github.com/w3f/Grants-Program/blob/master/applications/lastic.md,primary app (Coretime marketplace UI); set cutoff_date
+tdot,tDOT,,,,,,2.0,2.0,4.0,14000.0,github.com/w3f/Grants-Program/blob/master/applications/tdot.md,EXCLUDED per attribution rule: tDOT lives inside AcalaNetwork/Acala monorepo (not separable)

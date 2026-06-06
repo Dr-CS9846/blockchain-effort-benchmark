@@ -2,6 +2,17 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (resolution reviewed + manifest finalized for clean cases)
+- CI clone-based resolver ran (run #4): produced candidates for all 13 -> reports/resolved_repos.csv (on rolling).
+- Human review (judgment pass) applied. CONFIRMED + filled into main manifest: AdMeta, AgriDot, Fennel_Protocol, ParaSpell_follow_up (with **delivered commits**); bright_treasury, fair_squares, Societal, Roloi (repo only; Roloi disambiguated to RoloiMoney W3F-grant repo, not NeoPower/tempora).
+- Matcher hardened to prefix-based: fixed substring false-matches ('lastic' in 'eLASTIClabs'; 'tdot' in 'daTDOT'). Re-tested.
+- FLAGGED for decision (left blank in manifest, not measured): Coinversation (no code delivery; only white-paper), Afloat (hashed-substrate monorepo = whole chain), Web3Go (multi-repo), lastic (LasticXYZ; main app repo unconfirmed), tdot (lives inside Acala monorepo; not separable).
+- Open methodological question raised: multi-repo / monorepo attribution rule (primary repo vs sum of delivered repos) + as-delivered cutoff_date for the no-commit repos.
+- DECISION (user): attribution rule = PRIMARY repo per project + EXCLUDE un-separable monorepo cases. Finalized:
+  - KEEP (10): AdMeta, AgriDot, Fennel_Protocol, ParaSpell (commit-pinned); bright_treasury, fair_squares, Societal, Roloi(RoloiMoney), Web3Go(web3go-xyz-v2 primary), lastic(LasticXYZ/LasticUI - confirmed primary app).
+  - EXCLUDE (3, documented): Coinversation (no code), tdot (inside Acala monorepo), Afloat (inside hashed-substrate whole-chain).
+  - CI now measures the human-reviewed manifest directly (resolver demoted to audit-only, no --fill); 4 measured at delivered commits, 6 at HEAD pending cutoff_date.
+
 ## 2026-05-30 (robust repo/commit resolution)
 - Rebuilt `scripts/extract/resolve_repos_online.py` to be robust: it CLONES the W3F delivery + grants repos (reliable in CI; no rate limits / no fragile filename guessing), fuzzy-matches each project to its milestone-delivery file(s), and extracts the delivered repo URL + commit (/tree|/commit/<sha>); application repo links as fallback. Writes `reports/resolved_repos.csv` for human review; `--fill` writes `projects_manifest.online.csv`. Matcher + parsers unit-tested offline.
 - Reason for rebuild: live delivery filenames are irregular (e.g. AgriDot's is NOT `AgriDot-milestone_1.md` — that path 404s), so URL-guessing missed most projects. Cloning + directory fuzzy-match fixes this and scales to 150.
