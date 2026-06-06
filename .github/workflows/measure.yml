@@ -48,15 +48,19 @@ jobs:
       - name: Measure (checkout pinned/cutoff commit; cloc source-only + git effort in window)
         run: python scripts/extract/measure_repos.py --manifest data/calibration/projects_manifest.csv --out data/calibration/measurements.csv
 
-      - name: Calibrate size -> effort (measured and planned)
+      - name: Calibrate size -> effort (planned cross-check first, MEASURED last = canonical)
         run: |
-          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort measured || echo "Not enough measured rows yet."
-          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort planned  || echo "Not enough planned rows yet."
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort planned || echo "planned: not enough rows"
+          cp -f size_effort_results.json size_effort_results_planned.json 2>/dev/null || true
+          cp -f size_effort_params.json  size_effort_params_planned.json  2>/dev/null || true
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort measured || echo "measured: not enough rows"
+          cp -f size_effort_results.json size_effort_results_measured.json 2>/dev/null || true
+          cp -f size_effort_params.json  size_effort_params_measured.json  2>/dev/null || true
 
       - name: Route outputs into reports/
         run: |
           mkdir -p reports
-          mv -f measurement_provenance.json size_effort_params.json size_effort_results.json reports/ 2>/dev/null || true
+          mv -f measurement_provenance.json size_effort_*.json reports/ 2>/dev/null || true
 
       - name: Publish results to the NON-authoritative 'rolling' branch (never main)
         # Release Policy: CI never mutates main. Rolling = latest snapshot only;

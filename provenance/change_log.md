@@ -2,6 +2,19 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (refinements: window-start + AgriDot)
+- measure_repos.py: effort window now has a START bound `window_since = cutoff - planned_duration` (curbs long-lived-repo over-count: bright/fair counted years of pre-grant history). New columns effort_since/effort_until for provenance.
+- resolve_commit: rejects a pinned commit whose commit-date POST-DATES the cutoff (an as-delivered commit cannot be after delivery) -> falls back to cutoff. This generally fixes AgriDot (its pin post-dated delivery -> window gave 0).
+- Manifest: AgriDot commit unpinned (measure at cutoff). Logic unit-tested offline.
+- Next push re-measures all 9 with grant-window effort; then re-read measured fit.
+
+## 2026-05-30 (FIRST measured size->effort signal — run #6)
+- Size filter now works (ksloc_code != ksloc_all). Fennel zero fixed via cutoff fallback (now 31 PM). commit_source column populated.
+- **KEY RESULT (measured KSLOC vs measured git-effort, n=8; AgriDot dropped =0):** PM = 2.47 * KSLOC^0.80; **corr(log KSLOC, log PM) = +0.89** (strong). This refutes the old artifactual r(SLOC,PM)=-0.23 (that was mis-measurement). Constructive core has real signal.
+- Accuracy NOT yet there: LOOCV MMRE 106%, PRED25 12%, SA 46% (better than random). Limited by n=8 + git effort-proxy noise (author-months ~ team shape) + residual over-count (no window START bound).
+- Fixed CI bug: `--effort planned` run was clobbering the measured results.json. Now writes size_effort_results_{measured,planned}.json; measured runs last = canonical.
+- Still open: AgriDot active_PM=0 (pinned-commit/cutoff interaction) -> diagnose or drop; add since_date window-start (cutoff - duration) to curb long-lived-repo over-count (bright 63, fair 40).
+
 ## 2026-05-30 (effort-window + as-delivered fix)
 - measure_repos.py: (a) commit reachability check + enforced checkout (a pinned sha NOT in the repo now falls back to cutoff/HEAD with a flag instead of silently measuring HEAD); (b) effort bounded by cutoff_date (`git log --until`); (c) new `commit_source` column (commit|cutoff|head) so every row shows whether it was measured as-delivered.
 - resolve_repos_online.py: (a) `commit_for_repo` - only pins a commit that belongs to the chosen repo (fixes AgriDot/Fennel zeros, which were caused by pinning a sibling-repo commit); (b) `delivery_file_date` -> emits delivered_date (git date of the milestone-delivery file) -> --fill writes cutoff_date; (c) skips EXCLUDED rows so they are never revived. Logic unit-tested offline.

@@ -129,8 +129,16 @@ def resolve_commit(repo_dir, commit_sha="", cutoff_date=""):
         if not _reachable(repo_dir, sha):
             _run(["git", "fetch", "--quiet", "origin", sha], cwd=repo_dir)  # try to get it
         if _reachable(repo_dir, sha):
-            return sha, "commit"
-        # else: unreachable -> fall through to cutoff/head
+            cd = (cutoff_date or "").strip()[:10]
+            if cd:
+                cdate = _run(["git", "show", "-s", "--format=%cs", sha], cwd=repo_dir).stdout.strip()
+                if cdate and cdate > cd:
+                    pass  # commit post-dates delivery -> invalid as-delivered pin, fall through
+                else:
+                    return sha, "commit"
+            else:
+                return sha, "commit"
+        # else: unreachable or post-cutoff -> fall through to cutoff/head
     if cutoff_date:
         r = _run(["git", "log", f"--before={cutoff_date} 23:59:59", "--format=%H", "-n1"], cwd=repo_dir)
         sha = r.stdout.strip()
@@ -138,6 +146,20 @@ def resolve_commit(repo_dir, commit_sha="", cutoff_date=""):
             return sha, "cutoff"
     r = _run(["git", "log", "--format=%H", "-n1"], cwd=repo_dir)
     return r.stdout.strip(), "head"
+
+def window_since(since_date, cutoff_date, duration_months):
+    """Window START for effort = explicit since_date, else cutoff - planned_duration.
+    Bounds effort to the grant period so long-lived repos do not count pre-grant history."""
+    if (since_date or "").strip():
+        return since_date.strip()
+    if (cutoff_date or "").strip() and (duration_months or "").strip():
+        try:
+            cd = datetime.datetime.strptime(cutoff_date.strip()[:10], "%Y-%m-%d")
+            days = int(round(float(duration_months) * 30.44))
+            return (cd - datetime.timedelta(days=days)).strftime("%Y-%m-%d")
+        except Exception:
+            return ""
+    return ""
 
 def active_person_months(repo_dir, ref, since_date="", cutoff_date="", min_commits=1):
     cmd = ["git", "log", ref, "--no-merges",
@@ -184,6 +206,7 @@ def ensure_clone(project_id, repo_url):
 
 FIELDNAMES = [
     "project_id", "project_name", "repo_url", "resolved_commit", "commit_source",
+    "effort_since", "effort_until",
     "ksloc_code", "ksloc_all", "active_person_months", "total_commits",
     "distinct_authors", "top_langs", "planned_fte", "planned_duration_months",
     "planned_pm", "cost_usd", "status", "error_msg",
@@ -250,14 +273,16 @@ def main():
             if co.returncode != 0:
                 raise RuntimeError(f"checkout failed for {sha[:12]}: {co.stderr[:160]}")
             kc, ka, top = count_sloc(repo_dir, row.get("subdir",""))
-            apm, tc, da = active_person_months(repo_dir, sha, row.get("since_date",""),
-                                               row.get("cutoff_date",""), a.min_commits)
+            cutoff = row.get("cutoff_date", "")
+            since = window_since(row.get("since_date",""), cutoff, row.get("planned_duration_months",""))
+            apm, tc, da = active_person_months(repo_dir, sha, since, cutoff, a.min_commits)
             out_row.update({"resolved_commit": sha, "commit_source": csource,
+                            "effort_since": since, "effort_until": cutoff,
                             "ksloc_code": f"{kc:.4f}", "ksloc_all": f"{ka:.4f}",
                             "active_person_months": str(apm),
                             "total_commits": str(tc), "distinct_authors": str(da),
                             "top_langs": json.dumps(top), "status": "OK"})
-            print(f"    OK [{csource}]: ksloc_code={kc:.2f}  active_pm={apm}  authors={da}")
+            print(f"    OK [{csource}] {since or '-'}..{cutoff or '-'}: ksloc_code={kc:.2f}  active_pm={apm}  authors={da}")
         except Exception as e:
             out_row["status"] = "ERROR"
             out_row["error_msg"] = str(e)[:200]
