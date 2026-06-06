@@ -1,0 +1,16 @@
+{
+  "model": "BC-COCOMO II (ESF, Cost_K in $k, per-project E from real SF values)",
+  "n": 13,
+  "C_combined_multiplier": 1.6133170129238417,
+  "ln_C": 0.47829231605296746,
+  "b1_FTE_elasticity": 1.063206593328415,
+  "b2_CostK_elasticity": 0.18353816283446156,
+  "b3_MS_elasticity": -0.12721525245316978,
+  "sigma_logspace": 0.35694752260038193,
+  "duan_smearing": 1.0472094709089297,
+  "E_min": 1.0965,
+  "E_max": 1.1247,
+  "B_base": 0.91,
+  "identifiability_note": "A and alpha are not separately identifiable; only the combined multiplier C = A*alpha^E is.",
+  "estimator": "closed-form OLS in log space = MLE under lognormal errors (deterministic)"
+}

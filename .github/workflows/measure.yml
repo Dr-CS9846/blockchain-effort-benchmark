@@ -1,0 +1,82 @@
+name: measure-and-calibrate
+
+# Reproducible scraping + measurement engine (the provenance layer's CI).
+# Runs on GitHub's runners (full git + cloc, open network). Layered repo paths.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "data/calibration/projects_manifest.csv"
+      - "scripts/**"
+  schedule:
+    - cron: "30 1 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install tools (cloc + numpy)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq cloc
+          python -m pip install --quiet numpy
+          git --version && cloc --version
+
+      - name: Freeze raw sources (verbatim + sha256) — the source end of the chain
+        run: python scripts/extract/freeze_raw.py --manifest data/calibration/projects_manifest.csv || true
+
+      - name: Resolve candidate repos (for review)
+        run: python scripts/extract/resolve_repos_online.py --manifest data/calibration/projects_manifest.csv || true
+
+      - name: Measure repositories (clone + cloc + git effort)
+        run: python scripts/extract/measure_repos.py --manifest data/calibration/projects_manifest.csv --out data/calibration/measurements.csv
+
+      - name: Calibrate size -> effort (measured and planned)
+        run: |
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort measured || echo "Not enough measured rows yet."
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort planned  || echo "Not enough planned rows yet."
+
+      - name: Route outputs into reports/
+        run: |
+          mkdir -p reports
+          mv -f measurement_provenance.json size_effort_params.json size_effort_results.json reports/ 2>/dev/null || true
+
+      - name: Publish results to the NON-authoritative 'rolling' branch (never main)
+        # Release Policy: CI never mutates main. Rolling = latest snapshot only;
+        # published claims live in reviewed, tagged releases promoted by a human.
+        run: |
+          git config user.name  "measure-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git fetch origin rolling || true          # bring the lease reference (if rolling exists)
+          git checkout -B rolling
+          git add data/raw/ data/calibration/measurements.csv reports/ 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No new results to publish."
+          else
+            git commit -m "ci: rolling measurement snapshot (non-authoritative) [skip ci]"
+            # intentional reset of the CI-owned rolling snapshot; lease refuses if
+            # rolling moved unexpectedly since the fetch. Never plain --force.
+            git push --force-with-lease origin rolling
+          fi
+
+      - name: Upload results as artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: measurement-results
+          path: |
+            data/calibration/measurements.csv
+            reports/*.json
+          if-no-files-found: ignore

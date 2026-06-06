@@ -1,0 +1,20 @@
+# ---- transient / regenerable intermediates (never evidence) ----
+repo_cache/
+__pycache__/
+*.pyc
+repo_candidates.csv
+repo_candidates_online.csv
+repo_candidates_new.csv
+projects_manifest.suggested*.csv
+# stray root-level outputs (CI writes canonical copies into data/calibration and reports)
+/measurements.csv
+/measurement_provenance.json
+/size_effort_params.json
+/size_effort_results.json
+# ---- env / os / editor ----
+.venv/
+venv/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
