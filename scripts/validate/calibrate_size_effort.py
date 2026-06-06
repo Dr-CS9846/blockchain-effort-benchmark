@@ -29,6 +29,8 @@ try:
     import numpy as np
 except ModuleNotFoundError:
     sys.exit("numpy is required. Install it with:  pip install numpy")
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import metrics as metricslib
  
 def load(path, size_col, effort_mode):
     X=[]; y=[]; planned=[]; names=[]; raw=[]
@@ -51,10 +53,7 @@ def fit(lnX, lny):
     smear=float(np.mean(np.exp(resid)))
     return coef, smear, resid
  
-def metrics(actual,pred):
-    mre=np.abs(actual-pred)/actual
-    return dict(MMRE=float(mre.mean()), MdMRE=float(np.median(mre)),
-                PRED25=float(np.mean(mre<=0.25)), PRED30=float(np.mean(mre<=0.30)))
+# full metric suite (MMRE, MdMRE, PRED, MAE, SA vs random baseline) lives in metrics.py
  
 def main():
     ap=argparse.ArgumentParser()
@@ -73,7 +72,7 @@ def main():
     A=math.exp(coef[0]); E=coef[1]
     dof=max(n-2,1); sigma=float(math.sqrt(float(resid@resid)/dof))
     pred_in=np.exp(coef[0]+coef[1]*lnX)*smear
-    ins=metrics(eff,pred_in)
+    ins=metricslib.summary(eff,pred_in)
  
     # LOOCV
     preds=np.zeros(n)
@@ -81,7 +80,7 @@ def main():
         idx=[j for j in range(n) if j!=i]
         c,sm,_=fit(lnX[idx],lny[idx])
         preds[i]=math.exp(c[0]+c[1]*lnX[i])*sm
-    cv=metrics(eff,preds)
+    cv=metricslib.summary(eff,preds)
  
     # planned vs measured cross-check (only meaningful when effort=measured)
     cross=None
@@ -109,9 +108,9 @@ def main():
     print("="*60)
     print(f"  n={n} | size={a.size} | effort={a.effort}")
     print(f"  A={A:.4f}  E={E:.4f}  sigma={sigma:.4f}  Duan={smear:.4f}")
-    print(f"  In-sample : MMRE {ins['MMRE']*100:5.1f}%  PRED25 {ins['PRED25']*100:5.1f}%")
-    print(f"  LOOCV     : MMRE {cv['MMRE']*100:5.1f}%  PRED25 {cv['PRED25']*100:5.1f}%  PRED30 {cv['PRED30']*100:5.1f}%")
-    print(f"  Conte(1986) LOOCV verdict: {'PASS' if results['loocv_conte_pass'] else 'FAIL'}")
+    print(f"  In-sample : MMRE {ins['MMRE']*100:5.1f}%  PRED25 {ins['PRED25']*100:5.1f}%  MAE {ins['MAE']:.2f}  SA {ins['SA_vs_random']*100:5.1f}%")
+    print(f"  LOOCV     : MMRE {cv['MMRE']*100:5.1f}%  PRED25 {cv['PRED25']*100:5.1f}%  PRED30 {cv['PRED30']*100:5.1f}%  MAE {cv['MAE']:.2f}  SA {cv['SA_vs_random']*100:5.1f}%")
+    print(f"  Conte(1986) LOOCV verdict: {'PASS' if results['loocv_conte_pass'] else 'FAIL'}   (SA>0 = better than random guessing)")
     if cross: print(f"  planned vs measured PM: r(log)={cross['corr_log']:+.3f}  median ratio={cross['median_measured_over_planned']:.2f} (n={cross['n']})")
     print("-"*60)
     print("  project                         size   PM_act  PM_loocv")
