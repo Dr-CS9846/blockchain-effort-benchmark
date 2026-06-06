@@ -58,6 +58,8 @@ Author: prepared for Dr (PhD candidate), 30 May 2026.
 
 import argparse, csv, json, math, os, sys
 import numpy as np
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import metrics as metricslib   # shared suite: MAE + Standardized Accuracy (SA)
 
 # 5 standard COCOMO II scale factors stored in the benchmark CSV
 SF_COLS = ["SF_PREC_value", "SF_FLEX_value", "SF_RESL_value",
@@ -157,11 +159,16 @@ def main():
     lnC, b1, b2, b3 = coefs
     dof = n - len(coefs)
     sigma = float(math.sqrt(float(resid @ resid) / dof))
-    insample = accuracy(np.array([d["pm"] for d in rows]), predict(X, coefs, smear))
+    actual_all = np.array([d["pm"] for d in rows]); pred_all = predict(X, coefs, smear)
+    insample = accuracy(actual_all, pred_all)
+    insample["MAE"] = metricslib.mae(actual_all, pred_all)
+    insample["SA_vs_random"] = metricslib.standardized_accuracy(actual_all, pred_all)
 
     # --- LOOCV (honest generalisation) ---
     a_cv, p_cv = loocv(rows)
     cv = accuracy(a_cv, p_cv)
+    cv["MAE"] = metricslib.mae(a_cv, p_cv)
+    cv["SA_vs_random"] = metricslib.standardized_accuracy(a_cv, p_cv)
 
     E_vals = [d["E"] for d in rows]
     params = {
@@ -213,9 +220,9 @@ def main():
     print(f"    Duan smearing    : {smear:.4f}")
     print("-" * 64)
     print("  ACCURACY")
-    print(f"    In-sample  MMRE  : {insample['MMRE']*100:5.1f}%   PRED(25): {insample['PRED25']*100:5.1f}%   MdMRE: {insample['MdMRE']*100:4.1f}%")
+    print(f"    In-sample  MMRE  : {insample['MMRE']*100:5.1f}%   PRED(25): {insample['PRED25']*100:5.1f}%   MAE: {insample['MAE']:.2f}   SA: {insample['SA_vs_random']*100:5.1f}%")
     print(f"    LOOCV      MMRE  : {cv['MMRE']*100:5.1f}%   PRED(25): {cv['PRED25']*100:5.1f}%   MdMRE: {cv['MdMRE']*100:4.1f}%")
-    print(f"    LOOCV     PRED(30): {cv['PRED30']*100:5.1f}%")
+    print(f"    LOOCV      MAE   : {cv['MAE']:.2f}   SA(vs random): {cv['SA_vs_random']*100:5.1f}%   PRED(30): {cv['PRED30']*100:5.1f}%")
     print("-" * 64)
     print("  CONTE et al. (1986):  MMRE < 25%  AND  PRED(25) >= 75%")
     verdict = "PASS" if results["loocv_conte_pass"] else "FAIL"
@@ -229,4 +236,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    main()  # entry point
