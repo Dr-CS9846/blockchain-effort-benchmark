@@ -2,6 +2,11 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (CRITICAL fix: shallow-clone defeated delivery dates -> all effort=0)
+- DIAGNOSIS (run #7): the window-start bound zeroed ALL effort. Root cause found via reports/resolved_repos.csv: delivered_date = 2026-04-15 for EVERY project (impossible). The resolver cloned the W3F delivery repo with `--depth 1`; a shallow clone collapses every file's "last commit" onto the single tip commit, so `git log -1 -- <file>` returned one uniform recent date for all files. Wrong cutoff (~2026) -> grant window [cutoff-duration, cutoff] landed in 2026 where these 2022-2023 repos have no commits -> active_person_months=0 everywhere. (Run #6 only "worked" because it had no since-bound: until=2026 still captured all history.)
+- FIX: resolve_repos_online.py clone() takes shallow flag; delivery repo now cloned FULL (real per-file dates), grants repo stays shallow (links only). delivery_file_date now takes the EARLIEST (add) commit = true submission moment, not a later edit.
+- Next push re-resolves real ~2022/2023 cutoffs -> grant-windowed effort should be non-zero and correctly bounded; then re-read measured fit.
+
 ## 2026-05-30 (refinements: window-start + AgriDot)
 - measure_repos.py: effort window now has a START bound `window_since = cutoff - planned_duration` (curbs long-lived-repo over-count: bright/fair counted years of pre-grant history). New columns effort_since/effort_until for provenance.
 - resolve_commit: rejects a pinned commit whose commit-date POST-DATES the cutoff (an as-delivered commit cannot be after delivery) -> falls back to cutoff. This generally fixes AgriDot (its pin post-dated delivery -> window gave 0).

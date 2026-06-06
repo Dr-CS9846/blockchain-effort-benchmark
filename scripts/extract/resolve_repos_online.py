@@ -28,11 +28,17 @@ GRANTS_URL = "https://github.com/w3f/Grants-Program.git"
 
 def slug(s): return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
-def clone(url, dest):
+def clone(url, dest, shallow=True):
+    # full history is REQUIRED when we need per-file git dates: a --depth 1
+    # shallow clone collapses every file's "last commit" onto the single tip
+    # commit, so `git log -1 -- <file>` returns one uniform (recent) date for
+    # ALL files instead of the true milestone-submission date. The delivery
+    # repo therefore MUST be cloned full; the grants repo (links only, no dates)
+    # may stay shallow for speed.
     if os.path.isdir(os.path.join(dest, ".git")): return True
     try:
-        rc = subprocess.run(["git", "clone", "--depth", "1", url, dest],
-                            capture_output=True, text=True, timeout=600).returncode
+        cmd = ["git", "clone"] + (["--depth", "1"] if shallow else []) + [url, dest]
+        rc = subprocess.run(cmd, capture_output=True, text=True, timeout=1200).returncode
         return rc == 0
     except Exception:
         return False
@@ -61,11 +67,16 @@ def commit_for_repo(text, repo_url):
     return ""
 
 def delivery_file_date(repo_root, file_path):
-    """Git commit date (YYYY-MM-DD) of the delivery file = when the milestone was submitted."""
+    """Submission date (YYYY-MM-DD) of the delivery file = the EARLIEST commit
+    that added it (the milestone-submission moment), not a later typo-fix edit.
+    Requires full history on the delivery repo (see clone(shallow=False))."""
     rel = os.path.relpath(file_path, repo_root)
-    r = subprocess.run(["git", "log", "-1", "--format=%ad", "--date=short", "--", rel],
+    r = subprocess.run(["git", "log", "--reverse", "--format=%ad", "--date=short", "--", rel],
                        cwd=repo_root, capture_output=True, text=True)
-    return r.stdout.strip() if r.returncode == 0 else ""
+    if r.returncode != 0:
+        return ""
+    lines = [ln.strip() for ln in r.stdout.splitlines() if ln.strip()]
+    return lines[0] if lines else ""
 
 def match_delivery_files(files, pid, pname):
     """Return delivery files whose name (before -milestone) matches the project."""
@@ -94,7 +105,9 @@ def main():
 
     deliv = os.path.join(a.cache, "deliv"); grants = os.path.join(a.cache, "grants")
     os.makedirs(a.cache, exist_ok=True)
-    have_d = clone(DELIV_URL, deliv); have_g = clone(GRANTS_URL, grants)
+    # delivery repo: FULL history (we read true per-file submission dates from it)
+    # grants repo: shallow is fine (only used for repo-link fallback, no dates)
+    have_d = clone(DELIV_URL, deliv, shallow=False); have_g = clone(GRANTS_URL, grants, shallow=True)
     if not have_d: print("[WARN] could not clone delivery repo; delivery resolution skipped.")
     deliv_files = glob.glob(os.path.join(deliv, "deliveries", "*.md")) if have_d else []
 
