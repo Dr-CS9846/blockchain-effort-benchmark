@@ -49,6 +49,24 @@ def repos_in_text(t):
 def commit_in_text(t):
     m = COMMIT.search(t); return m.group(1) if m else ""
 
+# commit URL that also captures which repo it belongs to (owner/repo)
+COMMIT_REPO = re.compile(r"github\.com/([A-Za-z0-9_.\-]+/[A-Za-z0-9_.\-]+)/(?:tree|commit)/([0-9a-f]{7,40})", re.I)
+
+def commit_for_repo(text, repo_url):
+    """Return a commit sha ONLY if it belongs to repo_url (avoids cross-repo mis-pin)."""
+    target = repo_url.split("github.com/")[-1].rstrip("/").replace(".git", "").lower()
+    for m in COMMIT_REPO.finditer(text):
+        if m.group(1).rstrip("/").replace(".git", "").lower() == target:
+            return m.group(2)
+    return ""
+
+def delivery_file_date(repo_root, file_path):
+    """Git commit date (YYYY-MM-DD) of the delivery file = when the milestone was submitted."""
+    rel = os.path.relpath(file_path, repo_root)
+    r = subprocess.run(["git", "log", "-1", "--format=%ad", "--date=short", "--", rel],
+                       cwd=repo_root, capture_output=True, text=True)
+    return r.stdout.strip() if r.returncode == 0 else ""
+
 def match_delivery_files(files, pid, pname):
     """Return delivery files whose name (before -milestone) matches the project."""
     # prefix-based to avoid substring collisions (e.g. 'lastic' in 'eLASTIClabs',
@@ -83,16 +101,27 @@ def main():
     out = []
     for r in rows:
         pid = r["project_id"]; pname = r.get("project_name", pid)
+        # respect human EXCLUSIONS: do not re-resolve or fill these
+        if "EXCLUDED" in (r.get("notes", "") or "").upper():
+            out.append(dict(project_id=pid, best_repo=r.get("repo_url", ""), best_commit="",
+                            delivered_date="", n_delivery_files=0, sources="EXCLUDED - skipped"))
+            print(f"  {pid:22} EXCLUDED - skipped")
+            continue
         repo = r.get("repo_url", "").strip(); commit = r.get("commit_sha", "").strip()
-        srcs = []
+        srcs = []; delivered = ""
         matched = match_delivery_files(deliv_files, pid, pname)
         for f in matched:
             txt = open(f, encoding="utf-8", errors="ignore").read()
             rr = repos_in_text(txt)
             if rr and not repo: repo = rr[0]
             for u in rr: srcs.append(f"deliv:{os.path.basename(f)}:{u}")
-            c = commit_in_text(txt)
-            if c and not commit: commit = c
+            d = delivery_file_date(deliv, f)
+            if d and d > delivered: delivered = d           # latest milestone-submission date
+        # a commit is only trustworthy if it belongs to the chosen repo
+        if repo and not commit:
+            for f in matched:
+                c = commit_for_repo(open(f, encoding="utf-8", errors="ignore").read(), repo)
+                if c: commit = c; break
         if not repo and have_g:  # fallback: application repo links
             for apf in glob.glob(os.path.join(grants, "applications", "*.md")):
                 if slug(os.path.basename(apf).replace(".md", "")) == slug(pid):
@@ -100,15 +129,17 @@ def main():
                     if rr: repo = rr[-1]; srcs.append(f"app:{os.path.basename(apf)}:{rr[-1]}")
                     break
         out.append(dict(project_id=pid, best_repo=repo, best_commit=commit,
-                        n_delivery_files=len(matched), sources=" | ".join(srcs[:8])))
+                        delivered_date=delivered, n_delivery_files=len(matched),
+                        sources=" | ".join(srcs[:8])))
         if a.fill:
-            if repo: r["repo_url"] = repo
-            if commit: r["commit_sha"] = commit
-        print(f"  {pid:22} repo={repo or 'NONE':48} commit={(commit[:12] or '-')}")
+            if repo and not r.get("repo_url", "").strip(): r["repo_url"] = repo
+            if commit and not r.get("commit_sha", "").strip(): r["commit_sha"] = commit
+            if delivered and not r.get("cutoff_date", "").strip(): r["cutoff_date"] = delivered
+        print(f"  {pid:22} repo={repo or 'NONE':40} commit={(commit[:10] or '-')} delivered={delivered or '-'}")
 
     os.makedirs("reports", exist_ok=True)
     with open("reports/resolved_repos.csv", "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["project_id","best_repo","best_commit","n_delivery_files","sources"])
+        w = csv.DictWriter(f, fieldnames=["project_id","best_repo","best_commit","delivered_date","n_delivery_files","sources"])
         w.writeheader(); w.writerows(out)
     if a.fill:
         with open("projects_manifest.online.csv", "w", newline="") as f:

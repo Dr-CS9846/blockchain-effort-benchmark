@@ -2,6 +2,19 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (effort-window + as-delivered fix)
+- measure_repos.py: (a) commit reachability check + enforced checkout (a pinned sha NOT in the repo now falls back to cutoff/HEAD with a flag instead of silently measuring HEAD); (b) effort bounded by cutoff_date (`git log --until`); (c) new `commit_source` column (commit|cutoff|head) so every row shows whether it was measured as-delivered.
+- resolve_repos_online.py: (a) `commit_for_repo` - only pins a commit that belongs to the chosen repo (fixes AgriDot/Fennel zeros, which were caused by pinning a sibling-repo commit); (b) `delivery_file_date` -> emits delivered_date (git date of the milestone-delivery file) -> --fill writes cutoff_date; (c) skips EXCLUDED rows so they are never revived. Logic unit-tested offline.
+- measure.yml: resolver --fill re-enabled (safe: keeps confirmed repos, only fills blank cutoff/commit, skips EXCLUDED) -> adopt -> measure. Next run measures source-only KSLOC + as-delivered effort in the grant window.
+
+## 2026-05-30 (first measurement run #5 — data-quality review)
+- CI measured 10 repos OK. Review found 3 data-quality problems (NOT yet calibration-ready):
+  1. SIZE BUG: `count_sloc_cloc` returned ksloc_all for BOTH ksloc_code and ksloc_all (line 71) -> size counted JSON/YAML/MD/PO etc. FIXED: added SOURCE_LANGS filter; ksloc_code now source-only. Verified impact (AgriDot 36->5; ParaSpell 10->1.4; Web3Go 742->301; AdMeta 3.3->2.6).
+  2. EFFORT ZEROS: AgriDot, Fennel returned active_person_months=0 (commit unreachable / squashed-import) — to diagnose.
+  3. HEAD OVER-COUNT: un-pinned repos measured whole-lifetime effort (bright_treasury 63 PM, fair 40, lastic 24) — need grant-window bounding via cutoff_date.
+- Web3Go EXCLUDED (even code-only = 301 KSLOC whole-platform consolidation; not separable). Measurable set now 9.
+- No calibration reported yet — data must be re-measured clean first.
+
 ## 2026-05-30 (resolution reviewed + manifest finalized for clean cases)
 - CI clone-based resolver ran (run #4): produced candidates for all 13 -> reports/resolved_repos.csv (on rolling).
 - Human review (judgment pass) applied. CONFIRMED + filled into main manifest: AdMeta, AgriDot, Fennel_Protocol, ParaSpell_follow_up (with **delivered commits**); bright_treasury, fair_squares, Societal, Roloi (repo only; Roloi disambiguated to RoloiMoney W3F-grant repo, not NeoPower/tempora).

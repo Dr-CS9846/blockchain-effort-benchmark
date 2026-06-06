@@ -37,14 +37,15 @@ jobs:
       - name: Freeze raw sources (verbatim + sha256) — the source end of the chain
         run: python scripts/extract/freeze_raw.py --manifest data/calibration/projects_manifest.csv || true
 
-      - name: Refresh resolver audit list (does NOT modify the reviewed manifest)
-        # Audit only: regenerates reports/resolved_repos.csv for reference / new projects.
-        # The manifest is now human-reviewed, so we measure it as-is (no --fill).
-        run: python scripts/extract/resolve_repos_online.py --manifest data/calibration/projects_manifest.csv || true
+      - name: Resolve + fill cutoff_date / commit (keeps confirmed repos; skips EXCLUDED)
+        # Only fills BLANK cells: confirmed repo_urls are kept; adds delivered_date->cutoff_date
+        # and a same-repo commit where the delivery pins one. EXCLUDED rows are left blank.
+        run: python scripts/extract/resolve_repos_online.py --manifest data/calibration/projects_manifest.csv --fill || true
 
-      - name: Measure repositories (clone + cloc + git effort, at the pinned commit)
-        # Measures the human-reviewed manifest directly: confirmed repos at their
-        # delivered commits; blank/EXCLUDED rows are skipped (NO_REPO).
+      - name: Adopt the filled manifest for this run (rolling snapshot)
+        run: cp -f projects_manifest.online.csv data/calibration/projects_manifest.csv 2>/dev/null || true
+
+      - name: Measure (checkout pinned/cutoff commit; cloc source-only + git effort in window)
         run: python scripts/extract/measure_repos.py --manifest data/calibration/projects_manifest.csv --out data/calibration/measurements.csv
 
       - name: Calibrate size -> effort (measured and planned)

@@ -32,7 +32,17 @@ EXCLUDE_DIRS = ["node_modules", "vendor", ".git", "dist", "build", "target",
 CODE_EXTS = {
     ".rs", ".go", ".ts", ".tsx", ".js", ".jsx", ".py", ".sol", ".c", ".cpp",
     ".cc", ".h", ".hpp", ".java", ".kt", ".swift", ".cs", ".rb", ".scala",
-    ".sh", ".bash", ".toml", ".yaml", ".yml",
+    ".sh", ".bash",
+}
+
+# cloc language names that count as SOURCE CODE for the size metric. Excludes
+# data/markup/config/docs (JSON, YAML, TOML, Markdown, "PO File", SVG, XML,
+# HTML, CSS, Text, INI, Handlebars, Gradle, ...) which otherwise inflate KSLOC.
+SOURCE_LANGS = {
+    "Rust", "Go", "TypeScript", "JavaScript", "JSX", "TSX", "Python", "Solidity",
+    "C", "C++", "C/C++ Header", "C Header", "Java", "Kotlin", "Swift", "C#",
+    "Ruby", "Scala", "Vyper", "Move", "Cairo", "Haskell", "Elixir", "Erlang",
+    "PHP", "Objective-C", "Dart", "Lua", "Bourne Shell", "Bourne Again Shell",
 }
 
 # ── tool detection ────────────────────────────────────────────────────────────
@@ -64,11 +74,12 @@ def count_sloc_cloc(repo_dir, subdir=""):
     if r.returncode != 0:
         raise RuntimeError(f"cloc failed: {r.stderr[:300]}")
     data = json.loads(r.stdout)
-    code_langs = {k: v for k, v in data.items() if k not in ("header", "SUM")}
-    ksloc_all = sum(v.get("code", 0) for v in code_langs.values()) / 1000
-    top = sorted(code_langs.items(), key=lambda x: x[1].get("code", 0), reverse=True)[:5]
+    langs = {k: v for k, v in data.items() if k not in ("header", "SUM")}
+    ksloc_all = sum(v.get("code", 0) for v in langs.values()) / 1000
+    ksloc_code = sum(v.get("code", 0) for k, v in langs.items() if k in SOURCE_LANGS) / 1000
+    top = sorted(langs.items(), key=lambda x: x[1].get("code", 0), reverse=True)[:5]
     top_langs = {k: v.get("code", 0) for k, v in top}
-    return ksloc_all, ksloc_all, top_langs   # ksloc_code == ksloc_all for cloc
+    return ksloc_code, ksloc_all, top_langs   # ksloc_code = SOURCE_LANGS only; ksloc_all = everything
 
 def count_sloc_pygount(repo_dir, subdir=""):
     from pygount import SourceAnalysis
@@ -106,22 +117,35 @@ def count_sloc(repo_dir, subdir=""):
 
 # ── git helpers ───────────────────────────────────────────────────────────────
 
+def _reachable(repo_dir, sha):
+    return _run(["git", "cat-file", "-e", sha + "^{commit}"], cwd=repo_dir).returncode == 0
+
 def resolve_commit(repo_dir, commit_sha="", cutoff_date=""):
+    """Return (sha, source). source in {commit, cutoff, head}. A pinned commit
+    that is NOT in this repo (e.g. it belonged to a sibling repo in the delivery)
+    is rejected and we fall back to cutoff/HEAD so we never silently mis-measure."""
     if commit_sha:
-        return commit_sha.strip()
+        sha = commit_sha.strip()
+        if not _reachable(repo_dir, sha):
+            _run(["git", "fetch", "--quiet", "origin", sha], cwd=repo_dir)  # try to get it
+        if _reachable(repo_dir, sha):
+            return sha, "commit"
+        # else: unreachable -> fall through to cutoff/head
     if cutoff_date:
-        r = _run(["git", "log", f"--before={cutoff_date}", "--format=%H", "-n1"], cwd=repo_dir)
+        r = _run(["git", "log", f"--before={cutoff_date} 23:59:59", "--format=%H", "-n1"], cwd=repo_dir)
         sha = r.stdout.strip()
         if sha:
-            return sha
+            return sha, "cutoff"
     r = _run(["git", "log", "--format=%H", "-n1"], cwd=repo_dir)
-    return r.stdout.strip()
+    return r.stdout.strip(), "head"
 
-def active_person_months(repo_dir, commit_sha, since_date="", min_commits=1):
-    cmd = ["git", "log", commit_sha, "--no-merges",
+def active_person_months(repo_dir, ref, since_date="", cutoff_date="", min_commits=1):
+    cmd = ["git", "log", ref, "--no-merges",
            "--format=%ae%x09%ad", "--date=format:%Y-%m"]
     if since_date:
         cmd += [f"--since={since_date}"]
+    if cutoff_date:
+        cmd += [f"--until={cutoff_date} 23:59:59"]   # bound effort to the grant window
     r = _run(cmd, cwd=repo_dir)
     if r.returncode != 0:
         return 0, 0, 0
@@ -159,7 +183,7 @@ def ensure_clone(project_id, repo_url):
 # ── main ──────────────────────────────────────────────────────────────────────
 
 FIELDNAMES = [
-    "project_id", "project_name", "repo_url", "resolved_commit",
+    "project_id", "project_name", "repo_url", "resolved_commit", "commit_source",
     "ksloc_code", "ksloc_all", "active_person_months", "total_commits",
     "distinct_authors", "top_langs", "planned_fte", "planned_duration_months",
     "planned_pm", "cost_usd", "status", "error_msg",
@@ -221,16 +245,19 @@ def main():
                         "cost_usd": row.get("cost_usd","")})
         try:
             repo_dir = ensure_clone(pid, repo_url)
-            sha = resolve_commit(repo_dir, row.get("commit_sha",""), row.get("cutoff_date",""))
-            _run(["git", "checkout", "--quiet", sha], cwd=repo_dir)
+            sha, csource = resolve_commit(repo_dir, row.get("commit_sha",""), row.get("cutoff_date",""))
+            co = _run(["git", "checkout", "--quiet", "-f", sha], cwd=repo_dir)
+            if co.returncode != 0:
+                raise RuntimeError(f"checkout failed for {sha[:12]}: {co.stderr[:160]}")
             kc, ka, top = count_sloc(repo_dir, row.get("subdir",""))
-            apm, tc, da = active_person_months(repo_dir, sha, row.get("since_date",""), a.min_commits)
-            out_row.update({"resolved_commit": sha,
+            apm, tc, da = active_person_months(repo_dir, sha, row.get("since_date",""),
+                                               row.get("cutoff_date",""), a.min_commits)
+            out_row.update({"resolved_commit": sha, "commit_source": csource,
                             "ksloc_code": f"{kc:.4f}", "ksloc_all": f"{ka:.4f}",
                             "active_person_months": str(apm),
                             "total_commits": str(tc), "distinct_authors": str(da),
                             "top_langs": json.dumps(top), "status": "OK"})
-            print(f"    OK: ksloc_code={kc:.2f}  active_pm={apm}  authors={da}")
+            print(f"    OK [{csource}]: ksloc_code={kc:.2f}  active_pm={apm}  authors={da}")
         except Exception as e:
             out_row["status"] = "ERROR"
             out_row["error_msg"] = str(e)[:200]
