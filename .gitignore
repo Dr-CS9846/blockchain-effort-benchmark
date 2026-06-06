@@ -1,11 +1,13 @@
 # ---- transient / regenerable intermediates (never evidence) ----
 repo_cache/
+resolve_cache/
 __pycache__/
 *.pyc
 repo_candidates.csv
 repo_candidates_online.csv
 repo_candidates_new.csv
 projects_manifest.suggested*.csv
+projects_manifest.online.csv
 # stray root-level outputs (CI writes canonical copies into data/calibration and reports)
 /measurements.csv
 /measurement_provenance.json

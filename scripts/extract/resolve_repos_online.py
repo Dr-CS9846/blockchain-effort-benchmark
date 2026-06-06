@@ -1,154 +1,115 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-resolve_repos_online.py  —  scalable, reproducible repo + commit resolver
-=========================================================================
-For every row in projects_manifest.csv this resolves the DELIVERED repository
-and, where possible, the exact delivered COMMIT, by reading two public sources
-and ranking candidates by how authoritative the source is:
+resolve_repos_online.py  —  robust delivered-repo + commit resolver
+===================================================================
+The W3F milestone-delivery filenames are irregular (e.g. some are
+"<Project>-milestone_1.md", others embed the full project title), so guessing
+URLs fails. This resolver instead CLONES the delivery + grants repos (reliable in
+GitHub Actions / locally; no API rate limits), lists deliveries/, fuzzy-matches
+each manifest project to its delivery file(s), and extracts the delivered
+repository URL and — where the delivery pins it — the commit (/tree|/commit/<sha>).
+Falls back to the grant application's repo links when no delivery file is found.
 
-  1. W3F milestone-delivery records  (deliveries/<project_id>-milestone_*.md)
-     -> AUTHORITATIVE: states the delivered repo and often a /tree/<sha> or
-        /commit/<sha> pin. Ranked highest.
-  2. The grant application  (application_url)
-     -> SUPPORTING: "Development Status" / milestone "Source code" sections.
-        Ranked next; "Team Code Repos" (pre-existing projects) ranked lowest.
+Writes reports/resolved_repos.csv (committed, for human review). With --fill it
+also writes projects_manifest.online.csv with repo_url/commit_sha pre-filled.
 
-A human still confirms before measurement, but the top candidate + commit are
-usually correct. Runs anywhere with web access (your machine or GitHub Actions);
-scales 13 -> 150 unchanged; deterministic given the upstream files.
-
-Output:
-  repo_candidates_online.csv  — project_id, best_repo, best_commit, ranked_candidates
-  (with --fill, also writes best_repo/best_commit into empty cells of
-   projects_manifest.online.csv for review)
-
-USAGE
-  python resolve_repos_online.py --manifest data/calibration/projects_manifest.csv
-  python resolve_repos_online.py --manifest data/calibration/projects_manifest.csv --fill
+Human review is still expected before measurement; this produces the candidate
+list at scale (13 -> 150) without rate limits.
 """
-import argparse, csv, re, sys, urllib.request
+import argparse, csv, glob, os, re, subprocess, sys
 
-UA = {"User-Agent": "repo-resolver/1.0"}
-REPO_RE = re.compile(r"https?://github\.com/([A-Za-z0-9_.\-]+)/([A-Za-z0-9_.\-]+)", re.I)
-# delivered commit, if the link pins one
-COMMIT_RE = re.compile(r"github\.com/[^/\s)]+/[^/\s)]+/(?:tree|commit)/([0-9a-f]{7,40})", re.I)
-EXCLUDE_OWNERS = {"w3f"}
-EXCLUDE_REPONAMES = {"grants-program", "grant-milestone-delivery"}
-DELIV_BASE = "https://raw.githubusercontent.com/w3f/Grant-Milestone-Delivery/master/deliveries/"
-# application-section ranking (lower = stronger signal of the delivered repo)
-SECTION_RANK = [
-    (re.compile(r"development status", re.I), 1),
-    (re.compile(r"source code|deliverable|milestone", re.I), 2),
-    (re.compile(r"team code repos|repositor", re.I), 4),
-]
-DEFAULT_RANK = 3
-DELIVERY_RANK = 0  # authoritative — beats every application section
+GH = re.compile(r"https?://github\.com/([A-Za-z0-9_.\-]+)/([A-Za-z0-9_.\-]+)", re.I)
+COMMIT = re.compile(r"github\.com/[^/\s)]+/[^/\s)]+/(?:tree|commit)/([0-9a-f]{7,40})", re.I)
+EXCL_OWNERS = {"w3f"}
+EXCL_REPONAMES = {"grants-program", "grant-milestone-delivery"}
+DELIV_URL = "https://github.com/w3f/Grant-Milestone-Delivery.git"
+GRANTS_URL = "https://github.com/w3f/Grants-Program.git"
 
-def raw_url(app_url):
-    u = app_url.strip()
-    if not u: return ""
-    if not u.startswith("http"): u = "https://" + u
-    u = u.replace("https://github.com/", "https://raw.githubusercontent.com/")
-    u = u.replace("/blob/", "/")
-    return u
+def slug(s): return re.sub(r"[^a-z0-9]", "", (s or "").lower())
 
-def section_rank_for(heading):
-    for rx, rank in SECTION_RANK:
-        if rx.search(heading): return rank
-    return DEFAULT_RANK
+def clone(url, dest):
+    if os.path.isdir(os.path.join(dest, ".git")): return True
+    try:
+        rc = subprocess.run(["git", "clone", "--depth", "1", url, dest],
+                            capture_output=True, text=True, timeout=600).returncode
+        return rc == 0
+    except Exception:
+        return False
 
-def _repos_in(line):
+def repos_in_text(t):
     out = []
-    for m in REPO_RE.finditer(line):
-        owner, repo = m.group(1), m.group(2)
-        repo = repo.rstrip(").,").replace(".git", "")
-        if owner.lower() in EXCLUDE_OWNERS: continue
-        if repo.lower() in EXCLUDE_REPONAMES: continue
-        out.append(f"https://github.com/{owner}/{repo}")
-    return out
+    for m in GH.finditer(t):
+        o, r = m.group(1), m.group(2)
+        r = r.rstrip(").,").replace(".git", "")
+        if o.lower() in EXCL_OWNERS or r.lower() in EXCL_REPONAMES: continue
+        out.append(f"https://github.com/{o}/{r}")
+    seen = set(); return [u for u in out if not (u in seen or seen.add(u))]
 
-def extract_from_application(md_text):
-    """Return {repo_url: rank} from a grant application, ranked by section."""
-    best = {}
-    cur = DEFAULT_RANK
-    for line in md_text.splitlines():
-        if line.lstrip().startswith("#"):
-            cur = section_rank_for(line); continue
-        for url in _repos_in(line):
-            if url not in best or cur < best[url]: best[url] = cur
-    return best
+def commit_in_text(t):
+    m = COMMIT.search(t); return m.group(1) if m else ""
 
-def extract_from_delivery(md_text):
-    """Return ({repo_url: DELIVERY_RANK}, commit_or_None) from a delivery record."""
-    repos = {}
-    commit = None
-    for line in md_text.splitlines():
-        for url in _repos_in(line):
-            repos[url] = DELIVERY_RANK
-        m = COMMIT_RE.search(line)
-        if m and commit is None:
-            commit = m.group(1)
-    return repos, commit
-
-def fetch(url, timeout=30):
-    req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read().decode("utf-8", "ignore")
-
-def resolve_one(row):
-    """Return (best_repo, best_commit, ranked_list)."""
-    cand = {}      # repo_url -> rank
-    commit = ""
-    # 1. delivery records (authoritative); try milestones 1..5
-    pid = row["project_id"]
-    for k in range(1, 6):
-        url = f"{DELIV_BASE}{pid}-milestone_{k}.md"
-        try:
-            repos, c = extract_from_delivery(fetch(url))
-        except Exception:
-            continue
-        for u, rk in repos.items():
-            cand[u] = min(rk, cand.get(u, 99))
-        if c and not commit:
-            commit = c
-    # 2. application (supporting)
-    ru = raw_url(row.get("application_url", ""))
-    if ru:
-        try:
-            for u, rk in extract_from_application(fetch(ru)).items():
-                cand[u] = min(rk, cand.get(u, 99))
-        except Exception as e:
-            print(f"  [WARN] {pid}: application fetch failed ({str(e)[:60]})")
-    ranked = sorted(cand.items(), key=lambda kv: kv[1])
-    best = ranked[0][0] if ranked else ""
-    return best, commit, ranked
+def match_delivery_files(files, pid, pname):
+    """Return delivery files whose name (before -milestone) matches the project."""
+    keys = [k for k in {slug(pid), slug(pname)} if k]
+    hits = []
+    for f in files:
+        stem = slug(os.path.basename(f).split("-milestone")[0].replace(".md", ""))
+        if not stem: continue
+        for k in keys:
+            if stem == k or stem in k or k in stem or (len(stem) >= 5 and stem[:6] == k[:6]):
+                hits.append(f); break
+    return sorted(set(hits))
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--manifest", default="projects_manifest.csv")
+    ap.add_argument("--manifest", default="data/calibration/projects_manifest.csv")
+    ap.add_argument("--cache", default="resolve_cache")
     ap.add_argument("--fill", action="store_true")
     a = ap.parse_args()
     rows = list(csv.DictReader(open(a.manifest)))
+
+    deliv = os.path.join(a.cache, "deliv"); grants = os.path.join(a.cache, "grants")
+    os.makedirs(a.cache, exist_ok=True)
+    have_d = clone(DELIV_URL, deliv); have_g = clone(GRANTS_URL, grants)
+    if not have_d: print("[WARN] could not clone delivery repo; delivery resolution skipped.")
+    deliv_files = glob.glob(os.path.join(deliv, "deliveries", "*.md")) if have_d else []
+
     out = []
     for r in rows:
-        best, commit, ranked = resolve_one(r)
-        out.append((r["project_id"], best, commit,
-                    " | ".join(f"{u}(r{rk})" for u, rk in ranked) or "NONE"))
+        pid = r["project_id"]; pname = r.get("project_name", pid)
+        repo = r.get("repo_url", "").strip(); commit = r.get("commit_sha", "").strip()
+        srcs = []
+        matched = match_delivery_files(deliv_files, pid, pname)
+        for f in matched:
+            txt = open(f, encoding="utf-8", errors="ignore").read()
+            rr = repos_in_text(txt)
+            if rr and not repo: repo = rr[0]
+            for u in rr: srcs.append(f"deliv:{os.path.basename(f)}:{u}")
+            c = commit_in_text(txt)
+            if c and not commit: commit = c
+        if not repo and have_g:  # fallback: application repo links
+            for apf in glob.glob(os.path.join(grants, "applications", "*.md")):
+                if slug(os.path.basename(apf).replace(".md", "")) == slug(pid):
+                    rr = repos_in_text(open(apf, encoding="utf-8", errors="ignore").read())
+                    if rr: repo = rr[-1]; srcs.append(f"app:{os.path.basename(apf)}:{rr[-1]}")
+                    break
+        out.append(dict(project_id=pid, best_repo=repo, best_commit=commit,
+                        n_delivery_files=len(matched), sources=" | ".join(srcs[:8])))
         if a.fill:
-            if best and not r.get("repo_url", "").strip(): r["repo_url"] = best
-            if commit and not r.get("commit_sha", "").strip(): r["commit_sha"] = commit
-        print(f"  {r['project_id']:22} -> {best or 'NONE':45} {('@'+commit) if commit else ''}")
-    with open("repo_candidates_online.csv", "w", newline="") as f:
-        w = csv.writer(f); w.writerow(["project_id", "best_repo", "best_commit", "ranked_candidates"])
-        w.writerows(out)
+            if repo: r["repo_url"] = repo
+            if commit: r["commit_sha"] = commit
+        print(f"  {pid:22} repo={repo or 'NONE':48} commit={(commit[:12] or '-')}")
+
+    os.makedirs("reports", exist_ok=True)
+    with open("reports/resolved_repos.csv", "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["project_id","best_repo","best_commit","n_delivery_files","sources"])
+        w.writeheader(); w.writerows(out)
     if a.fill:
         with open("projects_manifest.online.csv", "w", newline="") as f:
             w = csv.DictWriter(f, fieldnames=rows[0].keys()); w.writeheader(); w.writerows(rows)
-        print("Wrote projects_manifest.online.csv (review before using).")
-    nr = sum(1 for _, b, _, _ in out if b)
-    nc = sum(1 for _, _, c, _ in out if c)
-    print(f"Resolved repo for {nr}/{len(rows)} and commit for {nc}/{len(rows)} projects.")
+    nr = sum(1 for o in out if o["best_repo"]); nc = sum(1 for o in out if o["best_commit"])
+    print(f"Resolved repo for {nr}/{len(rows)}, commit for {nc}/{len(rows)} -> reports/resolved_repos.csv")
 
 if __name__ == "__main__":
     main()

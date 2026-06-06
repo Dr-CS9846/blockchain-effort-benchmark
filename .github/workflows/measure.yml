@@ -37,10 +37,15 @@ jobs:
       - name: Freeze raw sources (verbatim + sha256) — the source end of the chain
         run: python scripts/extract/freeze_raw.py --manifest data/calibration/projects_manifest.csv || true
 
-      - name: Resolve candidate repos (for review)
-        run: python scripts/extract/resolve_repos_online.py --manifest data/calibration/projects_manifest.csv || true
+      - name: Resolve delivered repos + commits (clone delivery repo, fuzzy-match)
+        run: python scripts/extract/resolve_repos_online.py --manifest data/calibration/projects_manifest.csv --fill || true
 
-      - name: Measure repositories (clone + cloc + git effort)
+      - name: Adopt resolved repos+commits for THIS run (rolling snapshot only)
+        # rolling is non-authoritative; main's manifest changes only after human review
+        # of reports/resolved_repos.csv. This lets the snapshot measure at delivered commits.
+        run: cp -f projects_manifest.online.csv data/calibration/projects_manifest.csv 2>/dev/null || true
+
+      - name: Measure repositories (clone + cloc + git effort, at the pinned commit)
         run: python scripts/extract/measure_repos.py --manifest data/calibration/projects_manifest.csv --out data/calibration/measurements.csv
 
       - name: Calibrate size -> effort (measured and planned)
