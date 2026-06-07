@@ -72,6 +72,10 @@ jobs:
           cp -f size_effort_results.json reports/size_effort_results_census.json 2>/dev/null || true
           cp -f size_effort_params.json  reports/size_effort_params_census.json  2>/dev/null || true
 
+      - name: Validate PMs (triangulation + coverage + sanity = ground-truth defence)
+        run: |
+          python scripts/validate/validate_pm.py --csv data/calibration/measurements_census.csv --out reports/pm_validation.json || echo "pm-validation: not enough rows"
+
       - name: Publish progress to 'census' branch
         run: |
           git config user.name  "census-bot"
@@ -82,6 +86,7 @@ jobs:
           cp -f reports/size_effort_results_census_reliable.json /tmp/out/ 2>/dev/null || true
           cp -f reports/size_effort_results_census_full.json /tmp/out/ 2>/dev/null || true
           cp -f reports/size_effort_params_census.json /tmp/out/ 2>/dev/null || true
+          cp -f reports/pm_validation.json /tmp/out/ 2>/dev/null || true
           git fetch origin census
           # -f: discard the working-tree modifications from measure/calibrate (already
           # saved to /tmp/out above) so switching to the census tip cannot be blocked
@@ -93,7 +98,8 @@ jobs:
           cp -f /tmp/out/size_effort_results_census_reliable.json reports/ 2>/dev/null || true
           cp -f /tmp/out/size_effort_results_census_full.json reports/ 2>/dev/null || true
           cp -f /tmp/out/size_effort_params_census.json reports/ 2>/dev/null || true
-          git add data/calibration/measurements_census.csv reports/size_effort_results_census*.json reports/size_effort_params_census.json 2>/dev/null || true
+          cp -f /tmp/out/pm_validation.json reports/ 2>/dev/null || true
+          git add data/calibration/measurements_census.csv reports/size_effort_results_census*.json reports/size_effort_params_census.json reports/pm_validation.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No new measurement progress."
           else

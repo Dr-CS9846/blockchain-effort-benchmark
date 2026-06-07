@@ -2,6 +2,18 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (PM VALIDATION suite: prove the ground truth before COCOMO calibration)
+- User's pivotal question: how to PROVE the measured PMs (ground truth) are correct? Answer: effort is a LATENT construct (no timesheet oracle) -> cannot prove exact; instead establish VALIDITY+RELIABILITY (Kitchenham/Pfleeger/Fenton 1995 framework). KEY: PM-from-VCS is a PEER-REVIEWED method - Robles & Gonzalez-Barahona 2022 (Empirical Software Engineering), validated against 1,000+ developer questionnaires. Our approach follows it; unit = Boehm 152h.
+- Built scripts/validate/validate_pm.py (pure-stdlib, reproducible) -> reports/pm_validation.json, computing on the deduped reliable+plausible set (n=51):
+  - TRIANGULATION (Spearman among 3 PM estimators): low~mid 0.99, mid~high 0.80, low~high 0.79 -> methods agree strongly (construct validity).
+  - CRITERION COVERAGE: 73% (11/15) of W3F planned PM fall inside [PM_low,PM_high]; corr(log planned, log PM_mid)=0.37; median measured/planned 0.50 (plans over-state).
+  - EXTERNAL SANITY: median ~0.49 PM/KSLOC (~2000 SLOC/PM), within published ranges.
+  - RELIABILITY: deterministic/bit-stable; PH/PM is a monotone factor (rank-invariant).
+  Verified: script reproduces the hand-computed numbers exactly.
+- Wired validate_pm into measure_census.yml (runs every census run; publishes pm_validation.json to census branch). Wrote docs/method/pm_validation.md (framework, results, citations, honest limits, open: developer self-report + git-hours cross-check).
+- CITATIONS verified via search: Robles&GB 2022 (EMSE, arXiv:2203.09898); Kitchenham/Pfleeger/Fenton 1995 (IEEE TSE); Shepperd&MacDonell 2012 (IST 54:820-827); Boehm 2000; ISO/IEC/IEEE 15939.
+- Next: push -> CI emits pm_validation.json; then proceed to COCOMO II calibration (M1 Equivalent Size) with the PM ground truth now validated/defensible. Optional strongest add-on: developer self-report subset + git-hours cross-check.
+
 ## 2026-05-30 (crossed n>=30 via subset=all batch; found non-independence; added per-repo dedup)
 - measure-census subset=all (max 80) measured the next tranche -> reliable+plausible jumped to ~59 (CI) / 54 (local snapshot).
 - CRITICAL data-quality finding: the expanded set is NOT independent. ~24 repo_urls appear 2-3x (paraspell/sdk x3, emeraldpay/polkaj x3, perun x3, sandox x3, Luno/LunoKit x2, ...) = multi-milestone / multi-grant deliveries to the SAME repo measured at different commits -> nested, non-independent (size,effort). Also delivery-filename CASE variants created duplicate project_ids (Iunokit==lunokit; ParaSpell-followup==Paraspell-followup). PANIC (158 KSLOC) checked = legitimate large real project (1568 commits/10 authors/22mo, gen 280 LOC), not contamination.
