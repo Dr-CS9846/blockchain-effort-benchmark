@@ -2,6 +2,13 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (n>=30 expansion via pre-registered CENSUS - harvester built)
+- HEADLINE confirmed (reliable subset, n=5): corr(log KSLOC, log effort)=0.94; in-sample MMRE 15.4% / PRED25 80% / PRED30 100% / SA 0.71 (passes Conte in-sample); LOOCV MMRE 31% / PRED25 60% / SA 0.40. Full set (n=7) sensitivity: corr 0.74. Actual effort ~1.7x planned (median); planned-vs-measured r=0.40.
+- DECISION (user): expand via a CENSUS (all eligible), not a sample - strongest external validity, pre-registered inclusion rule, no analyst selection.
+- Built scripts/extract/harvest_deliveries.py: scans EVERY w3f delivery file, groups by project (robust milestone-marker stripping), picks a separable primary repo (own-org slug rule; excludes shared monorepos paritytech/AcalaNetwork/...), dates via earliest-add commit (full-history clone), and sources planned duration/FTE/cost from applications/<slug>.md (regex on the Overview block; verified against real Fennel app = 3mo/3FTE/$50k -> pm 9). Emits projects_manifest.census.csv (INCLUDED) + reports/census_audit.csv (every project + verdict). Pure functions unit-tested offline (project_key variants, repo extraction, primary selection, planned regex). 
+- Added .github/workflows/census.yml (separate, heavy, dispatch/push-triggered) -> publishes candidates to rolling for human review before promotion to main.
+- Next: push -> census runs -> review census_audit.csv (count + spot-check) -> promote eligible to main manifest -> measure + recalibrate at n>=30.
+
 ## 2026-05-30 (effort-reliability flag + sensitivity reporting; n=7 result read)
 - Run #9 (commit-date anchor) rescued ParaSpell (4 PM, 3 authors) and Roloi (1 PM); AdMeta + AgriDot stay 0 = squash/single-import repos (no git history). Usable n=7.
 - **MEASURED size->effort, n=7:** corr(log KSLOC, log effort) ~= 0.74 (strong, on clean grant-windowed effort; was an over-counted 0.89 before windowing). In-sample MMRE 66%, PRED25 43%, SA 0.49. LOOCV MMRE 115%, PRED25 0%, SA 0.27. Accuracy proxy-noise-limited at small n.

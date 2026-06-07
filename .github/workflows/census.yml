@@ -1,0 +1,56 @@
+name: census-harvest
+
+# Pre-registered CENSUS of all eligible W3F delivered milestones.
+# Heavy (full-history clone of the delivery repo + grants), so it is SEPARATE
+# from measure.yml and runs only when the harvester changes or on manual dispatch.
+# It publishes the candidate manifest + audit to the NON-authoritative 'rolling'
+# branch for human review; promotion to main is a deliberate, reviewed step.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/extract/harvest_deliveries.py"
+      - ".github/workflows/census.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Harvest census (full-history delivery clone -> candidate manifest + audit)
+        run: python scripts/extract/harvest_deliveries.py
+
+      - name: Publish census candidates to NON-authoritative 'rolling' (never main)
+        run: |
+          git config user.name  "census-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git fetch origin rolling || true
+          git checkout -B rolling
+          git add data/calibration/projects_manifest.census.csv reports/census_audit.csv 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No census changes to publish."
+          else
+            git commit -m "ci: census candidate manifest + audit (non-authoritative) [skip ci]"
+            git push --force-with-lease origin rolling
+          fi
+
+      - name: Upload census as artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: census-candidates
+          path: |
+            data/calibration/projects_manifest.census.csv
+            reports/census_audit.csv
+          if-no-files-found: ignore
