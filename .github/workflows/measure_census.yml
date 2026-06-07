@@ -20,6 +20,12 @@ on:
         default: "planned"
         type: choice
         options: ["planned", "all"]
+      force:
+        description: "Re-measure already-OK rows (use after a measurement-logic change)"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
 
 permissions:
   contents: write
@@ -47,6 +53,7 @@ jobs:
           SUBSET="${{ github.event.inputs.subset || 'planned' }}"
           FLAG=""
           if [ "$SUBSET" = "planned" ]; then FLAG="--only-with-planned"; fi
+          if [ "${{ github.event.inputs.force || 'false' }}" = "true" ]; then FLAG="$FLAG --force"; fi
           python scripts/extract/measure_repos.py \
             --manifest data/calibration/projects_manifest.census.csv \
             --out data/calibration/measurements_census.csv \

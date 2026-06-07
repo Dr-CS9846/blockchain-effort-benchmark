@@ -2,6 +2,13 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (clean census headline n=20: KSLOC weakly predicts effort; size-artifact fix begun)
+- CLEAN HEADLINE (reliable AND duration-plausible, n=20): corr(log KSLOC, log effort)=0.32 (WEAK), LOOCV MMRE 75%/PRED25 20%/SA 0.22; planned-vs-measured r=0.38, actual ~1.39x planned. The pilot's 0.94 was small-n optimism; at census scale size alone weakly predicts effort (melodot 47KSLOC/8PM vs crossbow 3.9/36PM) - a defensible finding, but partly measurement artifact.
+- DIRECTION (user): effort estimation is THE goal (map COCOMO II to blockchain, prove on git); cost is secondary/later. Fix size artifacts BEFORE expanding. Flag, don't delete; discard only after per-repo double-check (avoid shrinking n).
+- ARTIFACT FIX 1 (language coverage): SOURCE_LANGS += Nix, Lean, Circom. These are the DELIVERABLE language for some grants and were undercounted to ~0: dotnix (Nix, was 0.076 KSLOC) and yatima (Lean, was 0.000 -> auto-dropped by size>0). The fix corrects dotnix AND RECOVERS yatima (8.7 KSLOC, 41 PM, 7 auth) -> n grows, not shrinks.
+- Added measure_census.yml `force` input to re-measure already-OK rows after a measurement-logic change.
+- Next: dispatch measure-census subset=planned force=true -> re-read clean headline; then per-repo double-check the high-KSLOC/low-effort suspects (melodot, polkadart) for vendored/generated-code inflation before any discard.
+
 ## 2026-05-30 (CI fix: forced checkout on census re-runs)
 - measure-census run #2 failed (exit 1) at the publish step: on re-runs measurements_census.csv already exists on the census branch, gets restored+modified, and `git checkout -B census origin/census` refused ("local changes would be overwritten"). Run #1 escaped this only because the file did not yet exist. FIX: `git checkout -f -B census origin/census` (outputs are already copied to /tmp before the switch, so discarding the worktree is safe). Headline (reliable+plausible) not yet read - awaits this fix.
 

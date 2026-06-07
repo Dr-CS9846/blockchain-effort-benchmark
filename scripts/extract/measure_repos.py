@@ -43,6 +43,9 @@ SOURCE_LANGS = {
     "C", "C++", "C/C++ Header", "C Header", "Java", "Kotlin", "Swift", "C#",
     "Ruby", "Scala", "Vyper", "Move", "Cairo", "Haskell", "Elixir", "Erlang",
     "PHP", "Objective-C", "Dart", "Lua", "Bourne Shell", "Bourne Again Shell",
+    # added after census batch-1 review: these are the DELIVERABLE language for some
+    # grants and were being undercounted to ~0 (dotnix=Nix, yatima=Lean, ZK=Circom).
+    "Nix", "Lean", "Circom",
 }
 
 # ── tool detection ────────────────────────────────────────────────────────────
