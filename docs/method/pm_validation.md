@@ -29,14 +29,28 @@ rank agreement** is:
 Three methods built on different assumptions rank project effort almost identically → the effort
 signal is real and robust to method choice, not an artifact of one formula.
 
-## 2. Criterion validity — does the bracket contain independent estimates?
-Each grant's **W3F planned PM** (FTE × duration, from the application — an independent,
-human-authored figure, not derived from git) is a criterion anchor. On repos that have it (n=15
-in the current set): **73% (11/15)** have their planned PM **inside** the measured
-`[PM_low, PM_high]` bracket; corr(log planned, log PM_mid) = 0.37; median measured/planned = 0.50.
-All 4 misses are in the SAME direction (plan > our upper bound): daos, nulink, societal,
-polkadart — i.e. the plan over-states vs delivered git effort (polkadart's plan is an extreme
-60 PM = 4 FTE x 15 mo). The bracket converts an unprovable point-claim into a testable interval.
+## 2. Criterion validity — W3F planned PM is a LOOSE convergent check, not the proof
+Each grant's **W3F planned PM** (FTE × duration from the application) is an independent,
+human-authored anchor. With the strengthened matcher we now have it for **37** deduped repos
+(up from 15). On that larger, fairer sample the anchor proves to be **noisy**:
+- planned inside `[PM_low, PM_high]`: **59% (22/37)**
+- corr(log planned, log PM_mid): **0.15**
+- measured/planned ratio: min 0.02, **Q1 0.13, median 0.31, Q3 0.70**, max 6.8 (misses go BOTH
+  ways — some plans over-state, some under-state).
+
+Interpretation (honest): W3F planned PM is a **forward budget of total-FTE effort** (all
+activities, paid headcount), set per team with wide latitude (padding, under-planning, scope
+change). It therefore tracks delivered git **coding** effort only weakly. The small-sample 73%
+seen earlier (n=15) was optimistic. **We do NOT treat planned PM as the primary validator, and we
+do NOT force measured == planned** — that would conflate a noisy total-effort *plan* with a
+measured coding *actual*. It remains a useful sanity anchor (median ratio ~0.3 is consistent with
+coding being a portion of total software effort), nothing more.
+
+The robust validity evidence is therefore **Triangulation (Section 1), Reliability (Section 4),
+and the peer-reviewed method precedent (Section 0)** — not the plan. The single anchor that would
+make criterion validity airtight is **developer self-report** (Section 5), which is exactly why
+Robles & González-Barahona validated their VCS model against 1,000+ developer questionnaires
+rather than against plans.
 
 ### What W3F planned PM actually measures (this EXPLAINS the gap)
 W3F defines **FTE = average number of full-time employees over the project duration**

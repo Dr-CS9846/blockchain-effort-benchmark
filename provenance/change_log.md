@@ -2,6 +2,14 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (strengthenings RAN: planned-PM revealed as a NOISY anchor; triangulation is the proof)
+- Re-harvest (dual grant-repo matcher) + measure subset=all: planned-PM anchors 15->37; n_distinct 51->63.
+- Triangulation HOLDS strong: Spearman low~mid 0.99, mid~high 0.87, low~high 0.85.
+- Criterion (planned) on the fairer 37-anchor sample: coverage 59% (22/37), corr 0.15, measured/planned ratio Q1 0.13 / median 0.31 / Q3 0.70 / max 6.8 (misses BOTH directions). CONCLUSION: W3F planned PM is a NOISY forward total-FTE budget -> a LOOSE convergent check, NOT the primary validator; we must NOT force measured==planned. (Earlier 73%@n=15 was small-sample optimism.)
+- Robust validity therefore rests on TRIANGULATION + REPRODUCIBILITY + peer-reviewed method precedent (Robles&GB), not the plan. Definitive remaining anchor = developer self-report (what Robles&GB used; plans are too loose). Updated pm_validation.md accordingly.
+- Harvester fixes confirmed: ParaSpell case-variant merged; planned coverage tripled; societal still multi-repo-ambiguous (node vs front-end) - inherent, noted.
+- Next: decision - (A) proceed to COCOMO II now (PMs validated by triangulation+method), with developer self-report as a parallel gold anchor; or (B) do self-report first. Continue subset=all batches to grow n in parallel.
+
 ## 2026-05-30 (W3F FTE scope resolved; 3 validation strengthenings; COCOMO scope answer)
 - W3F FTE definition found (grants.web3.foundation): FTE = avg full-time employees over duration (0.5 FTE=20h/wk); planned PM = FTE x duration = TOTAL full-time effort, ALL activities. So our git PM (coding subset) being ~0.5x planned is EXPECTED (implementation ~ half of total effort), not an error. The 4 coverage misses (daos/nulink/societal/polkadart) are ALL plan>measured (plan over-states); polkadart plan=60 extreme; societal miss was our harvester picking the thin submission repo.
 - COCOMO scope answer (recorded in pm_validation.md): no Phase-2 gap IF we calibrate COCOMO's coefficient A to OUR measured PM (local calibration, Boehm-sanctioned) -> model predicts the same quantity (git-coding PM). Objective drivers (Equiv Size, type, language, team) scale coding effort; we do NOT use the 17 subjective EMs. Model's predicted quantity stated explicitly = VCS-measured coding effort; total/cost = documented bridge later.
