@@ -1,0 +1,95 @@
+name: measure-census
+
+# Batched, resumable measurement of the harvested CENSUS manifest.
+# Uses main's latest scripts; pulls the manifest + any prior progress from the
+# 'census' branch; measures up to --max rows this run (partial clones); calibrates
+# the reliable subset (headline) and full set (sensitivity); publishes results
+# back to the NON-authoritative 'census' branch. Dispatch repeatedly to chew
+# through all eligible projects a batch at a time.
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_rows:
+        description: "Max repos to measure this run (resumable)"
+        required: false
+        default: "80"
+      subset:
+        description: "Which rows: 'planned' (verified-application subset, ~47) or 'all'"
+        required: false
+        default: "planned"
+        type: choice
+        options: ["planned", "all"]
+
+permissions:
+  contents: write
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (main = latest scripts)
+        uses: actions/checkout@v4
+
+      - name: Install tools (cloc + numpy)
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq cloc
+          python -m pip install --quiet numpy
+
+      - name: Restore census manifest + prior progress from 'census' branch
+        run: |
+          git fetch origin census
+          git checkout origin/census -- data/calibration/projects_manifest.census.csv
+          git checkout origin/census -- data/calibration/measurements_census.csv 2>/dev/null || echo "no prior measurements yet"
+
+      - name: Measure a batch (resumable; partial clones; MEASURED first-commit duration)
+        run: |
+          SUBSET="${{ github.event.inputs.subset || 'planned' }}"
+          FLAG=""
+          if [ "$SUBSET" = "planned" ]; then FLAG="--only-with-planned"; fi
+          python scripts/extract/measure_repos.py \
+            --manifest data/calibration/projects_manifest.census.csv \
+            --out data/calibration/measurements_census.csv \
+            --max "${{ github.event.inputs.max_rows || '80' }}" $FLAG
+
+      - name: Calibrate (full = sensitivity; reliable = headline, runs last)
+        run: |
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements_census.csv --effort measured || echo "full: not enough rows"
+          cp -f size_effort_results.json reports/size_effort_results_census_full.json 2>/dev/null || true
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements_census.csv --effort measured --reliable-only || echo "reliable: not enough rows"
+          cp -f size_effort_results.json reports/size_effort_results_census.json 2>/dev/null || true
+          cp -f size_effort_params.json  reports/size_effort_params_census.json  2>/dev/null || true
+
+      - name: Publish progress to 'census' branch
+        run: |
+          git config user.name  "census-bot"
+          git config user.email "actions@users.noreply.github.com"
+          mkdir -p /tmp/out
+          cp -f data/calibration/measurements_census.csv /tmp/out/ 2>/dev/null || true
+          cp -f reports/size_effort_results_census.json /tmp/out/ 2>/dev/null || true
+          cp -f reports/size_effort_results_census_full.json /tmp/out/ 2>/dev/null || true
+          cp -f reports/size_effort_params_census.json /tmp/out/ 2>/dev/null || true
+          git fetch origin census
+          git checkout -B census origin/census
+          mkdir -p data/calibration reports
+          cp -f /tmp/out/measurements_census.csv data/calibration/ 2>/dev/null || true
+          cp -f /tmp/out/size_effort_results_census.json reports/ 2>/dev/null || true
+          cp -f /tmp/out/size_effort_results_census_full.json reports/ 2>/dev/null || true
+          cp -f /tmp/out/size_effort_params_census.json reports/ 2>/dev/null || true
+          git add data/calibration/measurements_census.csv reports/size_effort_results_census*.json reports/size_effort_params_census.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No new measurement progress."
+          else
+            git commit -m "ci: census measurement batch + recalibration (non-authoritative) [skip ci]"
+            git push --force-with-lease origin census
+          fi
+
+      - name: Upload census measurements as artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: census-measurements
+          path: |
+            data/calibration/measurements_census.csv
+            reports/size_effort_results_census*.json
+          if-no-files-found: ignore

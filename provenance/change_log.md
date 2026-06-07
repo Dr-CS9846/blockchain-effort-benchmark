@@ -2,6 +2,20 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (GROUNDED duration: removed 3-month fallback; measure first-commit->delivery)
+- User (correctly) rejected the 3-month default window as an ungrounded assumption that would not survive grant/publication review. Removed window_since + DEFAULT_WINDOW_MONTHS entirely.
+- NEW Phase-1 methodology, fully measured from git: effort window END = delivered commit's own date; START = first commit reachable from the delivered commit (project inception for grant-dedicated repos); explicit since_date overrides. New columns actual_duration_months (MEASURED calendar span) + duration_plausible (provisional review flag, <=24 mo; long spans may carry pre-grant history - flagged, not dropped). This also fixes the old over-count honestly: the inflated whole-lifetime numbers came from measuring to HEAD (post-grant commits), which stopping at the delivered commit excludes.
+- Plan (user): PACE step-wise. Batch 1 = the ~47 verified-application rows (lets us validate the method AND run actual-vs-planned duration check), then batches of 30/40/50. PHASE 2 (later) = add an idle-trimmed "active span" as a SECOND effort method -> a calendar-span vs active-effort study for blockchain dev, expected to yield more nuanced COCOMO values.
+- Tooling: measure_repos gains --only-with-planned (verified subset) and the measured-duration columns; partial clone + --max batching retained. measure_census.yml gains a subset input (planned|all). Pure-function logic unit-tested offline (months_between, plausibility).
+- Next: push -> dispatch measure-census subset=planned -> review the ~47 (durations sane? actual vs planned?) before expanding.
+
+## 2026-05-30 (census harvested: ~432 eligible; scalable batched measurement wired)
+- Census run scanned ~444 W3F delivered projects -> ~432 INCLUDED, ~15 EXCLUDED (8 un-separable shared-monorepo, 7 no-project-repo) - eligibility rule behaving as designed. Dates span 2020-2026 (peak 2022-23). 35 commit-pinned, ~397 measured-at-cutoff. Published to dedicated 'census' branch (projects_manifest.census.csv + census_audit.csv).
+- Issue: planned fields matched for only ~47/432 (delivery filename often != application filename). FIX: window_since now falls back to DEFAULT_WINDOW_MONTHS=3 (modal W3F duration) when planned_duration is blank -> effort window still bounded (no whole-repo over-count). planned_pm cross-check simply has fewer points; headline size->effort fit unaffected.
+- Scalability: ensure_clone now uses treeless partial clone (--filter=blob:none) -> full commit history for effort/dates, blobs on demand at checkout; fits hundreds of repos in CI. measure_repos --max N = batched + resumable (skips OK rows, carries rest as PENDING). Logic unit-tested offline (window fallback, max guard, reliability).
+- Added .github/workflows/measure_census.yml (dispatch): uses main scripts, restores manifest+prior progress from census branch, measures a batch, calibrates reliable(headline)+full(sensitivity), publishes back to census. Dispatch repeatedly to cover all ~432.
+- Next: dispatch measure-census in batches; watch n grow and the reliable-subset fit stabilize toward n>=30.
+
 ## 2026-05-30 (n>=30 expansion via pre-registered CENSUS - harvester built)
 - HEADLINE confirmed (reliable subset, n=5): corr(log KSLOC, log effort)=0.94; in-sample MMRE 15.4% / PRED25 80% / PRED30 100% / SA 0.71 (passes Conte in-sample); LOOCV MMRE 31% / PRED25 60% / SA 0.40. Full set (n=7) sensitivity: corr 0.74. Actual effort ~1.7x planned (median); planned-vs-measured r=0.40.
 - DECISION (user): expand via a CENSUS (all eligible), not a sample - strongest external validity, pre-registered inclusion rule, no analyst selection.

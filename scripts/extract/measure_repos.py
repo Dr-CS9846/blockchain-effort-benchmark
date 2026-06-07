@@ -152,19 +152,33 @@ def resolve_commit(repo_dir, commit_sha="", cutoff_date=""):
     r = _run(["git", "log", "--format=%H", "-n1"], cwd=repo_dir)
     return r.stdout.strip(), "head"
 
-def window_since(since_date, cutoff_date, duration_months):
-    """Window START for effort = explicit since_date, else cutoff - planned_duration.
-    Bounds effort to the grant period so long-lived repos do not count pre-grant history."""
-    if (since_date or "").strip():
-        return since_date.strip()
-    if (cutoff_date or "").strip() and (duration_months or "").strip():
-        try:
-            cd = datetime.datetime.strptime(cutoff_date.strip()[:10], "%Y-%m-%d")
-            days = int(round(float(duration_months) * 30.44))
-            return (cd - datetime.timedelta(days=days)).strftime("%Y-%m-%d")
-        except Exception:
-            return ""
+# Grounded effort window (Phase 1): the development span is MEASURED from git, not
+# assumed. START = the first commit reachable from the delivered commit (project
+# inception for grant-dedicated repos); END = the delivered commit's own date. No
+# planned values, no synthetic fallback. (Phase 2 will add an idle-trimmed "active
+# span" as a second method for a calendar-span vs active-effort study.)
+DURATION_PLAUSIBLE_MAX_MONTHS = 24.0   # provisional review flag; > this may carry pre-grant history
+
+def first_commit_date(repo_dir, ref):
+    """Date (YYYY-MM-DD) of the EARLIEST commit reachable from ref = inception of the
+    as-delivered history. '' if unknown."""
+    r = _run(["git", "log", ref, "--reverse", "--no-merges", "--format=%cs"], cwd=repo_dir)
+    if r.returncode != 0:
+        return ""
+    for line in r.stdout.splitlines():
+        line = line.strip()
+        if line:
+            return line[:10]
     return ""
+
+def months_between(d_start, d_end):
+    """Calendar months between two YYYY-MM-DD dates (float), or '' if unparseable."""
+    try:
+        a = datetime.datetime.strptime(d_start[:10], "%Y-%m-%d")
+        b = datetime.datetime.strptime(d_end[:10], "%Y-%m-%d")
+        return round((b - a).days / 30.44, 2)
+    except Exception:
+        return ""
 
 def active_person_months(repo_dir, ref, since_date="", cutoff_date="", min_commits=1):
     cmd = ["git", "log", ref, "--no-merges",
@@ -202,7 +216,13 @@ def ensure_clone(project_id, repo_url):
         else:
             return dest
     dest.parent.mkdir(parents=True, exist_ok=True)
-    r = _run(["git", "clone", "--quiet", repo_url, str(dest)])
+    # Treeless partial clone: full COMMIT history (needed for effort-window git log
+    # and date resolution) but blobs fetched on demand at checkout. Keeps the census
+    # (hundreds of repos) within CI disk/time. Falls back to a normal clone if the
+    # server refuses partial clone.
+    r = _run(["git", "clone", "--quiet", "--filter=blob:none", repo_url, str(dest)])
+    if r.returncode != 0:
+        r = _run(["git", "clone", "--quiet", repo_url, str(dest)])
     if r.returncode != 0:
         raise RuntimeError(f"git clone failed: {r.stderr[:300]}")
     return dest
@@ -211,7 +231,7 @@ def ensure_clone(project_id, repo_url):
 
 FIELDNAMES = [
     "project_id", "project_name", "repo_url", "resolved_commit", "commit_source",
-    "effort_since", "effort_until",
+    "effort_since", "effort_until", "actual_duration_months", "duration_plausible",
     "ksloc_code", "ksloc_all", "active_person_months", "total_commits",
     "distinct_authors", "effort_reliable", "top_langs",
     "planned_fte", "planned_duration_months",
@@ -236,10 +256,15 @@ def main():
     ap.add_argument("--out",      default=str(HERE / "measurements.csv"))
     ap.add_argument("--only",     default="", help="comma-separated project_ids to run")
     ap.add_argument("--force",    action="store_true", help="re-measure OK rows")
+    ap.add_argument("--max",      type=int, default=0, dest="max_rows",
+                    help="measure at most N rows that still need work this run (0=all); resumable across runs")
+    ap.add_argument("--only-with-planned", action="store_true", dest="only_planned",
+                    help="measure only rows that have a parsed planned_pm (the verified-application subset, e.g. the first ~47)")
     ap.add_argument("--min-commits-per-month", type=int, default=1, dest="min_commits")
     a = ap.parse_args()
 
     only = {x.strip() for x in a.only.split(",") if x.strip()}
+    measured_this_run = 0
 
     manifest = list(csv.DictReader(open(a.manifest, encoding="utf-8")))
 
@@ -276,7 +301,31 @@ def main():
                             "status": "NO_REPO"})
             continue
 
+        # subset filter: phase-1 measures only the verified-application rows (those
+        # with a parsed planned_pm). Non-selected rows are preserved if already
+        # measured, else simply not emitted this run.
+        if a.only_planned and not str(row.get("planned_pm", "")).strip():
+            if prev:
+                results.append(prev)
+            continue
+
+        # batch cap: once this run has measured --max rows, leave the rest for a
+        # later run (preserve any prior result; otherwise carry the row as PENDING).
+        if a.max_rows and measured_this_run >= a.max_rows:
+            if prev:
+                results.append(prev)
+            else:
+                results.append({**{f: "" for f in FIELDNAMES},
+                                "project_id": pid, "project_name": row.get("project_name", pid),
+                                "repo_url": repo_url,
+                                "planned_pm": row.get("planned_pm", ""),
+                                "planned_fte": row.get("planned_fte", ""),
+                                "planned_duration_months": row.get("planned_duration_months", ""),
+                                "cost_usd": row.get("cost_usd", ""), "status": "PENDING"})
+            continue
+
         print(f"  Measuring: {pid} ({repo_url})")
+        measured_this_run += 1
         out_row = {f: "" for f in FIELDNAMES}
         out_row.update({"project_id": pid, "project_name": row["project_name"],
                         "repo_url": repo_url,
@@ -291,24 +340,27 @@ def main():
             if co.returncode != 0:
                 raise RuntimeError(f"checkout failed for {sha[:12]}: {co.stderr[:160]}")
             kc, ka, top = count_sloc(repo_dir, row.get("subdir",""))
-            # Anchor the effort window on the DELIVERED COMMIT's own date, not the
-            # milestone-paperwork (delivery-file) date: code is typically committed
-            # weeks-to-months before the milestone is formally submitted, so a window
-            # anchored on the paperwork date sits *after* the work and catches nothing.
-            # Falls back to the delivery cutoff_date if the commit date is unknown.
-            cdate = commit_date(repo_dir, sha)
-            cutoff = cdate or row.get("cutoff_date", "")
-            since = window_since(row.get("since_date",""), cutoff, row.get("planned_duration_months",""))
+            # GROUNDED effort window (Phase 1), fully measured from git:
+            #   END   = the delivered commit's own committer date (as-delivered);
+            #   START = the first commit reachable from it (project inception), unless
+            #           the manifest gives an explicit since_date override.
+            # actual_duration_months is the MEASURED calendar span (no planned values).
+            cutoff = commit_date(repo_dir, sha) or row.get("cutoff_date", "")
+            since = (row.get("since_date", "") or "").strip() or first_commit_date(repo_dir, sha)
+            dur = months_between(since, cutoff) if (since and cutoff) else ""
+            dur_ok = int(isinstance(dur, (int, float)) and 0 < dur <= DURATION_PLAUSIBLE_MAX_MONTHS)
             apm, tc, da = active_person_months(repo_dir, sha, since, cutoff, a.min_commits)
             rel = is_effort_reliable(apm, tc, da)
             out_row.update({"resolved_commit": sha, "commit_source": csource,
                             "effort_since": since, "effort_until": cutoff,
+                            "actual_duration_months": (f"{dur}" if dur != "" else ""),
+                            "duration_plausible": str(dur_ok),
                             "ksloc_code": f"{kc:.4f}", "ksloc_all": f"{ka:.4f}",
                             "active_person_months": str(apm),
                             "total_commits": str(tc), "distinct_authors": str(da),
                             "effort_reliable": str(rel),
                             "top_langs": json.dumps(top), "status": "OK"})
-            print(f"    OK [{csource}] {since or '-'}..{cutoff or '-'}: ksloc_code={kc:.2f}  active_pm={apm}  authors={da}")
+            print(f"    OK [{csource}] {since or '-'}..{cutoff or '-'} ({dur}mo): ksloc_code={kc:.2f}  active_pm={apm}  authors={da}")
         except Exception as e:
             out_row["status"] = "ERROR"
             out_row["error_msg"] = str(e)[:200]
