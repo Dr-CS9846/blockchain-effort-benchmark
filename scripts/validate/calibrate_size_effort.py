@@ -32,15 +32,21 @@ except ModuleNotFoundError:
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import metrics as metricslib
  
-def load(path, size_col, effort_mode, reliable_only=False):
+def _truthy(v):
+    return str(v).strip() in ("1", "True", "true")
+
+def load(path, size_col, effort_mode, reliable_only=False, plausible_only=False):
     X=[]; y=[]; planned=[]; names=[]; raw=[]
     for r in csv.DictReader(open(path)):
         if r.get("status")!="OK": continue
-        # sensitivity switch: headline fit uses only repos with a trustworthy
-        # git-effort signal (>=2 authors, >=10 commits); full set kept for the
-        # sensitivity table. Rows lacking the column (older runs) are treated as
-        # reliable so the filter is backward-compatible.
-        if reliable_only and str(r.get("effort_reliable","1")).strip() not in ("1","True","true"):
+        # sensitivity switches (rows lacking a column are treated as passing, so the
+        # filters are backward-compatible with older measurement runs):
+        #  reliable_only  -> trustworthy git-effort signal (>=2 authors, >=10 commits)
+        #  plausible_only -> measured duration within bound (excludes fork-contaminated
+        #                    repos that inherited a large upstream's whole history)
+        if reliable_only and not _truthy(r.get("effort_reliable","1")):
+            continue
+        if plausible_only and not _truthy(r.get("duration_plausible","1")):
             continue
         try:
             size=float(r[size_col]);
@@ -68,10 +74,12 @@ def main():
     ap.add_argument("--effort", default="measured", choices=["measured","planned"])
     ap.add_argument("--reliable-only", action="store_true",
                     help="fit only on repos with a trustworthy git-effort signal (>=2 authors, >=10 commits)")
+    ap.add_argument("--plausible-only", action="store_true",
+                    help="fit only on repos with a plausible MEASURED duration (excludes fork-contaminated histories)")
     a=ap.parse_args()
     if not os.path.exists(a.csv): sys.exit(f"{a.csv} not found - run measure_repos.py first.")
 
-    size,eff,planned,names=load(a.csv,a.size,a.effort,a.reliable_only)
+    size,eff,planned,names=load(a.csv,a.size,a.effort,a.reliable_only,a.plausible_only)
     n=len(size)
     if n<4: sys.exit(f"Only {n} usable rows. Resolve more repos in the manifest, then re-run.")
     lnX=np.log(size); lny=np.log(eff)
@@ -102,11 +110,11 @@ def main():
     size_effort_corr_log=float(np.corrcoef(lnX,lny)[0,1]) if n>=3 else float("nan")
 
     params=dict(model="PM = A * KSLOC^E * Duan", size_metric=a.size, effort=a.effort,
-                reliable_only=bool(a.reliable_only),
+                reliable_only=bool(a.reliable_only), plausible_only=bool(a.plausible_only),
                 n=n, A=A, E=E, sigma_logspace=sigma, duan_smearing=smear,
                 estimator="closed-form OLS log space = lognormal MLE (deterministic)")
     results=dict(conte_1986={"MMRE<":0.25,"PRED25>=":0.75},
-                 reliable_only=bool(a.reliable_only),
+                 reliable_only=bool(a.reliable_only), plausible_only=bool(a.plausible_only),
                  size_effort_corr_log=size_effort_corr_log,
                  in_sample=ins, loocv=cv,
                  loocv_conte_pass=bool(cv["MMRE"]<0.25 and cv["PRED25"]>=0.75),
@@ -120,7 +128,7 @@ def main():
     print("="*60)
     print("  COCOMO SIZE -> EFFORT CORE  (measured, reproducible)")
     print("="*60)
-    print(f"  n={n} | size={a.size} | effort={a.effort} | reliable_only={a.reliable_only}")
+    print(f"  n={n} | size={a.size} | effort={a.effort} | reliable_only={a.reliable_only} | plausible_only={a.plausible_only}")
     print(f"  A={A:.4f}  E={E:.4f}  sigma={sigma:.4f}  Duan={smear:.4f}  corr(logKSLOC,logPM)={size_effort_corr_log:+.3f}")
     print(f"  In-sample : MMRE {ins['MMRE']*100:5.1f}%  PRED25 {ins['PRED25']*100:5.1f}%  MAE {ins['MAE']:.2f}  SA {ins['SA_vs_random']*100:5.1f}%")
     print(f"  LOOCV     : MMRE {cv['MMRE']*100:5.1f}%  PRED25 {cv['PRED25']*100:5.1f}%  PRED30 {cv['PRED30']*100:5.1f}%  MAE {cv['MAE']:.2f}  SA {cv['SA_vs_random']*100:5.1f}%")

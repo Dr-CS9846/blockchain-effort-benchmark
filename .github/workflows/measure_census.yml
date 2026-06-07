@@ -52,11 +52,16 @@ jobs:
             --out data/calibration/measurements_census.csv \
             --max "${{ github.event.inputs.max_rows || '80' }}" $FLAG
 
-      - name: Calibrate (full = sensitivity; reliable = headline, runs last)
+      - name: Calibrate (full + reliable = sensitivity; reliable+plausible = HEADLINE, runs last)
         run: |
+          # (1) FULL set - sensitivity (includes squash-imports + fork-contaminated repos)
           python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements_census.csv --effort measured || echo "full: not enough rows"
           cp -f size_effort_results.json reports/size_effort_results_census_full.json 2>/dev/null || true
+          # (2) RELIABLE only - sensitivity (trustworthy git-effort signal, still allows long forks)
           python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements_census.csv --effort measured --reliable-only || echo "reliable: not enough rows"
+          cp -f size_effort_results.json reports/size_effort_results_census_reliable.json 2>/dev/null || true
+          # (3) HEADLINE = reliable AND plausible-duration (excludes fork contamination); runs LAST = canonical
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements_census.csv --effort measured --reliable-only --plausible-only || echo "headline: not enough rows"
           cp -f size_effort_results.json reports/size_effort_results_census.json 2>/dev/null || true
           cp -f size_effort_params.json  reports/size_effort_params_census.json  2>/dev/null || true
 
@@ -67,6 +72,7 @@ jobs:
           mkdir -p /tmp/out
           cp -f data/calibration/measurements_census.csv /tmp/out/ 2>/dev/null || true
           cp -f reports/size_effort_results_census.json /tmp/out/ 2>/dev/null || true
+          cp -f reports/size_effort_results_census_reliable.json /tmp/out/ 2>/dev/null || true
           cp -f reports/size_effort_results_census_full.json /tmp/out/ 2>/dev/null || true
           cp -f reports/size_effort_params_census.json /tmp/out/ 2>/dev/null || true
           git fetch origin census
@@ -74,6 +80,7 @@ jobs:
           mkdir -p data/calibration reports
           cp -f /tmp/out/measurements_census.csv data/calibration/ 2>/dev/null || true
           cp -f /tmp/out/size_effort_results_census.json reports/ 2>/dev/null || true
+          cp -f /tmp/out/size_effort_results_census_reliable.json reports/ 2>/dev/null || true
           cp -f /tmp/out/size_effort_results_census_full.json reports/ 2>/dev/null || true
           cp -f /tmp/out/size_effort_params_census.json reports/ 2>/dev/null || true
           git add data/calibration/measurements_census.csv reports/size_effort_results_census*.json reports/size_effort_params_census.json 2>/dev/null || true

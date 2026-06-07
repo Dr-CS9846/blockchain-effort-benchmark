@@ -2,6 +2,13 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (census batch 1 measured: fork contamination found; plausibility filter added)
+- measure-census batch 1 (verified-application subset) measured ~45 OK (2 ERROR: deip, tpscore = private/removed repos). Reliable subset n=23.
+- KEY FINDING: grounded first-commit->delivery duration EXPOSED FORK CONTAMINATION - repos that forked a large upstream chain inherited its whole history: cryptex=ideal-lab5/smoldot (99 KSLOC,15 auth,41.9mo,80PM), konomi=konomi-network/cumulus (27 auth,29mo,84PM), liberland=forked Substrate (105 auth,52.6mo,378PM). All caught by duration_plausible=0 (>24mo). They are effort_reliable=1 so they leaked into the reliable-only headline and wrecked it (corr 0.59, LOOCV MMRE 164%).
+- FIX: calibrate_size_effort gains --plausible-only (filters duration_plausible). CI now publishes 3 layers: census_full (all), census_reliable (effort signal only), census (reliable AND plausible = HEADLINE). Removing 3 forks -> headline n=20 of clean grant-window repos.
+- Residual honest scatter remains (e.g. dotnix=76 lines Nix/mostly non-source -> near-zero KSLOC but 7PM = leverage point; melodot 46 KSLOC/8PM). Noted for later (min-KSLOC floor? language coverage) - will inspect the clean fit before any further tuning.
+- Next: push calibrate+workflow change; re-run measure-census (recalibrate only, rows already OK) to read the clean reliable+plausible headline; then expand subset=all in batches toward n>=30 clean.
+
 ## 2026-05-30 (GROUNDED duration: removed 3-month fallback; measure first-commit->delivery)
 - User (correctly) rejected the 3-month default window as an ungrounded assumption that would not survive grant/publication review. Removed window_since + DEFAULT_WINDOW_MONTHS entirely.
 - NEW Phase-1 methodology, fully measured from git: effort window END = delivered commit's own date; START = first commit reachable from the delivered commit (project inception for grant-dedicated repos); explicit since_date overrides. New columns actual_duration_months (MEASURED calendar span) + duration_plausible (provisional review flag, <=24 mo; long spans may carry pre-grant history - flagged, not dropped). This also fixes the old over-count honestly: the inflated whole-lifetime numbers came from measuring to HEAD (post-grant commits), which stopping at the delivered commit excludes.
