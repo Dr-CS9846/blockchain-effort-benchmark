@@ -31,18 +31,28 @@ jobs:
       - name: Harvest census (full-history delivery clone -> candidate manifest + audit)
         run: python scripts/extract/harvest_deliveries.py
 
-      - name: Publish census candidates to NON-authoritative 'rolling' (never main)
+      - name: Publish census candidates to a dedicated NON-authoritative 'census' branch
+        # Dedicated branch so it never collides with measure.yml's 'rolling' (which is
+        # rebuilt from main each run). census = main + the two harvested artifacts.
         run: |
           git config user.name  "census-bot"
           git config user.email "actions@users.noreply.github.com"
-          git fetch origin rolling || true
-          git checkout -B rolling
-          git add data/calibration/projects_manifest.census.csv reports/census_audit.csv 2>/dev/null || true
+          # stash the freshly-harvested outputs so a branch switch cannot drop them
+          cp -f data/calibration/projects_manifest.census.csv /tmp/manifest.census.csv
+          cp -f reports/census_audit.csv /tmp/census_audit.csv
+          git fetch origin census || true   # bring the lease ref if the branch exists
+          git checkout -B census            # from current main HEAD
+          mkdir -p data/calibration reports
+          cp -f /tmp/manifest.census.csv data/calibration/projects_manifest.census.csv
+          cp -f /tmp/census_audit.csv reports/census_audit.csv
+          git add data/calibration/projects_manifest.census.csv reports/census_audit.csv
           if git diff --cached --quiet; then
             echo "No census changes to publish."
           else
             git commit -m "ci: census candidate manifest + audit (non-authoritative) [skip ci]"
-            git push --force-with-lease origin rolling
+            # force-with-lease updates an existing branch safely; plain push (no force)
+            # creates it the first time. Never a blind --force.
+            git push --force-with-lease origin census || git push origin census
           fi
 
       - name: Upload census as artifacts
