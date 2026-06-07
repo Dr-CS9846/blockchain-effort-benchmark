@@ -2,6 +2,18 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (PM DEFINITION locked to Boehm 152h; three-estimate bracket implemented)
+- Decided the person-month unit (the benchmark lynchpin). Researched + verified: COCOMO II nominal 1 PM = 152 person-hours = 19 working days x 8h (Boehm, COCOMO II Model Definition Manual; PH/PM is an explicit adjustable parameter). No ISO overrides it - ISO/IEC/IEEE 15939 only requires the unit be explicitly defined (which we do). Divisor = 19 (152/8), NOT 19.33/21.7 (calendar averages, internally inconsistent with 152h@8h). User accepted 19.
+- DOUBLE-CHECKED the time-window tools (git-hours, git_time_extractor, GitClear): all use a session-gap + first-commit-buffer heuristic with DIFFERENT params (120min/120min vs 3h/30-per-commit vs 2h) and explicitly are not billing-accurate -> they do NOT resolve the hours ambiguity, they parameterize it. Conclusion: bound, don't pretend.
+- IMPLEMENTED a 3-estimate PM bracket in measure_repos.py (replaces single active_person_months):
+  - PM_high = active author-months (over-counts) [upper bound]
+  - PM_mid  = active developer-days / 19 (Boehm) [HEADLINE]
+  - PM_low  = time-window hours / 152, git-hours algorithm REIMPLEMENTED in-house (gap=120, first-commit=120 min) [lower bound]
+  Columns pm_mid/pm_low/pm_high/active_dev_days added; reliability flag now on pm_high+authors+commits. Logic unit-tested offline (session math, bracket low<=mid<=high, lone-commit=buffer).
+- calibrate_size_effort.py: --pm {pm_mid|pm_low|pm_high}, default pm_mid (headline); records pm_estimate in results. Backward-compatible with legacy active_person_months.
+- Wrote docs/method/person_month_definition.md (unit, sources, tool verdict, bracket, all parameters explicit, honest limits).
+- Next: re-measure verified subset (force) under the new PM bracket -> read PM_mid headline + the [low,high] band; then cross n>=30.
+
 ## 2026-05-30 (FOUNDATION: size->effort decoupling framed + COCOMO II direction; pause before scaling)
 - Per user: build the foundation on the verified subset BEFORE scaling; reach n>=30, assess (works/rework), calibrate COCOMO II, THEN scale.
 - Analysis on clean n=21: corr(log KSLOC, log effort)=0.45; productivity PM/KSLOC spans 0.39 (polkadart SDK) -> 9.2 (crossbow tooling) = ~23x spread. Decoupling is STRUCTURED by project type (size-dense SDK/scaffold vs effort-dense research/tooling/novel-language).

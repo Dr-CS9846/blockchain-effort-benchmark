@@ -35,7 +35,7 @@ import metrics as metricslib
 def _truthy(v):
     return str(v).strip() in ("1", "True", "true")
 
-def load(path, size_col, effort_mode, reliable_only=False, plausible_only=False):
+def load(path, size_col, effort_mode, reliable_only=False, plausible_only=False, pm_col="pm_mid"):
     X=[]; y=[]; planned=[]; names=[]; raw=[]
     for r in csv.DictReader(open(path)):
         if r.get("status")!="OK": continue
@@ -48,10 +48,13 @@ def load(path, size_col, effort_mode, reliable_only=False, plausible_only=False)
             continue
         if plausible_only and not _truthy(r.get("duration_plausible","1")):
             continue
+        # measured PM: Boehm-anchored bracket. Default headline = pm_mid (active-days/19);
+        # pm_low/pm_high select the bounds. Falls back to legacy active_person_months.
+        pm_raw = r.get(pm_col, "") or r.get("active_person_months", "")
         try:
             size=float(r[size_col]);
             ppm=float(r["planned_pm"]) if r["planned_pm"] else float("nan")
-            mpm=float(r["active_person_months"]) if r["active_person_months"] else float("nan")
+            mpm=float(pm_raw) if pm_raw not in ("", None) else float("nan")
         except (ValueError,KeyError): continue
         eff = mpm if effort_mode=="measured" else ppm
         if not (size>0 and eff>0): continue
@@ -76,10 +79,12 @@ def main():
                     help="fit only on repos with a trustworthy git-effort signal (>=2 authors, >=10 commits)")
     ap.add_argument("--plausible-only", action="store_true",
                     help="fit only on repos with a plausible MEASURED duration (excludes fork-contaminated histories)")
+    ap.add_argument("--pm", default="pm_mid", choices=["pm_mid","pm_low","pm_high"],
+                    help="which Boehm PM estimate to use as measured effort (headline=pm_mid=active-days/19)")
     a=ap.parse_args()
     if not os.path.exists(a.csv): sys.exit(f"{a.csv} not found - run measure_repos.py first.")
 
-    size,eff,planned,names=load(a.csv,a.size,a.effort,a.reliable_only,a.plausible_only)
+    size,eff,planned,names=load(a.csv,a.size,a.effort,a.reliable_only,a.plausible_only,a.pm)
     n=len(size)
     if n<4: sys.exit(f"Only {n} usable rows. Resolve more repos in the manifest, then re-run.")
     lnX=np.log(size); lny=np.log(eff)
@@ -115,6 +120,7 @@ def main():
                 estimator="closed-form OLS log space = lognormal MLE (deterministic)")
     results=dict(conte_1986={"MMRE<":0.25,"PRED25>=":0.75},
                  reliable_only=bool(a.reliable_only), plausible_only=bool(a.plausible_only),
+                 pm_estimate=a.pm,
                  size_effort_corr_log=size_effort_corr_log,
                  in_sample=ins, loocv=cv,
                  loocv_conte_pass=bool(cv["MMRE"]<0.25 and cv["PRED25"]>=0.75),

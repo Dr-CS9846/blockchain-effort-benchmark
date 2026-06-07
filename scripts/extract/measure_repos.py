@@ -242,17 +242,33 @@ def months_between(d_start, d_end):
     except Exception:
         return ""
 
-def active_person_months(repo_dir, ref, since_date="", cutoff_date="", min_commits=1):
-    cmd = ["git", "log", ref, "--no-merges",
-           "--format=%ae%x09%ad", "--date=format:%Y-%m"]
+# ── PERSON-MONTH definition (Boehm COCOMO II + ISO/IEC/IEEE 15939 documented unit) ──
+# COCOMO II nominal: 1 PM = 152 person-hours = 19 working days x 8 h (PH/PM is an
+# explicit, adjustable parameter; default 152). Git yields ACTIVITY, not hours, so the
+# true PM is irreducibly bounded; we report three transparent estimates and headline
+# the Boehm-anchored midpoint:
+#   PM_high = active author-MONTHS (>=1 commit in a calendar month => 1.0 PM)   [over-counts]
+#   PM_mid  = active developer-DAYS / 19      (Boehm 152 h @ 8 h/active-day)     [headline]
+#   PM_low  = time-window HOURS / 152         (git-hours method, reimplemented)  [under-counts]
+# Every parameter below is stated and adjustable; the truth lies in [PM_low, PM_high].
+PH_PER_PM       = 152.0   # COCOMO II nominal person-hours per person-month (Boehm)
+HOURS_PER_DAY   = 8.0     # COCOMO II working day -> DAYS_PER_PM = 152/8 = 19 (exact)
+DAYS_PER_PM     = PH_PER_PM / HOURS_PER_DAY            # = 19.0
+SESSION_GAP_MIN = 120.0   # git-hours default: commits within this gap = one coding session
+FIRST_COMMIT_MIN= 120.0   # git-hours default: buffer added per session for unseen pre-work
+
+def _git_commit_times(repo_dir, ref, since_date="", cutoff_date=""):
+    """Return {author_email: [datetime,...]} for non-merge, non-bot commits in window."""
+    import datetime as _dt
+    cmd = ["git", "log", ref, "--no-merges", "--format=%ae%x09%aI"]   # ISO-8601 strict
     if since_date:
         cmd += [f"--since={since_date}"]
     if cutoff_date:
-        cmd += [f"--until={cutoff_date} 23:59:59"]   # bound effort to the grant window
+        cmd += [f"--until={cutoff_date} 23:59:59"]
     r = _run(cmd, cwd=repo_dir)
+    by_author: dict[str, list] = {}
     if r.returncode != 0:
-        return 0, 0, 0
-    counts: dict[tuple, int] = {}
+        return by_author
     for line in r.stdout.splitlines():
         line = line.strip()
         if not line or BOTS.search(line):
@@ -260,12 +276,45 @@ def active_person_months(repo_dir, ref, since_date="", cutoff_date="", min_commi
         parts = line.split("\t")
         if len(parts) != 2:
             continue
-        email, ym = parts
-        counts[(email.lower(), ym)] = counts.get((email.lower(), ym), 0) + 1
-    active = sum(1 for v in counts.values() if v >= min_commits)
-    total_commits = sum(counts.values())
-    distinct_authors = len({k[0] for k in counts})
-    return active, total_commits, distinct_authors
+        email, iso = parts[0].lower(), parts[1].strip()
+        try:
+            t = _dt.datetime.fromisoformat(iso)
+        except Exception:
+            continue
+        by_author.setdefault(email, []).append(t)
+    return by_author
+
+def _session_hours(times):
+    """git-hours time-window estimate for one author's commit datetimes (hours)."""
+    if not times:
+        return 0.0
+    ts = sorted(times)
+    minutes = FIRST_COMMIT_MIN          # first session's opening buffer
+    for prev, cur in zip(ts, ts[1:]):
+        gap = (cur - prev).total_seconds() / 60.0
+        if gap <= SESSION_GAP_MIN:
+            minutes += gap              # same session: count the worked gap
+        else:
+            minutes += FIRST_COMMIT_MIN # new session: add its opening buffer
+    return minutes / 60.0
+
+def measure_effort(repo_dir, ref, since_date="", cutoff_date=""):
+    """Return dict with the three grounded PM estimates + activity counts."""
+    by_author = _git_commit_times(repo_dir, ref, since_date, cutoff_date)
+    author_months = set(); author_days = set(); total_commits = 0; total_hours = 0.0
+    for email, times in by_author.items():
+        total_commits += len(times)
+        total_hours += _session_hours(times)
+        for t in times:
+            author_months.add((email, t.strftime("%Y-%m")))
+            author_days.add((email, t.strftime("%Y-%m-%d")))
+    pm_high = float(len(author_months))               # active author-months
+    pm_mid  = round(len(author_days) / DAYS_PER_PM, 4)  # active dev-days / 19
+    pm_low  = round(total_hours / PH_PER_PM, 4)        # time-window hours / 152
+    return dict(pm_high=pm_high, pm_mid=pm_mid, pm_low=pm_low,
+                active_dev_days=len(author_days),
+                total_commits=total_commits,
+                distinct_authors=len(by_author))
 
 # ── clone / update ────────────────────────────────────────────────────────────
 
@@ -295,7 +344,8 @@ FIELDNAMES = [
     "project_id", "project_name", "repo_url", "resolved_commit", "commit_source",
     "effort_since", "effort_until", "actual_duration_months", "duration_plausible",
     "ksloc_code", "ksloc_code_raw", "generated_loc_excluded", "generated_files_n",
-    "ksloc_all", "active_person_months", "total_commits",
+    "ksloc_all",
+    "pm_mid", "pm_low", "pm_high", "active_dev_days", "total_commits",
     "distinct_authors", "effort_reliable", "top_langs",
     "planned_fte", "planned_duration_months",
     "planned_pm", "cost_usd", "status", "error_msg",
@@ -414,8 +464,9 @@ def main():
             since = (row.get("since_date", "") or "").strip() or first_commit_date(repo_dir, sha)
             dur = months_between(since, cutoff) if (since and cutoff) else ""
             dur_ok = int(isinstance(dur, (int, float)) and 0 < dur <= DURATION_PLAUSIBLE_MAX_MONTHS)
-            apm, tc, da = active_person_months(repo_dir, sha, since, cutoff, a.min_commits)
-            rel = is_effort_reliable(apm, tc, da)
+            eff = measure_effort(repo_dir, sha, since, cutoff)
+            tc = eff["total_commits"]; da = eff["distinct_authors"]
+            rel = is_effort_reliable(eff["pm_high"], tc, da)
             out_row.update({"resolved_commit": sha, "commit_source": csource,
                             "effort_since": since, "effort_until": cutoff,
                             "actual_duration_months": (f"{dur}" if dur != "" else ""),
@@ -424,11 +475,13 @@ def main():
                             "generated_loc_excluded": str(gen_loc),
                             "generated_files_n": str(len(gen_files)),
                             "ksloc_all": f"{ka:.4f}",
-                            "active_person_months": str(apm),
+                            "pm_mid": f'{eff["pm_mid"]}', "pm_low": f'{eff["pm_low"]}',
+                            "pm_high": f'{eff["pm_high"]}', "active_dev_days": str(eff["active_dev_days"]),
                             "total_commits": str(tc), "distinct_authors": str(da),
                             "effort_reliable": str(rel),
                             "top_langs": json.dumps(top), "status": "OK"})
-            print(f"    OK [{csource}] {since or '-'}..{cutoff or '-'} ({dur}mo): ksloc_code={kc:.2f}  active_pm={apm}  authors={da}")
+            print(f"    OK [{csource}] {since or '-'}..{cutoff or '-'} ({dur}mo): ksloc_code={kc:.2f}  "
+                  f"PM_low={eff['pm_low']} PM_mid={eff['pm_mid']} PM_high={eff['pm_high']}  authors={da}")
         except Exception as e:
             out_row["status"] = "ERROR"
             out_row["error_msg"] = str(e)[:200]
