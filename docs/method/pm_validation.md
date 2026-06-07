@@ -33,9 +33,31 @@ signal is real and robust to method choice, not an artifact of one formula.
 Each grant's **W3F planned PM** (FTE × duration, from the application — an independent,
 human-authored figure, not derived from git) is a criterion anchor. On repos that have it (n=15
 in the current set): **73% (11/15)** have their planned PM **inside** the measured
-`[PM_low, PM_high]` bracket; corr(log planned, log PM_mid) = 0.37; median measured/planned = 0.50
-(teams' plans tend to *over-state* vs. delivered git effort, and the misses skew that way). The
-bracket converts an unprovable point-claim into a *testable* interval-claim.
+`[PM_low, PM_high]` bracket; corr(log planned, log PM_mid) = 0.37; median measured/planned = 0.50.
+All 4 misses are in the SAME direction (plan > our upper bound): daos, nulink, societal,
+polkadart — i.e. the plan over-states vs delivered git effort (polkadart's plan is an extreme
+60 PM = 4 FTE x 15 mo). The bracket converts an unprovable point-claim into a testable interval.
+
+### What W3F planned PM actually measures (this EXPLAINS the gap)
+W3F defines **FTE = average number of full-time employees over the project duration**
+(0.5 FTE = 20 h/week); planned PM = FTE x duration = **total full-time staffing effort across the
+whole team, covering ALL activities** (design, coding, testing, docs, project management,
+community). Our **git PM is the coding subset** (effort that left commits). A subset is
+necessarily <= the total, so **measured < planned is the EXPECTED relationship, not an error**,
+and the observed median ratio ~0.50 is consistent with implementation being roughly half of total
+software effort (design/test/management make up the rest; cf. Boehm phase-effort distributions).
+The plan is also a forward *budget* (optimism/padding), not an actual. Therefore the validity test
+is **correlation + bracket coverage, NOT identity**: requiring measured == planned would wrongly
+conflate coding effort with total effort and treat a plan as truth.
+
+### Consequence for Phase-2 COCOMO II (scope commensurability)
+Stock COCOMO II predicts *total* effort; our target is *coding* effort. We therefore **calibrate
+the COCOMO coefficient (A) to OUR measured PM** (local calibration, as Boehm prescribes), so the
+model output and the target are the SAME quantity (git-coding Boehm-PM) — no scope gap. The
+blockchain-aware drivers are objective and git-derived (Equivalent Size, type, language, team),
+scaling the coding effort we measured, not the 17 subjective COCOMO multipliers. The model's
+predicted quantity is stated explicitly as "VCS-measured coding effort"; total effort/cost, if
+ever needed, is a documented bridge (÷ coding-fraction), never a silent conflation.
 
 ## 3. External sanity — is productivity plausible? (face validity)
 Median productivity ≈ **0.49 PM/KSLOC (~2,000 SLOC per person-month)**, within published

@@ -381,11 +381,19 @@ def main():
 
     manifest = list(csv.DictReader(open(a.manifest, encoding="utf-8")))
 
-    # load existing results to support resumability
+    # load existing results to support resumability. Index by project_id AND by
+    # normalised repo_url, so an unchanged repo is recognised even if its project_id
+    # label changed (e.g. after the harvester regroups/renames) and is NOT re-cloned.
+    def _nrepo(u): return (u or "").strip().lower().rstrip("/").replace(".git", "")
+    PASSTHROUGH = ["project_id","project_name","planned_fte","planned_duration_months",
+                   "planned_pm","cost_usd"]
     existing: dict[str, dict] = {}
+    existing_by_repo: dict[str, dict] = {}
     if os.path.exists(a.out):
         for row in csv.DictReader(open(a.out, encoding="utf-8")):
             existing[row["project_id"]] = row
+            if row.get("status") == "OK" and row.get("repo_url"):
+                existing_by_repo[_nrepo(row["repo_url"])] = row
 
     results = []
     for row in manifest:
@@ -397,9 +405,16 @@ def main():
             continue
 
         prev = existing.get(pid, {})
+        if (not prev or prev.get("status")!="OK"):   # try repo-URL match (label changed)
+            byrepo = existing_by_repo.get(_nrepo(row.get("repo_url","")))
+            if byrepo and byrepo.get("status")=="OK":
+                prev = byrepo
         if not a.force and prev.get("status") == "OK":
-            print(f"  SKIP (already OK): {pid}")
-            results.append(prev)
+            reuse = dict(prev)
+            for col in PASSTHROUGH:               # refresh labels + planned fields cheaply
+                if col in row: reuse[col] = row.get(col, reuse.get(col, ""))
+            results.append(reuse)
+            print(f"  SKIP (reuse measured): {pid}")
             continue
 
         repo_url = row.get("repo_url", "").strip()

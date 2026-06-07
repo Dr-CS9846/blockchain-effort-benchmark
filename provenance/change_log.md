@@ -2,6 +2,16 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (W3F FTE scope resolved; 3 validation strengthenings; COCOMO scope answer)
+- W3F FTE definition found (grants.web3.foundation): FTE = avg full-time employees over duration (0.5 FTE=20h/wk); planned PM = FTE x duration = TOTAL full-time effort, ALL activities. So our git PM (coding subset) being ~0.5x planned is EXPECTED (implementation ~ half of total effort), not an error. The 4 coverage misses (daos/nulink/societal/polkadart) are ALL plan>measured (plan over-states); polkadart plan=60 extreme; societal miss was our harvester picking the thin submission repo.
+- COCOMO scope answer (recorded in pm_validation.md): no Phase-2 gap IF we calibrate COCOMO's coefficient A to OUR measured PM (local calibration, Boehm-sanctioned) -> model predicts the same quantity (git-coding PM). Objective drivers (Equiv Size, type, language, team) scale coding effort; we do NOT use the 17 subjective EMs. Model's predicted quantity stated explicitly = VCS-measured coding effort; total/cost = documented bridge later.
+- IMPLEMENTED the 3 strengthenings (user-approved):
+  (a) more planned-PM anchors: harvester now indexes applications across BOTH w3f/Grants-Program AND w3f/General-Grants-Program (older grants), recursive, and matches by repo-URL-in-application (most robust) + slug + fuzzy.
+  (b) scope-difference interpretation + calibrate-to-target principle documented in pm_validation.md.
+  (c) substantive primary-repo: pick_primary now deprioritises thin meta/submission repos (societal -> societal-node). Also: harvest groups by SLUG (merges case-variant project_ids e.g. ParaSpell-followup==Paraspell-followup).
+- Efficiency: measure_repos resumability now also keyed by normalised repo_url (recognises unchanged repos under relabeled project_ids -> no re-clone) and refreshes passthrough columns (project_id/planned_*) on reuse -> a re-harvest can be re-measured in ONE cheap pass (only societal + genuinely-new repos re-cloned). Pure-function logic unit-tested (pick_primary societal->node, parse, syntax).
+- Next: push -> census.yml auto re-harvests (new manifest: more planned, societal-node, slug-grouped) -> dispatch measure-census subset=all (reuse+refresh) -> read pm_validation.json (more coverage) + headline; then proceed to COCOMO II (M1 Equivalent Size).
+
 ## 2026-05-30 (PM VALIDATION suite: prove the ground truth before COCOMO calibration)
 - User's pivotal question: how to PROVE the measured PMs (ground truth) are correct? Answer: effort is a LATENT construct (no timesheet oracle) -> cannot prove exact; instead establish VALIDITY+RELIABILITY (Kitchenham/Pfleeger/Fenton 1995 framework). KEY: PM-from-VCS is a PEER-REVIEWED method - Robles & Gonzalez-Barahona 2022 (Empirical Software Engineering), validated against 1,000+ developer questionnaires. Our approach follows it; unit = Boehm 152h.
 - Built scripts/validate/validate_pm.py (pure-stdlib, reproducible) -> reports/pm_validation.json, computing on the deduped reliable+plausible set (n=51):
