@@ -1,0 +1,33 @@
+{
+  "n_distinct_repos": 63,
+  "note": "Effort is latent; PMs are a VALIDATED BOUNDED measure, not an exact truth.",
+  "triangulation_spearman": {
+    "spearman_low_mid": 0.9894724583356798,
+    "spearman_mid_high": 0.8661965315878789,
+    "spearman_low_high": 0.8475471242641102
+  },
+  "criterion_coverage": {
+    "n_with_planned": 37,
+    "planned_inside_bracket": 22,
+    "coverage_rate": 0.5945945945945946,
+    "corr_log_planned_vs_pmmid": 0.14787443751151794,
+    "median_pmmid_over_planned": 0.30526
+  },
+  "external_sanity": {
+    "median_pm_per_ksloc": 0.6265624999999999,
+    "min_pm_per_ksloc": 0.05453825053337397,
+    "max_pm_per_ksloc": 78.95,
+    "median_sloc_per_pm": 1596.0099750623444
+  },
+  "reliability": {
+    "deterministic": "same repo+commit -> identical PM (bit-stable, public pipeline)",
+    "ph_per_pm_sensitivity": "PM scales by 152/PHPM (monotone) -> rankings & correlations invariant"
+  },
+  "references": [
+    "Robles & Gonzalez-Barahona (2022), Empirical Software Engineering - VCS->person-month effort, developer-validated",
+    "Kitchenham, Pfleeger & Fenton (1995), IEEE TSE - software measurement validation framework",
+    "Shepperd & MacDonell (2012), IST 54:820-827 - Standardised Accuracy; MMRE bias",
+    "Boehm et al. (2000), COCOMO II Model Definition Manual - 1 PM = 152 person-hours",
+    "ISO/IEC/IEEE 15939:2017 - measurement process (define the unit)"
+  ]
+}
