@@ -35,8 +35,12 @@ import metrics as metricslib
 def _truthy(v):
     return str(v).strip() in ("1", "True", "true")
 
-def load(path, size_col, effort_mode, reliable_only=False, plausible_only=False, pm_col="pm_mid"):
-    X=[]; y=[]; planned=[]; names=[]; raw=[]
+def _norm_repo(u):
+    return (u or "").strip().lower().rstrip("/").replace(".git", "")
+
+def load(path, size_col, effort_mode, reliable_only=False, plausible_only=False,
+         pm_col="pm_mid", dedup_by_repo=True):
+    cand=[]
     for r in csv.DictReader(open(path)):
         if r.get("status")!="OK": continue
         # sensitivity switches (rows lacking a column are treated as passing, so the
@@ -58,7 +62,26 @@ def load(path, size_col, effort_mode, reliable_only=False, plausible_only=False,
         except (ValueError,KeyError): continue
         eff = mpm if effort_mode=="measured" else ppm
         if not (size>0 and eff>0): continue
-        X.append(size); y.append(eff); planned.append(ppm); names.append(r["project_name"]); raw.append(r)
+        cand.append((r, size, eff, ppm))
+
+    # INDEPENDENCE: one observation per distinct delivered repository. Multi-milestone /
+    # multi-grant deliveries hit the same repo at different commits -> nested, non-
+    # independent (size,effort). Pre-registered rule: keep the row with the LATEST
+    # effort_until (most complete as-delivered state); tie-break on larger size.
+    if dedup_by_repo:
+        best={}
+        for tup in cand:
+            r=tup[0]; key=_norm_repo(r.get("repo_url",""))
+            if not key:
+                best[id(r)]=tup; continue          # no repo -> keep as its own row
+            cur=best.get(key)
+            k_new=(r.get("effort_until",""), tup[1])
+            if cur is None or k_new > (cur[0].get("effort_until",""), cur[1]):
+                best[key]=tup
+        cand=list(best.values())
+
+    X=[t[1] for t in cand]; y=[t[2] for t in cand]
+    planned=[t[3] for t in cand]; names=[t[0]["project_name"] for t in cand]
     return np.array(X), np.array(y), np.array(planned), names
  
 def fit(lnX, lny):
@@ -81,10 +104,13 @@ def main():
                     help="fit only on repos with a plausible MEASURED duration (excludes fork-contaminated histories)")
     ap.add_argument("--pm", default="pm_mid", choices=["pm_mid","pm_low","pm_high"],
                     help="which Boehm PM estimate to use as measured effort (headline=pm_mid=active-days/19)")
+    ap.add_argument("--no-dedup", action="store_true",
+                    help="disable per-repository dedup (sensitivity only; default keeps one obs per repo)")
     a=ap.parse_args()
     if not os.path.exists(a.csv): sys.exit(f"{a.csv} not found - run measure_repos.py first.")
 
-    size,eff,planned,names=load(a.csv,a.size,a.effort,a.reliable_only,a.plausible_only,a.pm)
+    size,eff,planned,names=load(a.csv,a.size,a.effort,a.reliable_only,a.plausible_only,a.pm,
+                                dedup_by_repo=not a.no_dedup)
     n=len(size)
     if n<4: sys.exit(f"Only {n} usable rows. Resolve more repos in the manifest, then re-run.")
     lnX=np.log(size); lny=np.log(eff)
@@ -120,7 +146,7 @@ def main():
                 estimator="closed-form OLS log space = lognormal MLE (deterministic)")
     results=dict(conte_1986={"MMRE<":0.25,"PRED25>=":0.75},
                  reliable_only=bool(a.reliable_only), plausible_only=bool(a.plausible_only),
-                 pm_estimate=a.pm,
+                 pm_estimate=a.pm, dedup_by_repo=not a.no_dedup,
                  size_effort_corr_log=size_effort_corr_log,
                  in_sample=ins, loocv=cv,
                  loocv_conte_pass=bool(cv["MMRE"]<0.25 and cv["PRED25"]>=0.75),

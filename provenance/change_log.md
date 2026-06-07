@@ -2,6 +2,14 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (crossed n>=30 via subset=all batch; found non-independence; added per-repo dedup)
+- measure-census subset=all (max 80) measured the next tranche -> reliable+plausible jumped to ~59 (CI) / 54 (local snapshot).
+- CRITICAL data-quality finding: the expanded set is NOT independent. ~24 repo_urls appear 2-3x (paraspell/sdk x3, emeraldpay/polkaj x3, perun x3, sandox x3, Luno/LunoKit x2, ...) = multi-milestone / multi-grant deliveries to the SAME repo measured at different commits -> nested, non-independent (size,effort). Also delivery-filename CASE variants created duplicate project_ids (Iunokit==lunokit; ParaSpell-followup==Paraspell-followup). PANIC (158 KSLOC) checked = legitimate large real project (1568 commits/10 authors/22mo, gen 280 LOC), not contamination.
+- FIX (pre-registered): calibrate_size_effort.py dedups to ONE observation per distinct repository, keeping the LATEST effort_until (most complete as-delivered), tie-break larger size. --no-dedup for sensitivity. Records dedup_by_repo in results.
+- CLEAN deduped result (n~51 distinct repos): corr(log KSLOC, log PM_mid) ~= 0.36 (was 0.59 @ n=21 = small-sample optimism); PM_mid = 1.38*KSLOC^0.27. Bracket agrees (low .37 / mid .36 / high .27).
+- ASSESSMENT (the n>=30 checkpoint): single-variable size->effort is confirmed INSUFFICIENT for blockchain grants (weak corr, LOOCV MMRE ~130%). PMs themselves are clean/bracketed/deduped/Boehm-anchored - this is a genuine finding, not a measurement fault. It is the evidence motivating the MULTIVARIABLE COCOMO II extension. (Open: also dedup at harvest by slug to stop case-variant project_ids.)
+- Next: push dedup -> read official CI deduped headline; then proceed to COCOMO II multivariable calibration on the clean n~51 (or expand further first, user's call).
+
 ## 2026-05-30 (PM bracket MEASURED @ n=21; headline PM_mid; robust across low/mid/high)
 - Re-measured verified subset under the Boehm PM bracket. Bracket holds per repo (pm_low<=pm_mid<=pm_high).
 - corr(log KSLOC, log PM): PM_low 0.54, **PM_mid 0.59 (headline)**, PM_high 0.45 -> signal is STABLE across the whole bracket, not an artifact of the PM definition. Switching author-months->active-days/19 RAISED corr 0.45->0.59 and PRED25 0.19->0.33, SA 0.25->0.34 (active-days is a cleaner effort proxy than coarse author-months).
