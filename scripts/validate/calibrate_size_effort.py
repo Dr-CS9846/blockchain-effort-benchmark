@@ -32,12 +32,18 @@ except ModuleNotFoundError:
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import metrics as metricslib
  
-def load(path, size_col, effort_mode):
+def load(path, size_col, effort_mode, reliable_only=False):
     X=[]; y=[]; planned=[]; names=[]; raw=[]
     for r in csv.DictReader(open(path)):
         if r.get("status")!="OK": continue
+        # sensitivity switch: headline fit uses only repos with a trustworthy
+        # git-effort signal (>=2 authors, >=10 commits); full set kept for the
+        # sensitivity table. Rows lacking the column (older runs) are treated as
+        # reliable so the filter is backward-compatible.
+        if reliable_only and str(r.get("effort_reliable","1")).strip() not in ("1","True","true"):
+            continue
         try:
-            size=float(r[size_col]); 
+            size=float(r[size_col]);
             ppm=float(r["planned_pm"]) if r["planned_pm"] else float("nan")
             mpm=float(r["active_person_months"]) if r["active_person_months"] else float("nan")
         except (ValueError,KeyError): continue
@@ -60,10 +66,12 @@ def main():
     ap.add_argument("--csv", default="measurements.csv")
     ap.add_argument("--size", default="ksloc_code", choices=["ksloc_code","ksloc_all"])
     ap.add_argument("--effort", default="measured", choices=["measured","planned"])
+    ap.add_argument("--reliable-only", action="store_true",
+                    help="fit only on repos with a trustworthy git-effort signal (>=2 authors, >=10 commits)")
     a=ap.parse_args()
     if not os.path.exists(a.csv): sys.exit(f"{a.csv} not found - run measure_repos.py first.")
- 
-    size,eff,planned,names=load(a.csv,a.size,a.effort)
+
+    size,eff,planned,names=load(a.csv,a.size,a.effort,a.reliable_only)
     n=len(size)
     if n<4: sys.exit(f"Only {n} usable rows. Resolve more repos in the manifest, then re-run.")
     lnX=np.log(size); lny=np.log(eff)
@@ -90,10 +98,16 @@ def main():
         ratio=float(np.median(eff[mask]/planned[mask]))
         cross=dict(corr_log=r, median_measured_over_planned=ratio, n=int(mask.sum()))
  
+    # headline driver-signal: correlation of log size with log effort
+    size_effort_corr_log=float(np.corrcoef(lnX,lny)[0,1]) if n>=3 else float("nan")
+
     params=dict(model="PM = A * KSLOC^E * Duan", size_metric=a.size, effort=a.effort,
+                reliable_only=bool(a.reliable_only),
                 n=n, A=A, E=E, sigma_logspace=sigma, duan_smearing=smear,
                 estimator="closed-form OLS log space = lognormal MLE (deterministic)")
     results=dict(conte_1986={"MMRE<":0.25,"PRED25>=":0.75},
+                 reliable_only=bool(a.reliable_only),
+                 size_effort_corr_log=size_effort_corr_log,
                  in_sample=ins, loocv=cv,
                  loocv_conte_pass=bool(cv["MMRE"]<0.25 and cv["PRED25"]>=0.75),
                  planned_vs_measured=cross,
@@ -106,8 +120,8 @@ def main():
     print("="*60)
     print("  COCOMO SIZE -> EFFORT CORE  (measured, reproducible)")
     print("="*60)
-    print(f"  n={n} | size={a.size} | effort={a.effort}")
-    print(f"  A={A:.4f}  E={E:.4f}  sigma={sigma:.4f}  Duan={smear:.4f}")
+    print(f"  n={n} | size={a.size} | effort={a.effort} | reliable_only={a.reliable_only}")
+    print(f"  A={A:.4f}  E={E:.4f}  sigma={sigma:.4f}  Duan={smear:.4f}  corr(logKSLOC,logPM)={size_effort_corr_log:+.3f}")
     print(f"  In-sample : MMRE {ins['MMRE']*100:5.1f}%  PRED25 {ins['PRED25']*100:5.1f}%  MAE {ins['MAE']:.2f}  SA {ins['SA_vs_random']*100:5.1f}%")
     print(f"  LOOCV     : MMRE {cv['MMRE']*100:5.1f}%  PRED25 {cv['PRED25']*100:5.1f}%  PRED30 {cv['PRED30']*100:5.1f}%  MAE {cv['MAE']:.2f}  SA {cv['SA_vs_random']*100:5.1f}%")
     print(f"  Conte(1986) LOOCV verdict: {'PASS' if results['loocv_conte_pass'] else 'FAIL'}   (SA>0 = better than random guessing)")

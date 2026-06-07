@@ -2,6 +2,14 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (effort-reliability flag + sensitivity reporting; n=7 result read)
+- Run #9 (commit-date anchor) rescued ParaSpell (4 PM, 3 authors) and Roloi (1 PM); AdMeta + AgriDot stay 0 = squash/single-import repos (no git history). Usable n=7.
+- **MEASURED size->effort, n=7:** corr(log KSLOC, log effort) ~= 0.74 (strong, on clean grant-windowed effort; was an over-counted 0.89 before windowing). In-sample MMRE 66%, PRED25 43%, SA 0.49. LOOCV MMRE 115%, PRED25 0%, SA 0.27. Accuracy proxy-noise-limited at small n.
+- IMPORTANT finding: corr(planned PM, measured effort) = 0.20 -> planned grant effort barely predicts actual git effort.
+- Two structural effort-proxy limitations identified (citable): (a) squash-imports (AdMeta, AgriDot) give no git-effort signal; (b) single-committer funnelling (Societal: 71 commits / 1 author -> 4 PM) under-counts person-months.
+- DECISION (user): quality-flag + sensitivity. Added effort_reliable column (>=2 authors AND >=10 commits) in measure_repos.py; calibrate_size_effort.py gains --reliable-only and now reports size_effort_corr_log. CI writes size_effort_results_measured_full.json (all OK rows = sensitivity) and size_effort_results_measured.json (reliable subset = HEADLINE, runs last = canonical). Reliable subset at n=7 = {Fennel, ParaSpell, bright, fair, lastic} (Roloi+Societal drop).
+- Next push publishes the headline (reliable) vs sensitivity (full) fits; then expand toward n>=30.
+
 ## 2026-05-30 (effort window anchored on delivered-commit date, not paperwork date)
 - After the shallow-clone fix, real cutoffs gave 5/9 non-zero effort (Fennel 4, Societal 4, bright 12, fair 15, lastic 10 PM). But 4 (AdMeta, AgriDot, ParaSpell, Roloi) were still 0.
 - ROOT CAUSE: the effort window was anchored on the delivery-FILE (milestone-paperwork) date. Code is typically committed weeks-to-months BEFORE the milestone is formally submitted, so the planned-duration window sat *after* the work and caught no commits (the delivered commit predated the window start).

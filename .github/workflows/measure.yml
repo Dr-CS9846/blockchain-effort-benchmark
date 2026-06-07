@@ -48,12 +48,18 @@ jobs:
       - name: Measure (checkout pinned/cutoff commit; cloc source-only + git effort in window)
         run: python scripts/extract/measure_repos.py --manifest data/calibration/projects_manifest.csv --out data/calibration/measurements.csv
 
-      - name: Calibrate size -> effort (planned cross-check first, MEASURED last = canonical)
+      - name: Calibrate size -> effort (planned cross-check; measured FULL; measured RELIABLE = headline)
         run: |
+          # (1) planned reference
           python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort planned || echo "planned: not enough rows"
           cp -f size_effort_results.json size_effort_results_planned.json 2>/dev/null || true
           cp -f size_effort_params.json  size_effort_params_planned.json  2>/dev/null || true
-          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort measured || echo "measured: not enough rows"
+          # (2) measured, FULL set (sensitivity: includes squash-import / single-committer repos)
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort measured || echo "measured-full: not enough rows"
+          cp -f size_effort_results.json size_effort_results_measured_full.json 2>/dev/null || true
+          cp -f size_effort_params.json  size_effort_params_measured_full.json  2>/dev/null || true
+          # (3) measured, RELIABLE subset = HEADLINE (>=2 authors, >=10 commits); runs LAST = canonical
+          python scripts/validate/calibrate_size_effort.py --csv data/calibration/measurements.csv --effort measured --reliable-only || echo "measured-reliable: not enough rows"
           cp -f size_effort_results.json size_effort_results_measured.json 2>/dev/null || true
           cp -f size_effort_params.json  size_effort_params_measured.json  2>/dev/null || true
 

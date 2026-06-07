@@ -213,9 +213,22 @@ FIELDNAMES = [
     "project_id", "project_name", "repo_url", "resolved_commit", "commit_source",
     "effort_since", "effort_until",
     "ksloc_code", "ksloc_all", "active_person_months", "total_commits",
-    "distinct_authors", "top_langs", "planned_fte", "planned_duration_months",
+    "distinct_authors", "effort_reliable", "top_langs",
+    "planned_fte", "planned_duration_months",
     "planned_pm", "cost_usd", "status", "error_msg",
 ]
+
+# An effort measurement is treated as RELIABLE only when the repo shows genuine
+# distributed development in the window: >=2 distinct authors AND >=10 commits.
+# This screens out (a) squash/single-import repos (AdMeta, AgriDot: 0 history) and
+# (b) single-committer funnelling where one account masks a real team (Societal:
+# 71 commits / 1 author -> author-months under-counts). Unreliable rows are KEPT
+# (for a sensitivity table) but flagged so the headline fit uses the clean subset.
+EFFORT_MIN_AUTHORS = 2
+EFFORT_MIN_COMMITS = 10
+
+def is_effort_reliable(active_pm, total_commits, distinct_authors):
+    return int(distinct_authors >= EFFORT_MIN_AUTHORS and total_commits >= EFFORT_MIN_COMMITS)
 
 def main():
     ap = argparse.ArgumentParser()
@@ -287,11 +300,13 @@ def main():
             cutoff = cdate or row.get("cutoff_date", "")
             since = window_since(row.get("since_date",""), cutoff, row.get("planned_duration_months",""))
             apm, tc, da = active_person_months(repo_dir, sha, since, cutoff, a.min_commits)
+            rel = is_effort_reliable(apm, tc, da)
             out_row.update({"resolved_commit": sha, "commit_source": csource,
                             "effort_since": since, "effort_until": cutoff,
                             "ksloc_code": f"{kc:.4f}", "ksloc_all": f"{ka:.4f}",
                             "active_person_months": str(apm),
                             "total_commits": str(tc), "distinct_authors": str(da),
+                            "effort_reliable": str(rel),
                             "top_langs": json.dumps(top), "status": "OK"})
             print(f"    OK [{csource}] {since or '-'}..{cutoff or '-'}: ksloc_code={kc:.2f}  active_pm={apm}  authors={da}")
         except Exception as e:
