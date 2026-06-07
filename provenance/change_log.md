@@ -2,6 +2,14 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (PM bracket MEASURED @ n=21; headline PM_mid; robust across low/mid/high)
+- Re-measured verified subset under the Boehm PM bracket. Bracket holds per repo (pm_low<=pm_mid<=pm_high).
+- corr(log KSLOC, log PM): PM_low 0.54, **PM_mid 0.59 (headline)**, PM_high 0.45 -> signal is STABLE across the whole bracket, not an artifact of the PM definition. Switching author-months->active-days/19 RAISED corr 0.45->0.59 and PRED25 0.19->0.33, SA 0.25->0.34 (active-days is a cleaner effort proxy than coarse author-months).
+- Fitted (n=21): PM_mid = 0.90 * KSLOC^0.58. Benchmark magnitude: total ~71 PM central, bounded [26 (low), 280 (high)].
+- planned-vs-measured: corr 0.41, median measured/planned = 0.48 -> by active-days, grants consumed ~HALF the planned person-months (FTE x duration). (Author-months had said 1.4x; the Boehm active-days view is the defensible one.)
+- Note: foundation doc's 0.45 figure was author-months; PM_mid (0.59) now supersedes as headline.
+- Phase-1 status: PMs are measured, bracketed, unit-anchored (Boehm 152h), reproducible. Ready to cross n>=30.
+
 ## 2026-05-30 (PM DEFINITION locked to Boehm 152h; three-estimate bracket implemented)
 - Decided the person-month unit (the benchmark lynchpin). Researched + verified: COCOMO II nominal 1 PM = 152 person-hours = 19 working days x 8h (Boehm, COCOMO II Model Definition Manual; PH/PM is an explicit adjustable parameter). No ISO overrides it - ISO/IEC/IEEE 15939 only requires the unit be explicitly defined (which we do). Divisor = 19 (152/8), NOT 19.33/21.7 (calendar averages, internally inconsistent with 152h@8h). User accepted 19.
 - DOUBLE-CHECKED the time-window tools (git-hours, git_time_extractor, GitClear): all use a session-gap + first-commit-buffer heuristic with DIFFERENT params (120min/120min vs 3h/30-per-commit vs 2h) and explicitly are not billing-accurate -> they do NOT resolve the hours ambiguity, they parameterize it. Conclusion: bound, don't pretend.
