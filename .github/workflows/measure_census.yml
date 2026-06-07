@@ -76,7 +76,10 @@ jobs:
           cp -f reports/size_effort_results_census_full.json /tmp/out/ 2>/dev/null || true
           cp -f reports/size_effort_params_census.json /tmp/out/ 2>/dev/null || true
           git fetch origin census
-          git checkout -B census origin/census
+          # -f: discard the working-tree modifications from measure/calibrate (already
+          # saved to /tmp/out above) so switching to the census tip cannot be blocked
+          # by "local changes would be overwritten" on re-runs.
+          git checkout -f -B census origin/census
           mkdir -p data/calibration reports
           cp -f /tmp/out/measurements_census.csv data/calibration/ 2>/dev/null || true
           cp -f /tmp/out/size_effort_results_census.json reports/ 2>/dev/null || true

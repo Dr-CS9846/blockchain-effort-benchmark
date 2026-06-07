@@ -2,6 +2,9 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (CI fix: forced checkout on census re-runs)
+- measure-census run #2 failed (exit 1) at the publish step: on re-runs measurements_census.csv already exists on the census branch, gets restored+modified, and `git checkout -B census origin/census` refused ("local changes would be overwritten"). Run #1 escaped this only because the file did not yet exist. FIX: `git checkout -f -B census origin/census` (outputs are already copied to /tmp before the switch, so discarding the worktree is safe). Headline (reliable+plausible) not yet read - awaits this fix.
+
 ## 2026-05-30 (census batch 1 measured: fork contamination found; plausibility filter added)
 - measure-census batch 1 (verified-application subset) measured ~45 OK (2 ERROR: deip, tpscore = private/removed repos). Reliable subset n=23.
 - KEY FINDING: grounded first-commit->delivery duration EXPOSED FORK CONTAMINATION - repos that forked a large upstream chain inherited its whole history: cryptex=ideal-lab5/smoldot (99 KSLOC,15 auth,41.9mo,80PM), konomi=konomi-network/cumulus (27 auth,29mo,84PM), liberland=forked Substrate (105 auth,52.6mo,378PM). All caught by duration_plausible=0 (>24mo). They are effort_reliable=1 so they leaked into the reliable-only headline and wrecked it (corr 0.59, LOOCV MMRE 164%).
