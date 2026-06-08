@@ -236,3 +236,18 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Structural finding: PM ≡ FTE × Duration (effort defined, not measured).
 - Provenance trace: headline A=2.1143 / QI-GAN / 22.9% results not reproducible from the folder (no code, no data, harness unrun).
 - Measurement toolkit built + unit-tested; GitHub repo + Actions engine created.
+
+## Phase 2 — COCOMO II synthesis + calibration (GitHub-native)
+- Probe run #1 (cocomo-synthesis workflow) extracted objective signals for the full measured
+  set → data/calibration/repo_attributes.csv (census branch). Signals: CI/tests/docker/docs/
+  audit/lint, onchain_runtime, has_contracts, dep_{consensus,crosschain,zkcrypto,contract,frontend}.
+- Added scripts/validate/cocomo_fit.py: synthesizes ALL 5 SF + 17 EM (Nominal default) + 7
+  COCOBLOCK blockchain EMs from those signals using verified COCOMO II.2000 magnitudes
+  (cocomo2_tables.py); calibrates ln A by closed-form OLS = lognormal MLE (B=0.91 fixed);
+  proves variable roles — REDUNDANCY (pairwise corr + VIF), NECESSITY (per-variable ablation
+  ΔSA under LOOCV), SUFFICIENCY (residual structure). Outputs reports/cocomo_analysis_{pm}.json
+  and data/calibration/cocomo_synth_{pm}.csv for pm_mid (headline), pm_low, pm_high.
+- Wired both into .github/workflows/cocomo.yml (probe → fit → publish to census branch).
+- Local end-to-end validation on synthetic substrate confirmed the redundancy machinery:
+  deliberately-overlapping blockchain EMs (BC_EM_AUD↔RELY, BC_EM_GAS↔TIME, BC_DC/BC_EM_NODE↔PVOL)
+  surface as |corr|→1 with VIF→∞, i.e. the double-counting is PROVEN by the data, not asserted.

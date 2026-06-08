@@ -50,27 +50,50 @@ jobs:
             --out data/calibration/repo_attributes.csv \
             --max "${{ github.event.inputs.max_rows || '80' }}" $FORCE
 
-      - name: Publish repo_attributes.csv to 'census' branch
+      - name: Synthesize all 22 COCOMO II variables + blockchain EMs, calibrate A (MLE), prove roles
+        run: |
+          python -m pip install --quiet numpy
+          mkdir -p reports
+          for PM in pm_mid pm_low pm_high; do
+            python scripts/validate/cocomo_fit.py \
+              --meas data/calibration/measurements_census.csv \
+              --attr data/calibration/repo_attributes.csv \
+              --out  reports/cocomo_analysis_${PM}.json \
+              --synth-out data/calibration/cocomo_synth_${PM}.csv \
+              --pm ${PM} || echo "fit ${PM} skipped (insufficient joined rows)"
+          done
+          cp -f reports/cocomo_analysis_pm_mid.json reports/cocomo_analysis.json 2>/dev/null || true
+          cp -f data/calibration/cocomo_synth_pm_mid.csv data/calibration/cocomo_synth.csv 2>/dev/null || true
+          echo "=== headline (pm_mid) ==="; cat reports/cocomo_analysis_pm_mid.json 2>/dev/null || true
+
+      - name: Publish attributes + synthesized dataset + analysis to 'census' branch
         run: |
           git config user.name  "cocomo-bot"
           git config user.email "actions@users.noreply.github.com"
-          cp -f data/calibration/repo_attributes.csv /tmp/repo_attributes.csv
+          mkdir -p /tmp/pub/data /tmp/pub/reports
+          cp -f data/calibration/repo_attributes.csv /tmp/pub/data/ 2>/dev/null || true
+          cp -f data/calibration/cocomo_synth*.csv   /tmp/pub/data/ 2>/dev/null || true
+          cp -f reports/cocomo_analysis*.json        /tmp/pub/reports/ 2>/dev/null || true
           git fetch origin census
           git checkout -f -B census origin/census
-          mkdir -p data/calibration
-          cp -f /tmp/repo_attributes.csv data/calibration/repo_attributes.csv
-          git add data/calibration/repo_attributes.csv
+          mkdir -p data/calibration reports
+          cp -f /tmp/pub/data/*.csv     data/calibration/ 2>/dev/null || true
+          cp -f /tmp/pub/reports/*.json reports/          2>/dev/null || true
+          git add data/calibration/repo_attributes.csv data/calibration/cocomo_synth*.csv reports/cocomo_analysis*.json
           if git diff --cached --quiet; then
-            echo "No attribute changes."
+            echo "No changes."
           else
-            git commit -m "ci: cocomo repo-attribute probe (non-authoritative) [skip ci]"
+            git commit -m "ci: cocomo synthesis + MLE calibration + redundancy/ablation (non-authoritative) [skip ci]"
             git push --force-with-lease origin census || git push origin census
           fi
 
-      - name: Upload attributes as artifact
+      - name: Upload outputs as artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: repo-attributes
-          path: data/calibration/repo_attributes.csv
+          name: cocomo-outputs
+          path: |
+            data/calibration/repo_attributes.csv
+            data/calibration/cocomo_synth*.csv
+            reports/cocomo_analysis*.json
           if-no-files-found: ignore
