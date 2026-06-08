@@ -2,6 +2,16 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-05-30 (PHASE 2 start: COCOMO II audit + verified tables + math framework + repo probe)
+- User directive: keep ALL 22 COCOMO II variables + constants (no drops without strong reason); proceed MATHEMATICALLY (every constant/variable proven); build everything ON GitHub (reproducible).
+- DEEP AUDIT of prior COCOMO work (scripts/04_build_cocomo_dataset.py): VERIFIED against the official COCOMO II Model Definition Manual v2.1 (2000) - A=2.94, B=0.91, all 5 scale-factor tables (Table 10) and all 17 effort-multiplier tables (Tables 17-34) are EXACT/correct. Flaws were in the prior IMPLEMENTATION, not the numbers: (a) ground-truth PM was PLANNED FTExduration [now measured], (b) size was ESTIMATED from level/PM heuristic [now measured cloc KSLOC], (c) the 17 standard EMs were never applied (em_product=1.0), (d) ratings used weak grant-metadata proxies not repo signals, (e) blockchain EM values were guesses. NEW issue found: blockchain EMs DOUBLE-COUNT with standard EMs (DC<->CPLX, AUD<->RELY, NODE<->CPLX/PVOL, GAS<->TIME). Docs: cocomoII_prior_work_audit.md.
+- Pinned verified tables in scripts/validate/cocomo2_tables.py (single source of truth; self-checked: 5 SF + 17 EM, Nominal EM=1.00, A/B).
+- MATHEMATICAL FRAMEWORK (cocomoII_mathematical_framework.md): log-linear model y=lnA+B*lnS+g_SF+Σln(EM)+ε; resolve double-counting/redundancy by IDENTIFIABILITY (corr/VIF/condition number), NECESSITY by ablation ΔSA, SUFFICIENCY by residual structure; calibrate A by closed-form log-OLS MLE (3). The blockchain-EM "ok/insufficient/overdoing" verdict comes OUT of this analysis, not by choice.
+- SYNTHESIS SPEC (cocomoII_synthesis_spec.md): per-variable objective synthesis rules + Nominal defaults; earlier prune-note superseded.
+- BUILT scripts/extract/cocomo_probe.py: objective per-repo signal extraction (CI/tests/docker/docs/audit/lint, on-chain runtime/pallets, contracts, dependency signals: consensus/cross-chain/zk-crypto/contract/frontend) -> data/calibration/repo_attributes.csv. Pure-function logic unit-tested (all signals correct on a synthetic substrate repo; path-normalisation bug fixed). Added .github/workflows/cocomo.yml (probe batch -> publish to census branch).
+- Working manuscript PUBLICATION_blockchain_effort_benchmark.md kept LOCAL (gitignored) per user (polish later).
+- Next: push -> dispatch cocomo-synthesis (probe) -> then build synthesizer (all 22 + BC EMs from attributes) + fit (redundancy/calibrate A/ablation/residuals) on GitHub.
+
 ## 2026-05-30 (strengthenings RAN: planned-PM revealed as a NOISY anchor; triangulation is the proof)
 - Re-harvest (dual grant-repo matcher) + measure subset=all: planned-PM anchors 15->37; n_distinct 51->63.
 - Triangulation HOLDS strong: Spearman low~mid 0.99, mid~high 0.87, low~high 0.85.

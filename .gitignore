@@ -13,6 +13,8 @@ projects_manifest.online.csv
 /measurement_provenance.json
 /size_effort_params.json
 /size_effort_results.json
+# ---- working draft manuscript (kept local; not for the public repo until polished) ----
+PUBLICATION_blockchain_effort_benchmark.md
 # ---- env / os / editor ----
 .venv/
 venv/

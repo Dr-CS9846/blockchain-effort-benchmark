@@ -1,0 +1,76 @@
+name: cocomo-synthesis
+
+# Phase 2 (blockchain COCOMO II) — runs on GitHub for reproducibility.
+# (1) Probe each measured repo for objective COCOMO signals -> repo_attributes.csv
+# (2) [added next] synthesize all 22 COCOMO II variables + blockchain EMs
+# (3) [added next] fit: redundancy (VIF), calibrate A (MLE), ablation, residuals
+# Publishes to the NON-authoritative 'census' branch. Dispatch repeatedly to chew batches.
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_rows:
+        description: "Max repos to PROBE this run (resumable)"
+        required: false
+        default: "80"
+      force:
+        description: "Re-probe already-done rows"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents: write
+
+jobs:
+  cocomo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (main = latest scripts)
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Restore measurements + prior attributes from 'census' branch
+        run: |
+          git fetch origin census
+          git checkout origin/census -- data/calibration/measurements_census.csv
+          git checkout origin/census -- data/calibration/repo_attributes.csv 2>/dev/null || echo "no prior attributes yet"
+
+      - name: Probe repos for objective COCOMO signals (resumable; partial clones)
+        run: |
+          FORCE=""
+          if [ "${{ github.event.inputs.force || 'false' }}" = "true" ]; then FORCE="--force"; fi
+          python scripts/extract/cocomo_probe.py \
+            --measurements data/calibration/measurements_census.csv \
+            --out data/calibration/repo_attributes.csv \
+            --max "${{ github.event.inputs.max_rows || '80' }}" $FORCE
+
+      - name: Publish repo_attributes.csv to 'census' branch
+        run: |
+          git config user.name  "cocomo-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/repo_attributes.csv /tmp/repo_attributes.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/repo_attributes.csv data/calibration/repo_attributes.csv
+          git add data/calibration/repo_attributes.csv
+          if git diff --cached --quiet; then
+            echo "No attribute changes."
+          else
+            git commit -m "ci: cocomo repo-attribute probe (non-authoritative) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
+
+      - name: Upload attributes as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-attributes
+          path: data/calibration/repo_attributes.csv
+          if-no-files-found: ignore
