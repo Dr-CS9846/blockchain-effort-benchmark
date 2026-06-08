@@ -1,0 +1,108 @@
+{
+  "pm_target": "pm_mid",
+  "n": 63,
+  "A": 0.3835,
+  "B": 0.91,
+  "sigma_logspace": 1.332,
+  "nominal_constant_variables": [
+    "DATA",
+    "RUSE",
+    "STOR",
+    "ACAP",
+    "PCAP",
+    "PCON",
+    "APEX",
+    "PLEX",
+    "LTEX",
+    "SITE",
+    "SCED",
+    "BC_BEM",
+    "BC_EM_REG"
+  ],
+  "in_sample": {
+    "MMRE": 4.172460314018224,
+    "MdMRE": 1.4774977817495887,
+    "PRED25": 0.12698412698412698,
+    "PRED30": 0.14285714285714285,
+    "MAE": 10.064772813500477,
+    "SA": -1.765249139850126
+  },
+  "loocv": {
+    "MMRE": 4.2330444126788604,
+    "MdMRE": 1.5140093458682347,
+    "PRED25": 0.12698412698412698,
+    "PRED30": 0.14285714285714285,
+    "MAE": 10.269964118534597,
+    "SA": -1.821624488828618
+  },
+  "redundancy": {
+    "high_corr_pairs": [
+      [
+        "RELY",
+        "BC_EM_AUD",
+        1.0
+      ],
+      [
+        "CPLX",
+        "PVOL",
+        0.659
+      ],
+      [
+        "CPLX",
+        "BC_DC",
+        0.659
+      ],
+      [
+        "TIME",
+        "BC_EM_GAS",
+        1.0
+      ],
+      [
+        "PVOL",
+        "BC_DC",
+        1.0
+      ],
+      [
+        "PVOL",
+        "BC_EM_NODE",
+        0.658
+      ],
+      [
+        "BC_DC",
+        "BC_EM_NODE",
+        0.658
+      ]
+    ],
+    "VIF": {
+      "RELY": 1000000000.0,
+      "TIME": 1000000000.0,
+      "PVOL": 1000000000.0,
+      "BC_DC": 1000000000.0,
+      "BC_EM_GAS": 1000000000.0,
+      "BC_EM_AUD": 1000000000.0,
+      "CPLX": 2.83,
+      "BC_EM_NODE": 1.91,
+      "TOOL": 1.23,
+      "BC_EM_MC": 1.22,
+      "DOCU": 1.13
+    }
+  },
+  "necessity_ablation_dSA": {
+    "TOOL": 0.1679,
+    "DOCU": 0.0114,
+    "BC_EM_GAS": -0.0189,
+    "RELY": -0.0362,
+    "TIME": -0.0374,
+    "BC_EM_MC": -0.0602,
+    "BC_EM_AUD": -0.066,
+    "BC_EM_NODE": -0.0929,
+    "BC_DC": -0.1917,
+    "PVOL": -0.2732,
+    "CPLX": -0.3683
+  },
+  "residual": {
+    "corr_resid_vs_fitted": -0.7625943505875218,
+    "resid_std": 1.332020223443994
+  },
+  "note": "Verdicts: VIF>>5 or |corr|->1 => redundant; dSA<=0 => inert (keep Nominal); residual structure => insufficient. Magnitudes from verified COCOMO II.2000 tables."
+}
