@@ -282,3 +282,16 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Extended cocomo_localcal.py: adds ln(1+count) per family + composite ln_feature_units to the
   candidate set. Next: dispatch probe with force=true to backfill FS columns, then re-fit and
   compare functional-size model vs the LOC-based 0.50 ceiling.
+
+## Phase 2d — archetype stratification (does functional size predict WITHIN a type?)
+- Full-data confirmation (force re-probe, max=300): on the POOLED corpus functional-size counts
+  stay at baseline (univariate LOOCV SA 0.20-0.23) vs ln_ksloc 0.444; forward selection rejects
+  them; all-driver model overfits (SA -0.60). Cause: corpus mixes incompatible archetypes, so any
+  one feature family is zero for most repos.
+- Added archetype_of() + stratified() to cocomo_localcal.py: classify each repo as onchain_pallet
+  / smart_contract / offchain_app / library_tool, then run per-archetype local calibration
+  (forward selection over ln_ksloc + matching feature size, LOOCV, cap=3). Tests whether a FAMILY
+  of archetype-specific functional-size models beats the universal LOC ceiling (~SA 0.50).
+- Validated stratified logic on synthetic substrate/contract/app/tool fixtures (functional size
+  correctly selected within onchain_pallet & smart_contract groups). by_archetype now emitted in
+  reports/cocomo_localcal_{pm}.json.

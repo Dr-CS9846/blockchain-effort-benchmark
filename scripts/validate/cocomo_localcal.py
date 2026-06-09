@@ -133,7 +133,34 @@ def forward_select(y, feats, allowed, cap=8, min_gain=0.005):
             break
     return chosen, trail
 
-def run(y, feats, prosp, label):
+def archetype_of(a):
+    oc=_i(a,"onchain_runtime"); npal=_f(a,"n_pallets") or 0; nex=_f(a,"n_extrinsics") or 0
+    nsol=_f(a,"n_sol_funcs") or 0; nink=_f(a,"n_ink_msgs") or 0; ncon=_f(a,"n_contracts_def") or 0
+    hc=_i(a,"has_contracts"); fr=_i(a,"dep_frontend")
+    if oc or npal>0 or nex>0:               return "onchain_pallet"
+    if hc or nsol>0 or nink>0 or ncon>0:    return "smart_contract"
+    if fr:                                  return "offchain_app"
+    return "library_tool"
+
+def stratified(y, feats, prosp, cand, label):
+    """Per-archetype local calibration: does functional size predict WITHIN a homogeneous type?"""
+    arche=[archetype_of(t[1]) for t in cand]
+    cands=[k for k in feats if prosp[k] is True]
+    groups={}
+    for g in sorted(set(arche)):
+        idx=[i for i,x in enumerate(arche) if x==g]; m=len(idx)
+        if m<8:
+            groups[g]=dict(n=m, note="too few for LOOCV"); continue
+        yi=y[idx]; sub={k: feats[k][idx] for k in feats}
+        allowed=[k for k in cands if sub[k].std()>1e-9]
+        sel,trail=forward_select(yi, sub, allowed, cap=3)
+        groups[g]=dict(n=m, selected=sel,
+                       trail=[(c,round(s,3)) for c,s in trail],
+                       metrics=loocv(yi, np.column_stack([sub[k] for k in sel]) if sel else np.empty((m,0))),
+                       coeffs=fit_coeffs(yi,sub,sel))
+    return dict(archetype_counts={g:arche.count(g) for g in sorted(set(arche))}, groups=groups)
+
+def run(y, feats, prosp, label, cand):
     n=len(y)
     prospective=[k for k in feats if prosp[k] is True]
     with_team=prospective+["ln_authors"]
@@ -151,6 +178,7 @@ def run(y, feats, prosp, label):
                                coeffs=fit_coeffs(y,feats,sel_t))
     out["full_prospective"]=dict(selected=prospective,
                                  metrics=loocv(y, np.column_stack([feats[k] for k in prospective])))
+    out["by_archetype"]=stratified(y, feats, prosp, cand, label)
     out["univariate_LOOCV_SA"]=dict(sorted(uni.items(), key=lambda kv:-kv[1]))
     out["n"]=n; out["pm_target"]=label
     return out
@@ -166,7 +194,7 @@ def main():
     cand=load(a.meas,a.attr,a.pm)
     if len(cand)<10: sys.exit(f"only {len(cand)} joined rows")
     y,feats,prosp=build_features(cand)
-    res=run(y,feats,prosp,a.pm)
+    res=run(y,feats,prosp,a.pm,cand)
     os.makedirs(os.path.dirname(a.out),exist_ok=True); json.dump(res,open(a.out,"w"),indent=2)
     p=res["prospective_only"]; t=res["with_team_size"]
     print("="*70); print(f"  LOCAL CALIBRATION  (target={a.pm}, n={res['n']})"); print("="*70)
