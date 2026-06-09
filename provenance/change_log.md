@@ -413,3 +413,21 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   ln_equiv_sloc (ksloc fallback where missing) so the model's size IS canonical, ~= ksloc here.
 - Net: on-chain law unchanged & robust (SA 0.75-0.76); off-chain ceiling (SA ~0.55-0.60) is intrinsic
   effort noise. Next: #24 full 22-driver local calibration on n=102; off-chain treated as noise-bounded.
+
+## Phase 3.3 — off-chain root cause: effort is SIZE-DECOUPLED (staffing/iteration driven)
+- Tested milestone-count scope lever (census n_delivery_files): REJECTED by data — corr(size-residual,
+  ln_milestones)=+0.09; size+milestones SA 0.546 vs size-only 0.548. Milestone spread too low (1-5).
+- Diagnosed what the size-residual (effort size misses) correlates with on gated off-chain set (n=59):
+    work-volume (CIRCULAR w/ pm proxy): active_dev_days +0.68, total_commits +0.61, loc/active-day -0.70;
+    prospective artifact props (~0): ksloc_all +0.07, generated +0.04, cost +0.09, planned_pm +0.12;
+    prospective planning inputs (modest): distinct_authors +0.39, duration +0.42.
+  Predictive: size+commits 0.70/73% (circular, rejected); size+authors+duration 0.61/42% (valid);
+  size-only 0.55/36%.
+- FINDING: off-chain blockchain effort (apps/SDKs/tools) does NOT follow a size law; final code size does
+  not constrain it. Honest best PROSPECTIVE off-chain model ~ SA 0.61 (size+team+duration). On-chain
+  remains size-law (SA 0.75-0.76). This size-coupling split is itself a publishable result.
+- Wired (valid, non-circular): team size now competes in per-archetype selection; milestone candidate
+  added (transparently rejected by selection); equivalent_sloc fallback; census-audit join in cocomo.yml.
+- NEXT candidate lever (no compromise): OFF-CHAIN functional size (exported API/function/component/route
+  counts) = the off-chain analogue of extrinsics-count; only remaining prospective, non-circular scope
+  measure untested. Requires probe extension.

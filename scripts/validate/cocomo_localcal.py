@@ -107,6 +107,10 @@ def build_features(cand):
         if comp.std()>1e-9: feats["ln_feature_units"]=comp; prosp["ln_feature_units"]=True
     # team size: arguably a PLANNING input, flagged separately
     feats["ln_authors"]=np.array([math.log(max(_f(t[0],"distinct_authors") or 1,1)) for t in cand]); prosp["ln_authors"]="team"
+    # SCOPE: number of delivered grant milestones (non-circular scope proxy that final-code LOC
+    # misses; prospective — a firm knows its planned milestone count). From census audit join.
+    mil=np.array([math.log1p(_f(t[0],"milestone_count") or 0) for t in cand])
+    if mil.std()>1e-9: feats["ln_milestones"]=mil; prosp["ln_milestones"]=True
     return y, feats, prosp
 
 def loocv(y, X):
@@ -169,7 +173,7 @@ def coarse_of(a):
 def stratified(y, feats, prosp, cand, label, keyfn=archetype_of, cap=3, with_preds=False, ids=None):
     """Per-archetype local calibration. keyfn=archetype_of (4-way) or coarse_of (2-way)."""
     arche=[keyfn(t[1]) for t in cand]
-    cands=[k for k in feats if prosp[k] is True]
+    cands=[k for k in feats if prosp[k] in (True, "team")]   # allow team size to compete per-archetype
     groups={}
     for g in sorted(set(arche)):
         idx=[i for i,x in enumerate(arche) if x==g]; m=len(idx)
@@ -229,9 +233,13 @@ def main():
     ap.add_argument("--pm", default="pm_mid", choices=["pm_mid","pm_low","pm_high"])
     ap.add_argument("--maxlocday", type=float, default=0.0,
                     help="effort-quality gate: drop repos with delivered LOC/active-day above this")
+    ap.add_argument("--audit", default="", help="census_audit.csv to join milestone scope (n_delivery_files)")
     a=ap.parse_args()
     cand=load(a.meas,a.attr,a.pm,max_loc_per_active_day=a.maxlocday)
     if len(cand)<10: sys.exit(f"only {len(cand)} joined rows")
+    if a.audit and os.path.exists(a.audit):
+        mil={r["project_id"]: r.get("n_delivery_files","") for r in csv.DictReader(open(a.audit, encoding="utf-8"))}
+        for t in cand: t[0]["milestone_count"]=mil.get(t[0].get("project_id",""), "")
     y,feats,prosp=build_features(cand)
     res=run(y,feats,prosp,a.pm,cand)
     res["effort_quality_gate"]=dict(max_loc_per_active_day=a.maxlocday,

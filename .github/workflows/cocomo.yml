@@ -40,6 +40,7 @@ jobs:
           git fetch origin census
           git checkout origin/census -- data/calibration/measurements_census.csv
           git checkout origin/census -- data/calibration/repo_attributes.csv 2>/dev/null || echo "no prior attributes yet"
+          git checkout origin/census -- reports/census_audit.csv 2>/dev/null || echo "no census audit yet"
 
       - name: Probe repos for objective COCOMO signals (resumable; partial clones)
         run: |
@@ -65,11 +66,13 @@ jobs:
               --meas data/calibration/measurements_census.csv \
               --attr data/calibration/repo_attributes.csv \
               --out  reports/cocomo_localcal_${PM}.json \
+              --audit reports/census_audit.csv \
               --pm ${PM} || echo "localcal ${PM} skipped"
             python scripts/validate/cocomo_localcal.py \
               --meas data/calibration/measurements_census.csv \
               --attr data/calibration/repo_attributes.csv \
               --out  reports/cocomo_localcal_gated_${PM}.json \
+              --audit reports/census_audit.csv \
               --pm ${PM} --maxlocday 200 || echo "localcal gated ${PM} skipped"
           done
           echo "=== local-calibration headline (pm_mid) ==="; cat reports/cocomo_localcal_pm_mid.json 2>/dev/null || true
