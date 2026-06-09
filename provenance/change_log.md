@@ -266,3 +266,19 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   (SA/PRED25/PRED30/MMRE). Reports the smallest variable set maximising out-of-sample accuracy +
   its fitted coefficients = the applied effort model. Guards against fake PM=PM via LOOCV + var cap.
 - Wired into cocomo.yml; publishes reports/cocomo_localcal_{pm}.json to census branch.
+
+## Phase 2c — structural drivers exhausted; introduce FUNCTIONAL SIZE
+- Local-calibration result (n=63, all brackets): best PROSPECTIVE model is size-dominated at
+  LOOCV SA≈0.50, PRED(30)≈30% (ln_ksloc + language archetype; +team-size lifts pm_high to
+  SA0.53/PRED30 48%). Every blockchain STRUCTURAL driver (onchain/consensus/crosschain/zk/
+  contracts) sits at the mean baseline (univariate SA≈0.20-0.24) and is rejected by forward
+  selection; the all-driver model OVERFITS (SA falls to 0.31). => structural binary flags
+  cannot reach PM=PM; proven.
+- Opening: total_commits (a VOLUME measure) predicts PM at fitted SA≈0.70 — the effort signal is
+  not noise-bound. Need a PROSPECTIVE volume measure => FUNCTIONAL SIZE (function-point analogue).
+- Extended cocomo_probe.py to count blockchain feature units from .rs/.sol contents: n_pallets,
+  n_extrinsics (#[pallet::call_index]), n_storage, n_events, n_ink_msgs, n_sol_funcs,
+  n_contracts_def, n_rpc. Validated counts on synthetic substrate/ink/Solidity fixtures.
+- Extended cocomo_localcal.py: adds ln(1+count) per family + composite ln_feature_units to the
+  candidate set. Next: dispatch probe with force=true to backfill FS columns, then re-fit and
+  compare functional-size model vs the LOC-based 0.50 ceiling.

@@ -77,6 +77,20 @@ def build_features(cand):
     for L in set(langs):
         v=np.array([1.0 if x==L else 0.0 for x in langs])
         if 0<v.sum()<n and L!="other": feats[f"lang_{L}"]=v; prosp[f"lang_{L}"]=True
+    # FUNCTIONAL SIZE: blockchain feature-unit counts (prospective: estimable from a design spec).
+    # ln(1+count) per family, plus a composite "callable surface" volume measure.
+    FS=["n_pallets","n_extrinsics","n_storage","n_events","n_ink_msgs","n_sol_funcs",
+        "n_contracts_def","n_rpc"]
+    fs_present = any(k in (cand[0][1] or {}) for k in FS)
+    if fs_present:
+        def fscol(k): return np.array([math.log1p(max(_f(t[1],k) or 0,0)) for t in cand])
+        for k in FS:
+            v=fscol(k)
+            if v.std()>1e-9: feats[f"ln_{k}"]=v; prosp[f"ln_{k}"]=True
+        # composite functional size = total callable/feature surface
+        comp=np.array([math.log1p(sum(max(_f(t[1],k) or 0,0) for k in
+                       ["n_extrinsics","n_ink_msgs","n_sol_funcs","n_storage","n_events"])) for t in cand])
+        if comp.std()>1e-9: feats["ln_feature_units"]=comp; prosp["ln_feature_units"]=True
     # team size: arguably a PLANNING input, flagged separately
     feats["ln_authors"]=np.array([math.log(max(_f(t[0],"distinct_authors") or 1,1)) for t in cand]); prosp["ln_authors"]="team"
     return y, feats, prosp

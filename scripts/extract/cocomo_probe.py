@@ -70,6 +70,11 @@ def walk_files(root):
 
 def probe(dest):
     paths = []; manifests = []
+    # functional-size accumulators (blockchain "feature units" — countable from code AND
+    # estimable from a design spec, so usable as a PROSPECTIVE COCOMO size driver)
+    fs = dict(n_pallets=0, n_extrinsics=0, n_storage=0, n_events=0,
+              n_ink_msgs=0, n_sol_funcs=0, n_contracts_def=0, n_rpc=0)
+    MAX_BYTES = 600_000
     for rel, full in walk_files(dest):
         paths.append(rel)
         base = os.path.basename(rel)
@@ -79,6 +84,25 @@ def probe(dest):
                 manifests.append(open(full, encoding="utf-8", errors="ignore").read().lower())
             except Exception:
                 pass
+        # functional-size: scan Rust (Substrate pallets / ink!) and Solidity sources
+        if rel.endswith(".rs") or rel.endswith(".sol"):
+            try:
+                if os.path.getsize(full) > MAX_BYTES:
+                    continue
+                txt = open(full, encoding="utf-8", errors="ignore").read()
+            except Exception:
+                continue
+            if rel.endswith(".rs"):
+                fs["n_pallets"]       += txt.count("#[frame_support::pallet]") + txt.count("#[pallet::pallet]")
+                fs["n_extrinsics"]    += txt.count("#[pallet::call_index")
+                fs["n_storage"]       += txt.count("#[pallet::storage]")
+                fs["n_events"]        += txt.count("#[pallet::event]")
+                fs["n_ink_msgs"]      += txt.count("#[ink(message")
+                fs["n_contracts_def"] += txt.count("#[ink::contract]") + txt.count("#[contract]")
+                fs["n_rpc"]           += txt.count("#[rpc(") + txt.count("#[method(")
+            else:  # .sol
+                fs["n_sol_funcs"]     += len(re.findall(r"\bfunction\s+\w+", txt))
+                fs["n_contracts_def"] += len(re.findall(r"\bcontract\s+\w+", txt))
     M = "\n".join(manifests)
     def seg(p, names):           # path has a directory segment in `names`
         parts = p.split("/")
@@ -104,12 +128,16 @@ def probe(dest):
         if not flag and k in ("contract", "frontend"):
             flag = dep_in(subs, "\n".join(paths))
         a[f"dep_{k}"] = flag
+    a.update(fs)
     return a
 
+FS_FIELDS = ["n_pallets","n_extrinsics","n_storage","n_events",
+             "n_ink_msgs","n_sol_funcs","n_contracts_def","n_rpc"]
 ATTR_FIELDS = ["project_id","repo_url","resolved_commit",
                "has_ci","has_tests","has_docker","has_docs","has_audit","has_lintfmt",
                "onchain_runtime","has_contracts",
-               "dep_consensus","dep_crosschain","dep_zkcrypto","dep_contract","dep_frontend","status"]
+               "dep_consensus","dep_crosschain","dep_zkcrypto","dep_contract","dep_frontend",
+               *FS_FIELDS, "status"]
 
 def main():
     ap = argparse.ArgumentParser()
