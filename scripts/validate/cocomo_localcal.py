@@ -40,15 +40,17 @@ def primary_lang(top_langs):
     lang = max(d, key=lambda k: d[k]).lower()
     return lang if lang in PRIMARY_LANGS else "other"
 
-def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0, max_duration_months=0.0):
+def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0, max_duration_months=0.0,
+         min_loc_per_active_day=0.0):
     """EFFORT-QUALITY gates ensuring the measured effort corresponds to the delivered artifact:
-      max_loc_per_active_day>0 : drop implausible authoring velocity (import-dump/squash; effort
-                                 under-represented relative to size). Productivity-literature grounded.
+      [min,max]_loc_per_active_day : keep only PLAUSIBLE authoring velocity. Above max = import-dump/
+                                 squash (effort under-represented vs size); below min = inflated active-
+                                 days or research/rework (effort over-represented vs final code). Net
+                                 delivered code accrues at tens of SLOC/active-day; the band brackets that.
       max_duration_months>0    : drop implausibly long effort windows (whole-project lifetimes, not a
-                                 grant milestone; e.g. a repo predating the grant) where active-days
-                                 over-count effort vs the milestone deliverable. Median W3F grant ~4mo."""
+                                 grant milestone) where active-days over-count effort. Median W3F grant ~4mo."""
     attrs = {r["project_id"]: r for r in csv.DictReader(open(attr_csv, encoding="utf-8"))}
-    cand = []; excluded = []; excluded_dur = []
+    cand = []; excluded = []; excluded_dur = []; excluded_low = []
     for m in csv.DictReader(open(meas_csv, encoding="utf-8")):
         if m.get("status")!="OK" or m.get("effort_reliable")!="1" or m.get("duration_plausible")!="1":
             continue
@@ -56,11 +58,13 @@ def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0, max_duration_mo
         if not a or a.get("status")!="OK": continue
         pm=_f(m,pm_col); s=_f(m,"ksloc_code")
         if not (pm and pm>0 and s and s>0): continue
-        if max_loc_per_active_day>0:
+        if max_loc_per_active_day>0 or min_loc_per_active_day>0:
             ad=_f(m,"active_dev_days") or 0
             lpd = s*1000/ad if ad>0 else float("inf")
-            if lpd > max_loc_per_active_day:
+            if max_loc_per_active_day>0 and lpd > max_loc_per_active_day:
                 excluded.append((m["project_id"], round(lpd,0))); continue
+            if min_loc_per_active_day>0 and lpd < min_loc_per_active_day:
+                excluded_low.append((m["project_id"], round(lpd,0))); continue
         if max_duration_months>0:
             dur=_f(m,"actual_duration_months") or 0
             if dur > max_duration_months:
@@ -75,6 +79,7 @@ def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0, max_duration_mo
             best[k]=t
     load.excluded = excluded
     load.excluded_duration = excluded_dur
+    load.excluded_low = excluded_low
     return list(best.values())
 
 def build_features(cand):
@@ -244,11 +249,14 @@ def main():
     ap.add_argument("--pm", default="pm_mid", choices=["pm_mid","pm_low","pm_high"])
     ap.add_argument("--maxlocday", type=float, default=0.0,
                     help="effort-quality gate: drop repos with delivered LOC/active-day above this")
+    ap.add_argument("--minlocday", type=float, default=0.0,
+                    help="effort-quality gate: drop repos with delivered LOC/active-day below this")
     ap.add_argument("--maxduration", type=float, default=0.0,
                     help="effort-quality gate: drop repos with effort window longer than this (months)")
     ap.add_argument("--audit", default="", help="census_audit.csv to join milestone scope (n_delivery_files)")
     a=ap.parse_args()
-    cand=load(a.meas,a.attr,a.pm,max_loc_per_active_day=a.maxlocday,max_duration_months=a.maxduration)
+    cand=load(a.meas,a.attr,a.pm,max_loc_per_active_day=a.maxlocday,max_duration_months=a.maxduration,
+              min_loc_per_active_day=a.minlocday)
     if len(cand)<10: sys.exit(f"only {len(cand)} joined rows")
     if a.audit and os.path.exists(a.audit):
         mil={r["project_id"]: r.get("n_delivery_files","") for r in csv.DictReader(open(a.audit, encoding="utf-8"))}
@@ -256,8 +264,10 @@ def main():
     y,feats,prosp=build_features(cand)
     res=run(y,feats,prosp,a.pm,cand)
     res["effort_quality_gate"]=dict(max_loc_per_active_day=a.maxlocday,
+                                    min_loc_per_active_day=a.minlocday,
                                     max_duration_months=a.maxduration,
                                     excluded=getattr(load,"excluded",[]),
+                                    excluded_low=getattr(load,"excluded_low",[]),
                                     excluded_duration=getattr(load,"excluded_duration",[]))
     os.makedirs(os.path.dirname(a.out),exist_ok=True); json.dump(res,open(a.out,"w"),indent=2)
     p=res["prospective_only"]; t=res["with_team_size"]

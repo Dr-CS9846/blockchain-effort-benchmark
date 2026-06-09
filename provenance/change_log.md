@@ -473,3 +473,13 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   queryWeb3 0.53PM) — near-irreducible measured-activity noise, not contamination.
 - All canonical pieces in place: verified tables, equivalent SLOC (gap #9), local calibration, two-axis
   effort-quality gates (velocity+duration), per-archetype stratification. Last: #24 full-driver calibration.
+
+## Phase 3.7 — two-sided velocity band (floor at 15 LOC/active-day)
+- Diagnosed remaining off-chain residual as SYMMETRIC velocity noise: high-velocity over-predicted
+  (galaxy), low-velocity under-predicted (crossbow 22 LOC/active-day = research/rework, effort
+  over-represented vs final code). High tail gated (>200); now add the FLOOR.
+- velocity distribution p10=24 p25=49 median 88. Floor at 15 (literature-grounded: net delivered code
+  rarely <10-15 SLOC/active-day; conservative, below p25) removes only the clear low tail.
+- Local equiv-size-only effect (dur<=18): band [0,200] SA 0.594/MMRE 63% -> [15,200] SA 0.656/MMRE 48%.
+  Low-velocity outliers cluster in off-chain research libs -> should lift off-chain more than on-chain.
+- Added --minlocday gate; gated CI run now uses band [15,200] + duration<=18. Sensitivity reported.
