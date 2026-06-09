@@ -1,9 +1,9 @@
 {
   "pm_target": "pm_low",
-  "n": 179,
-  "A": 0.1083,
+  "n": 190,
+  "A": 0.1105,
   "B": 0.91,
-  "sigma_logspace": 1.4722,
+  "sigma_logspace": 1.4652,
   "nominal_constant_variables": [
     "DATA",
     "RUSE",
@@ -20,20 +20,20 @@
     "BC_EM_REG"
   ],
   "in_sample": {
-    "MMRE": 11.564814988062444,
-    "MdMRE": 1.7466907857936695,
-    "PRED25": 0.11173184357541899,
-    "PRED30": 0.13966480446927373,
-    "MAE": 11.20382454740439,
-    "SA": -6.270160088143775
+    "MMRE": 11.17413567785571,
+    "MdMRE": 1.7268767571461923,
+    "PRED25": 0.10526315789473684,
+    "PRED30": 0.14736842105263157,
+    "MAE": 10.83244232281396,
+    "SA": -6.172532830661626
   },
   "loocv": {
-    "MMRE": 11.355862947251293,
-    "MdMRE": 1.7622845588171914,
-    "PRED25": 0.11173184357541899,
-    "PRED30": 0.13966480446927373,
-    "MAE": 11.029213440971882,
-    "SA": -6.1568549670611405
+    "MMRE": 10.984785311782511,
+    "MdMRE": 1.741352714656291,
+    "PRED25": 0.1,
+    "PRED30": 0.14210526315789473,
+    "MAE": 10.674298709620553,
+    "SA": -6.067820502288526
   },
   "redundancy": {
     "high_corr_pairs": [
@@ -51,6 +51,16 @@
         "PVOL",
         "BC_DC",
         1.0
+      ],
+      [
+        "PVOL",
+        "BC_EM_NODE",
+        0.6
+      ],
+      [
+        "BC_DC",
+        "BC_EM_NODE",
+        0.6
       ]
     ],
     "VIF": {
@@ -60,29 +70,29 @@
       "BC_DC": 1000000000.0,
       "BC_EM_GAS": 1000000000.0,
       "BC_EM_AUD": 1000000000.0,
-      "CPLX": 1.81,
-      "BC_EM_NODE": 1.69,
-      "TOOL": 1.17,
-      "DOCU": 1.08,
-      "BC_EM_MC": 1.05
+      "CPLX": 1.72,
+      "BC_EM_NODE": 1.7,
+      "TOOL": 1.14,
+      "DOCU": 1.09,
+      "BC_EM_MC": 1.04
     }
   },
   "necessity_ablation_dSA": {
-    "TOOL": 0.5894,
-    "BC_EM_GAS": -0.1699,
-    "BC_EM_NODE": -0.3054,
-    "DOCU": -0.3317,
-    "TIME": -0.3502,
-    "RELY": -0.3703,
-    "BC_DC": -0.4665,
-    "BC_EM_MC": -0.4746,
-    "PVOL": -0.6662,
-    "BC_EM_AUD": -0.6775,
-    "CPLX": -1.2751
+    "TOOL": 0.5434,
+    "BC_EM_GAS": -0.1674,
+    "BC_EM_NODE": -0.3028,
+    "DOCU": -0.3254,
+    "TIME": -0.3451,
+    "RELY": -0.36,
+    "BC_EM_MC": -0.4688,
+    "BC_DC": -0.4702,
+    "BC_EM_AUD": -0.6587,
+    "PVOL": -0.6715,
+    "CPLX": -1.207
   },
   "residual": {
-    "corr_resid_vs_fitted": -0.7889264872974907,
-    "resid_std": 1.4721577624689153
+    "corr_resid_vs_fitted": -0.7900765156603722,
+    "resid_std": 1.4652106266265132
   },
   "note": "Verdicts: VIF>>5 or |corr|->1 => redundant; dSA<=0 => inert (keep Nominal); residual structure => insufficient. Magnitudes from verified COCOMO II.2000 tables."
 }
