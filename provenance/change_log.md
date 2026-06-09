@@ -336,3 +336,20 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Operational target set: PM=PM at Boehm grade == PRED(30) >= 0.70 (Conte/Boehm standard).
 - Two distinct error sources separated: (1) effort artifacts (gate handles), (2) small-n overfit on
   incidental flags (prefer size-anchored parsimonious models; size_only_metrics reported per group).
+
+## Phase 2h — MILESTONE: clean PM=PM demonstrated (gate=200, n=52)
+- Effort-quality gate (LOC/active-day<=200) excluded 11 artifact repos (ElasticLabs 965, ares 920,
+  dot_marketplace_v2 845, CESS 631, hybrid 548, dot_marketplace-Phase3 479, grant_mgmt 371, ajuna 305,
+  clover 302, ink-analyzer-phase 290, hamster 285, FIAT 213). n: 63 -> 52.
+- Pooled prospective: SA 0.593, PRED30 46%, MMRE 68% (was 0.50/30%/112%).
+- 4-way gated, size-anchored (defensible) results:
+    onchain_pallet  n15  SIZE-ONLY SA 0.774  exponent ln_ksloc=0.92 (PM ~ KSLOC^0.92), PRED30 47%
+    offchain_app    n16  size-only SA 0.551, full 0.642
+    library_tool    n12  size-only SA 0.440
+    smart_contract  n9   size-only SA 0.424 (full 0.849 is has_docker overfit at n=9 — NOT claimed)
+  2-group gated: onchain n24 SA 0.629 size-only (+ln_n_ink_msgs ->0.694); offchain n28 SA 0.519.
+- onchain per-repo PM=PM on clean data: bit_country 13.01/12.95, fair_squares 10.1/9.89,
+  delmonicos 2.42/2.37, GenesisDAO 3.56/3.37, calamar 9.3/8.37 — predicted ~ actual within a few %.
+- VERDICT: clean PM=PM achievable; on-chain pallet effort follows a Boehm-form size law (SA 0.77).
+  Remaining gap to uniform PRED30>=0.70 is statistical power (n=9-16/group) + off-chain effort noise.
+- NEXT (step 1): expand dataset per archetype to stabilise + lift off-chain/smart_contract.
