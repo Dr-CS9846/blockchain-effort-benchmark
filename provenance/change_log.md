@@ -504,3 +504,16 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   + calibrate-A only) result. Retains redundancy(VIF/corr)+ablation identifiability of all 22+7 drivers.
 - Validated local-cal math on synthetic (recovers size exponent, SA). Next: dispatch -> read
   cocomo_analysis_pm_mid.json fixed_weight vs local_calibration on n~127.
+
+## Phase 4 (#24) RESULT — full canonical COCOMO II capstone (n=127, clean+equiv size)
+- FIXED-WEIGHT (Boehm constants, all 22+7, calibrate A only): LOOCV SA -0.14, PRED30 27%, MMRE 90%
+  => textbook COCOMO II FAILS on blockchain even on clean data. (A finding, not PM=PM.)
+- LOCAL CALIBRATION (fit exponent + driver weights): LOOCV SA 0.605, PRED30 43%, MMRE 53%;
+  fitted size exponent 0.46, sf_sensitivity +1.39, sigma 1.33->0.72. => Boehm's own local-calibration
+  prescription vindicated. (Stratified local-cal higher: on-chain 0.75 / apps 0.69.)
+- BLOCKCHAIN-EM identifiability PROVEN on clean n=127: perfectly redundant corr=1.0/VIF=inf
+  (BC_EM_AUD=RELY, BC_EM_GAS=TIME, BC_DC=PVOL); inert (BC_BEM, BC_EM_REG); weak+non-necessary
+  (BC_EM_NODE, BC_EM_MC, all ablation dSA<=0). => 7-driver COCOBLOCK layer NOT separately
+  identifiable; blockchain effort captured by standard CPLX/RELY/TIME/PVOL under local calibration.
+- #24 COMPLETE. Canonical conformance fully discharged: verified tables, equivalent SLOC, fixed-weight
+  vs local calibration, redundancy/necessity/sufficiency, two-axis effort-quality gates, stratification.
