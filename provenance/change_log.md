@@ -251,3 +251,18 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Local end-to-end validation on synthetic substrate confirmed the redundancy machinery:
   deliberately-overlapping blockchain EMs (BC_EM_AUD↔RELY, BC_EM_GAS↔TIME, BC_DC/BC_EM_NODE↔PVOL)
   surface as |corr|→1 with VIF→∞, i.e. the double-counting is PROVEN by the data, not asserted.
+
+## Phase 2b — fixed-weight failure diagnosed; pivot to LOCAL CALIBRATION (PM=PM goal)
+- cocomo_fit.py (Boehm FIXED multiplier magnitudes + calibrate A only) gives LOOCV SA<0 on all
+  three PM brackets (pm_low/mid/high: -1.64/-1.82/-4.19); blockchain EMs proven non-identifiable
+  (BC_EM_AUD≡RELY, BC_EM_GAS≡TIME, BC_DC≡PVOL at corr=1.0/VIF→∞) and non-necessary (ablation ΔSA≤0).
+- DIAGNOSIS: SA<0 is a fixed-weight artefact, NOT size→effort decoupling. With coefficients FIT
+  locally, ln(ksloc_code) alone gives LOOCV SA≈+0.45 (Pearson ln-size vs ln-PM=+0.60). total_commits
+  is the strongest correlate (+0.96; fitted SA≈+0.70) but is not pre-project knowable.
+- Added scripts/validate/cocomo_localcal.py: COCOMO II local-calibration (Boehm 2000 ch.4). Fits
+  ln PM = b0 + b1 ln(KSLOC) + Σ b_k driver_k by OLS in log space; greedy forward-selection over
+  PROSPECTIVELY-knowable drivers (size, on-chain/contracts/audit/consensus/cross-chain/zk/frontend
+  dummies, primary-language archetype; team-size reported separately), each model scored by LOOCV
+  (SA/PRED25/PRED30/MMRE). Reports the smallest variable set maximising out-of-sample accuracy +
+  its fitted coefficients = the applied effort model. Guards against fake PM=PM via LOOCV + var cap.
+- Wired into cocomo.yml; publishes reports/cocomo_localcal_{pm}.json to census branch.

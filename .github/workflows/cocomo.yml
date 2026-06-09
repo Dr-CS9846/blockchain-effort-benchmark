@@ -61,7 +61,13 @@ jobs:
               --out  reports/cocomo_analysis_${PM}.json \
               --synth-out data/calibration/cocomo_synth_${PM}.csv \
               --pm ${PM} || echo "fit ${PM} skipped (insufficient joined rows)"
+            python scripts/validate/cocomo_localcal.py \
+              --meas data/calibration/measurements_census.csv \
+              --attr data/calibration/repo_attributes.csv \
+              --out  reports/cocomo_localcal_${PM}.json \
+              --pm ${PM} || echo "localcal ${PM} skipped"
           done
+          echo "=== local-calibration headline (pm_mid) ==="; cat reports/cocomo_localcal_pm_mid.json 2>/dev/null || true
           cp -f reports/cocomo_analysis_pm_mid.json reports/cocomo_analysis.json 2>/dev/null || true
           cp -f data/calibration/cocomo_synth_pm_mid.csv data/calibration/cocomo_synth.csv 2>/dev/null || true
           echo "=== headline (pm_mid) ==="; cat reports/cocomo_analysis_pm_mid.json 2>/dev/null || true
@@ -74,12 +80,13 @@ jobs:
           cp -f data/calibration/repo_attributes.csv /tmp/pub/data/ 2>/dev/null || true
           cp -f data/calibration/cocomo_synth*.csv   /tmp/pub/data/ 2>/dev/null || true
           cp -f reports/cocomo_analysis*.json        /tmp/pub/reports/ 2>/dev/null || true
+          cp -f reports/cocomo_localcal*.json        /tmp/pub/reports/ 2>/dev/null || true
           git fetch origin census
           git checkout -f -B census origin/census
           mkdir -p data/calibration reports
           cp -f /tmp/pub/data/*.csv     data/calibration/ 2>/dev/null || true
           cp -f /tmp/pub/reports/*.json reports/          2>/dev/null || true
-          git add data/calibration/repo_attributes.csv data/calibration/cocomo_synth*.csv reports/cocomo_analysis*.json
+          git add data/calibration/repo_attributes.csv data/calibration/cocomo_synth*.csv reports/cocomo_analysis*.json reports/cocomo_localcal*.json
           if git diff --cached --quiet; then
             echo "No changes."
           else
