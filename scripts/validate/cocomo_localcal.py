@@ -40,13 +40,15 @@ def primary_lang(top_langs):
     lang = max(d, key=lambda k: d[k]).lower()
     return lang if lang in PRIMARY_LANGS else "other"
 
-def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0):
-    """max_loc_per_active_day>0 applies an EFFORT-QUALITY gate: drop repos whose delivered
-    LOC per active developer-day exceeds the threshold (history-artifact effort observations:
-    imported/generated code or squashed history — implausible authoring velocity). Grounded
-    in software-productivity literature (delivered code accrues at tens, not hundreds, of LOC/day)."""
+def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0, max_duration_months=0.0):
+    """EFFORT-QUALITY gates ensuring the measured effort corresponds to the delivered artifact:
+      max_loc_per_active_day>0 : drop implausible authoring velocity (import-dump/squash; effort
+                                 under-represented relative to size). Productivity-literature grounded.
+      max_duration_months>0    : drop implausibly long effort windows (whole-project lifetimes, not a
+                                 grant milestone; e.g. a repo predating the grant) where active-days
+                                 over-count effort vs the milestone deliverable. Median W3F grant ~4mo."""
     attrs = {r["project_id"]: r for r in csv.DictReader(open(attr_csv, encoding="utf-8"))}
-    cand = []; excluded = []
+    cand = []; excluded = []; excluded_dur = []
     for m in csv.DictReader(open(meas_csv, encoding="utf-8")):
         if m.get("status")!="OK" or m.get("effort_reliable")!="1" or m.get("duration_plausible")!="1":
             continue
@@ -59,6 +61,10 @@ def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0):
             lpd = s*1000/ad if ad>0 else float("inf")
             if lpd > max_loc_per_active_day:
                 excluded.append((m["project_id"], round(lpd,0))); continue
+        if max_duration_months>0:
+            dur=_f(m,"actual_duration_months") or 0
+            if dur > max_duration_months:
+                excluded_dur.append((m["project_id"], round(dur,1))); continue
         cand.append((m,a,s,pm))
     # dedup by repo (latest delivered)
     best={}
@@ -68,6 +74,7 @@ def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0):
         if k not in best or key>(best[k][0].get("effort_until",""), best[k][2]):
             best[k]=t
     load.excluded = excluded
+    load.excluded_duration = excluded_dur
     return list(best.values())
 
 def build_features(cand):
@@ -237,9 +244,11 @@ def main():
     ap.add_argument("--pm", default="pm_mid", choices=["pm_mid","pm_low","pm_high"])
     ap.add_argument("--maxlocday", type=float, default=0.0,
                     help="effort-quality gate: drop repos with delivered LOC/active-day above this")
+    ap.add_argument("--maxduration", type=float, default=0.0,
+                    help="effort-quality gate: drop repos with effort window longer than this (months)")
     ap.add_argument("--audit", default="", help="census_audit.csv to join milestone scope (n_delivery_files)")
     a=ap.parse_args()
-    cand=load(a.meas,a.attr,a.pm,max_loc_per_active_day=a.maxlocday)
+    cand=load(a.meas,a.attr,a.pm,max_loc_per_active_day=a.maxlocday,max_duration_months=a.maxduration)
     if len(cand)<10: sys.exit(f"only {len(cand)} joined rows")
     if a.audit and os.path.exists(a.audit):
         mil={r["project_id"]: r.get("n_delivery_files","") for r in csv.DictReader(open(a.audit, encoding="utf-8"))}
@@ -247,7 +256,9 @@ def main():
     y,feats,prosp=build_features(cand)
     res=run(y,feats,prosp,a.pm,cand)
     res["effort_quality_gate"]=dict(max_loc_per_active_day=a.maxlocday,
-                                    excluded=getattr(load,"excluded",[]))
+                                    max_duration_months=a.maxduration,
+                                    excluded=getattr(load,"excluded",[]),
+                                    excluded_duration=getattr(load,"excluded_duration",[]))
     os.makedirs(os.path.dirname(a.out),exist_ok=True); json.dump(res,open(a.out,"w"),indent=2)
     p=res["prospective_only"]; t=res["with_team_size"]
     print("="*70); print(f"  LOCAL CALIBRATION  (target={a.pm}, n={res['n']})"); print("="*70)

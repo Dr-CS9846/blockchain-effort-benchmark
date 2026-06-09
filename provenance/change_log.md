@@ -441,3 +441,21 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Rationale: off-chain effort is size-decoupled (Phase 3.3); raw LOC misses the *feature surface*
   (a research lib's API, an app's routes/components). This is the only untested PROSPECTIVE,
   non-circular scope measure. Next: force re-probe + re-fit; test if off-chain breaks past SA~0.6.
+
+## Phase 3.4/3.5 — off-chain levers land (n=132); duration-window gate added
+- Re-probe with off-chain functional size: gated n=132. ln_equiv_sloc is now the SINGLE BEST size
+  predictor (univariate 0.582 > ln_ksloc 0.573) -> conformance gap #9 size is selected everywhere.
+- OFF-CHAIN levers selected & stacked (non-circular, prospective):
+    offchain_app n35: ln_equiv_sloc + ln_n_exports + lang_ts -> SA 0.562 (size-only 0.488)
+    2-group offchain n71: ln_equiv_sloc + ln_authors + ln_milestones + ln_n_exports -> SA 0.615 (size-only 0.511)
+    library_tool n36: ln_equiv_sloc + ln_milestones + has_ci -> SA 0.580 (milestones strong here)
+  -> off-chain 0.51 -> 0.62 via off-chain functional size + team + milestones. Team size now also
+  helps on-chain (0.65->0.72).
+- On-chain robust: onchain_pallet n38 SA 0.752 PRED25 61% PRED30 61%; 2-group onchain n61 SA 0.754 PRED30 59%.
+- DIAGNOSED persistent off-chain outliers (datdot pred1.8/act10.8, crossbow 9.4) as EFFORT-WINDOW
+  CONTAMINATION: datdot window 22.8 months (2019-2021), crossbow 16.3mo — whole-project lifetimes, not
+  grant milestones (median W3F grant 4mo, p90 18mo). active-days over-count effort vs milestone deliverable.
+- Added --maxduration effort-quality gate (drop windows > N months); gated CI run uses maxduration=18
+  (removes implausible windows, keeps legit long grants). Local test: equiv-size-only SA 0.564->0.594,
+  MMRE 69%->63% just by removing the extreme tail. Parallel hygiene to the velocity gate (time axis).
+- equivalent SLOC (gap #9) COMPLETE: implemented, verified, top predictor, selected.
