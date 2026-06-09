@@ -76,6 +76,10 @@ def build_features(cand):
     feats={}; prosp={}
     feats["ln_ksloc"]=np.array([math.log(t[2]) for t in cand]);                       prosp["ln_ksloc"]=True
     feats["ln_ksloc_all"]=np.array([math.log(max(_f(t[0],"ksloc_all") or t[2],1e-6)) for t in cand]); prosp["ln_ksloc_all"]=True
+    # CANONICAL COCOMO II size: reuse-adjusted equivalent SLOC (gap #9). Added only when present
+    # for every row (else degenerate); competes with ln_ksloc in selection.
+    if all((_f(t[0],"equivalent_sloc") or 0) > 0 for t in cand):
+        feats["ln_equiv_sloc"]=np.array([math.log(_f(t[0],"equivalent_sloc")) for t in cand]); prosp["ln_equiv_sloc"]=True
     # blockchain / engineering driver dummies from attributes (all pre-project knowable)
     for k in ["onchain_runtime","has_contracts","has_audit","has_ci","has_tests","has_docs",
               "has_docker","has_lintfmt","dep_consensus","dep_crosschain","dep_zkcrypto",

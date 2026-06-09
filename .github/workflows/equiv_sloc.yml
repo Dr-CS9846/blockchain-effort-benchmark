@@ -1,0 +1,73 @@
+name: equivalent-sloc
+
+# Computes COCOMO II reuse-adjusted equivalent SLOC (conformance gap #9) for the measured
+# census. Full-history (blob-filtered) clone per repo -> origin-classify New vs Adapted ->
+# AAM -> equivalent_sloc, appended to measurements_census.csv on the NON-authoritative
+# 'census' branch. Resumable: dispatch repeatedly to chew batches.
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_rows:
+        description: "Max repos to process this run (resumable)"
+        required: false
+        default: "300"
+      force:
+        description: "Recompute rows that already have equivalent_sloc"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents: write
+
+jobs:
+  equiv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (main = latest scripts)
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Restore measurements from 'census' branch
+        run: |
+          git fetch origin census
+          git checkout origin/census -- data/calibration/measurements_census.csv
+
+      - name: Compute equivalent SLOC (origin-based New/Adapted + COCOMO AAM)
+        run: |
+          FLAG=""
+          if [ "${{ github.event.inputs.force || 'false' }}" = "true" ]; then FLAG="--force"; fi
+          python scripts/extract/equivalent_sloc.py \
+            --measurements data/calibration/measurements_census.csv \
+            --max "${{ github.event.inputs.max_rows || '300' }}" $FLAG
+
+      - name: Publish augmented measurements to 'census' branch
+        run: |
+          git config user.name  "equiv-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/measurements_census.csv /tmp/measurements_census.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/measurements_census.csv data/calibration/measurements_census.csv
+          git add data/calibration/measurements_census.csv
+          if git diff --cached --quiet; then
+            echo "No equivalent-SLOC changes."
+          else
+            git commit -m "ci: equivalent SLOC (reuse-adjusted size) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
+
+      - name: Upload as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: measurements-equiv
+          path: data/calibration/measurements_census.csv
+          if-no-files-found: ignore

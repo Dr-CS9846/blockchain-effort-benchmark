@@ -383,3 +383,18 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   fair_squares 9.37/9.89, CoinFabrik 2.98/3.05, ocelloids 2.77/2.68.
 - Frontier: off-chain SA 0.52-0.60 (vendored JS/TS likely inflating KSLOC) -> motivates canonical
   reuse-adjusted equivalent SLOC (#23) then full 22-driver local calibration (#24, now feasible at n=102).
+
+## Phase 3.1 — canonical reuse-adjusted equivalent SLOC (conformance gap #9) implemented
+- docs/method/cocomoII_reuse_model.md: canonical AAF/AAM equations + NON-CIRCULAR origin-based
+  New/Adapted rule (import-scaffold + copied-3rd-party = adapted; developed-on-top = new), judged on
+  SURVIVING delivered lines, never in-window churn. Confirmed by user.
+- scripts/extract/equivalent_sloc.py: blob-filtered full clone @ delivery commit; matches ksloc_code
+  base (same vendored-dir + content-@generated exclusions as measure_repos); classifies via
+  git-log add-origin (root-commit +24h = scaffold) + reuse-path markers; CM = fraction of adapted
+  base modified later; applies COCOMO II AAM (AA=2,SU=30,UNFM=0.3,IM=10; sensitivity to follow).
+  equivalent_sloc = new + adapted*AAM. Validated on synthetic repo: 65%-reused -> equiv 3.89 vs raw 10.
+- .github/workflows/equiv_sloc.yml: computes + publishes equivalent_sloc to census branch (resumable).
+- cocomo_localcal.py: ln_equiv_sloc added as a size candidate (only when present for all rows),
+  competes with ln_ksloc in forward selection.
+- Next: dispatch equivalent-sloc, then re-fit; expect off-chain to tighten (vendored/template JS
+  reclassified as adapted at low AAM) with on-chain stable.
