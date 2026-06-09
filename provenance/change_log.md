@@ -295,3 +295,27 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Validated stratified logic on synthetic substrate/contract/app/tool fixtures (functional size
   correctly selected within onchain_pallet & smart_contract groups). by_archetype now emitted in
   reports/cocomo_localcal_{pm}.json.
+
+## Phase 2e — archetype stratification result (grounded) + independent re-verification
+- INDEPENDENT re-verification (own script, authoritative measurements file, not CI JSON):
+  dedup n=63 ✓; ln_ksloc LOOCV SA=0.444 ✓; ln_commits SA=0.713 ✓; Pearson(lnPM,lnksloc)=+0.604,
+  (lnPM,lncommits)=+0.961 — all match published numbers. Core spine grounded.
+- Stratified local calibration (pm_mid) improves over pooled SA 0.50:
+  smart_contract n=11 SA 0.73 (PRED30 55%); onchain_pallet n=19 SA 0.62 (47%);
+  offchain_app n=19 SA 0.59 (47%); library_tool n=14 SA 0.48 (43%). counts sum 63 ✓.
+- HONEST caveats: (1) functional-size counts STILL not selected even within archetypes —
+  the "blockchain functional size predicts effort" hypothesis is NOT supported; gain is from
+  stratification + size + incidental flags. (2) per-group n=11-19 is small; selected binary
+  flags (has_docker/dep_frontend/has_docs) carry overfit risk despite LOOCV; smart_contract
+  R2_insample=0.94 at n=11 is fragile.
+- Conclusion: correct ARCHITECTURE found (per-archetype, size-anchored, locally calibrated) but
+  insufficient statistical power. Route to PM=PM = expand n per archetype + parsimonious models.
+
+## Phase 2f — 2-archetype consolidation (power-adequate) toward PM=PM
+- Per user direction (consolidate first, expand later, focus PM=PM): added coarse_of() grouping
+  onchain (pallet+contract, ~30) vs offchain (app+tool, ~33) to cocomo_localcal.py.
+- stratified() generalised (keyfn, cap, with_preds): each group now reports forward-selected model
+  (cap=4), a SIZE-ONLY reference metric (separates stratification+size from incidental-flag overfit),
+  and per-repo LOOCV predicted-vs-actual [id, pred, actual, MRE] to expose PM=PM closeness directly.
+- Validated new logic (coarse split, size-only ref, pred_vs_actual) on synthetic fixtures.
+- Emitted as by_archetype_2group in reports/cocomo_localcal_{pm}.json.

@@ -142,9 +142,19 @@ def archetype_of(a):
     if fr:                                  return "offchain_app"
     return "library_tool"
 
-def stratified(y, feats, prosp, cand, label):
-    """Per-archetype local calibration: does functional size predict WITHIN a homogeneous type?"""
-    arche=[archetype_of(t[1]) for t in cand]
+def loocv_preds(y, X):
+    n=len(y); Xi=np.column_stack([np.ones(n),X]) if X.size else np.ones((n,1)); preds=np.zeros(n)
+    for i in range(n):
+        m=[j for j in range(n) if j!=i]; b,*_=np.linalg.lstsq(Xi[m],y[m],rcond=None)
+        r=y[m]-Xi[m]@b; preds[i]=math.exp(Xi[i]@b)*math.exp(np.var(r)/2)
+    return preds
+
+def coarse_of(a):
+    return "onchain" if archetype_of(a) in ("onchain_pallet","smart_contract") else "offchain"
+
+def stratified(y, feats, prosp, cand, label, keyfn=archetype_of, cap=3, with_preds=False, ids=None):
+    """Per-archetype local calibration. keyfn=archetype_of (4-way) or coarse_of (2-way)."""
+    arche=[keyfn(t[1]) for t in cand]
     cands=[k for k in feats if prosp[k] is True]
     groups={}
     for g in sorted(set(arche)):
@@ -153,12 +163,21 @@ def stratified(y, feats, prosp, cand, label):
             groups[g]=dict(n=m, note="too few for LOOCV"); continue
         yi=y[idx]; sub={k: feats[k][idx] for k in feats}
         allowed=[k for k in cands if sub[k].std()>1e-9]
-        sel,trail=forward_select(yi, sub, allowed, cap=3)
-        groups[g]=dict(n=m, selected=sel,
-                       trail=[(c,round(s,3)) for c,s in trail],
-                       metrics=loocv(yi, np.column_stack([sub[k] for k in sel]) if sel else np.empty((m,0))),
-                       coeffs=fit_coeffs(yi,sub,sel))
-    return dict(archetype_counts={g:arche.count(g) for g in sorted(set(arche))}, groups=groups)
+        sel,trail=forward_select(yi, sub, allowed, cap=cap)
+        X=np.column_stack([sub[k] for k in sel]) if sel else np.empty((m,0))
+        rec=dict(n=m, selected=sel, trail=[(c,round(s,3)) for c,s in trail],
+                 metrics=loocv(yi, X), coeffs=fit_coeffs(yi,sub,sel))
+        # parsimony reference: size-only model, to separate stratification+size from incidental flags
+        size_key="ln_ksloc" if sub.get("ln_ksloc") is not None and sub["ln_ksloc"].std()>1e-9 else None
+        if size_key: rec["size_only_metrics"]=loocv(yi, sub[size_key].reshape(-1,1))
+        if with_preds:
+            preds=loocv_preds(yi, X)
+            rec["loocv_pred_vs_actual"]=[[ (ids[idx[k]] if ids else idx[k]),
+                                           round(float(preds[k]),2), round(float(math.exp(yi[k])),2),
+                                           round(float(abs(preds[k]-math.exp(yi[k]))/math.exp(yi[k])),2)]
+                                         for k in range(m)]
+        groups[g]=rec
+    return dict(group_counts={g:arche.count(g) for g in sorted(set(arche))}, groups=groups)
 
 def run(y, feats, prosp, label, cand):
     n=len(y)
@@ -178,7 +197,10 @@ def run(y, feats, prosp, label, cand):
                                coeffs=fit_coeffs(y,feats,sel_t))
     out["full_prospective"]=dict(selected=prospective,
                                  metrics=loocv(y, np.column_stack([feats[k] for k in prospective])))
-    out["by_archetype"]=stratified(y, feats, prosp, cand, label)
+    ids=[t[0].get("project_id","") for t in cand]
+    out["by_archetype"]=stratified(y, feats, prosp, cand, label, keyfn=archetype_of, cap=3)
+    out["by_archetype_2group"]=stratified(y, feats, prosp, cand, label, keyfn=coarse_of,
+                                          cap=4, with_preds=True, ids=ids)
     out["univariate_LOOCV_SA"]=dict(sorted(uni.items(), key=lambda kv:-kv[1]))
     out["n"]=n; out["pm_target"]=label
     return out
