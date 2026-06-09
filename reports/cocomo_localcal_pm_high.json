@@ -118,12 +118,12 @@
       "dep_zkcrypto",
       "dep_contract",
       "dep_frontend",
-      "lang_typescript",
-      "lang_c++",
-      "lang_javascript",
-      "lang_go",
-      "lang_java",
       "lang_rust",
+      "lang_go",
+      "lang_c++",
+      "lang_java",
+      "lang_javascript",
+      "lang_typescript",
       "ln_n_pallets",
       "ln_n_extrinsics",
       "ln_n_storage",
@@ -135,12 +135,182 @@
       "ln_feature_units"
     ],
     "metrics": {
-      "SA": 0.02872512093957369,
+      "SA": 0.028725120939577242,
       "PRED25": 0.23809523809523808,
       "PRED30": 0.30158730158730157,
-      "MMRE": 0.922692863428555,
-      "MdMRE": 0.54809049352417,
-      "R2_insample": 0.6653339858191959
+      "MMRE": 0.9226928634285523,
+      "MdMRE": 0.5480904935241718,
+      "R2_insample": 0.6653339858191961
+    }
+  },
+  "by_archetype": {
+    "archetype_counts": {
+      "library_tool": 14,
+      "offchain_app": 19,
+      "onchain_pallet": 19,
+      "smart_contract": 11
+    },
+    "groups": {
+      "library_tool": {
+        "n": 14,
+        "selected": [
+          "ln_ksloc",
+          "has_lintfmt",
+          "has_docs"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.17
+          ],
+          [
+            "ln_ksloc",
+            0.252
+          ],
+          [
+            "has_lintfmt",
+            0.309
+          ],
+          [
+            "has_docs",
+            0.368
+          ]
+        ],
+        "metrics": {
+          "SA": 0.36786149137183644,
+          "PRED25": 0.2857142857142857,
+          "PRED30": 0.35714285714285715,
+          "MMRE": 0.5917294734217808,
+          "MdMRE": 0.4657672761761966,
+          "R2_insample": 0.6610045969381028
+        },
+        "coeffs": {
+          "intercept": 2.2437035085369423,
+          "ln_ksloc": 0.17720258013071452,
+          "has_lintfmt": 1.9305658702925454,
+          "has_docs": -0.8325086900769653
+        }
+      },
+      "offchain_app": {
+        "n": 19,
+        "selected": [
+          "ln_ksloc",
+          "has_ci",
+          "ln_ksloc_all"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.226
+          ],
+          [
+            "ln_ksloc",
+            0.322
+          ],
+          [
+            "has_ci",
+            0.398
+          ],
+          [
+            "ln_ksloc_all",
+            0.44
+          ]
+        ],
+        "metrics": {
+          "SA": 0.43979267150921497,
+          "PRED25": 0.3157894736842105,
+          "PRED30": 0.47368421052631576,
+          "MMRE": 0.6357765167179033,
+          "MdMRE": 0.31191610443763373,
+          "R2_insample": 0.546701432798415
+        },
+        "coeffs": {
+          "intercept": 2.6449794081654456,
+          "ln_ksloc": 0.6877540145645891,
+          "has_ci": -0.6885044877368451,
+          "ln_ksloc_all": -0.46950646615725417
+        }
+      },
+      "onchain_pallet": {
+        "n": 19,
+        "selected": [
+          "ln_ksloc_all",
+          "dep_frontend",
+          "has_docs"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.201
+          ],
+          [
+            "ln_ksloc_all",
+            0.352
+          ],
+          [
+            "dep_frontend",
+            0.578
+          ],
+          [
+            "has_docs",
+            0.634
+          ]
+        ],
+        "metrics": {
+          "SA": 0.6340404275123074,
+          "PRED25": 0.47368421052631576,
+          "PRED30": 0.5789473684210527,
+          "MMRE": 0.32671561439764973,
+          "MdMRE": 0.25071085163202605,
+          "R2_insample": 0.7666706838230053
+        },
+        "coeffs": {
+          "intercept": 1.363475296858733,
+          "ln_ksloc_all": 0.7380233904726652,
+          "dep_frontend": -1.2000555452740855,
+          "has_docs": -0.47684046868418895
+        }
+      },
+      "smart_contract": {
+        "n": 11,
+        "selected": [
+          "ln_ksloc_all",
+          "dep_contract",
+          "has_ci"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.164
+          ],
+          [
+            "ln_ksloc_all",
+            0.389
+          ],
+          [
+            "dep_contract",
+            0.431
+          ],
+          [
+            "has_ci",
+            0.52
+          ]
+        ],
+        "metrics": {
+          "SA": 0.519673703682754,
+          "PRED25": 0.45454545454545453,
+          "PRED30": 0.5454545454545454,
+          "MMRE": 0.4122640065302289,
+          "MdMRE": 0.2548894124275072,
+          "R2_insample": 0.616561262977875
+        },
+        "coeffs": {
+          "intercept": 0.8177021672592119,
+          "ln_ksloc_all": 0.3657464392773896,
+          "dep_contract": 0.7848053885445914,
+          "has_ci": -0.3154437277594214
+        }
+      }
     }
   },
   "univariate_LOOCV_SA": {
@@ -160,8 +330,8 @@
     "dep_zkcrypto": 0.25,
     "has_docker": 0.249,
     "lang_go": 0.249,
-    "lang_typescript": 0.248,
     "lang_c++": 0.248,
+    "lang_typescript": 0.248,
     "has_lintfmt": 0.247,
     "ln_n_extrinsics": 0.246,
     "ln_n_rpc": 0.246,

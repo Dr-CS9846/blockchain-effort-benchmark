@@ -118,12 +118,12 @@
       "dep_zkcrypto",
       "dep_contract",
       "dep_frontend",
-      "lang_java",
-      "lang_go",
       "lang_rust",
-      "lang_typescript",
-      "lang_c++",
       "lang_javascript",
+      "lang_java",
+      "lang_c++",
+      "lang_go",
+      "lang_typescript",
       "ln_n_pallets",
       "ln_n_extrinsics",
       "ln_n_storage",
@@ -135,12 +135,176 @@
       "ln_feature_units"
     ],
     "metrics": {
-      "SA": -1.0568142295712688,
+      "SA": -1.0568142295713048,
       "PRED25": 0.19047619047619047,
       "PRED30": 0.2698412698412698,
-      "MMRE": 2.4274087308292787,
-      "MdMRE": 0.7237329626537814,
+      "MMRE": 2.42740873082931,
+      "MdMRE": 0.7237329626537806,
       "R2_insample": 0.7072711267067676
+    }
+  },
+  "by_archetype": {
+    "archetype_counts": {
+      "library_tool": 14,
+      "offchain_app": 19,
+      "onchain_pallet": 19,
+      "smart_contract": 11
+    },
+    "groups": {
+      "library_tool": {
+        "n": 14,
+        "selected": [
+          "ln_ksloc",
+          "has_docs",
+          "has_lintfmt"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.139
+          ],
+          [
+            "ln_ksloc",
+            0.353
+          ],
+          [
+            "has_docs",
+            0.484
+          ],
+          [
+            "has_lintfmt",
+            0.532
+          ]
+        ],
+        "metrics": {
+          "SA": 0.532007570309753,
+          "PRED25": 0.35714285714285715,
+          "PRED30": 0.5,
+          "MMRE": 0.7100556169691156,
+          "MdMRE": 0.3336323992125939,
+          "R2_insample": 0.7793528150545087
+        },
+        "coeffs": {
+          "intercept": -0.39932383813954436,
+          "ln_ksloc": 0.35909612700199023,
+          "has_docs": -1.0167978836547678,
+          "has_lintfmt": 2.1601349017047844
+        }
+      },
+      "offchain_app": {
+        "n": 19,
+        "selected": [
+          "lang_typescript",
+          "ln_ksloc",
+          "has_docs"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.181
+          ],
+          [
+            "lang_typescript",
+            0.344
+          ],
+          [
+            "ln_ksloc",
+            0.502
+          ],
+          [
+            "has_docs",
+            0.608
+          ]
+        ],
+        "metrics": {
+          "SA": 0.6083703657563437,
+          "PRED25": 0.42105263157894735,
+          "PRED30": 0.47368421052631576,
+          "MMRE": 1.2179884709151794,
+          "MdMRE": 0.3189755322814187,
+          "R2_insample": 0.5781351780081476
+        },
+        "coeffs": {
+          "intercept": -1.15184652563062,
+          "lang_typescript": 1.130834648598097,
+          "ln_ksloc": 0.34769970027268227,
+          "has_docs": 0.5802737570091793
+        }
+      },
+      "onchain_pallet": {
+        "n": 19,
+        "selected": [
+          "has_audit",
+          "ln_ksloc_all",
+          "dep_frontend"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.198
+          ],
+          [
+            "has_audit",
+            0.281
+          ],
+          [
+            "ln_ksloc_all",
+            0.41
+          ],
+          [
+            "dep_frontend",
+            0.599
+          ]
+        ],
+        "metrics": {
+          "SA": 0.5993490270952403,
+          "PRED25": 0.3684210526315789,
+          "PRED30": 0.5263157894736842,
+          "MMRE": 1.2551962493620064,
+          "MdMRE": 0.2863669577774923,
+          "R2_insample": 0.5483427233412738
+        },
+        "coeffs": {
+          "intercept": -2.4425558787868566,
+          "has_audit": 0.15618520422074034,
+          "ln_ksloc_all": 1.212922518731985,
+          "dep_frontend": -2.0235295997317375
+        }
+      },
+      "smart_contract": {
+        "n": 11,
+        "selected": [
+          "ln_ksloc",
+          "has_docker"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.129
+          ],
+          [
+            "ln_ksloc",
+            0.43
+          ],
+          [
+            "has_docker",
+            0.713
+          ]
+        ],
+        "metrics": {
+          "SA": 0.7130419616106632,
+          "PRED25": 0.45454545454545453,
+          "PRED30": 0.45454545454545453,
+          "MMRE": 0.3298008528532497,
+          "MdMRE": 0.31904860603083646,
+          "R2_insample": 0.8880084319498724
+        },
+        "coeffs": {
+          "intercept": -0.21915467506721265,
+          "ln_ksloc": 0.6928124650246843,
+          "has_docker": -1.0670677736027456
+        }
+      }
     }
   },
   "univariate_LOOCV_SA": {
