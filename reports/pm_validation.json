@@ -1,23 +1,23 @@
 {
-  "n_distinct_repos": 63,
+  "n_distinct_repos": 190,
   "note": "Effort is latent; PMs are a VALIDATED BOUNDED measure, not an exact truth.",
   "triangulation_spearman": {
-    "spearman_low_mid": 0.9894724583356798,
-    "spearman_mid_high": 0.8661965315878789,
-    "spearman_low_high": 0.8475471242641102
+    "spearman_low_mid": 0.9816027183305346,
+    "spearman_mid_high": 0.8506323282175118,
+    "spearman_low_high": 0.7905518970779152
   },
   "criterion_coverage": {
-    "n_with_planned": 37,
-    "planned_inside_bracket": 22,
-    "coverage_rate": 0.5945945945945946,
-    "corr_log_planned_vs_pmmid": 0.14787443751151794,
-    "median_pmmid_over_planned": 0.30526
+    "n_with_planned": 105,
+    "planned_inside_bracket": 70,
+    "coverage_rate": 0.6666666666666666,
+    "corr_log_planned_vs_pmmid": 0.07242089463688706,
+    "median_pmmid_over_planned": 0.40349999999999997
   },
   "external_sanity": {
-    "median_pm_per_ksloc": 0.6265624999999999,
-    "min_pm_per_ksloc": 0.05453825053337397,
+    "median_pm_per_ksloc": 0.5263,
+    "min_pm_per_ksloc": 0.0057964435371225965,
     "max_pm_per_ksloc": 78.95,
-    "median_sloc_per_pm": 1596.0099750623444
+    "median_sloc_per_pm": 1900.0570017100513
   },
   "reliability": {
     "deterministic": "same repo+commit -> identical PM (bit-stable, public pipeline)",

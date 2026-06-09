@@ -4,10 +4,10 @@
   "effort": "measured",
   "reliable_only": true,
   "plausible_only": true,
-  "n": 63,
-  "A": 1.1782590794103274,
-  "E": 0.4534145490091187,
-  "sigma_logspace": 0.8528049028491038,
-  "duan_smearing": 1.389494943427969,
+  "n": 190,
+  "A": 1.2003769921932463,
+  "E": 0.37161496037366903,
+  "sigma_logspace": 0.8293597610667263,
+  "duan_smearing": 1.384367906934565,
   "estimator": "closed-form OLS log space = lognormal MLE (deterministic)"
 }
