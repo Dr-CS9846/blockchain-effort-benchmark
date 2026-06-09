@@ -2,7 +2,9 @@
   "prospective_only": {
     "selected": [
       "ln_ksloc",
-      "lang_javascript"
+      "ln_n_ink_msgs",
+      "lang_javascript",
+      "ln_feature_units"
     ],
     "trail": [
       [
@@ -14,29 +16,41 @@
         0.376
       ],
       [
+        "ln_n_ink_msgs",
+        0.409
+      ],
+      [
         "lang_javascript",
-        0.39
+        0.426
+      ],
+      [
+        "ln_feature_units",
+        0.438
       ]
     ],
     "metrics": {
-      "SA": 0.39010236864052783,
-      "PRED25": 0.25396825396825395,
-      "PRED30": 0.30158730158730157,
-      "MMRE": 0.627707114196935,
-      "MdMRE": 0.4508205215854661,
-      "R2_insample": 0.4034910369741129
+      "SA": 0.4381543808375229,
+      "PRED25": 0.30158730158730157,
+      "PRED30": 0.38095238095238093,
+      "MMRE": 0.5871723589267441,
+      "MdMRE": 0.38747932262519486,
+      "R2_insample": 0.45160552401552234
     },
     "coeffs": {
-      "intercept": 1.8370457488979133,
-      "ln_ksloc": 0.30635902774749935,
-      "lang_javascript": 1.6297856029338276
+      "intercept": 1.8259294770744456,
+      "ln_ksloc": 0.3123106869986817,
+      "ln_n_ink_msgs": 0.20494936509707462,
+      "lang_javascript": 1.6391822541611865,
+      "ln_feature_units": -0.10412308332632998
     }
   },
   "with_team_size": {
     "selected": [
       "ln_authors",
       "ln_ksloc",
-      "onchain_runtime"
+      "ln_n_extrinsics",
+      "lang_java",
+      "lang_javascript"
     ],
     "trail": [
       [
@@ -52,23 +66,33 @@
         0.519
       ],
       [
-        "onchain_runtime",
-        0.527
+        "ln_n_extrinsics",
+        0.536
+      ],
+      [
+        "lang_java",
+        0.542
+      ],
+      [
+        "lang_javascript",
+        0.548
       ]
     ],
     "metrics": {
-      "SA": 0.5271077877123694,
+      "SA": 0.547694771001848,
       "PRED25": 0.38095238095238093,
-      "PRED30": 0.47619047619047616,
-      "MMRE": 0.4991829436041047,
-      "MdMRE": 0.35513834799278016,
-      "R2_insample": 0.5718648558865221
+      "PRED30": 0.49206349206349204,
+      "MMRE": 0.4684160013045877,
+      "MdMRE": 0.31038574375985645,
+      "R2_insample": 0.6290936902609556
     },
     "coeffs": {
-      "intercept": 0.9342134253942281,
-      "ln_authors": 0.8893989227292196,
-      "ln_ksloc": 0.21945253673767012,
-      "onchain_runtime": -0.18511095730439936
+      "intercept": 0.9504068636043472,
+      "ln_authors": 0.829141824760598,
+      "ln_ksloc": 0.2326793473334142,
+      "ln_n_extrinsics": -0.2669476663740548,
+      "lang_java": -0.5766950088265079,
+      "lang_javascript": 1.2032605659181963
     }
   },
   "full_prospective": {
@@ -88,20 +112,29 @@
       "dep_zkcrypto",
       "dep_contract",
       "dep_frontend",
-      "lang_c++",
       "lang_typescript",
       "lang_javascript",
       "lang_java",
+      "lang_c++",
       "lang_rust",
-      "lang_go"
+      "lang_go",
+      "ln_n_pallets",
+      "ln_n_extrinsics",
+      "ln_n_storage",
+      "ln_n_events",
+      "ln_n_ink_msgs",
+      "ln_n_sol_funcs",
+      "ln_n_contracts_def",
+      "ln_n_rpc",
+      "ln_feature_units"
     ],
     "metrics": {
-      "SA": 0.2414109039473552,
-      "PRED25": 0.2698412698412698,
-      "PRED30": 0.30158730158730157,
-      "MMRE": 0.7819712763605873,
-      "MdMRE": 0.6011267372692412,
-      "R2_insample": 0.543865321457873
+      "SA": -0.2888962870193057,
+      "PRED25": 0.20634920634920634,
+      "PRED30": 0.23809523809523808,
+      "MMRE": 1.3109553482104412,
+      "MdMRE": 0.5689000505844917,
+      "R2_insample": 0.6697618043252671
     }
   },
   "univariate_LOOCV_SA": {
@@ -115,18 +148,27 @@
     "dep_crosschain": 0.259,
     "dep_frontend": 0.257,
     "lang_java": 0.255,
+    "ln_n_ink_msgs": 0.255,
     "dep_contract": 0.253,
+    "ln_n_extrinsics": 0.253,
+    "ln_n_sol_funcs": 0.253,
     "dep_zkcrypto": 0.25,
     "has_docker": 0.249,
     "lang_go": 0.249,
-    "lang_c++": 0.248,
+    "ln_n_contracts_def": 0.249,
     "lang_typescript": 0.248,
+    "lang_c++": 0.248,
     "has_lintfmt": 0.247,
+    "ln_n_rpc": 0.247,
     "has_contracts": 0.244,
     "has_tests": 0.243,
     "lang_rust": 0.241,
     "dep_consensus": 0.238,
-    "onchain_runtime": 0.236
+    "ln_n_pallets": 0.238,
+    "ln_n_storage": 0.238,
+    "ln_feature_units": 0.238,
+    "onchain_runtime": 0.236,
+    "ln_n_events": 0.234
   },
   "n": 63,
   "pm_target": "pm_high"
