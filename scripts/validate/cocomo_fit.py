@@ -74,7 +74,14 @@ def synth_ratings(m, a):
     return SF, EM, BC
 
 # ── load + join + dedup ──────────────────────────────────────────────────────────────
-def load(meas_csv, attr_csv, pm_col, reliable_only=True, plausible_only=True, dedup=True):
+def _fnum(m, k):
+    try: return float(m[k])
+    except (ValueError, KeyError, TypeError): return None
+
+def load(meas_csv, attr_csv, pm_col, reliable_only=True, plausible_only=True, dedup=True,
+         maxlocday=200.0, minlocday=15.0, maxduration=18.0):
+    """Size = canonical reuse-adjusted equivalent SLOC (fallback ksloc). Same locked effort-quality
+    gates as the local-calibration fitter so fixed-weight vs locally-calibrated is apples-to-apples."""
     attrs = {r["project_id"]: r for r in csv.DictReader(open(attr_csv, encoding="utf-8"))}
     cand = []
     for m in csv.DictReader(open(meas_csv, encoding="utf-8")):
@@ -83,10 +90,14 @@ def load(meas_csv, attr_csv, pm_col, reliable_only=True, plausible_only=True, de
         if plausible_only and not _truthy(m.get("duration_plausible","1")): continue
         a = attrs.get(m["project_id"])
         if a is None or a.get("status") != "OK": continue
-        try:
-            S = float(m["ksloc_code"]); pm = float(m[pm_col])
-        except (ValueError, KeyError): continue
-        if not (S > 0 and pm > 0): continue
+        ks = _fnum(m, "ksloc_code"); pm = _fnum(m, pm_col)
+        if not (ks and ks > 0 and pm and pm > 0): continue
+        S = _fnum(m, "equivalent_sloc") or ks                 # canonical size
+        ad = _fnum(m, "active_dev_days") or 0
+        lpd = ks*1000/ad if ad > 0 else float("inf")
+        if lpd > maxlocday or lpd < minlocday: continue        # velocity band
+        dur = _fnum(m, "actual_duration_months") or 0
+        if maxduration and dur > maxduration: continue         # duration gate
         cand.append((m, a, S, pm))
     if dedup:
         best = {}
@@ -196,11 +207,35 @@ def main():
         q2 = q - np.array(cols[v])                      # remove this variable's contribution
         abl[v] = round(base_sa - (loocv_metrics(y, q2)["SA"] or 0), 4)
 
+    # ── LOCAL CALIBRATION of the full canonical model (Boehm Ch.4): fit the exponent and the
+    #    driver weights to the data instead of using the fixed published magnitudes. Predictors:
+    #    ln Size (->B), (E-B)*ln Size (->scale-factor sensitivity), and each non-constant EM/BC
+    #    log-multiplier column (->local EM weight). LOOCV-validated. This is the #24 capstone.
+    lnS  = np.array([math.log(S) for (_m,_a,S,_pm) in cand])
+    Evec = np.array([E for (_pid,_S,_pm,E,_SF,_EM,_BC) in rows])
+    Xlc  = np.column_stack([lnS, (Evec - T.B)*lnS] + [np.array(cols[v]) for v in nonconst])
+    def loocv_fit(y, X):
+        nn = len(y); Xi = np.column_stack([np.ones(nn), X]); preds = np.zeros(nn)
+        for i in range(nn):
+            idx = [j for j in range(nn) if j != i]
+            b, *_ = np.linalg.lstsq(Xi[idx], y[idx], rcond=None)
+            r = y[idx] - Xi[idx] @ b; preds[i] = math.exp(Xi[i] @ b) * math.exp(np.var(r)/2)
+        bfull, *_ = np.linalg.lstsq(Xi, y, rcond=None)
+        return sa_mmre_pred(np.exp(y), preds), bfull
+    loc_cv, bfull = loocv_fit(y, Xlc)
+    local_cal = dict(metrics=loc_cv,
+                     fitted_lnA=round(float(bfull[0]),4),
+                     fitted_B_size_exponent=round(float(bfull[1]),4),
+                     fitted_sf_sensitivity=round(float(bfull[2]),5),
+                     drivers_fitted=nonconst)
+
     # SUFFICIENCY: residual structure vs fitted
     resid = y - (lnA + q)
     out = dict(
         pm_target=a.pm, n=n, A=round(A,4), B=T.B, sigma_logspace=round(math.sqrt(sig2),4),
         nominal_constant_variables=constants,
+        fixed_weight=dict(in_sample=insample, loocv=cv),
+        local_calibration=local_cal,
         in_sample=insample, loocv=cv,
         redundancy=dict(high_corr_pairs=corr_pairs,
                         VIF=dict(sorted(((k, round(v,2) if v!=float('inf') else 1e9)
@@ -228,8 +263,9 @@ def main():
 
     print("="*64); print(f"  BLOCKCHAIN COCOMO II  (target={a.pm}, n={n})"); print("="*64)
     print(f"  A={A:.3f}  B={T.B}  sigma={math.sqrt(sig2):.3f}")
-    print(f"  In-sample: MMRE {insample['MMRE']*100:.0f}% PRED25 {insample['PRED25']*100:.0f}% SA {insample['SA']:.2f}")
-    print(f"  LOOCV    : MMRE {cv['MMRE']*100:.0f}% PRED25 {cv['PRED25']*100:.0f}% SA {cv['SA']:.2f}")
+    print(f"  FIXED-WEIGHT (Boehm constants)  LOOCV: SA {cv['SA']:.2f} PRED25 {cv['PRED25']*100:.0f}% MMRE {cv['MMRE']*100:.0f}%")
+    print(f"  LOCAL-CALIBRATED (fitted)       LOOCV: SA {loc_cv['SA']:.2f} PRED25 {loc_cv['PRED25']*100:.0f}% MMRE {loc_cv['MMRE']*100:.0f}%")
+    print(f"    fitted size exponent={bfull[1]:.2f}  sf_sensitivity={bfull[2]:+.4f}")
     print(f"  redundant (|corr|>=0.6) pairs: {corr_pairs}")
     print(f"  necessity ΔSA (top): {list(out['necessity_ablation_dSA'].items())[:6]}")
     print(f"  Wrote {a.out} and {a.synth_out}")

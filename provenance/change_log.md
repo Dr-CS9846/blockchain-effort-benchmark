@@ -483,3 +483,24 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Local equiv-size-only effect (dur<=18): band [0,200] SA 0.594/MMRE 63% -> [15,200] SA 0.656/MMRE 48%.
   Low-velocity outliers cluster in off-chain research libs -> should lift off-chain more than on-chain.
 - Added --minlocday gate; gated CI run now uses band [15,200] + duration<=18. Sensitivity reported.
+
+## Phase 3.7 result — velocity floor lifts APPS to 0.69; library/research is the true frontier
+- Band [15,200]+duration<=18 -> n=127. Floor removed 7 low-velocity (datdot 7, polkastats 13, zk-rollups 6...).
+- Per-archetype LOOCV SA / PRED30: smart_contract 0.766/48; onchain 2-grp 0.755/60; onchain_pallet 0.753/65;
+  OFFCHAIN_APP 0.688/43 (up from 0.622); offchain 2-grp 0.644/41; LIBRARY_TOOL 0.594/47 (laggard).
+- Off-chain APPS essentially caught up to on-chain (0.69 vs 0.75). The remaining gap is specifically the
+  LIBRARY/SDK/RESEARCH class (crossbow, merkle_tree, queryWeb3) where effort is least size-coupled = a finding.
+- HONEST stop: off-chain did NOT cross on-chain. Gates now keep 127/~195 (~35% excluded; all defensible
+  measurement-reliability criteria). Further gate-tightening to force a crossing = p-hacking; NOT done.
+- GATES LOCKED at band[15,200] + duration<=18. Unified locally-calibrated COCOMO II:
+  on-chain 0.75 / apps 0.69 / libraries 0.59, n=127, ln_equiv_sloc top predictor, all canonical pieces verified.
+
+## Phase 4 (#24) — full 22-driver COCOMO II: fixed-weight vs local calibration on clean set
+- cocomo_fit.py now uses canonical equivalent_sloc as Size + the LOCKED effort-quality gates
+  (band[15,200]+duration<=18) so it matches the local-cal fitter's clean set.
+- Added LOCAL CALIBRATION of the full canonical model (Boehm Ch.4): fits ln PM on ln(Size),
+  (E-B)*ln(Size) [scale-factor sensitivity], and every non-constant EM/BC log-multiplier column
+  (local EM weights) -> LOOCV SA/PRED. Reported side-by-side with the FIXED-WEIGHT (Boehm constants
+  + calibrate-A only) result. Retains redundancy(VIF/corr)+ablation identifiability of all 22+7 drivers.
+- Validated local-cal math on synthetic (recovers size exponent, SA). Next: dispatch -> read
+  cocomo_analysis_pm_mid.json fixed_weight vs local_calibration on n~127.
