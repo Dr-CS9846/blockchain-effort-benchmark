@@ -2,9 +2,7 @@
   "prospective_only": {
     "selected": [
       "ln_ksloc",
-      "ln_n_ink_msgs",
-      "lang_javascript",
-      "ln_feature_units"
+      "lang_javascript"
     ],
     "trail": [
       [
@@ -16,41 +14,34 @@
         0.376
       ],
       [
-        "ln_n_ink_msgs",
-        0.409
-      ],
-      [
         "lang_javascript",
-        0.426
-      ],
-      [
-        "ln_feature_units",
-        0.438
+        0.39
       ]
     ],
     "metrics": {
-      "SA": 0.4381543808375229,
-      "PRED25": 0.30158730158730157,
-      "PRED30": 0.38095238095238093,
-      "MMRE": 0.5871723589267441,
-      "MdMRE": 0.38747932262519486,
-      "R2_insample": 0.45160552401552234
+      "SA": 0.39010236864052783,
+      "PRED25": 0.25396825396825395,
+      "PRED30": 0.30158730158730157,
+      "MMRE": 0.627707114196935,
+      "MdMRE": 0.4508205215854661,
+      "R2_insample": 0.4034910369741129
     },
     "coeffs": {
-      "intercept": 1.8259294770744456,
-      "ln_ksloc": 0.3123106869986817,
-      "ln_n_ink_msgs": 0.20494936509707462,
-      "lang_javascript": 1.6391822541611865,
-      "ln_feature_units": -0.10412308332632998
+      "intercept": 1.8370457488979133,
+      "ln_ksloc": 0.30635902774749935,
+      "lang_javascript": 1.6297856029338276
     }
   },
   "with_team_size": {
     "selected": [
       "ln_authors",
       "ln_ksloc",
-      "ln_n_extrinsics",
-      "lang_java",
-      "lang_javascript"
+      "onchain_runtime",
+      "ln_n_events",
+      "ln_n_storage",
+      "has_lintfmt",
+      "lang_javascript",
+      "lang_java"
     ],
     "trail": [
       [
@@ -66,33 +57,48 @@
         0.519
       ],
       [
-        "ln_n_extrinsics",
-        0.536
+        "onchain_runtime",
+        0.527
       ],
       [
-        "lang_java",
-        0.542
+        "ln_n_events",
+        0.547
+      ],
+      [
+        "ln_n_storage",
+        0.573
+      ],
+      [
+        "has_lintfmt",
+        0.589
       ],
       [
         "lang_javascript",
-        0.548
+        0.598
+      ],
+      [
+        "lang_java",
+        0.603
       ]
     ],
     "metrics": {
-      "SA": 0.547694771001848,
-      "PRED25": 0.38095238095238093,
-      "PRED30": 0.49206349206349204,
-      "MMRE": 0.4684160013045877,
-      "MdMRE": 0.31038574375985645,
-      "R2_insample": 0.6290936902609556
+      "SA": 0.602543548257847,
+      "PRED25": 0.3968253968253968,
+      "PRED30": 0.47619047619047616,
+      "MMRE": 0.4355928834433451,
+      "MdMRE": 0.30995282885618397,
+      "R2_insample": 0.672620323260244
     },
     "coeffs": {
-      "intercept": 0.9504068636043472,
-      "ln_authors": 0.829141824760598,
-      "ln_ksloc": 0.2326793473334142,
-      "ln_n_extrinsics": -0.2669476663740548,
-      "lang_java": -0.5766950088265079,
-      "lang_javascript": 1.2032605659181963
+      "intercept": 0.8561202065636021,
+      "ln_authors": 0.8880671925091872,
+      "ln_ksloc": 0.21128880010079143,
+      "onchain_runtime": -0.2200722319421422,
+      "ln_n_events": 1.0340311408313978,
+      "ln_n_storage": -0.5229524538702424,
+      "has_lintfmt": 0.1220955646492381,
+      "lang_javascript": 1.2088909005455906,
+      "lang_java": -0.296235170207545
     }
   },
   "full_prospective": {
@@ -113,11 +119,11 @@
       "dep_contract",
       "dep_frontend",
       "lang_typescript",
-      "lang_javascript",
-      "lang_java",
       "lang_c++",
-      "lang_rust",
+      "lang_javascript",
       "lang_go",
+      "lang_java",
+      "lang_rust",
       "ln_n_pallets",
       "ln_n_extrinsics",
       "ln_n_storage",
@@ -129,12 +135,12 @@
       "ln_feature_units"
     ],
     "metrics": {
-      "SA": -0.2888962870193057,
-      "PRED25": 0.20634920634920634,
-      "PRED30": 0.23809523809523808,
-      "MMRE": 1.3109553482104412,
-      "MdMRE": 0.5689000505844917,
-      "R2_insample": 0.6697618043252671
+      "SA": 0.02872512093957369,
+      "PRED25": 0.23809523809523808,
+      "PRED30": 0.30158730158730157,
+      "MMRE": 0.922692863428555,
+      "MdMRE": 0.54809049352417,
+      "R2_insample": 0.6653339858191959
     }
   },
   "univariate_LOOCV_SA": {
@@ -148,27 +154,27 @@
     "dep_crosschain": 0.259,
     "dep_frontend": 0.257,
     "lang_java": 0.255,
-    "ln_n_ink_msgs": 0.255,
     "dep_contract": 0.253,
-    "ln_n_extrinsics": 0.253,
     "ln_n_sol_funcs": 0.253,
+    "ln_n_ink_msgs": 0.252,
     "dep_zkcrypto": 0.25,
     "has_docker": 0.249,
     "lang_go": 0.249,
-    "ln_n_contracts_def": 0.249,
     "lang_typescript": 0.248,
     "lang_c++": 0.248,
     "has_lintfmt": 0.247,
-    "ln_n_rpc": 0.247,
+    "ln_n_extrinsics": 0.246,
+    "ln_n_rpc": 0.246,
     "has_contracts": 0.244,
+    "ln_n_contracts_def": 0.244,
     "has_tests": 0.243,
     "lang_rust": 0.241,
     "dep_consensus": 0.238,
-    "ln_n_pallets": 0.238,
-    "ln_n_storage": 0.238,
-    "ln_feature_units": 0.238,
     "onchain_runtime": 0.236,
-    "ln_n_events": 0.234
+    "ln_feature_units": 0.235,
+    "ln_n_storage": 0.228,
+    "ln_n_pallets": 0.227,
+    "ln_n_events": 0.227
   },
   "n": 63,
   "pm_target": "pm_high"

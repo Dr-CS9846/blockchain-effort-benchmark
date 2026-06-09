@@ -32,16 +32,16 @@
       "SA": 0.5000489333705871,
       "PRED25": 0.2698412698412698,
       "PRED30": 0.30158730158730157,
-      "MMRE": 1.1234702816490274,
+      "MMRE": 1.1234702816490276,
       "MdMRE": 0.5219081163548384,
-      "R2_insample": 0.486903460094282
+      "R2_insample": 0.48690346009428187
     },
     "coeffs": {
-      "intercept": -0.1587028206400316,
-      "ln_ksloc": 0.31007758214533243,
-      "lang_typescript": 0.735927200223575,
+      "intercept": -0.15870282064003155,
+      "ln_ksloc": 0.31007758214533254,
+      "lang_typescript": 0.7359272002235747,
       "lang_javascript": 2.386362994688343,
-      "ln_ksloc_all": 0.17996292210344314
+      "ln_ksloc_all": 0.17996292210344317
     }
   },
   "with_team_size": {
@@ -79,20 +79,20 @@
       ]
     ],
     "metrics": {
-      "SA": 0.5208843763305191,
+      "SA": 0.520884376330519,
       "PRED25": 0.25396825396825395,
       "PRED30": 0.31746031746031744,
-      "MMRE": 1.0755198221950149,
-      "MdMRE": 0.499090313568102,
+      "MMRE": 1.075519822195015,
+      "MdMRE": 0.49909031356810174,
       "R2_insample": 0.5235701320709284
     },
     "coeffs": {
-      "intercept": -0.6521136827706449,
-      "ln_ksloc": 0.2883548755694406,
-      "lang_typescript": 0.7443379033724861,
-      "ln_authors": 0.4927783132921742,
-      "lang_javascript": 2.105955747179324,
-      "ln_ksloc_all": 0.14180689403557267
+      "intercept": -0.652113682770645,
+      "ln_ksloc": 0.28835487556944084,
+      "lang_typescript": 0.7443379033724854,
+      "ln_authors": 0.49277831329217486,
+      "lang_javascript": 2.1059557471793227,
+      "ln_ksloc_all": 0.14180689403557245
     }
   },
   "full_prospective": {
@@ -114,10 +114,10 @@
       "dep_frontend",
       "lang_typescript",
       "lang_c++",
-      "lang_rust",
-      "lang_java",
-      "lang_javascript",
       "lang_go",
+      "lang_java",
+      "lang_rust",
+      "lang_javascript",
       "ln_n_pallets",
       "ln_n_extrinsics",
       "ln_n_storage",
@@ -129,12 +129,12 @@
       "ln_feature_units"
     ],
     "metrics": {
-      "SA": 0.13255325969714027,
-      "PRED25": 0.19047619047619047,
-      "PRED30": 0.23809523809523808,
-      "MMRE": 1.4034403536604505,
-      "MdMRE": 0.7107304231060068,
-      "R2_insample": 0.7203749720443833
+      "SA": -0.6045359186745878,
+      "PRED25": 0.25396825396825395,
+      "PRED30": 0.2698412698412698,
+      "MMRE": 2.1190471389619217,
+      "MdMRE": 0.6981487834795841,
+      "R2_insample": 0.6932240343963519
     }
   },
   "univariate_LOOCV_SA": {
@@ -147,28 +147,28 @@
     "dep_frontend": 0.241,
     "has_audit": 0.239,
     "lang_javascript": 0.235,
+    "ln_n_ink_msgs": 0.23,
     "has_contracts": 0.228,
     "has_tests": 0.224,
     "dep_contract": 0.223,
     "has_docs": 0.222,
     "ln_n_sol_funcs": 0.221,
-    "ln_n_extrinsics": 0.219,
     "lang_go": 0.216,
     "onchain_runtime": 0.214,
     "lang_c++": 0.214,
     "lang_java": 0.214,
-    "ln_n_rpc": 0.211,
     "lang_rust": 0.21,
-    "ln_n_ink_msgs": 0.21,
-    "ln_n_pallets": 0.209,
-    "ln_n_storage": 0.208,
+    "ln_feature_units": 0.209,
+    "ln_n_contracts_def": 0.208,
     "dep_zkcrypto": 0.206,
     "has_docker": 0.205,
-    "ln_n_events": 0.205,
     "dep_consensus": 0.203,
-    "ln_feature_units": 0.2,
+    "ln_n_extrinsics": 0.203,
+    "ln_n_storage": 0.203,
+    "ln_n_rpc": 0.202,
+    "ln_n_pallets": 0.201,
     "dep_crosschain": 0.198,
-    "ln_n_contracts_def": 0.184
+    "ln_n_events": 0.198
   },
   "n": 63,
   "pm_target": "pm_mid"

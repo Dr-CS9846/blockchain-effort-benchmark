@@ -34,20 +34,20 @@
       ]
     ],
     "metrics": {
-      "SA": 0.49848889620670955,
+      "SA": 0.4984888962067098,
       "PRED25": 0.23809523809523808,
       "PRED30": 0.30158730158730157,
-      "MMRE": 1.229926748722652,
-      "MdMRE": 0.5195948143618707,
+      "MMRE": 1.2299267487226515,
+      "MdMRE": 0.5195948143618717,
       "R2_insample": 0.4976004666170466
     },
     "coeffs": {
-      "intercept": -1.251878865471332,
-      "ln_ksloc": 0.3086405741602776,
-      "lang_typescript": 0.8514740238352553,
-      "dep_contract": 0.27513530338223374,
-      "lang_javascript": 2.280209319199315,
-      "ln_ksloc_all": 0.16460716873368889
+      "intercept": -1.2518788654713322,
+      "ln_ksloc": 0.3086405741602777,
+      "lang_typescript": 0.8514740238352546,
+      "dep_contract": 0.27513530338223324,
+      "lang_javascript": 2.280209319199314,
+      "ln_ksloc_all": 0.1646071687336893
     }
   },
   "with_team_size": {
@@ -85,20 +85,20 @@
       ]
     ],
     "metrics": {
-      "SA": 0.49848889620670955,
+      "SA": 0.4984888962067098,
       "PRED25": 0.23809523809523808,
       "PRED30": 0.30158730158730157,
-      "MMRE": 1.229926748722652,
-      "MdMRE": 0.5195948143618707,
+      "MMRE": 1.2299267487226515,
+      "MdMRE": 0.5195948143618717,
       "R2_insample": 0.4976004666170466
     },
     "coeffs": {
-      "intercept": -1.251878865471332,
-      "ln_ksloc": 0.3086405741602776,
-      "lang_typescript": 0.8514740238352553,
-      "dep_contract": 0.27513530338223374,
-      "lang_javascript": 2.280209319199315,
-      "ln_ksloc_all": 0.16460716873368889
+      "intercept": -1.2518788654713322,
+      "ln_ksloc": 0.3086405741602777,
+      "lang_typescript": 0.8514740238352546,
+      "dep_contract": 0.27513530338223324,
+      "lang_javascript": 2.280209319199314,
+      "ln_ksloc_all": 0.1646071687336893
     }
   },
   "full_prospective": {
@@ -118,12 +118,12 @@
       "dep_zkcrypto",
       "dep_contract",
       "dep_frontend",
+      "lang_java",
+      "lang_go",
+      "lang_rust",
+      "lang_typescript",
       "lang_c++",
       "lang_javascript",
-      "lang_go",
-      "lang_typescript",
-      "lang_java",
-      "lang_rust",
       "ln_n_pallets",
       "ln_n_extrinsics",
       "ln_n_storage",
@@ -135,12 +135,12 @@
       "ln_feature_units"
     ],
     "metrics": {
-      "SA": -0.007613166325590948,
-      "PRED25": 0.15873015873015872,
-      "PRED30": 0.19047619047619047,
-      "MMRE": 1.4563519454165863,
-      "MdMRE": 0.7707854662994966,
-      "R2_insample": 0.7192959877148639
+      "SA": -1.0568142295712688,
+      "PRED25": 0.19047619047619047,
+      "PRED30": 0.2698412698412698,
+      "MMRE": 2.4274087308292787,
+      "MdMRE": 0.7237329626537814,
+      "R2_insample": 0.7072711267067676
     }
   },
   "univariate_LOOCV_SA": {
@@ -148,33 +148,33 @@
     "ln_ksloc_all": 0.354,
     "ln_authors": 0.266,
     "lang_typescript": 0.26,
+    "ln_n_ink_msgs": 0.246,
     "has_audit": 0.245,
     "has_ci": 0.239,
     "has_lintfmt": 0.238,
     "lang_javascript": 0.237,
     "dep_frontend": 0.234,
     "ln_n_sol_funcs": 0.227,
+    "ln_n_contracts_def": 0.226,
     "has_tests": 0.223,
-    "ln_n_extrinsics": 0.222,
     "has_contracts": 0.22,
     "lang_go": 0.22,
     "has_docs": 0.219,
-    "ln_n_rpc": 0.219,
-    "lang_c++": 0.218,
     "lang_java": 0.218,
+    "lang_c++": 0.218,
     "onchain_runtime": 0.217,
     "lang_rust": 0.215,
-    "ln_n_pallets": 0.215,
     "dep_contract": 0.213,
-    "ln_n_storage": 0.213,
-    "ln_n_events": 0.211,
-    "ln_n_ink_msgs": 0.21,
+    "ln_n_storage": 0.21,
     "has_docker": 0.209,
+    "ln_n_extrinsics": 0.209,
+    "ln_feature_units": 0.209,
     "dep_consensus": 0.208,
+    "ln_n_pallets": 0.208,
     "dep_zkcrypto": 0.207,
-    "ln_feature_units": 0.206,
-    "dep_crosschain": 0.201,
-    "ln_n_contracts_def": 0.19
+    "ln_n_events": 0.205,
+    "ln_n_rpc": 0.204,
+    "dep_crosschain": 0.201
   },
   "n": 63,
   "pm_target": "pm_low"
