@@ -398,3 +398,18 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   competes with ln_ksloc in forward selection.
 - Next: dispatch equivalent-sloc, then re-fit; expect off-chain to tighten (vendored/template JS
   reclassified as adapted at low AAM) with on-chain stable.
+
+## Phase 3.2 — equivalent SLOC computed; finding: reuse is SECOND-ORDER (size already clean)
+- equivalent-sloc workflow run #1 (24m): computed reuse-adjusted equivalent_sloc for 138/153 OK repos.
+- Distribution: adapted_fraction median 0.03 (mean 0.29); equiv/ksloc ratio median 0.99 (mean 0.88).
+  Big discounts only on fork/template-dump repos (ipfs_utilities 95%->0.13x, deeper_network 35%);
+  most of those already removed by the velocity gate.
+- ROOT CAUSE (honest): cloc/measure_repos ALREADY exclude node_modules/vendor/target, so first-order
+  framework reuse was never in ksloc_code. The reuse model's second-order in-tree correction is small
+  for most W3F repos (pallets/libs written from scratch); forked full-nodes correctly show more adapted.
+- => My hypothesis that vendored code inflated OFF-CHAIN size is WRONG. equivalent~=ksloc; the off-chain
+  difficulty is EFFORT-SIGNAL NOISE, not size inflation. Reuse adjustment does not change the fit.
+- Conformance gap #9 CLOSED: canonical equivalent SLOC implemented + verified + computed; wired as
+  ln_equiv_sloc (ksloc fallback where missing) so the model's size IS canonical, ~= ksloc here.
+- Net: on-chain law unchanged & robust (SA 0.75-0.76); off-chain ceiling (SA ~0.55-0.60) is intrinsic
+  effort noise. Next: #24 full 22-driver local calibration on n=102; off-chain treated as noise-bounded.
