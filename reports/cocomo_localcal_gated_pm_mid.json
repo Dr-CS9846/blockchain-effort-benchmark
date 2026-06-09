@@ -1,0 +1,1148 @@
+{
+  "prospective_only": {
+    "selected": [
+      "ln_ksloc",
+      "lang_javascript",
+      "dep_contract",
+      "lang_typescript"
+    ],
+    "trail": [
+      [
+        "<<baseline:mean>>",
+        0.208
+      ],
+      [
+        "ln_ksloc",
+        0.57
+      ],
+      [
+        "lang_javascript",
+        0.576
+      ],
+      [
+        "dep_contract",
+        0.583
+      ],
+      [
+        "lang_typescript",
+        0.593
+      ]
+    ],
+    "metrics": {
+      "SA": 0.5931611863567194,
+      "PRED25": 0.36538461538461536,
+      "PRED30": 0.46153846153846156,
+      "MMRE": 0.681272164762367,
+      "MdMRE": 0.3852977226091632,
+      "R2_insample": 0.6695242539695014
+    },
+    "coeffs": {
+      "intercept": 0.12492867161482671,
+      "ln_ksloc": 0.5038788710825406,
+      "lang_javascript": 2.108058394219645,
+      "dep_contract": 0.27700955919880843,
+      "lang_typescript": 0.3264349656435108
+    }
+  },
+  "with_team_size": {
+    "selected": [
+      "ln_ksloc",
+      "ln_authors",
+      "lang_javascript",
+      "lang_typescript"
+    ],
+    "trail": [
+      [
+        "<<baseline:mean>>",
+        0.208
+      ],
+      [
+        "ln_ksloc",
+        0.57
+      ],
+      [
+        "ln_authors",
+        0.602
+      ],
+      [
+        "lang_javascript",
+        0.615
+      ],
+      [
+        "lang_typescript",
+        0.623
+      ]
+    ],
+    "metrics": {
+      "SA": 0.6229454293114931,
+      "PRED25": 0.3076923076923077,
+      "PRED30": 0.4230769230769231,
+      "MMRE": 0.6328500935201764,
+      "MdMRE": 0.4121020437767169,
+      "R2_insample": 0.7102159772431541
+    },
+    "coeffs": {
+      "intercept": -0.39088427535390113,
+      "ln_ksloc": 0.4633299216839665,
+      "ln_authors": 0.5691390796136816,
+      "lang_javascript": 1.7195931893432421,
+      "lang_typescript": 0.3540424378546397
+    }
+  },
+  "full_prospective": {
+    "selected": [
+      "ln_ksloc",
+      "ln_ksloc_all",
+      "onchain_runtime",
+      "has_contracts",
+      "has_audit",
+      "has_ci",
+      "has_tests",
+      "has_docs",
+      "has_docker",
+      "has_lintfmt",
+      "dep_consensus",
+      "dep_crosschain",
+      "dep_zkcrypto",
+      "dep_contract",
+      "dep_frontend",
+      "lang_c++",
+      "lang_javascript",
+      "lang_typescript",
+      "lang_go",
+      "lang_rust",
+      "ln_n_pallets",
+      "ln_n_extrinsics",
+      "ln_n_storage",
+      "ln_n_events",
+      "ln_n_ink_msgs",
+      "ln_n_contracts_def",
+      "ln_n_rpc",
+      "ln_feature_units"
+    ],
+    "metrics": {
+      "SA": -0.7848190117152718,
+      "PRED25": 0.15384615384615385,
+      "PRED30": 0.23076923076923078,
+      "MMRE": 1.2841780420692843,
+      "MdMRE": 0.4849896223447366,
+      "R2_insample": 0.833533336787312
+    }
+  },
+  "by_archetype": {
+    "group_counts": {
+      "library_tool": 12,
+      "offchain_app": 16,
+      "onchain_pallet": 15,
+      "smart_contract": 9
+    },
+    "groups": {
+      "library_tool": {
+        "n": 12,
+        "selected": [
+          "ln_ksloc",
+          "has_tests",
+          "has_lintfmt"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.157
+          ],
+          [
+            "ln_ksloc",
+            0.44
+          ],
+          [
+            "has_tests",
+            0.5
+          ],
+          [
+            "has_lintfmt",
+            0.525
+          ]
+        ],
+        "metrics": {
+          "SA": 0.5250153099792363,
+          "PRED25": 0.5,
+          "PRED30": 0.5,
+          "MMRE": 0.7291239276021445,
+          "MdMRE": 0.311965533296024,
+          "R2_insample": 0.7747490481122512
+        },
+        "coeffs": {
+          "intercept": 0.627005901432781,
+          "ln_ksloc": 0.3775159970549756,
+          "has_tests": -0.5691524665984126,
+          "has_lintfmt": 1.670051705340012
+        },
+        "size_only_metrics": {
+          "SA": 0.43963284226495614,
+          "PRED25": 0.3333333333333333,
+          "PRED30": 0.3333333333333333,
+          "MMRE": 0.9589796104132756,
+          "MdMRE": 0.6485236958601392,
+          "R2_insample": 0.5525237219949951
+        },
+        "loocv_pred_vs_actual": [
+          [
+            "assemblyscript-scale-codec",
+            1.28,
+            1.63,
+            0.22
+          ],
+          [
+            "c++polkadot-light-client",
+            0.95,
+            0.37,
+            1.58
+          ],
+          [
+            "crossbow",
+            2.01,
+            9.42,
+            0.79
+          ],
+          [
+            "cScale",
+            2.17,
+            1.11,
+            0.96
+          ],
+          [
+            "dapp_wallet_integration_native_mobile_libraries",
+            1.91,
+            3.21,
+            0.41
+          ],
+          [
+            "dauth_network",
+            3.49,
+            3.79,
+            0.08
+          ],
+          [
+            "Deitos_Network",
+            0.71,
+            0.79,
+            0.11
+          ],
+          [
+            "dot-login",
+            1.84,
+            0.42,
+            3.38
+          ],
+          [
+            "dot_marketplace",
+            0.06,
+            0.47,
+            0.88
+          ],
+          [
+            "dotmog",
+            3.97,
+            4.63,
+            0.14
+          ],
+          [
+            "dotnix_followup",
+            2.7,
+            3.26,
+            0.17
+          ],
+          [
+            "Hyperdot",
+            2.17,
+            2.26,
+            0.04
+          ]
+        ]
+      },
+      "offchain_app": {
+        "n": 16,
+        "selected": [
+          "ln_ksloc",
+          "lang_javascript",
+          "lang_typescript"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.195
+          ],
+          [
+            "ln_ksloc",
+            0.551
+          ],
+          [
+            "lang_javascript",
+            0.585
+          ],
+          [
+            "lang_typescript",
+            0.642
+          ]
+        ],
+        "metrics": {
+          "SA": 0.6417930951897854,
+          "PRED25": 0.375,
+          "PRED30": 0.375,
+          "MMRE": 0.5961904672944738,
+          "MdMRE": 0.36972751333590126,
+          "R2_insample": 0.8429640793471458
+        },
+        "coeffs": {
+          "intercept": -0.13719469097068523,
+          "ln_ksloc": 0.6818890697291594,
+          "lang_javascript": 2.3187490401473205,
+          "lang_typescript": 0.4394450595833433
+        },
+        "size_only_metrics": {
+          "SA": 0.5507878047176553,
+          "PRED25": 0.375,
+          "PRED30": 0.5,
+          "MMRE": 0.8565419549290488,
+          "MdMRE": 0.5219817217447411,
+          "R2_insample": 0.5863794857459061
+        },
+        "loocv_pred_vs_actual": [
+          [
+            "Afloat",
+            1.35,
+            1.0,
+            0.35
+          ],
+          [
+            "Aisland-DocSig",
+            1.84,
+            1.74,
+            0.06
+          ],
+          [
+            "bright_tresury",
+            19.89,
+            20.79,
+            0.04
+          ],
+          [
+            "choko-wallet",
+            4.18,
+            5.37,
+            0.22
+          ],
+          [
+            "CoongWallet",
+            7.04,
+            7.74,
+            0.09
+          ],
+          [
+            "cryptolab-staking-reward-collector-front-end",
+            3.27,
+            0.89,
+            2.66
+          ],
+          [
+            "da_comparative_study",
+            1.35,
+            1.11,
+            0.22
+          ],
+          [
+            "datdot",
+            1.18,
+            10.79,
+            0.89
+          ],
+          [
+            "delightfuldot",
+            7.62,
+            6.26,
+            0.22
+          ],
+          [
+            "distributedKeyManagement",
+            5.43,
+            8.16,
+            0.33
+          ],
+          [
+            "dora-factory-multisig",
+            0.24,
+            0.42,
+            0.43
+          ],
+          [
+            "Doter",
+            3.2,
+            5.26,
+            0.39
+          ],
+          [
+            "fractapp",
+            8.51,
+            5.58,
+            0.53
+          ],
+          [
+            "galaxy",
+            1.59,
+            0.63,
+            1.52
+          ],
+          [
+            "gluon",
+            3.26,
+            1.63,
+            1.0
+          ],
+          [
+            "identity_directory",
+            1.19,
+            2.84,
+            0.58
+          ]
+        ]
+      },
+      "onchain_pallet": {
+        "n": 15,
+        "selected": [
+          "ln_ksloc",
+          "has_audit"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.142
+          ],
+          [
+            "ln_ksloc",
+            0.774
+          ],
+          [
+            "has_audit",
+            0.797
+          ]
+        ],
+        "metrics": {
+          "SA": 0.797245403869495,
+          "PRED25": 0.4666666666666667,
+          "PRED30": 0.4666666666666667,
+          "MMRE": 0.5027232112336,
+          "MdMRE": 0.3550164404825922,
+          "R2_insample": 0.7380326753691284
+        },
+        "coeffs": {
+          "intercept": -0.3914574026711217,
+          "ln_ksloc": 0.9165531860208511,
+          "has_audit": 0.12066517668516225
+        },
+        "size_only_metrics": {
+          "SA": 0.7743865207484215,
+          "PRED25": 0.4666666666666667,
+          "PRED30": 0.4666666666666667,
+          "MMRE": 0.5050369521990622,
+          "MdMRE": 0.3532221548332795,
+          "R2_insample": 0.7372993249485629
+        },
+        "loocv_pred_vs_actual": [
+          [
+            "bit_country",
+            13.01,
+            12.95,
+            0.01
+          ],
+          [
+            "calamar",
+            9.3,
+            8.37,
+            0.11
+          ],
+          [
+            "Cere_Turnkey_Private_Blockchain_Network",
+            0.57,
+            2.32,
+            0.75
+          ],
+          [
+            "ces_data_store",
+            1.17,
+            0.37,
+            2.18
+          ],
+          [
+            "CoinFabrik_On_Ink_Integration_Tests",
+            1.7,
+            3.05,
+            0.44
+          ],
+          [
+            "daos",
+            2.74,
+            2.26,
+            0.21
+          ],
+          [
+            "decentralml",
+            2.33,
+            1.53,
+            0.53
+          ],
+          [
+            "delmonicos",
+            2.42,
+            2.37,
+            0.02
+          ],
+          [
+            "Diffy_messenger_st1_ms2",
+            1.33,
+            0.53,
+            1.53
+          ],
+          [
+            "eightfish",
+            2.87,
+            2.68,
+            0.07
+          ],
+          [
+            "fair_squares",
+            10.1,
+            9.89,
+            0.02
+          ],
+          [
+            "fennel-protocol",
+            1.6,
+            1.05,
+            0.52
+          ],
+          [
+            "GenesisDAO",
+            3.56,
+            3.37,
+            0.06
+          ],
+          [
+            "idavoll_network",
+            1.9,
+            2.95,
+            0.36
+          ],
+          [
+            "imbue_network",
+            3.02,
+            1.74,
+            0.74
+          ]
+        ]
+      },
+      "smart_contract": {
+        "n": 9,
+        "selected": [
+          "ln_ksloc",
+          "has_docker",
+          "ln_n_contracts_def"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.1
+          ],
+          [
+            "ln_ksloc",
+            0.424
+          ],
+          [
+            "has_docker",
+            0.838
+          ],
+          [
+            "ln_n_contracts_def",
+            0.849
+          ]
+        ],
+        "metrics": {
+          "SA": 0.8491267733914938,
+          "PRED25": 0.6666666666666666,
+          "PRED30": 0.6666666666666666,
+          "MMRE": 0.2116629876131183,
+          "MdMRE": 0.1233181501540785,
+          "R2_insample": 0.9631841176749738
+        },
+        "coeffs": {
+          "intercept": 0.3265961400334726,
+          "ln_ksloc": 0.8566657567042888,
+          "has_docker": -0.9221378122931092,
+          "ln_n_contracts_def": 0.4027271497542955
+        },
+        "size_only_metrics": {
+          "SA": 0.4243542486598163,
+          "PRED25": 0.2222222222222222,
+          "PRED30": 0.3333333333333333,
+          "MMRE": 0.5659279167351939,
+          "MdMRE": 0.500030943504795,
+          "R2_insample": 0.6786171443203208
+        },
+        "loocv_pred_vs_actual": [
+          [
+            "ArtZero_InkWhale",
+            11.69,
+            11.37,
+            0.03
+          ],
+          [
+            "candle_auction_ink",
+            1.26,
+            1.53,
+            0.17
+          ],
+          [
+            "Contract_wizard",
+            5.64,
+            5.16,
+            0.09
+          ],
+          [
+            "Dante_Network",
+            4.57,
+            3.0,
+            0.52
+          ],
+          [
+            "DAOsign",
+            1.32,
+            0.84,
+            0.57
+          ],
+          [
+            "dotflow",
+            1.11,
+            1.16,
+            0.04
+          ],
+          [
+            "DotPay",
+            1.56,
+            2.26,
+            0.31
+          ],
+          [
+            "epirus_substrate-phase2",
+            6.0,
+            6.26,
+            0.04
+          ],
+          [
+            "halva_bootstrapping",
+            2.42,
+            2.16,
+            0.12
+          ]
+        ]
+      }
+    }
+  },
+  "by_archetype_2group": {
+    "group_counts": {
+      "offchain": 28,
+      "onchain": 24
+    },
+    "groups": {
+      "offchain": {
+        "n": 28,
+        "selected": [
+          "ln_ksloc",
+          "lang_typescript",
+          "lang_javascript"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.195
+          ],
+          [
+            "ln_ksloc",
+            0.519
+          ],
+          [
+            "lang_typescript",
+            0.554
+          ],
+          [
+            "lang_javascript",
+            0.568
+          ]
+        ],
+        "metrics": {
+          "SA": 0.5682720139298124,
+          "PRED25": 0.2857142857142857,
+          "PRED30": 0.32142857142857145,
+          "MMRE": 0.7827314435772964,
+          "MdMRE": 0.4737514517958709,
+          "R2_insample": 0.6909223685267579
+        },
+        "coeffs": {
+          "intercept": 0.26093335151073466,
+          "ln_ksloc": 0.4628115168799096,
+          "lang_typescript": 0.44834216057765097,
+          "lang_javascript": 1.9839193580264551
+        },
+        "size_only_metrics": {
+          "SA": 0.5189686710518586,
+          "PRED25": 0.2857142857142857,
+          "PRED30": 0.2857142857142857,
+          "MMRE": 0.9447870241031253,
+          "MdMRE": 0.6156337863439681,
+          "R2_insample": 0.5628427530573055
+        },
+        "loocv_pred_vs_actual": [
+          [
+            "Afloat",
+            1.99,
+            1.0,
+            0.99
+          ],
+          [
+            "Aisland-DocSig",
+            2.47,
+            1.74,
+            0.42
+          ],
+          [
+            "assemblyscript-scale-codec",
+            3.12,
+            1.63,
+            0.91
+          ],
+          [
+            "bright_tresury",
+            12.81,
+            20.79,
+            0.38
+          ],
+          [
+            "choko-wallet",
+            4.98,
+            5.37,
+            0.07
+          ],
+          [
+            "CoongWallet",
+            6.89,
+            7.74,
+            0.11
+          ],
+          [
+            "c++polkadot-light-client",
+            1.03,
+            0.37,
+            1.81
+          ],
+          [
+            "crossbow",
+            2.62,
+            9.42,
+            0.72
+          ],
+          [
+            "cryptolab-staking-reward-collector-front-end",
+            4.13,
+            0.89,
+            3.61
+          ],
+          [
+            "cScale",
+            3.02,
+            1.11,
+            1.73
+          ],
+          [
+            "da_comparative_study",
+            2.0,
+            1.11,
+            0.81
+          ],
+          [
+            "dapp_wallet_integration_native_mobile_libraries",
+            3.26,
+            3.21,
+            0.02
+          ],
+          [
+            "datdot",
+            1.8,
+            10.79,
+            0.83
+          ],
+          [
+            "dauth_network",
+            3.03,
+            3.79,
+            0.2
+          ],
+          [
+            "Deitos_Network",
+            0.87,
+            0.79,
+            0.11
+          ],
+          [
+            "delightfuldot",
+            7.32,
+            6.26,
+            0.17
+          ],
+          [
+            "distributedKeyManagement",
+            5.81,
+            8.16,
+            0.29
+          ],
+          [
+            "dora-factory-multisig",
+            0.79,
+            0.42,
+            0.87
+          ],
+          [
+            "Doter",
+            3.64,
+            5.26,
+            0.31
+          ],
+          [
+            "dot-login",
+            1.06,
+            0.42,
+            1.52
+          ],
+          [
+            "dot_marketplace",
+            0.03,
+            0.47,
+            0.93
+          ],
+          [
+            "dotmog",
+            3.67,
+            4.63,
+            0.21
+          ],
+          [
+            "dotnix_followup",
+            2.25,
+            3.26,
+            0.31
+          ],
+          [
+            "fractapp",
+            6.33,
+            5.58,
+            0.14
+          ],
+          [
+            "galaxy",
+            2.18,
+            0.63,
+            2.44
+          ],
+          [
+            "gluon",
+            3.54,
+            1.63,
+            1.17
+          ],
+          [
+            "Hyperdot",
+            3.45,
+            2.26,
+            0.52
+          ],
+          [
+            "identity_directory",
+            1.93,
+            2.84,
+            0.32
+          ]
+        ]
+      },
+      "onchain": {
+        "n": 24,
+        "selected": [
+          "ln_ksloc",
+          "ln_n_ink_msgs"
+        ],
+        "trail": [
+          [
+            "<<baseline:mean>>",
+            0.176
+          ],
+          [
+            "ln_ksloc",
+            0.629
+          ],
+          [
+            "ln_n_ink_msgs",
+            0.694
+          ]
+        ],
+        "metrics": {
+          "SA": 0.6940412243249923,
+          "PRED25": 0.4166666666666667,
+          "PRED30": 0.4583333333333333,
+          "MMRE": 0.5083574890962126,
+          "MdMRE": 0.370077797860183,
+          "R2_insample": 0.7311636365580363
+        },
+        "coeffs": {
+          "intercept": -0.19784243126438059,
+          "ln_ksloc": 0.7392966521894274,
+          "ln_n_ink_msgs": 0.15194696088754134
+        },
+        "size_only_metrics": {
+          "SA": 0.6286380062555159,
+          "PRED25": 0.4166666666666667,
+          "PRED30": 0.4583333333333333,
+          "MMRE": 0.6008050251715115,
+          "MdMRE": 0.413545176721545,
+          "R2_insample": 0.6579417067658806
+        },
+        "loocv_pred_vs_actual": [
+          [
+            "ArtZero_InkWhale",
+            12.16,
+            11.37,
+            0.07
+          ],
+          [
+            "bit_country",
+            13.68,
+            12.95,
+            0.06
+          ],
+          [
+            "calamar",
+            6.52,
+            8.37,
+            0.22
+          ],
+          [
+            "candle_auction_ink",
+            0.87,
+            1.53,
+            0.43
+          ],
+          [
+            "Cere_Turnkey_Private_Blockchain_Network",
+            0.85,
+            2.32,
+            0.63
+          ],
+          [
+            "ces_data_store",
+            1.24,
+            0.37,
+            2.37
+          ],
+          [
+            "CoinFabrik_On_Ink_Integration_Tests",
+            3.33,
+            3.05,
+            0.09
+          ],
+          [
+            "Contract_wizard",
+            10.31,
+            5.16,
+            1.0
+          ],
+          [
+            "Dante_Network",
+            1.64,
+            3.0,
+            0.45
+          ],
+          [
+            "daos",
+            2.55,
+            2.26,
+            0.13
+          ],
+          [
+            "DAOsign",
+            1.92,
+            0.84,
+            1.28
+          ],
+          [
+            "decentralml",
+            2.25,
+            1.53,
+            0.47
+          ],
+          [
+            "delmonicos",
+            2.31,
+            2.37,
+            0.02
+          ],
+          [
+            "Diffy_messenger_st1_ms2",
+            1.42,
+            0.53,
+            1.69
+          ],
+          [
+            "dotflow",
+            2.01,
+            1.16,
+            0.74
+          ],
+          [
+            "DotPay",
+            2.48,
+            2.26,
+            0.1
+          ],
+          [
+            "eightfish",
+            2.65,
+            2.68,
+            0.01
+          ],
+          [
+            "epirus_substrate-phase2",
+            7.3,
+            6.26,
+            0.17
+          ],
+          [
+            "fair_squares",
+            6.99,
+            9.89,
+            0.29
+          ],
+          [
+            "fennel-protocol",
+            1.66,
+            1.05,
+            0.58
+          ],
+          [
+            "GenesisDAO",
+            3.14,
+            3.37,
+            0.07
+          ],
+          [
+            "halva_bootstrapping",
+            1.32,
+            2.16,
+            0.39
+          ],
+          [
+            "idavoll_network",
+            1.91,
+            2.95,
+            0.35
+          ],
+          [
+            "imbue_network",
+            2.77,
+            1.74,
+            0.6
+          ]
+        ]
+      }
+    }
+  },
+  "univariate_LOOCV_SA": {
+    "ln_ksloc": 0.57,
+    "ln_ksloc_all": 0.387,
+    "ln_authors": 0.308,
+    "dep_frontend": 0.278,
+    "lang_typescript": 0.268,
+    "has_ci": 0.253,
+    "has_lintfmt": 0.244,
+    "has_audit": 0.233,
+    "lang_javascript": 0.23,
+    "has_tests": 0.226,
+    "dep_contract": 0.215,
+    "lang_rust": 0.21,
+    "lang_c++": 0.207,
+    "lang_go": 0.207,
+    "ln_n_rpc": 0.206,
+    "has_docs": 0.201,
+    "has_docker": 0.201,
+    "ln_n_extrinsics": 0.198,
+    "ln_n_ink_msgs": 0.198,
+    "has_contracts": 0.197,
+    "dep_consensus": 0.194,
+    "onchain_runtime": 0.193,
+    "ln_n_contracts_def": 0.192,
+    "ln_n_events": 0.188,
+    "dep_crosschain": 0.187,
+    "ln_n_pallets": 0.186,
+    "ln_n_storage": 0.186,
+    "ln_feature_units": 0.185,
+    "dep_zkcrypto": 0.183
+  },
+  "n": 52,
+  "pm_target": "pm_mid",
+  "effort_quality_gate": {
+    "max_loc_per_active_day": 200.0,
+    "excluded": [
+      [
+        "ajuna",
+        305.0
+      ],
+      [
+        "ares_protocol",
+        920.0
+      ],
+      [
+        "CESS",
+        631.0
+      ],
+      [
+        "clover_january21",
+        302.0
+      ],
+      [
+        "dot_marketplace-Phase3",
+        479.0
+      ],
+      [
+        "dot_marketplace_v2",
+        845.0
+      ],
+      [
+        "ElasticLabs_PolakdotAgentKit",
+        965.0
+      ],
+      [
+        "FIAT-on-off-ramp",
+        213.0
+      ],
+      [
+        "grant_management_webapp",
+        371.0
+      ],
+      [
+        "hamster-millestone",
+        285.0
+      ],
+      [
+        "hybrid-node-research",
+        548.0
+      ],
+      [
+        "ink-analyzer-phase",
+        290.0
+      ]
+    ]
+  }
+}
