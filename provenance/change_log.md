@@ -459,3 +459,17 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   (removes implausible windows, keeps legit long grants). Local test: equiv-size-only SA 0.564->0.594,
   MMRE 69%->63% just by removing the extreme tail. Parallel hygiene to the velocity gate (time axis).
 - equivalent SLOC (gap #9) COMPLETE: implemented, verified, top predictor, selected.
+
+## Phase 3.6 — duration gate lands; UNIFIED model (n=133): on-chain 0.755 / off-chain 0.645
+- Duration gate (<=18mo) removed 8 whole-project windows (datdot 22.8, lip_payments 23, parachain_staking
+  21.4, openbrush 19.6, subauction 18.8, Webb_Mixer 20, dotnix_followup 21.9, php-scale-lib 18.3).
+- Gated n=133 (velocity<=200 + duration<=18). Per-archetype LOOCV SA / PRED30:
+    2-group onchain n58: 0.755 / 60% ; onchain_pallet n37: 0.753 / 65% ; smart_contract n21: 0.766 / 48%
+    2-group offchain n75: 0.645 / 40% ; offchain_app n37: 0.622 / 43% ; library_tool n38: 0.590 / 39%
+- Off-chain 0.51 -> 0.645 via stacked legitimate levers (equiv size + n_exports off-chain functional size
+  + milestones + team), all SELECTED. Both halves now share ONE model form:
+  ln_equiv_sloc + ln_authors + functional-size + milestones. ln_equiv_sloc top predictor (0.587).
+- Remaining off-chain gap (~0.11) is symmetric small-grant sparsity (galaxy 0.63PM/12 active-days,
+  queryWeb3 0.53PM) — near-irreducible measured-activity noise, not contamination.
+- All canonical pieces in place: verified tables, equivalent SLOC (gap #9), local calibration, two-axis
+  effort-quality gates (velocity+duration), per-archetype stratification. Last: #24 full-driver calibration.
