@@ -208,7 +208,8 @@ def run(y, feats, prosp, label, cand):
     out["full_prospective"]=dict(selected=prospective,
                                  metrics=loocv(y, np.column_stack([feats[k] for k in prospective])))
     ids=[t[0].get("project_id","") for t in cand]
-    out["by_archetype"]=stratified(y, feats, prosp, cand, label, keyfn=archetype_of, cap=3)
+    out["by_archetype"]=stratified(y, feats, prosp, cand, label, keyfn=archetype_of, cap=3,
+                                   with_preds=True, ids=ids)
     out["by_archetype_2group"]=stratified(y, feats, prosp, cand, label, keyfn=coarse_of,
                                           cap=4, with_preds=True, ids=ids)
     out["univariate_LOOCV_SA"]=dict(sorted(uni.items(), key=lambda kv:-kv[1]))

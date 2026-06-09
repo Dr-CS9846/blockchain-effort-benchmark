@@ -70,7 +70,7 @@ jobs:
               --meas data/calibration/measurements_census.csv \
               --attr data/calibration/repo_attributes.csv \
               --out  reports/cocomo_localcal_gated_${PM}.json \
-              --pm ${PM} --maxlocday 250 || echo "localcal gated ${PM} skipped"
+              --pm ${PM} --maxlocday 200 || echo "localcal gated ${PM} skipped"
           done
           echo "=== local-calibration headline (pm_mid) ==="; cat reports/cocomo_localcal_pm_mid.json 2>/dev/null || true
           cp -f reports/cocomo_analysis_pm_mid.json reports/cocomo_analysis.json 2>/dev/null || true
