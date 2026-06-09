@@ -368,3 +368,18 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   (12) schedule/TDEV out of scope (effort-only, stated);
   blockchain-EM identifiability to be re-tested on expanded set.
 - Next: W3F-only data expansion (n>=100), then canonical size model + full-driver calibration.
+
+## Phase 3 — W3F EXPANSION: measured 63 -> 190; gated n=102; on-chain law robust
+- Root cause of small n found: measure-census left 171 candidates PENDING (batch default 'planned').
+  Ran measure-census subset=all max=300 -> 173 OK measured; reliable+plausible+dedup n=190 (size-effort).
+- Re-probed attributes+FS (force) for full set; cocomo_localcal gated(200) now n=102 (39 import/dump
+  repos excluded incl ipfs_utilities 9080, Solang_Playground 5009, MangoBOX 3032 LOC/active-day).
+- 4-way gated (size-anchored): onchain_pallet n27 SA0.76 (size-only 0.66, exp 0.69) PRED30 56%;
+  smart_contract n16 SA0.83 PRED30 75% (size-only 0.54 — flag-driven, report conservative);
+  offchain_app n28 SA0.60 PRED30 43%; library_tool n31 SA0.52 PRED30 39%.
+- 2-group gated: onchain n43 SA0.75 size-only 0.68 exp 0.79 (ln_n_ink_msgs SELECTED, +0.07 SA =
+  functional size earns place at scale); offchain n59 SA0.60 size-only 0.55.
+- On-chain per-repo PM=PM at scale: openbrush 16.2/16.4, calamar 8.55/8.37, parachain_staking 23.7/25.1,
+  fair_squares 9.37/9.89, CoinFabrik 2.98/3.05, ocelloids 2.77/2.68.
+- Frontier: off-chain SA 0.52-0.60 (vendored JS/TS likely inflating KSLOC) -> motivates canonical
+  reuse-adjusted equivalent SLOC (#23) then full 22-driver local calibration (#24, now feasible at n=102).
