@@ -66,6 +66,11 @@ jobs:
               --attr data/calibration/repo_attributes.csv \
               --out  reports/cocomo_localcal_${PM}.json \
               --pm ${PM} || echo "localcal ${PM} skipped"
+            python scripts/validate/cocomo_localcal.py \
+              --meas data/calibration/measurements_census.csv \
+              --attr data/calibration/repo_attributes.csv \
+              --out  reports/cocomo_localcal_gated_${PM}.json \
+              --pm ${PM} --maxlocday 250 || echo "localcal gated ${PM} skipped"
           done
           echo "=== local-calibration headline (pm_mid) ==="; cat reports/cocomo_localcal_pm_mid.json 2>/dev/null || true
           cp -f reports/cocomo_analysis_pm_mid.json reports/cocomo_analysis.json 2>/dev/null || true
@@ -81,12 +86,13 @@ jobs:
           cp -f data/calibration/cocomo_synth*.csv   /tmp/pub/data/ 2>/dev/null || true
           cp -f reports/cocomo_analysis*.json        /tmp/pub/reports/ 2>/dev/null || true
           cp -f reports/cocomo_localcal*.json        /tmp/pub/reports/ 2>/dev/null || true
+          cp -f reports/cocomo_localcal_gated*.json  /tmp/pub/reports/ 2>/dev/null || true
           git fetch origin census
           git checkout -f -B census origin/census
           mkdir -p data/calibration reports
           cp -f /tmp/pub/data/*.csv     data/calibration/ 2>/dev/null || true
           cp -f /tmp/pub/reports/*.json reports/          2>/dev/null || true
-          git add data/calibration/repo_attributes.csv data/calibration/cocomo_synth*.csv reports/cocomo_analysis*.json reports/cocomo_localcal*.json
+          git add data/calibration/repo_attributes.csv data/calibration/cocomo_synth*.csv reports/cocomo_analysis*.json reports/cocomo_localcal*.json reports/cocomo_localcal_gated*.json
           if git diff --cached --quiet; then
             echo "No changes."
           else

@@ -40,9 +40,13 @@ def primary_lang(top_langs):
     lang = max(d, key=lambda k: d[k]).lower()
     return lang if lang in PRIMARY_LANGS else "other"
 
-def load(meas_csv, attr_csv, pm_col):
+def load(meas_csv, attr_csv, pm_col, max_loc_per_active_day=0.0):
+    """max_loc_per_active_day>0 applies an EFFORT-QUALITY gate: drop repos whose delivered
+    LOC per active developer-day exceeds the threshold (history-artifact effort observations:
+    imported/generated code or squashed history — implausible authoring velocity). Grounded
+    in software-productivity literature (delivered code accrues at tens, not hundreds, of LOC/day)."""
     attrs = {r["project_id"]: r for r in csv.DictReader(open(attr_csv, encoding="utf-8"))}
-    cand = []
+    cand = []; excluded = []
     for m in csv.DictReader(open(meas_csv, encoding="utf-8")):
         if m.get("status")!="OK" or m.get("effort_reliable")!="1" or m.get("duration_plausible")!="1":
             continue
@@ -50,6 +54,11 @@ def load(meas_csv, attr_csv, pm_col):
         if not a or a.get("status")!="OK": continue
         pm=_f(m,pm_col); s=_f(m,"ksloc_code")
         if not (pm and pm>0 and s and s>0): continue
+        if max_loc_per_active_day>0:
+            ad=_f(m,"active_dev_days") or 0
+            lpd = s*1000/ad if ad>0 else float("inf")
+            if lpd > max_loc_per_active_day:
+                excluded.append((m["project_id"], round(lpd,0))); continue
         cand.append((m,a,s,pm))
     # dedup by repo (latest delivered)
     best={}
@@ -58,6 +67,7 @@ def load(meas_csv, attr_csv, pm_col):
         key=(m.get("effort_until",""), t[2])
         if k not in best or key>(best[k][0].get("effort_until",""), best[k][2]):
             best[k]=t
+    load.excluded = excluded
     return list(best.values())
 
 def build_features(cand):
@@ -212,11 +222,15 @@ def main():
     ap.add_argument("--attr", default=os.path.join(root,"data/calibration/repo_attributes.csv"))
     ap.add_argument("--out",  default=os.path.join(root,"reports/cocomo_localcal.json"))
     ap.add_argument("--pm", default="pm_mid", choices=["pm_mid","pm_low","pm_high"])
+    ap.add_argument("--maxlocday", type=float, default=0.0,
+                    help="effort-quality gate: drop repos with delivered LOC/active-day above this")
     a=ap.parse_args()
-    cand=load(a.meas,a.attr,a.pm)
+    cand=load(a.meas,a.attr,a.pm,max_loc_per_active_day=a.maxlocday)
     if len(cand)<10: sys.exit(f"only {len(cand)} joined rows")
     y,feats,prosp=build_features(cand)
     res=run(y,feats,prosp,a.pm,cand)
+    res["effort_quality_gate"]=dict(max_loc_per_active_day=a.maxlocday,
+                                    excluded=getattr(load,"excluded",[]))
     os.makedirs(os.path.dirname(a.out),exist_ok=True); json.dump(res,open(a.out,"w"),indent=2)
     p=res["prospective_only"]; t=res["with_team_size"]
     print("="*70); print(f"  LOCAL CALIBRATION  (target={a.pm}, n={res['n']})"); print("="*70)

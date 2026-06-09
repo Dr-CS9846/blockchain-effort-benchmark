@@ -319,3 +319,20 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   and per-repo LOOCV predicted-vs-actual [id, pred, actual, MRE] to expose PM=PM closeness directly.
 - Validated new logic (coarse split, size-only ref, pred_vs_actual) on synthetic fixtures.
 - Emitted as by_archetype_2group in reports/cocomo_localcal_{pm}.json.
+
+## Phase 2g — effort-quality gate (Boehm-style data hygiene) toward PM=PM
+- 2-archetype consolidation TESTED and rejected: pooling pallet+contract (0.62/0.73->0.57) and
+  app+tool (0.59/0.48->0.50) DILUTED accuracy. Finer 4-way split is more faithful; keep it.
+- Per-repo predicted-vs-actual exposed the real ceiling driver: effort-measurement artifacts.
+  Worst misses have implausible authoring velocity (ElasticLabs 965, ares 920, CESS 631,
+  hybrid-node-research 548 delivered LOC/active-day) => git history not capturing true effort
+  (imported/generated code or squashed history). Median across corpus is 84 LOC/active-day.
+- Effort-quality gate (drop LOC/active-day above threshold), pooled SIZE-ONLY effect:
+  none n63 SA0.444 MMRE133%; <=300 n55 SA0.541 MMRE83%; <=250 n53 SA0.563 PRED30 40% MMRE80%.
+  Threshold grounded in productivity literature (delivered code accrues at tens, not hundreds,
+  of LOC/day); sensitivity reported (not p-hacked).
+- Implemented --maxlocday gate in cocomo_localcal.py (records threshold + excluded list); cocomo.yml
+  now emits ungated AND gated(250) reports per pm bracket.
+- Operational target set: PM=PM at Boehm grade == PRED(30) >= 0.70 (Conte/Boehm standard).
+- Two distinct error sources separated: (1) effort artifacts (gate handles), (2) small-n overfit on
+  incidental flags (prefer size-anchored parsimonious models; size_only_metrics reported per group).
