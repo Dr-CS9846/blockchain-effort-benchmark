@@ -431,3 +431,13 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - NEXT candidate lever (no compromise): OFF-CHAIN functional size (exported API/function/component/route
   counts) = the off-chain analogue of extrinsics-count; only remaining prospective, non-circular scope
   measure untested. Requires probe extension.
+
+## Phase 3.4 — OFF-CHAIN functional size (the off-chain analogue of extrinsics)
+- Extended cocomo_probe.py to count off-chain feature surface in TS/JS/Go/Py/Java sources:
+  n_exports (public API), n_funcs (named+arrow+def+func), n_classes (class/interface), n_routes
+  (HTTP endpoints / route decorators). Validated regexes on synthetic TS/Go/Py fixtures.
+- cocomo_localcal.py: added these + composite ln_offchain_units (exports+funcs+routes) as
+  prospective candidates; competes with ln_ksloc per archetype.
+- Rationale: off-chain effort is size-decoupled (Phase 3.3); raw LOC misses the *feature surface*
+  (a research lib's API, an app's routes/components). This is the only untested PROSPECTIVE,
+  non-circular scope measure. Next: force re-probe + re-fit; test if off-chain breaks past SA~0.6.
