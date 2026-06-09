@@ -353,3 +353,18 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - VERDICT: clean PM=PM achievable; on-chain pallet effort follows a Boehm-form size law (SA 0.77).
   Remaining gap to uniform PRED30>=0.70 is statistical power (n=9-16/group) + off-chain effort noise.
 - NEXT (step 1): expand dataset per archetype to stabilise + lift off-chain/smart_contract.
+
+## Phase 2i — COCOMO II conformance audit (maths-security gate before expansion)
+- Added docs/method/cocomoII_conformance_audit.md: element-by-element map of canonical COCOMO II
+  (A,B; 5 SF Table 10; 17 EM Tables 17-34; exponent; size/reuse model; local-calibration procedure;
+  schedule; accuracy standard) to implementation status. Constants/tables VERIFIED EXACT.
+- Honest position recorded: classical FIXED-weight COCOMO II is implemented & run (cocomo_fit.py)
+  and fails on blockchain effort (SA<0) = a finding; PM=PM comes from LOCAL CALIBRATION
+  (cocomo_localcal.py), which is Boehm-prescribed (Ch.4), NOT a deviation. Claims must say
+  "locally-calibrated COCOMO II for blockchain".
+- Conformance GAPS to close before the full classical-sense claim (gated on W3F expansion):
+  (9) reuse-adjusted equivalent SLOC (AAF/SU/AA/UNFM) not yet implemented;
+  (11/5) full 22-driver local calibration needs n>=~100 (Boehm used 161) to avoid overfit;
+  (12) schedule/TDEV out of scope (effort-only, stated);
+  blockchain-EM identifiability to be re-tested on expanded set.
+- Next: W3F-only data expansion (n>=100), then canonical size model + full-driver calibration.
