@@ -34,8 +34,16 @@ def main():
     ap = argparse.ArgumentParser()
     root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     ap.add_argument("--meas", default=os.path.join(root, "data/calibration/measurements_census.csv"))
+    ap.add_argument("--audit", default=os.path.join(root, "reports/census_audit.csv"))
     ap.add_argument("--out",  default=os.path.join(root, "reports/effort_truth.json"))
     a = ap.parse_args()
+
+    # milestone count per project (whole-grant cost/planned span this many delivered milestones)
+    mile = {}
+    if os.path.exists(a.audit):
+        for r in csv.DictReader(open(a.audit, encoding="utf-8")):
+            try: mile[r["project_id"]] = max(1, int(float(r.get("n_delivery_files") or 1)))
+            except (ValueError, TypeError): mile[r["project_id"]] = 1
 
     rows = [r for r in csv.DictReader(open(a.meas, encoding="utf-8")) if r.get("status") == "OK"]
     # dedup by repo (latest delivery)
@@ -62,6 +70,10 @@ def main():
 
     for r in recs:
         r["cost_pm"] = (r["cost"]/(rate_star*PH_PER_PM)) if (rate_star and r["cost"] and r["cost"]>0) else None
+        K = mile.get(r["pid"], 1)
+        r["milestones"] = K
+        # SCOPE-MATCHED economic effort: whole-grant cost spread over its delivered milestones
+        r["cost_pm_permilestone"] = (r["cost_pm"]/K) if r.get("cost_pm") else None
 
     def logpairs(ka, kb):
         xs = [(math.log(r[ka]), math.log(r[kb])) for r in recs
@@ -79,10 +91,13 @@ def main():
         rate_sample_n=len(rate_samples),
         coverage=dict(git_pm=cov("git_pm"), planned_pm=cov("planned_pm"),
                       cost_pm=cov("cost_pm"), cost=cov("cost")),
+        median_milestones_per_grant=round(statistics.median([r["milestones"] for r in recs]),1),
         agreement=dict(
             git_vs_planned=logpairs("git_pm","planned_pm"),
             git_vs_cost   =logpairs("git_pm","cost_pm"),
-            planned_vs_cost=logpairs("planned_pm","cost_pm")),
+            planned_vs_cost=logpairs("planned_pm","cost_pm"),
+            # the clinching test: at the SAME (per-milestone) scope, does git track paid effort?
+            git_vs_cost_PERMILESTONE=logpairs("git_pm","cost_pm_permilestone")),
         note="median_ratio ka/kb. If git_pm systematically < planned/cost, the git proxy "
              "under-counts true labour (Boehm calibrated to reported effort).")
     # proposed reconciled effort: prefer cost_pm (paid labour) where present & sane, else planned, else git
