@@ -9,6 +9,7 @@
     "cost_pm": 302,
     "cost": 302
   },
+  "median_milestones_per_grant": 1.0,
   "agreement": {
     "git_vs_planned": {
       "n": 180,
@@ -24,6 +25,11 @@
       "n": 182,
       "corr_log": 0.069,
       "median_ratio": 1.0
+    },
+    "git_vs_cost_PERMILESTONE": {
+      "n": 283,
+      "corr_log": -0.02,
+      "median_ratio": 0.323
     }
   },
   "note": "median_ratio ka/kb. If git_pm systematically < planned/cost, the git proxy under-counts true labour (Boehm calibrated to reported effort).",
