@@ -1,0 +1,35 @@
+{
+  "n_repos": 370,
+  "person_hours_per_pm": 152.0,
+  "derived_blended_rate_usd_per_hour": 26.3,
+  "rate_sample_n": 182,
+  "coverage": {
+    "git_pm": 342,
+    "planned_pm": 196,
+    "cost_pm": 302,
+    "cost": 302
+  },
+  "agreement": {
+    "git_vs_planned": {
+      "n": 180,
+      "corr_log": 0.125,
+      "median_ratio": 0.289
+    },
+    "git_vs_cost": {
+      "n": 283,
+      "corr_log": -0.02,
+      "median_ratio": 0.323
+    },
+    "planned_vs_cost": {
+      "n": 182,
+      "corr_log": 0.069,
+      "median_ratio": 1.0
+    }
+  },
+  "note": "median_ratio ka/kb. If git_pm systematically < planned/cost, the git proxy under-counts true labour (Boehm calibrated to reported effort).",
+  "reconciled_effort_source_counts": {
+    "cost": 302,
+    "planned": 14,
+    "git": 48
+  }
+}
