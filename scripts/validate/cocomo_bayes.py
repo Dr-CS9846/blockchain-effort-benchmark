@@ -47,7 +47,10 @@ def design(cand, cols, rows, nonconst):
     lnauth  = np.array([math.log(max(L._f(m,"distinct_authors") or 1, 1)) for (m,_a,_S,_pm) in cand])
     fsize   = np.array([math.log1p(sum(max(L._f(a,k) or 0, 0) for k in
                         ("n_extrinsics","n_ink_msgs","n_sol_funcs","n_exports","n_funcs"))) for (_m,a,_S,_pm) in cand])
-    for nm, c in (("onchain", onchain), ("ln_authors", lnauth), ("ln_funcsize", fsize)):
+    # archetype modifies the size EXPONENT (Boehm's scale-factor mechanism) via an interaction term
+    onchain_x_lnS = onchain * lnS
+    for nm, c in (("onchain", onchain), ("onchain_x_lnS", onchain_x_lnS),
+                  ("ln_authors", lnauth), ("ln_funcsize", fsize)):
         if np.std(c) > 1e-9:
             cols_list.append(c); mu_list.append(0.0); names.append(nm)
     return y, np.column_stack(cols_list), np.array(mu_list), names
