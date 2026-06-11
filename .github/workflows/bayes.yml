@@ -43,7 +43,7 @@ jobs:
           git fetch origin census
           git checkout -f -B census origin/census
           mkdir -p reports; cp -f /tmp/b/cocomo_bayes_*.json reports/ 2>/dev/null || true
-          git add reports/cocomo_bayes_*.json
+          git add reports/cocomo_bayes_*.json 2>/dev/null || true
           if git diff --cached --quiet; then echo "no change"; else
             git commit -m "ci: Bayesian calibration (tau sweep) [skip ci]"
             git push --force-with-lease origin census || git push origin census

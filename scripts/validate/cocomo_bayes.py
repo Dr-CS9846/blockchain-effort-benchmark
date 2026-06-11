@@ -40,7 +40,8 @@ def design(cand, cols, rows, nonconst):
     return y, X, mu, names
 
 def bayes_solve(y, X, mu, tau):
-    """Ridge-to-prior posterior. Intercept (lnA) flat (precision 0); other terms shrink to mu·prior."""
+    """Ridge-to-prior posterior. Intercept (lnA) flat (precision 0); other terms shrink to mu·prior.
+    lstsq (least-norm) so τ=0 with any residual collinearity is still well-posed."""
     n, k = X.shape
     Xi = np.column_stack([np.ones(n), X])                 # col0 = intercept (lnA)
     mu_full = np.concatenate([[0.0], mu])
@@ -48,7 +49,7 @@ def bayes_solve(y, X, mu, tau):
     D = np.diag(d)
     A = Xi.T @ Xi + tau*D
     b = Xi.T @ y + tau*D @ mu_full
-    return np.linalg.solve(A, b)
+    return np.linalg.lstsq(A, b, rcond=None)[0]
 
 def loocv(y, X, mu, tau):
     n = len(y); Xi = np.column_stack([np.ones(n), X]); preds = np.zeros(n)
@@ -57,7 +58,7 @@ def loocv(y, X, mu, tau):
         idx = [j for j in range(n) if j != i]
         Ai = Xi[idx].T @ Xi[idx] + tau*D
         bi = Xi[idx].T @ y[idx] + tau*D @ mu_full
-        beta = np.linalg.solve(Ai, bi)
+        beta = np.linalg.lstsq(Ai, bi, rcond=None)[0]
         res = y[idx] - Xi[idx] @ beta; smear = math.exp(np.var(res)/2)
         preds[i] = math.exp(Xi[i] @ beta) * smear
     pm = np.exp(y); mre = np.abs(pm-preds)/pm; mae = np.mean(np.abs(pm-preds))
@@ -79,7 +80,14 @@ def main():
     if n < 10: sys.exit(f"only {n} rows")
     y, q, cols, rows = F.q_and_columns(cand)
     all_mult = F.EM_NAMES + ["BC_BEM","BC_DC","BC_EM_GAS","BC_EM_AUD","BC_EM_MC","BC_EM_REG","BC_EM_NODE"]
-    nonconst = [v for v in all_mult if np.std(cols[v]) > 1e-9]
+    nonconst0 = [v for v in all_mult if np.std(cols[v]) > 1e-9]
+    # drop PROVEN-collinear drivers (BC_EM_AUD=RELY, BC_EM_GAS=TIME, BC_DC=PVOL, etc.) -> identifiable set
+    nonconst = []; dropped = []
+    for v in nonconst0:
+        cv = np.array(cols[v])
+        if any(abs(np.corrcoef(cv, np.array(cols[k]))[0,1]) > 0.999 for k in nonconst):
+            dropped.append(v); continue
+        nonconst.append(v)
     yv, X, mu, names = design(cand, cols, rows, nonconst)
 
     # sweep prior strength tau: 0 = free OLS, large = fixed published model
@@ -94,6 +102,7 @@ def main():
     for nm, b in zip(names, beta[1:]): coeffs[nm] = round(float(b),4)
 
     out = dict(pm_target=a.pm, n=n, B_prior=T.B,
+               drivers_used=nonconst, drivers_dropped_collinear=dropped,
                method="Bayesian ridge-to-prior (Chulani-Boehm-Steece 1999); prior=published COCOMO II",
                tau_sweep=sweep, chosen_tau=best_t,
                calibrated=dict(metrics=sweep[f"tau_{best_t:g}"], A=round(math.exp(float(beta[0])),4),
