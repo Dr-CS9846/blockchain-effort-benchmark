@@ -27,17 +27,30 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import numpy as np
 import cocomo2_tables as T
 import cocomo_fit as F
+import cocomo_localcal as L     # archetype_of, _f, _i
+
+def _onchain(a):
+    return 1.0 if L.archetype_of(a) in ("onchain_pallet", "smart_contract") else 0.0
 
 def design(cand, cols, rows, nonconst):
-    """X (no intercept col; added in solver), y, and prior mean vector for the non-intercept terms."""
+    """Universal COCOMO-Blockchain design. Canonical terms (size exponent, scale-factor sensitivity,
+    standard EMs) carry the PUBLISHED prior (mean 1 / B). Blockchain drivers that earned their place
+    empirically (archetype, team size, functional size) are added with a regularising prior (mean 0)."""
     y   = np.array([math.log(pm) for (_m,_a,_S,pm) in cand])
     lnS = np.array([math.log(S)  for (_m,_a,S,_pm) in cand])
     E   = np.array([E for (_pid,_S,_pm,E,_SF,_EM,_BC) in rows])
-    feat_cols = [lnS, (E - T.B)*lnS] + [np.array(cols[v]) for v in nonconst]
-    X   = np.column_stack(feat_cols)
-    mu  = np.array([T.B, 1.0] + [1.0]*len(nonconst))    # prior = published COCOMO II model
-    names = ["lnS(exponent)", "sf_sensitivity"] + list(nonconst)
-    return y, X, mu, names
+    cols_list = [lnS, (E - T.B)*lnS] + [np.array(cols[v]) for v in nonconst]
+    mu_list   = [T.B, 1.0] + [1.0]*len(nonconst)            # published-model prior
+    names     = ["lnS(exponent)", "sf_sensitivity"] + list(nonconst)
+    # blockchain drivers (prior mean 0 -> shrink to no-effect unless data supports them)
+    onchain = np.array([_onchain(a) for (_m,a,_S,_pm) in cand])
+    lnauth  = np.array([math.log(max(L._f(m,"distinct_authors") or 1, 1)) for (m,_a,_S,_pm) in cand])
+    fsize   = np.array([math.log1p(sum(max(L._f(a,k) or 0, 0) for k in
+                        ("n_extrinsics","n_ink_msgs","n_sol_funcs","n_exports","n_funcs"))) for (_m,a,_S,_pm) in cand])
+    for nm, c in (("onchain", onchain), ("ln_authors", lnauth), ("ln_funcsize", fsize)):
+        if np.std(c) > 1e-9:
+            cols_list.append(c); mu_list.append(0.0); names.append(nm)
+    return y, np.column_stack(cols_list), np.array(mu_list), names
 
 def bayes_solve(y, X, mu, tau):
     """Ridge-to-prior posterior. Intercept (lnA) flat (precision 0); other terms shrink to mu·prior.
