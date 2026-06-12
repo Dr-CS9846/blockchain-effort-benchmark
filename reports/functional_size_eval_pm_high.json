@@ -1,0 +1,288 @@
+{
+  "pm_target": "pm_high",
+  "n": 127,
+  "team_size_coverage": "107/127",
+  "models": {
+    "size_ksloc": {
+      "SA": 0.522,
+      "MMRE": 0.517,
+      "MdMRE": 0.369,
+      "PRED25": 0.3543,
+      "PRED30": 0.4094,
+      "prospective": false
+    },
+    "size_equiv": {
+      "SA": 0.525,
+      "MMRE": 0.5177,
+      "MdMRE": 0.3623,
+      "PRED25": 0.3071,
+      "PRED30": 0.378,
+      "prospective": false
+    },
+    "fs_total": {
+      "SA": 0.2828,
+      "MMRE": 0.8817,
+      "MdMRE": 0.5893,
+      "PRED25": 0.1969,
+      "PRED30": 0.2835,
+      "prospective": true
+    },
+    "fs_groups": {
+      "SA": 0.2821,
+      "MMRE": 0.8733,
+      "MdMRE": 0.5983,
+      "PRED25": 0.2283,
+      "PRED30": 0.2677,
+      "prospective": true
+    },
+    "fs_groups_team": {
+      "SA": 0.2679,
+      "MMRE": 0.881,
+      "MdMRE": 0.6094,
+      "PRED25": 0.2205,
+      "PRED30": 0.2756,
+      "prospective": true
+    },
+    "fs_plus_size": {
+      "SA": 0.5206,
+      "MMRE": 0.5234,
+      "MdMRE": 0.3658,
+      "PRED25": 0.3228,
+      "PRED30": 0.3858,
+      "prospective": false
+    }
+  },
+  "coefficients": {
+    "size_ksloc": [
+      1.6893,
+      0.5144
+    ],
+    "size_equiv": [
+      1.7364,
+      0.4958
+    ],
+    "fs_total": [
+      2.0709,
+      0.0681
+    ],
+    "fs_groups": [
+      2.0425,
+      0.1075,
+      0.0562
+    ],
+    "fs_groups_team": [
+      1.9416,
+      0.1035,
+      0.0571,
+      0.0941
+    ],
+    "fs_plus_size": [
+      1.7596,
+      0.504,
+      -0.0103
+    ]
+  },
+  "best_prospective": {
+    "name": "fs_total",
+    "coefficients_intercept_then_terms": [
+      2.0709,
+      0.0681
+    ],
+    "terms": [
+      "intercept(lnA)",
+      "ln(1+onchain)"
+    ],
+    "A": 7.9316,
+    "metrics": {
+      "SA": 0.2828,
+      "MMRE": 0.8817,
+      "MdMRE": 0.5893,
+      "PRED25": 0.1969,
+      "PRED30": 0.2835,
+      "prospective": true
+    }
+  },
+  "pm_eq_pm_table": [
+    {
+      "project_id": "bright_tresury",
+      "onchain_units": 0,
+      "offchain_units": 3353,
+      "team": 5.0,
+      "pm_actual": 43.0,
+      "pm_pred": 16.91,
+      "abs_pct_err": 60.7
+    },
+    {
+      "project_id": "logion_wallet",
+      "onchain_units": 0,
+      "offchain_units": 2293,
+      "team": 3.0,
+      "pm_actual": 30.0,
+      "pm_pred": 16.82,
+      "abs_pct_err": 43.9
+    },
+    {
+      "project_id": "epirus_substrate-phase2",
+      "onchain_units": 0,
+      "offchain_units": 1197,
+      "team": 1.0,
+      "pm_actual": 19.0,
+      "pm_pred": 16.42,
+      "abs_pct_err": 13.6
+    },
+    {
+      "project_id": "OpenSquare_paid_qa",
+      "onchain_units": 0,
+      "offchain_units": 1144,
+      "team": 5.0,
+      "pm_actual": 23.0,
+      "pm_pred": 16.27,
+      "abs_pct_err": 29.2
+    },
+    {
+      "project_id": "kodadot_atomic_swap_indexer",
+      "onchain_units": 0,
+      "offchain_units": 1101,
+      "team": 2.0,
+      "pm_actual": 29.0,
+      "pm_pred": 16.11,
+      "abs_pct_err": 44.5
+    },
+    {
+      "project_id": "delightfuldot",
+      "onchain_units": 0,
+      "offchain_units": 1048,
+      "team": 2.0,
+      "pm_actual": 11.0,
+      "pm_pred": 16.54,
+      "abs_pct_err": 50.3
+    },
+    {
+      "project_id": "Aisland-DocSig",
+      "onchain_units": 0,
+      "offchain_units": 1037,
+      "team": 2.0,
+      "pm_actual": 7.0,
+      "pm_pred": 16.71,
+      "abs_pct_err": 138.7
+    },
+    {
+      "project_id": "Contract_wizard",
+      "onchain_units": 10,
+      "offchain_units": 1001,
+      "team": 2.0,
+      "pm_actual": 25.0,
+      "pm_pred": 16.1,
+      "abs_pct_err": 35.6
+    },
+    {
+      "project_id": "calamar",
+      "onchain_units": 0,
+      "offchain_units": 992,
+      "team": 4.0,
+      "pm_actual": 30.0,
+      "pm_pred": 15.98,
+      "abs_pct_err": 46.7
+    },
+    {
+      "project_id": "Doter",
+      "onchain_units": 0,
+      "offchain_units": 857,
+      "team": 2.0,
+      "pm_actual": 7.0,
+      "pm_pred": 16.47,
+      "abs_pct_err": 135.3
+    },
+    {
+      "project_id": "fractapp",
+      "onchain_units": 0,
+      "offchain_units": 712,
+      "team": 2.0,
+      "pm_actual": 28.0,
+      "pm_pred": 15.69,
+      "abs_pct_err": 44.0
+    },
+    {
+      "project_id": "CoongWallet",
+      "onchain_units": 0,
+      "offchain_units": 655,
+      "team": 2.0,
+      "pm_actual": 12.0,
+      "pm_pred": 15.96,
+      "abs_pct_err": 33.0
+    },
+    {
+      "project_id": "tellor",
+      "onchain_units": 614,
+      "offchain_units": 0,
+      "team": 4.0,
+      "pm_actual": 11.0,
+      "pm_pred": 15.92,
+      "abs_pct_err": 44.7
+    },
+    {
+      "project_id": "zeeve_larch",
+      "onchain_units": 0,
+      "offchain_units": 604,
+      "team": 3.0,
+      "pm_actual": 21.0,
+      "pm_pred": 15.66,
+      "abs_pct_err": 25.4
+    },
+    {
+      "project_id": "ArtZero_InkWhale",
+      "onchain_units": 167,
+      "offchain_units": 436,
+      "team": 2.0,
+      "pm_actual": 27.0,
+      "pm_pred": 15.55,
+      "abs_pct_err": 42.4
+    },
+    {
+      "project_id": "SEOR-code-less-smart-contract-platform",
+      "onchain_units": 542,
+      "offchain_units": 43,
+      "team": 3.0,
+      "pm_actual": 10.0,
+      "pm_pred": 15.9,
+      "abs_pct_err": 59.0
+    },
+    {
+      "project_id": "distributedKeyManagement",
+      "onchain_units": 0,
+      "offchain_units": 554,
+      "team": 3.0,
+      "pm_actual": 16.0,
+      "pm_pred": 15.68,
+      "abs_pct_err": 2.0
+    },
+    {
+      "project_id": "OpenSquare_offchain_voting",
+      "onchain_units": 0,
+      "offchain_units": 499,
+      "team": 6.0,
+      "pm_actual": 16.0,
+      "pm_pred": 15.57,
+      "abs_pct_err": 2.7
+    },
+    {
+      "project_id": "ocelloids_monitoring_sdk",
+      "onchain_units": 0,
+      "offchain_units": 334,
+      "team": 2.0,
+      "pm_actual": 4.0,
+      "pm_pred": 15.46,
+      "abs_pct_err": 286.4
+    },
+    {
+      "project_id": "ocelloids_xcm_monitoring_service",
+      "onchain_units": 0,
+      "offchain_units": 285,
+      "team": 2.0,
+      "pm_actual": 5.0,
+      "pm_pred": 15.24,
+      "abs_pct_err": 204.8
+    }
+  ],
+  "note": "Prospective models use ONLY design-spec-countable inputs (functional units, documented team size) - no KSLOC, no git author/day counts (leak-free). size_ksloc/size_equiv are retrospective baselines for the head-to-head."
+}
