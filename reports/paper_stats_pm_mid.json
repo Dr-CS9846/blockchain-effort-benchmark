@@ -1,0 +1,206 @@
+{
+  "pm_target": "pm_mid",
+  "n": 127,
+  "descriptive": {
+    "equivalent_ksloc": {
+      "median": 2.81,
+      "q1": 1.611,
+      "q3": 5.678,
+      "min": 0.196,
+      "max": 47.418
+    },
+    "pm": {
+      "median": 2.263,
+      "q1": 1.105,
+      "q3": 4.29,
+      "min": 0.368,
+      "max": 20.79
+    },
+    "duration_months": {
+      "median": 5.06,
+      "q1": 3.15,
+      "q3": 9.59,
+      "min": 0.49,
+      "max": 17.64
+    },
+    "distinct_authors": {
+      "median": 3.0,
+      "q1": 2.0,
+      "q3": 5.0,
+      "min": 2.0,
+      "max": 22.0
+    },
+    "velocity_loc_per_active_day": {
+      "median": 77.95,
+      "q1": 53.166,
+      "q3": 118.18,
+      "min": 17.443,
+      "max": 197.653
+    }
+  },
+  "size_effort_decoupling": {
+    "n": 127,
+    "corr_logksloc_logpm": 0.833,
+    "corr_logequiv_logpm": 0.847,
+    "productivity_pm_per_ksloc": {
+      "min": 0.266,
+      "max": 3.017,
+      "spread_x": 11.3
+    }
+  },
+  "guessing_MAE_reference": 3.262,
+  "models": {
+    "B1_size_only": {
+      "SA": 0.6379,
+      "MAE": 1.181,
+      "MMRE": 0.4929,
+      "MdMRE": 0.3635,
+      "PRED25": 0.4016,
+      "PRED30": 0.4409,
+      "SA_95CI": [
+        0.5507,
+        0.6996
+      ],
+      "effect_size_delta": 8.122,
+      "randomisation_p": 0.0
+    },
+    "B2_ATLM": {
+      "SA": 0.66,
+      "MAE": 1.109,
+      "MMRE": 0.446,
+      "MdMRE": 0.2975,
+      "PRED25": 0.4016,
+      "PRED30": 0.5039,
+      "SA_95CI": [
+        0.571,
+        0.7248
+      ],
+      "effect_size_delta": 8.563,
+      "randomisation_p": 0.0
+    },
+    "fixed_published": {
+      "SA": -0.1416,
+      "MAE": 3.724,
+      "MMRE": 0.8992,
+      "MdMRE": 0.5898,
+      "PRED25": 0.2441,
+      "PRED30": 0.2677,
+      "SA_95CI": [
+        -0.4257,
+        0.102
+      ],
+      "effect_size_delta": -1.81,
+      "randomisation_p": 0.9582
+    },
+    "bayesian_tau_opt": {
+      "SA": 0.6551,
+      "MAE": 1.125,
+      "MMRE": 0.467,
+      "MdMRE": 0.3318,
+      "PRED25": 0.4016,
+      "PRED30": 0.4567,
+      "SA_95CI": [
+        0.5617,
+        0.7192
+      ],
+      "effect_size_delta": 8.537,
+      "randomisation_p": 0.0
+    },
+    "bayesian_nested": {
+      "SA": 0.6349,
+      "MAE": 1.191,
+      "MMRE": 0.4803,
+      "MdMRE": 0.3327,
+      "PRED25": 0.3858,
+      "PRED30": 0.4567,
+      "SA_95CI": [
+        0.5485,
+        0.6968
+      ],
+      "effect_size_delta": 8.307,
+      "randomisation_p": 0.0
+    }
+  },
+  "bayesian": {
+    "drivers_used": [
+      "RELY",
+      "CPLX",
+      "DOCU",
+      "TIME",
+      "PVOL",
+      "TOOL",
+      "BC_EM_MC",
+      "BC_EM_NODE"
+    ],
+    "drivers_dropped_collinear": [
+      "BC_DC",
+      "BC_EM_GAS",
+      "BC_EM_AUD"
+    ],
+    "tau_sweep_SA": {
+      "tau_0": 0.6434,
+      "tau_0.5": 0.6551,
+      "tau_1": 0.6461,
+      "tau_2": 0.6357,
+      "tau_5": 0.6215,
+      "tau_10": 0.6086
+    },
+    "chosen_tau_fulldata": 0.5,
+    "nested_tau_distribution": {
+      "0.0": 11,
+      "1.0": 116
+    }
+  },
+  "model_comparison_vs_size_only": {
+    "wilcoxon": {
+      "B2_ATLM_vs_B1": {
+        "z": -1.343,
+        "p": 0.17939,
+        "a_better": 69,
+        "b_better": 58,
+        "ties": 0
+      },
+      "fixed_published_vs_B1": {
+        "z": -5.748,
+        "p": 0.0,
+        "a_better": 37,
+        "b_better": 90,
+        "ties": 0
+      },
+      "bayesian_tau_opt_vs_B1": {
+        "z": -0.982,
+        "p": 0.32624,
+        "a_better": 71,
+        "b_better": 56,
+        "ties": 0
+      },
+      "bayesian_nested_vs_B1": {
+        "z": -0.414,
+        "p": 0.67897,
+        "a_better": 67,
+        "b_better": 60,
+        "ties": 0
+      }
+    },
+    "benjamini_hochberg": {
+      "fixed_published_vs_B1": {
+        "p": 0.0,
+        "q": 0.0
+      },
+      "B2_ATLM_vs_B1": {
+        "p": 0.17939,
+        "q": 0.35878
+      },
+      "bayesian_tau_opt_vs_B1": {
+        "p": 0.32624,
+        "q": 0.43499
+      },
+      "bayesian_nested_vs_B1": {
+        "p": 0.67897,
+        "q": 0.67897
+      }
+    }
+  },
+  "protocol": "LOOCV, Duan smearing; SA per Shepperd-MacDonell 2012; bootstrap B=2000; effect size \u0394 vs guessing with randomisation p; nested-CV \u03c4; Wilcoxon signed-rank vs size-only baseline with BH correction.",
+  "note": "B1 size-only and B2 ATLM are the mandatory baselines (Whigham 2015). A COCOMO model earns its complexity only if it beats B1/B2 by a meaningful, significant margin."
+}
