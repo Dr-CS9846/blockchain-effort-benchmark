@@ -1,6 +1,12 @@
 {
   "pm_target": "pm_high",
   "n": 127,
+  "gates": {
+    "min_loc_per_active_day": 15.0,
+    "max_loc_per_active_day": 200.0,
+    "max_duration_months": 18.0,
+    "velocity_gate_active": true
+  },
   "descriptive": {
     "equivalent_ksloc": {
       "median": 2.81,
