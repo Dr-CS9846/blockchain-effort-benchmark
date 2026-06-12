@@ -1,0 +1,98 @@
+{
+  "rate_usd_per_hour": 26.0,
+  "models_per_target": {
+    "git_pm": {
+      "n": 325,
+      "size_equiv": {
+        "SA": 0.4526,
+        "MMRE": 4.1938,
+        "MdMRE": 0.8919,
+        "PRED25": 0.1754,
+        "PRED30": 0.2031
+      },
+      "size_ksloc": {
+        "SA": 0.4209,
+        "MMRE": 5.2225,
+        "MdMRE": 0.9779,
+        "PRED25": 0.1477,
+        "PRED30": 0.1938
+      },
+      "fs_total": {
+        "SA": 0.3178,
+        "MMRE": 8.1523,
+        "MdMRE": 1.9065,
+        "PRED25": 0.12,
+        "PRED30": 0.1385
+      },
+      "equiv_plus_fs": {
+        "SA": 0.448,
+        "MMRE": 4.1677,
+        "MdMRE": 0.9024,
+        "PRED25": 0.1723,
+        "PRED30": 0.1969
+      }
+    },
+    "planned_pm": {
+      "n": 184,
+      "size_equiv": {
+        "SA": 0.4761,
+        "MMRE": 2.0773,
+        "MdMRE": 0.9331,
+        "PRED25": 0.163,
+        "PRED30": 0.2065
+      },
+      "size_ksloc": {
+        "SA": 0.4761,
+        "MMRE": 2.0721,
+        "MdMRE": 0.9414,
+        "PRED25": 0.1957,
+        "PRED30": 0.2174
+      },
+      "fs_total": {
+        "SA": 0.4766,
+        "MMRE": 2.1502,
+        "MdMRE": 0.8978,
+        "PRED25": 0.1739,
+        "PRED30": 0.1957
+      },
+      "equiv_plus_fs": {
+        "SA": 0.4758,
+        "MMRE": 2.0834,
+        "MdMRE": 0.9278,
+        "PRED25": 0.163,
+        "PRED30": 0.2174
+      }
+    },
+    "cost_pm": {
+      "n": 282,
+      "size_equiv": {
+        "SA": -35.6306,
+        "MMRE": 44872.4839,
+        "MdMRE": 35.4847,
+        "PRED25": 0.0,
+        "PRED30": 0.0
+      },
+      "size_ksloc": {
+        "SA": -35.6322,
+        "MMRE": 48674.7754,
+        "MdMRE": 33.8951,
+        "PRED25": 0.0,
+        "PRED30": 0.0
+      },
+      "fs_total": {
+        "SA": -35.5127,
+        "MMRE": 32344.9601,
+        "MdMRE": 33.4466,
+        "PRED25": 0.0,
+        "PRED30": 0.0
+      },
+      "equiv_plus_fs": {
+        "SA": -35.6093,
+        "MMRE": 33843.1538,
+        "MdMRE": 33.2352,
+        "PRED25": 0.0,
+        "PRED30": 0.0
+      }
+    }
+  }
+}
