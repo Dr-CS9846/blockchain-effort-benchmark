@@ -1,0 +1,43 @@
+name: documented-effort
+
+# PM-First Rebuild, Step 4: mine DOCUMENTED effort (team size, per-milestone duration/FTE,
+# and explicit person-month/week/day/hour statements) from the W3F grant applications and
+# milestone-delivery texts - an authentic, public effort anchor independent of git. Clones the
+# W3F repos directly (no census restore needed). Publishes data/calibration/documented_effort.csv
+# to the NON-authoritative 'census' branch.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  documented:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Mine documented effort from W3F applications + deliveries
+        run: |
+          mkdir -p data/calibration
+          python scripts/extract/documented_effort.py \
+            --cache resolve_cache \
+            --out  data/calibration/documented_effort.csv
+          echo "=== head ==="; head -c 2500 data/calibration/documented_effort.csv || true
+      - name: Publish documented_effort.csv to 'census'
+        run: |
+          git config user.name  "documented-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/documented_effort.csv /tmp/documented_effort.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/documented_effort.csv data/calibration/documented_effort.csv
+          git add data/calibration/documented_effort.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: documented-effort mine (team size, milestones, explicit PM) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
