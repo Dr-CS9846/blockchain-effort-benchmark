@@ -32,25 +32,42 @@ import cocomo_localcal as L     # archetype_of, _f, _i
 def _onchain(a):
     return 1.0 if L.archetype_of(a) in ("onchain_pallet", "smart_contract") else 0.0
 
-def design(cand, cols, rows, nonconst):
+# Extra (non-Boehm) drivers, partitioned by whether they are admissible in a *prospective* estimator.
+#   PROSPECTIVE_EXTRA  — knowable before the build starts (archetype is a design decision), so they
+#                        may enter a forecasting model without leaking the target.
+#   LEAKING_EXTRA      — ln_authors and ln_funcsize are measured FROM the delivered repository. PM_mid
+#                        is defined as active-developer-days / 19, which is mechanically driven by how
+#                        many people committed; regressing PM on ln(authors) therefore partially
+#                        predicts the target from a constituent of its own construction (target leak),
+#                        and neither count is knowable before the build (breaks prospectivity, target #4).
+# Default design is leakage-free. Pass extra=DEFAULT_EXTRA+LEAKING_EXTRA to reproduce the legacy model
+# and quantify the leakage contribution to SA.
+PROSPECTIVE_EXTRA = ("onchain", "onchain_x_lnS")
+LEAKING_EXTRA     = ("ln_authors", "ln_funcsize")
+DEFAULT_EXTRA     = PROSPECTIVE_EXTRA
+
+def design(cand, cols, rows, nonconst, extra=DEFAULT_EXTRA):
     """Universal COCOMO-Blockchain design. Canonical terms (size exponent, scale-factor sensitivity,
-    standard EMs) carry the PUBLISHED prior (mean 1 / B). Blockchain drivers that earned their place
-    empirically (archetype, team size, functional size) are added with a regularising prior (mean 0)."""
+    standard EMs) carry the PUBLISHED prior (mean 1 / B). Extra blockchain drivers are added with a
+    regularising prior (mean 0); which extras are admitted is controlled by `extra` (see notes above —
+    ln_authors / ln_funcsize are EXCLUDED by default as target-leaking / non-prospective)."""
     y   = np.array([math.log(pm) for (_m,_a,_S,pm) in cand])
     lnS = np.array([math.log(S)  for (_m,_a,S,_pm) in cand])
     E   = np.array([E for (_pid,_S,_pm,E,_SF,_EM,_BC) in rows])
     cols_list = [lnS, (E - T.B)*lnS] + [np.array(cols[v]) for v in nonconst]
     mu_list   = [T.B, 1.0] + [1.0]*len(nonconst)            # published-model prior
     names     = ["lnS(exponent)", "sf_sensitivity"] + list(nonconst)
-    # blockchain drivers (prior mean 0 -> shrink to no-effect unless data supports them)
+    # candidate extra drivers (prior mean 0 -> shrink to no-effect unless data supports them)
     onchain = np.array([_onchain(a) for (_m,a,_S,_pm) in cand])
     lnauth  = np.array([math.log(max(L._f(m,"distinct_authors") or 1, 1)) for (m,_a,_S,_pm) in cand])
     fsize   = np.array([math.log1p(sum(max(L._f(a,k) or 0, 0) for k in
                         ("n_extrinsics","n_ink_msgs","n_sol_funcs","n_exports","n_funcs"))) for (_m,a,_S,_pm) in cand])
     # archetype modifies the size EXPONENT (Boehm's scale-factor mechanism) via an interaction term
     onchain_x_lnS = onchain * lnS
-    for nm, c in (("onchain", onchain), ("onchain_x_lnS", onchain_x_lnS),
-                  ("ln_authors", lnauth), ("ln_funcsize", fsize)):
+    candidates = {"onchain": onchain, "onchain_x_lnS": onchain_x_lnS,
+                  "ln_authors": lnauth, "ln_funcsize": fsize}
+    for nm in extra:
+        c = candidates[nm]
         if np.std(c) > 1e-9:
             cols_list.append(c); mu_list.append(0.0); names.append(nm)
     return y, np.column_stack(cols_list), np.array(mu_list), names
@@ -104,7 +121,7 @@ def main():
         if any(abs(np.corrcoef(cv, np.array(cols[k]))[0,1]) > 0.999 for k in nonconst):
             dropped.append(v); continue
         nonconst.append(v)
-    yv, X, mu, names = design(cand, cols, rows, nonconst)
+    yv, X, mu, names = design(cand, cols, rows, nonconst)   # leakage-free (default extras)
 
     # sweep prior strength tau: 0 = free OLS, large = fixed published model
     taus = [0.0, 0.5, 1.0, 2.0, 5.0, 10.0, 25.0, 100.0, 1e6]
@@ -113,13 +130,27 @@ def main():
         sweep[f"tau_{t:g}"] = loocv(yv, X, mu, t)
     # choose the LOOCV-optimal tau (best out-of-sample SA) as the calibrated model
     best_t = max(taus, key=lambda t: sweep[f"tau_{t:g}"]["SA"])
+
+    # leakage audit: re-fit WITH the excluded ln_authors/ln_funcsize at the same tau, so the SA
+    # attributable to target leakage is explicit and reported, not hidden.
+    yv_l, X_l, mu_l, _ = design(cand, cols, rows, nonconst, extra=PROSPECTIVE_EXTRA + LEAKING_EXTRA)
+    legacy_best = max(taus, key=lambda t: loocv(yv_l, X_l, mu_l, t)["SA"])
+    legacy_metrics = loocv(yv_l, X_l, mu_l, legacy_best)
+    leakage_audit = dict(
+        extra_drivers_used=list(DEFAULT_EXTRA),
+        excluded_leaking=list(LEAKING_EXTRA),
+        leakage_free_SA=round(sweep[f"tau_{best_t:g}"]["SA"], 4),
+        legacy_with_leak_SA=round(legacy_metrics["SA"], 4),
+        leakage_delta_SA=round(legacy_metrics["SA"] - sweep[f"tau_{best_t:g}"]["SA"], 4))
     beta = bayes_solve(yv, X, mu, best_t)
     coeffs = dict(intercept_lnA=round(float(beta[0]),4))
     for nm, b in zip(names, beta[1:]): coeffs[nm] = round(float(b),4)
 
     out = dict(pm_target=a.pm, n=n, B_prior=T.B,
                drivers_used=nonconst, drivers_dropped_collinear=dropped,
-               method="Bayesian ridge-to-prior (Chulani-Boehm-Steece 1999); prior=published COCOMO II",
+               extra_drivers_used=list(DEFAULT_EXTRA), leakage_audit=leakage_audit,
+               method="Bayesian ridge-to-prior (Chulani-Boehm-Steece 1999); prior=published COCOMO II; "
+                      "leakage-free (ln_authors/ln_funcsize excluded as target-leaking/non-prospective)",
                tau_sweep=sweep, chosen_tau=best_t,
                calibrated=dict(metrics=sweep[f"tau_{best_t:g}"], A=round(math.exp(float(beta[0])),4),
                                coefficients=coeffs),

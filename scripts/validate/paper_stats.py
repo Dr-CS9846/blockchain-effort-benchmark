@@ -102,6 +102,31 @@ def metrics(actual, pred):
                 MdMRE=round(float(np.median(mre)), 4), PRED25=round(float(np.mean(mre <= .25)), 4),
                 PRED30=round(float(np.mean(mre <= .30)), 4))
 
+def diagnostics(actual, pred, size):
+    """Directional-bias and regression-to-the-mean diagnostics that SA (an MAE ratio) hides.
+      bias_log_median   : median log(pred/actual). >0 over-predicts, <0 under-predicts (multiplicative).
+      mean_signed_error : mean(pred-actual) in PM (sign + magnitude of net bias).
+      resid_vs_fitted   : corr(log-residual, log-fitted). Strongly negative => regression to the mean
+                          (over-predicts small projects, under-predicts large) — a misspecification flag.
+      mdmre_by_size_tertile : MdMRE within small/mid/large equivalent-size thirds, to see where error
+                          concentrates (a single global MdMRE can mask large-project blow-up)."""
+    actual = np.asarray(actual, float); pred = np.asarray(pred, float); size = np.asarray(size, float)
+    la, lp = np.log(actual), np.log(np.clip(pred, 1e-9, None))
+    resid = la - lp                      # log-space residual (actual - fitted)
+    rvf = float(np.corrcoef(resid, lp)[0, 1]) if np.std(resid) > 0 and np.std(lp) > 0 else float("nan")
+    order = np.argsort(size); thirds = np.array_split(order, 3)
+    labels = ["small", "mid", "large"]
+    by_tertile = {}
+    for lab, idx in zip(labels, thirds):
+        mre = np.abs(actual[idx] - pred[idx]) / actual[idx]
+        by_tertile[lab] = dict(n=int(len(idx)),
+                               size_range=[round(float(size[idx].min()), 3), round(float(size[idx].max()), 3)],
+                               MdMRE=round(float(np.median(mre)), 4), PRED30=round(float(np.mean(mre <= .30)), 4))
+    return dict(bias_log_median=round(float(np.median(lp - la)), 4),
+                mean_signed_error=round(float(np.mean(pred - actual)), 4),
+                resid_vs_fitted_corr=round(rvf, 4),
+                mdmre_by_size_tertile=by_tertile)
+
 def bootstrap_sa_ci(actual, pred, B=2000):
     actual = np.asarray(actual); pred = np.asarray(pred); n = len(actual); sas = []
     for _ in range(B):
@@ -202,8 +227,15 @@ def main():
 
     preds = {}
     preds["B1_size_only"] = ols_loocv_preds(y, lnS.reshape(-1, 1))
-    atlm_cols = [lnS, lnauth, fsize] + ([onchain] if np.std(onchain) > 1e-9 else [])
+    # B2 ATLM (Whigham 2015) on PROSPECTIVE features only. ln_authors is a target leak (PM_mid is
+    # active-dev-days/19, mechanically driven by author count) and ln_funcsize is non-prospective
+    # (known only post-build); both are excluded so the baseline cannot borrow strength from the
+    # construction of the target. Archetype (onchain) is a prospective design decision and is kept.
+    atlm_cols = [lnS] + ([onchain] if np.std(onchain) > 1e-9 else [])
     preds["B2_ATLM"] = ols_loocv_preds(y, np.column_stack(atlm_cols))
+    # leakage audit: the legacy ATLM that DID use ln_authors+ln_funcsize, to expose the SA gap.
+    atlm_leaky_cols = [lnS, lnauth, fsize] + ([onchain] if np.std(onchain) > 1e-9 else [])
+    preds["B2_ATLM_leaky"] = ols_loocv_preds(y, np.column_stack(atlm_leaky_cols))
     preds["fixed_published"] = fixed_published_loocv_preds(y, q)
 
     # Bayesian: identifiable design (drop proven-collinear), sweep τ, nested-CV τ
@@ -232,6 +264,7 @@ def main():
         mm["SA_95CI"] = bootstrap_sa_ci(actual, p, a.boot)
         d, pv, mbar, s = effect_vs_guessing(actual, np.mean(np.abs(actual - p)))
         mm["effect_size_delta"] = d; mm["randomisation_p"] = pv
+        mm["diagnostics"] = diagnostics(actual, p, equiv)   # bias / regression-to-mean / by-size
         model_block[name] = mm
     guessing_marp0 = sa_of(actual, actual)[2]   # MAE_p0 reference (for context)
 
@@ -270,8 +303,10 @@ def main():
     print(f"  decoupling: corr(logSize,logPM)={decoupling['corr_logequiv_logpm']}  "
           f"productivity spread {decoupling['productivity_pm_per_ksloc']['spread_x']}x")
     for name, mm in model_block.items():
+        dg = mm["diagnostics"]
         print(f"  {name:>20}: SA {mm['SA']:+.3f} CI{mm['SA_95CI']}  PRED30 {mm['PRED30']*100:3.0f}%  "
-              f"Δ {mm['effect_size_delta']}  p {mm['randomisation_p']}")
+              f"d {mm['effect_size_delta']}  p {mm['randomisation_p']}  "
+              f"resid~fit {dg['resid_vs_fitted_corr']:+.2f}  bias {dg['bias_log_median']:+.2f}")
     print(f"  chosen τ (full-data) = {best_t};  nested τ dist = "
           f"{ {str(t): chosen.count(t) for t in sorted(set(chosen))} }")
     print(f"  vs size-only (BH q): " + ", ".join(f"{k}={v['q']}" for k, v in bh.items()))

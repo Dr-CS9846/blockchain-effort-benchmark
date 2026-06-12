@@ -1,0 +1,49 @@
+name: activity-pm
+
+# PM-First Rebuild, Experiment 1: recompute development effort from the FULL GitHub
+# contribution record (commits + PRs + issues + review comments) over each project's
+# delivery window, and compare against the current commit-only pm_mid. Pure GitHub API
+# (no clone). Restores the window + current pm_mid from 'census', publishes
+# data/calibration/activity_pm.csv back to the NON-authoritative 'census' branch.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  activity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Restore measurements (window + current pm_mid) from 'census'
+        run: |
+          git fetch origin census
+          git checkout origin/census -- data/calibration/measurements_census.csv
+      - name: Mine richer activity signal + recompute PM
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p data/calibration
+          python scripts/extract/activity_pm.py \
+            --meas data/calibration/measurements_census.csv \
+            --out  data/calibration/activity_pm.csv
+          echo "=== head ==="; head -c 2000 data/calibration/activity_pm.csv || true
+      - name: Publish activity_pm.csv to 'census'
+        run: |
+          git config user.name  "activity-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/activity_pm.csv /tmp/activity_pm.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/activity_pm.csv data/calibration/activity_pm.csv
+          git add data/calibration/activity_pm.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: activity-pm experiment 1 (richer effort signal) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
