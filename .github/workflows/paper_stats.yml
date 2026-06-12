@@ -1,0 +1,52 @@
+name: paper-stats
+
+# Referee-grade statistics for the COCOMO-Blockchain papers: descriptive stats, size-effort
+# decoupling refresh, baselines (guessing / size-only / ATLM) vs fixed-published vs Bayesian,
+# bootstrap CIs, standardised effect size + randomisation p, nested-CV tau, paired Wilcoxon + BH.
+# Lightweight: restores census measurements + attributes, no clone. Publishes
+# reports/paper_stats_{pm}.json to the NON-authoritative 'census' branch.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numpy
+        run: python -m pip install --quiet numpy
+      - name: Restore measurements + attributes from 'census'
+        run: |
+          git fetch origin census
+          git checkout origin/census -- data/calibration/measurements_census.csv
+          git checkout origin/census -- data/calibration/repo_attributes.csv
+      - name: Paper statistics (baselines, bootstrap CIs, effect size, nested CV) per PM bracket
+        run: |
+          mkdir -p reports
+          for PM in pm_mid pm_low pm_high; do
+            python scripts/validate/paper_stats.py \
+              --meas data/calibration/measurements_census.csv \
+              --attr data/calibration/repo_attributes.csv \
+              --out  reports/paper_stats_${PM}.json --pm ${PM} || echo "paper_stats ${PM} skipped"
+          done
+          echo "=== headline (pm_mid) ==="; cat reports/paper_stats_pm_mid.json 2>/dev/null || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "stats-bot"
+          git config user.email "actions@users.noreply.github.com"
+          mkdir -p /tmp/s; cp -f reports/paper_stats_*.json /tmp/s/ 2>/dev/null || true
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p reports; cp -f /tmp/s/paper_stats_*.json reports/ 2>/dev/null || true
+          git add reports/paper_stats_*.json 2>/dev/null || true
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: paper statistics (baselines + inference) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
