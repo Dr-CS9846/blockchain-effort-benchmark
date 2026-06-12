@@ -1,0 +1,53 @@
+name: functional-size-eval
+
+# Track B: evaluate FUNCTIONAL SIZE (countable from a design spec, before any code) as a
+# leak-free, PROSPECTIVE blockchain effort estimator, head-to-head against KSLOC. Restores
+# measurements + attributes + documented_effort (team_size) from 'census'. Publishes
+# reports/functional_size_eval_{pm}.json to the NON-authoritative 'census' branch.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fseval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install numpy
+        run: python -m pip install --quiet numpy
+      - name: Restore measurements + attributes + documented_effort from 'census'
+        run: |
+          git fetch origin census
+          git checkout origin/census -- data/calibration/measurements_census.csv
+          git checkout origin/census -- data/calibration/repo_attributes.csv
+          git checkout origin/census -- data/calibration/documented_effort.csv || echo "no documented_effort yet (team_size will default)"
+      - name: Evaluate functional size vs KSLOC (LOOCV) per PM bracket
+        run: |
+          mkdir -p reports
+          for PM in pm_mid pm_low pm_high; do
+            python scripts/validate/functional_size_eval.py \
+              --meas data/calibration/measurements_census.csv \
+              --attr data/calibration/repo_attributes.csv \
+              --doc  data/calibration/documented_effort.csv \
+              --out  reports/functional_size_eval_${PM}.json --pm ${PM} || echo "fseval ${PM} skipped"
+          done
+          echo "=== headline (pm_mid) ==="; cat reports/functional_size_eval_pm_mid.json 2>/dev/null || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "fseval-bot"
+          git config user.email "actions@users.noreply.github.com"
+          mkdir -p /tmp/fs; cp -f reports/functional_size_eval_*.json /tmp/fs/ 2>/dev/null || true
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p reports; cp -f /tmp/fs/functional_size_eval_*.json reports/ 2>/dev/null || true
+          git add reports/functional_size_eval_*.json 2>/dev/null || true
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: functional-size prospective evaluation (Track B) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
