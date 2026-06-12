@@ -149,9 +149,15 @@ def main():
     ap.add_argument("--out",  default=os.path.join(root, "reports/paper_stats.json"))
     ap.add_argument("--pm", default="pm_mid", choices=["pm_mid", "pm_low", "pm_high"])
     ap.add_argument("--boot", type=int, default=2000)
+    # gate controls — to test the velocity-gate confound: velocity = 52.6*KSLOC/PM, so the band
+    # [minloc,maxloc] mechanically bounds the size/effort ratio. Relaxing it disentangles the
+    # genuine size-effort relationship from the gate-induced restriction of range.
+    ap.add_argument("--minloc", type=float, default=15.0)
+    ap.add_argument("--maxloc", type=float, default=200.0)
+    ap.add_argument("--maxdur", type=float, default=18.0)
     a = ap.parse_args()
 
-    cand = F.load(a.meas, a.attr, a.pm)
+    cand = F.load(a.meas, a.attr, a.pm, maxlocday=a.maxloc, minlocday=a.minloc, maxduration=a.maxdur)
     n = len(cand)
     if n < 10: sys.exit(f"only {n} rows")
     y, q, cols, rows = F.q_and_columns(cand)
@@ -240,6 +246,9 @@ def main():
 
     out = dict(
         pm_target=a.pm, n=n,
+        gates=dict(min_loc_per_active_day=a.minloc, max_loc_per_active_day=a.maxloc,
+                   max_duration_months=a.maxdur,
+                   velocity_gate_active=(a.minloc > 0 or a.maxloc < 1e6)),
         descriptive=descriptive,
         size_effort_decoupling=decoupling,
         guessing_MAE_reference=round(guessing_marp0, 3),

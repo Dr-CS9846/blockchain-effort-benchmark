@@ -37,6 +37,17 @@ jobs:
               --out  reports/paper_stats_${PM}.json --pm ${PM} || echo "paper_stats ${PM} skipped"
           done
           echo "=== headline (pm_mid) ==="; cat reports/paper_stats_pm_mid.json 2>/dev/null || true
+      - name: Velocity-gate-OFF sensitivity (disentangle gate-induced size-effort confound)
+        run: |
+          # velocity = 52.6*KSLOC/PM, so the [15,200] band bounds KSLOC/PM and inflates the
+          # size-effort association. Re-run with the velocity gate removed (duration gate kept)
+          # to recover the unconfounded relationship and the genuine size-only baseline.
+          python scripts/validate/paper_stats.py \
+            --meas data/calibration/measurements_census.csv \
+            --attr data/calibration/repo_attributes.csv \
+            --out  reports/paper_stats_nogate_pm_mid.json --pm pm_mid \
+            --minloc 0 --maxloc 1000000 --maxdur 18 || echo "paper_stats nogate skipped"
+          echo "=== velocity-gate-OFF (pm_mid) ==="; cat reports/paper_stats_nogate_pm_mid.json 2>/dev/null || true
       - name: Publish to 'census'
         run: |
           git config user.name  "stats-bot"
