@@ -1,0 +1,43 @@
+name: treasury-mine
+
+# Mine PLANNED/REPORTED effort (FTE, team, duration, requested DOT, GitHub repos) from Polkadot &
+# Kusama OpenGov Treasury proposals via the Polkassembly API - a far larger, structured pool of the
+# human-stated effort data that target-compare showed is the better target. Pure API (needs the
+# x-network header, set in-code). Publishes data/calibration/treasury_proposals.csv to 'census'.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  treasury:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Mine Treasury proposals (planned effort + repos)
+        run: |
+          mkdir -p data/calibration
+          python scripts/extract/treasury_mine.py \
+            --out data/calibration/treasury_proposals.csv \
+            --networks polkadot,kusama --types Treasury,ReferendumV2 \
+            --pages 8 --limit-per 100 --max-detail 600
+          echo "=== head ==="; head -c 2500 data/calibration/treasury_proposals.csv || true
+      - name: Publish treasury_proposals.csv to 'census'
+        run: |
+          git config user.name  "treasury-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/treasury_proposals.csv /tmp/treasury_proposals.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/treasury_proposals.csv data/calibration/treasury_proposals.csv
+          git add data/calibration/treasury_proposals.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: Polkadot/Kusama Treasury planned-effort mine [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
