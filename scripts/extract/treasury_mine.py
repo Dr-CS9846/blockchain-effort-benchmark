@@ -1,66 +1,66 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-treasury_mine.py  —  mine PLANNED / REPORTED effort from Polkadot OpenGov Treasury proposals
-=============================================================================================
-W3F grants gave us ~184 human-stated planned-effort points (planned_pm = FTE x duration), which
-target-compare showed is the better-behaved, more defensible target than mined git PM - but it is
-too small to break the accuracy ceiling. Polkadot OpenGov Treasury proposals are a far larger,
-structured, ON-CHAIN pool of the SAME human-stated effort data (FTE, team, per-milestone
-duration + budget, requested DOT), tracked on Polkassembly. This miner harvests them.
+treasury_mine.py  —  mine PLANNED / REPORTED effort from OpenGov Treasury proposals (Subsquare)
+================================================================================================
+Polkassembly required a per-item detail call that failed/was slow (600 NO_DETAIL in 17 min).
+Subsquare returns the proposal CONTENT (markdown body) INSIDE the listing, so one fast call per
+page yields the text we parse for effort signals - no per-item detail.
 
-For each proposal it records: requested amount (DOT), proposer, and the documented effort signals
-(FTE, estimated duration, team size, explicit person-month/week/day statements) parsed from the
-proposal markdown, plus any GitHub repository links (so the proposal can later be matched to a
-measurable delivered repo and joined to size). Clean human-stated effort is valuable EVEN WITHOUT
-a repo (it is a reported-effort anchor in its own right), so every proposal carrying effort is kept.
+Per proposal we record: requested amount, proposer, and documented effort signals (FTE, estimated
+duration, team size, explicit person-month statements) parsed from the markdown, plus GitHub repo
+links. Clean human-stated effort is valuable EVEN WITHOUT a repo (a reported-effort anchor in its
+own right), so every proposal carrying effort is kept; the repo-matched subset additionally grows
+the size -> planned_pm calibration set.
 
-Polkassembly REST v1 (needs header x-network). stdlib only. Output: data/calibration/treasury_proposals.csv
+stdlib only. Output: data/calibration/treasury_proposals.csv
 """
 import argparse, csv, json, os, re, sys, time, urllib.request, urllib.parse, urllib.error
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import harvest_deliveries as H          # GH regex, slug
+import harvest_deliveries as H          # GH regex
 import documented_effort as DE          # team_size, documented_pm_explicit, milestone_signals
 
-API = "https://api.polkassembly.io/api/v1"
-PLANCK = 1e10                            # 1 DOT = 1e10 planck
+# Subsquare REST. content (markdown) is included in the listing items.
+ENDPOINTS = {
+    "treasury": "https://{net}.subsquare.io/api/treasury/proposals?page={p}&pageSize={ps}",
+    "gov2":     "https://{net}.subsquare.io/api/gov2/referendums?page={p}&pageSize={ps}",
+}
 
-def gj(url, network, tries=4):
-    req = urllib.request.Request(url, headers={"x-network": network,
-        "Accept": "application/json", "User-Agent": "blockchain-effort-benchmark"})
+def gj(url, tries=4, debug=False):
+    req = urllib.request.Request(url, headers={"Accept": "application/json",
+        "User-Agent": "Mozilla/5.0 blockchain-effort-benchmark"})
     for _ in range(tries):
         try:
             with urllib.request.urlopen(req, timeout=45) as r:
                 return json.loads(r.read().decode("utf-8"))
         except urllib.error.HTTPError as e:
-            if e.code in (429, 502, 503): time.sleep(8); continue
+            if e.code in (429, 502, 503): time.sleep(6); continue
+            if debug: print(f"  [debug] HTTP {e.code} {url}", file=sys.stderr)
             return None
-        except Exception:
-            time.sleep(4); continue
+        except Exception as ex:
+            if debug: print(f"  [debug] err {ex} {url}", file=sys.stderr)
+            time.sleep(3); continue
     return None
 
-def listing(ptype, network, pages, limit_per):
-    ids = []
-    for p in range(1, pages + 1):
-        url = f"{API}/listing/on-chain-posts?proposalType={ptype}&listingLimit={limit_per}&page={p}&sortBy=newest"
-        d = gj(url, network)
-        posts = (d or {}).get("posts") or []
-        if p == 1 and not posts:
-            why = "None" if d is None else ("count=" + str(d.get("count")))
-            print("  [debug] empty listing: resp=" + why + "  " + url, file=sys.stderr)
-        if not posts: break
-        for po in posts:
-            pid = po.get("post_id", po.get("postId"))
-            if pid is not None: ids.append((pid, po.get("title", "")))
-        if len(posts) < limit_per: break
-        time.sleep(0.4)
-    return ids
+def items_of(d):
+    if d is None: return []
+    if isinstance(d, list): return d
+    for k in ("items", "data", "results"):
+        v = d.get(k) if isinstance(d, dict) else None
+        if isinstance(v, list): return v
+        if isinstance(v, dict) and isinstance(v.get("items"), list): return v["items"]
+    return []
 
-def detail(ptype, pid, network):
-    url = f"{API}/posts/on-chain-post?proposalType={ptype}&postId={pid}"
-    return gj(url, network)
+def deep_get(it, *paths):
+    for path in paths:
+        cur = it; ok = True
+        for key in path:
+            if isinstance(cur, dict) and key in cur: cur = cur[key]
+            else: ok = False; break
+        if ok and cur not in (None, ""): return cur
+    return None
 
-# parse a "FTE: x" / "Estimated Duration: x months" out of free proposal text (same family as W3F)
+# effort regexes (same family as W3F / documented_effort)
 FTE = re.compile(r"\b(?:FTE|full[\s-]?time equivalent)\b[^\d]{0,12}([\d.]+)", re.I)
 DUR = re.compile(r"\b(?:duration|timeline|time\s*frame)\b[^\d]{0,18}([\d.]+)\s*(week|month)", re.I)
 
@@ -84,52 +84,59 @@ def main():
     root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     ap.add_argument("--out", default=os.path.join(root, "data/calibration/treasury_proposals.csv"))
     ap.add_argument("--networks", default="polkadot,kusama")
-    # Polkassembly proposalType enum (exact strings): treasury_proposals (classic) +
-    # referendums_v2 (OpenGov, incl. treasury spends). Wrong casing => empty listing.
-    ap.add_argument("--types", default="treasury_proposals,referendums_v2")
-    ap.add_argument("--pages", type=int, default=8)
-    ap.add_argument("--limit-per", type=int, default=100)
-    ap.add_argument("--max-detail", type=int, default=600)
+    ap.add_argument("--types", default="treasury,gov2")
+    ap.add_argument("--pages", type=int, default=6)
+    ap.add_argument("--page-size", type=int, default=100)
     a = ap.parse_args()
 
-    FIELDS = ["network", "proposal_type", "post_id", "title", "requested_dot", "proposer",
+    FIELDS = ["network", "proposal_type", "index", "title", "requested", "proposer",
               "planned_fte", "planned_duration_months", "team_size", "documented_pm_explicit",
-              "sum_milestone_duration_months", "n_github_repos", "github_repos", "url", "status"]
-    out, fetched = [], 0
-    for network in [x.strip() for x in a.networks.split(",") if x.strip()]:
+              "sum_milestone_duration_months", "n_github_repos", "github_repos", "content_len", "status"]
+    out = []
+    for net in [x.strip() for x in a.networks.split(",") if x.strip()]:
         for ptype in [x.strip() for x in a.types.split(",") if x.strip()]:
-            ids = listing(ptype, network, a.pages, a.limit_per)
-            print(f"[{network}/{ptype}] listed {len(ids)} proposals")
-            for pid, title in ids:
-                if fetched >= a.max_detail: break
-                fetched += 1
-                d = detail(ptype, pid, network)
-                if not d:
-                    out.append({**{k: "" for k in FIELDS}, "network": network, "proposal_type": ptype,
-                                "post_id": pid, "title": title[:120], "status": "NO_DETAIL"}); continue
-                content = (d.get("content") or "") + "\n" + (d.get("title") or title or "")
-                req = d.get("requested") or d.get("reward")
-                try: req_dot = round(float(req) / PLANCK, 2) if req else ""
-                except (ValueError, TypeError): req_dot = ""
-                fte, dur = parse_planned(content)
-                ts = DE.team_size(content)
-                dpm, _raw = DE.documented_pm_explicit(content)
-                ms_dur, _n, _fn = DE.milestone_signals(content)
-                repos = repos_in(content)
-                urlp = (f"https://{network}.polkassembly.io/referenda/{pid}" if ptype == "referendums_v2"
-                        else f"https://{network}.polkassembly.io/treasury/{pid}")
-                out.append(dict(network=network, proposal_type=ptype, post_id=pid,
-                                title=(d.get("title") or title or "")[:120], requested_dot=req_dot,
-                                proposer=(d.get("proposer") or "")[:50], planned_fte=fte,
-                                planned_duration_months=dur, team_size=ts, documented_pm_explicit=dpm,
-                                sum_milestone_duration_months=ms_dur, n_github_repos=len(repos),
-                                github_repos=";".join(repos[:8]), url=urlp, status="OK"))
+            tmpl = ENDPOINTS.get(ptype)
+            if not tmpl: continue
+            got = 0
+            for p in range(1, a.pages + 1):
+                d = gj(tmpl.format(net=net, p=p, ps=a.page_size), debug=(p == 1))
+                its = items_of(d)
+                if p == 1 and its:
+                    print(f"  [debug] {net}/{ptype} first-item keys: {sorted(list(its[0].keys()))[:20]}", file=sys.stderr)
+                if not its: break
+                for it in its:
+                    content = deep_get(it, ["content"], ["contentSummary"], ["onchainData", "content"]) or ""
+                    title = deep_get(it, ["title"]) or ""
+                    corpus = str(content) + "\n" + str(title)
+                    idx = deep_get(it, ["referendumIndex"], ["proposalIndex"], ["index"],
+                                   ["onchainData", "index"], ["_id"])
+                    req = deep_get(it, ["value"], ["onchainData", "value"],
+                                   ["onchainData", "treasuryProposal", "value"],
+                                   ["onchainData", "proposal", "value"])
+                    proposer = deep_get(it, ["proposer"], ["author", "username"],
+                                        ["onchainData", "proposer"], ["onchainData", "meta", "proposer"]) or ""
+                    fte, dur = parse_planned(corpus)
+                    ts = DE.team_size(corpus)
+                    dpm, _raw = DE.documented_pm_explicit(corpus)
+                    ms_dur, _n, _fn = DE.milestone_signals(corpus)
+                    repos = repos_in(corpus)
+                    out.append(dict(network=net, proposal_type=ptype, index=idx,
+                                    title=str(title)[:120], requested=req, proposer=str(proposer)[:50],
+                                    planned_fte=fte, planned_duration_months=dur, team_size=ts,
+                                    documented_pm_explicit=dpm, sum_milestone_duration_months=ms_dur,
+                                    n_github_repos=len(repos), github_repos=";".join(repos[:8]),
+                                    content_len=len(str(content)), status="OK"))
+                    got += 1
+                if len(its) < a.page_size: break
                 time.sleep(0.3)
+            print(f"[{net}/{ptype}] {got} proposals")
+
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, fieldnames=FIELDS); w.writeheader(); w.writerows(out)
 
     ok = [r for r in out if r["status"] == "OK"]
+    has_content = sum(1 for r in ok if r["content_len"] and int(r["content_len"]) > 50)
     has_repo = sum(1 for r in ok if r["n_github_repos"] and int(r["n_github_repos"]) > 0)
     has_plan = sum(1 for r in ok if r["planned_fte"] or r["planned_duration_months"])
     has_team = sum(1 for r in ok if r["team_size"])
@@ -137,8 +144,8 @@ def main():
     any_effort = sum(1 for r in ok if r["planned_fte"] or r["planned_duration_months"] or r["team_size"] or r["documented_pm_explicit"])
     useful = sum(1 for r in ok if (r["n_github_repos"] and int(r["n_github_repos"]) > 0)
                  and (r["planned_fte"] or r["planned_duration_months"]))
-    print(f"Total {len(out)} | OK {len(ok)} | repo {has_repo} | FTE/duration {has_plan} | team {has_team} "
-          f"| explicit-PM {has_expl} | ANY effort {any_effort} | repo+plan {useful}")
+    print(f"Total {len(out)} | with content {has_content} | repo {has_repo} | FTE/duration {has_plan} "
+          f"| team {has_team} | explicit-PM {has_expl} | ANY effort {any_effort} | repo+plan {useful}")
     print(f"Wrote {a.out}")
 
 if __name__ == "__main__":
