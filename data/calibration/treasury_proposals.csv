@@ -1,1 +1,41 @@
 network,proposal_type,index,title,requested,proposer,planned_fte,planned_duration_months,team_size,documented_pm_explicit,sum_milestone_duration_months,n_github_repos,github_repos,content_len,status
+polkadot,treasury,882,MIST - Meta-transaction Ink! Specification Template,98000000000000,1gwsK8a7f2YjkHhnn1zbvkoCMDDDGs83z62ztXRTbEf5E8J,,,,,,0,,3484,OK
+polkadot,treasury,802,Polkadot Relayers 2024,502797036100000,13Ghf2T883ZobjngC1BAgR1BWvK2P7qP37gGxHDVFf3fjbmw,,,,,,0,,2505,OK
+polkadot,treasury,584,Untitled - treasury proposal #584,99000000000000,1uamkTsQk6TwVAm6FvD7optu9fDPUh7GojEc2mZHym13Kcf,,,,,,0,,0,OK
+polkadot,treasury,472,Activation and retention of developers in Turkey and India for the Polkadot Ecosystem,1387110000000000,12vLtKDK1LWvSsGovovZDSv7yzHoXsmhGa67CeHXW4zhThNP,,,,,,0,,2967,OK
+polkadot,treasury,456,Untitled - treasury proposal #456,244741490000000,12wWLUd5qMzLFGqBsMnHLVFeTuYJwuo5ygMAxuSywrBX1XSF,,,,,,0,,0,OK
+polkadot,treasury,452,Proposal: The operating cost for the research organization Polkadot Ecology Research Institute for 2023/10-2024/3,280100000000000,149FXUmHgg75z4sk2LzFDyctNLHhzf2YxGMFHT7TakkbeQ7F,,,,,,0,,5400,OK
+polkadot,treasury,359,Community-Centric Blockchain Education: Dacade's Commitment to Polkadot's Growth via learning through sharing,104000000000000,16aQb7rHLB8UXzd2YSh56vjAELyyq8jYaj5QdAHjVjsA3ey9,,,,,,0,,1624,OK
+polkadot,treasury,309,"Security Audit of trustless Ethereum 2.0 Light Client, developed as a Substrate Pallet ",970000000000000,12bMyzdtiT2V9iNJ7BzQXPmzZ4KTzqFmZPSNeBmg97mFP5F4,,,,,,0,,976,OK
+polkadot,treasury,1895,Funding for Public RPC Providers (Polkadot),1284800000000000,13uwV8CBHjv25W3GACLPzzvTu2v9USc2yCQdhrqPhyM3vx6w,,,,,,0,,2451,OK
+polkadot,treasury,1758,Bounty Proposal for Public RPCs for Relay and System Chains,1106780000000000,15D2JM548bqRuE45aDmeF2WqiKC56WtNnRmCxVSree9YKwVb,,,,,,0,,1729,OK
+polkadot,gov2,1903,Vibly Short-Term Repayable Bridge Funding Request,,12gj7WyRWVAbmUXk1nLoGaK1Um47tcmxdd138DSuYZgngetP,,,,,,6,ArcheLabs/concord;ArcheLabs/vibly-chain;ArcheLabs/vibly-coordinator;ArcheLabs/vibly-client;ArcheLabs/vibly-console;ArcheLabs/vibly-e2e-lab,12918,OK
+polkadot,gov2,1899,Closeout of Bounty 22 (Polkadot Assurance Legion / DotPAL) and Bounty 36 (DeFi Infrastructure & Tooling),,138bU3vLAuBkJJ9ujdpjMpZpkT5AKakVnXmQBVZNMCgfjtxp,,,,,,0,,2244,OK
+polkadot,gov2,1898,.ID username authority registration for the dotID identity registrar,,16g6ZBYbEP3kRMgVBki7zdvdGpymXDyHWzj3D3rDaEATXzc8,,,,,,0,,2842,OK
+polkadot,gov2,1897,plaza.fun — Native Asset Activation Layer for Polkadot Hub: Retroactive Development Funding,,1J1et4TjqPZRrX4zKFA8ZrikiU4ijyWMdEHW1VNvnng5CJp,39,,,,,3,paritytech/hardhat-polkadot;plaza-fun/polkadot-sdk-11525-repro;plaza-fun/polkadot-sdk-11526-repro,18250,OK
+polkadot,gov2,1896,Spanish Education Plan by Polkadot Mexico: Building the Next Generation of Mexico Developers,,15XF37GkxgRJakURR4jycdrJnqWQctT5yUPzqLn81TZmwBDF,,,,,,1,BrandonFilth/Polkadot_Workshop,7260,OK
+polkadot,gov2,1891,IBP Bounty Top-Up,,1eGtATyy4ayn77dsrhdW8N3Vs1yjqjzJcintksNmScqy31j,,,,,,0,,1036,OK
+polkadot,gov2,1902,Runtime Upgrade 2.3.0,,13TRAXTALwNp5vApqwiE74fg8G8ypMyaF9TxRfs4RwrCwxUE,,,,,,1,polkadot-fellows/runtimes,207,OK
+polkadot,gov2,1901,,,15xzqrjr6J2neLbxErNGAD1mjyfVQ2TaC1DSDZ8RwzJQY9ns,,,,,,0,,0,OK
+polkadot,gov2,1900,PCF 2.0: Strategic Website and Tooling Renewal - Small Spender,,16MVQPFt325pJ74bYpCGUWjyANFDZFZP3efYyV6XReAd1Sq1,,,,,,0,,1893,OK
+polkadot,gov2,1895,Funding for Public RPC Providers (Polkadot),,13uwV8CBHjv25W3GACLPzzvTu2v9USc2yCQdhrqPhyM3vx6w,,,,,,0,,2451,OK
+kusama,treasury,397,"UPDATE ""Refunding MIDL.DEV's GOV1 Treasury Spend Deposit""",1000000000000,D8G8RhehhFV1HTT612mbBg4BFBHUimJixPydBMVmN1n1dH4,,,,,,0,,116,OK
+kusama,treasury,332,wenbeefy,8250000000000,EtommijqrHDFWFvBxP515oUbkXx9vK2qohzrmwpCXbU7Yx2,,,,,,1,rotkonetworks/wenbeefy,396,OK
+kusama,treasury,331,Descentralized art project,111000000000000,EJgdRddcYSd6XWnwr8oZkkzxJJX8SLwig38d5yxZSRgJGQZ,,,,,,0,,1981,OK
+kusama,treasury,598,Funding for Public RPC Providers via Bounty 25,10630000000000000,J11Rp4mjz3vRb2DL51HqRGRjhuEQRyXgtuFskebXb8zMZ9s,,,,,,0,,1316,OK
+kusama,treasury,587,Web3 Without Barriers: Virto Connect,9700000000000000,HUf7Nvfhp85yFZm31zV2ux8h1946Bzzmos2jqGGhp3bWXD4,,,,,,1,virto-network/frame-contrib,4745,OK
+kusama,treasury,581,"Subscan 2025 Q1-Q2 Funding Proposal: Basic service fee for the Kusama Relaychain and Kusama public parachain (AssetHub, ",7614700000000000,Fzs6WWFcAuJhxAVyZa4EN2suxggjidJjV3AzJxKbRHjh2Jc,,,,,,0,,13349,OK
+kusama,treasury,568,"Stage 2: Drive massive adoption with the first 20,000 physical debit cards for LatAm people led by kusama (new 20,000 ho",10981000000000000,CzbcJ48jKNoh9Kiubw7e5Y2Ur1XggipLVfmnnQxpFTbvCU3,,12.0,,,,0,,8417,OK
+kusama,treasury,564,Encointer Retroactive Proposal for Jan-Jun 2025,5046900000000000,EyXct79ZDWdQfcSgJTG5texKM9wJj3quyh1ugPDVSkSt3Xm,,,,,,0,,772,OK
+kusama,treasury,556,Kusama System Parachains Collator Bounty #20 Top-Up Proposal - July/2025,10003380000000000,GCMGu8sjEuEZuMZavo5PLvAhr8fJXAty76jDV1YPquG9erp,,,,,,0,,2086,OK
+kusama,treasury,534,Acuity Index: new features and update to latest Polkadot runtimes,256000000000000,Hv5k1kkGDntEigtcZFkDkKxdhUNe1AWQNaqj5aYLsQKX324,,,,,,0,,594,OK
+kusama,gov2,651,Runtime Upgrade 2.3,,F2jgWXy7X8GQ2ykf1UGrsCXRERZvjEcd2aDf39fMf3BWVy6,,,,,,1,polkadot-fellows/runtimes,252,OK
+kusama,gov2,650,Funding for Public RPC Providers (Kusama),,DNDBcYD8zzqAoZEtgNzouVp2sVxsvqzD4UdB5WrAUwjqpL8,,,,,,0,,2442,OK
+kusama,gov2,649,[Small Spender] Set up the Kusama Vision ZKProofs Multi-Asset Bounty,,Dax95Nps5EEVfw7eQ2mvB3bX8p2hX2ZCtYSLiA357ZRq3aK,,,,,,0,,182,OK
+kusama,gov2,648,[Small Spender] Set up the Kusama Vision Art and Social Experiments Multi-Asset Bounty,,Dax95Nps5EEVfw7eQ2mvB3bX8p2hX2ZCtYSLiA357ZRq3aK,,,,,,0,,187,OK
+kusama,gov2,647,[Small Spender] Set up the Kusama Vision POP Multi-Asset Bounty,,Dax95Nps5EEVfw7eQ2mvB3bX8p2hX2ZCtYSLiA357ZRq3aK,,,,,,0,,164,OK
+kusama,gov2,646,DeServe.network Global Kusama Archive RPC Deployment - Proposal #1,,Cb3ZF5tmeTEDR44MRLAPH3agiv5ntLG6VMZ2U5x8QM3XkGY,,,,,,2,ibp-network/ChildBounties;helikon-labs/submerge,13028,OK
+kusama,gov2,645,[Medium Spender] Encointer System Chain – Infrastructure Operations (Apr–Dec 2026),,EyXct79ZDWdQfcSgJTG5texKM9wJj3quyh1ugPDVSkSt3Xm,,,,,,2,brenzi/litescan;pifragile/litescan,9018,OK
+kusama,gov2,644,Runtime Upgrade v2.2 For All System Chains,,Ea6jhP5gF4r7NqhkEoAXJDgSgYpNQNaTYU6gPsrEGfctaKR,,,,,,1,polkadot-fellows/runtimes,163,OK
+kusama,gov2,643,System Parachain Collator - Top up 2026 - Revised.,,HqRcfhH8VXMhuCk5JXe28WMgDDuW9MVDVNofe1nnTcefVZn,,,,,,0,,4266,OK
+kusama,gov2,642,System Parachain Collator Bounty - Top up (2026) - Please vote NAY,,HqRcfhH8VXMhuCk5JXe28WMgDDuW9MVDVNofe1nnTcefVZn,,,,,,0,,16,OK
