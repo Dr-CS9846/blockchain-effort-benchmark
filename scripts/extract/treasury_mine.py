@@ -22,8 +22,8 @@ import documented_effort as DE          # team_size, documented_pm_explicit, mil
 
 # Subsquare REST. content (markdown) is included in the listing items.
 ENDPOINTS = {
-    "treasury": "https://{net}.subsquare.io/api/treasury/proposals?page={p}&pageSize={ps}",
-    "gov2":     "https://{net}.subsquare.io/api/gov2/referendums?page={p}&pageSize={ps}",
+    "treasury": "https://{net}-api.subsquare.io/treasury/proposals?page={p}&pageSize={ps}",
+    "gov2":     "https://{net}-api.subsquare.io/gov2/referendums?page={p}&pageSize={ps}",
 }
 
 def gj(url, tries=4, debug=False):
