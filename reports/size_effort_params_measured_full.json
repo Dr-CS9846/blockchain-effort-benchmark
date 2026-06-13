@@ -1,0 +1,13 @@
+{
+  "model": "PM = A * KSLOC^E * Duan",
+  "size_metric": "ksloc_code",
+  "effort": "measured",
+  "reliable_only": false,
+  "plausible_only": false,
+  "n": 8,
+  "A": 0.21444097352633543,
+  "E": 1.2099376375043074,
+  "sigma_logspace": 0.7265350052199452,
+  "duan_smearing": 1.1991561372980004,
+  "estimator": "closed-form OLS log space = lognormal MLE (deterministic)"
+}
