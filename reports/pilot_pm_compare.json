@@ -1,0 +1,145 @@
+{
+  "n": 11,
+  "min_confidence": "HIGH",
+  "pilots": [
+    {
+      "pid": "polkadot-treasury-809",
+      "index": "809",
+      "title": "Open-Source Registrar Development Continuity",
+      "repo": "rotkonetworks/unlabored",
+      "reported_pm": 3.68,
+      "ksloc": 1.368,
+      "basis": "fte*duration",
+      "pred_pm_free": 41.81,
+      "abs_pct_err_free": 1036.2
+    },
+    {
+      "pid": "kusama-treasury-81",
+      "index": "81",
+      "title": "Patract\u2019s treasury proposal for Ask! v0.2 (ink! in AssemblyS",
+      "repo": "patractlabs/ask",
+      "reported_pm": 6.9,
+      "ksloc": 12.767,
+      "basis": "fte*duration",
+      "pred_pm_free": 28.34,
+      "abs_pct_err_free": 310.7
+    },
+    {
+      "pid": "polkadot-gov2-1509",
+      "index": "1509",
+      "title": "Substrate Asset Game Engine (SAGE)",
+      "repo": "ajuna-network/Ajuna.SAGE.Core",
+      "reported_pm": 2.0,
+      "ksloc": 2.986,
+      "basis": "fte*duration",
+      "pred_pm_free": 34.65,
+      "abs_pct_err_free": 1632.5
+    },
+    {
+      "pid": "kusama-treasury-66",
+      "index": "66",
+      "title": "Patract Hub's proposal for Ask! v0.1 (ink! in AssemblyScript",
+      "repo": "patractlabs/ask",
+      "reported_pm": 15.0,
+      "ksloc": 12.767,
+      "basis": "fte*duration",
+      "pred_pm_free": 26.09,
+      "abs_pct_err_free": 73.9
+    },
+    {
+      "pid": "polkadot-gov2-1225",
+      "index": "1225",
+      "title": "[Retroactive] Subsquare 12 months maintenance and common fea",
+      "repo": "opensquare-network/subsquare",
+      "reported_pm": 72.0,
+      "ksloc": 228.203,
+      "basis": "fte*duration",
+      "pred_pm_free": 4.8,
+      "abs_pct_err_free": 93.3
+    },
+    {
+      "pid": "polkadot-gov2-1123",
+      "index": "1123",
+      "title": "ink! Alliance for a more successful Plaza",
+      "repo": "inkdevhub/drink",
+      "reported_pm": 120.0,
+      "ksloc": 2.459,
+      "basis": "fte*duration",
+      "pred_pm_free": 16.71,
+      "abs_pct_err_free": 86.1
+    },
+    {
+      "pid": "kusama-treasury-57",
+      "index": "57",
+      "title": "Patract's treasury proposal about Metis M1 (ink! and Ask! St",
+      "repo": "patractlabs/metis",
+      "reported_pm": 3.45,
+      "ksloc": 18.686,
+      "basis": "fte*duration",
+      "pred_pm_free": 27.94,
+      "abs_pct_err_free": 709.7
+    },
+    {
+      "pid": "polkadot-treasury-749",
+      "index": "749",
+      "title": "Runtime Verification: Advanced Rust Property Test Verificati",
+      "repo": "w3f/Grants-Program",
+      "reported_pm": 18.0,
+      "ksloc": 0.299,
+      "basis": "fte*duration",
+      "pred_pm_free": 36.52,
+      "abs_pct_err_free": 102.9
+    },
+    {
+      "pid": "polkadot-treasury-362",
+      "index": "362",
+      "title": "Bagpipes - Powerful No-code Cross-Chain XCM Dapp and Workflo",
+      "repo": "Koniverse/SubConnect",
+      "reported_pm": 40.0,
+      "ksloc": 3.197,
+      "basis": "fte*duration",
+      "pred_pm_free": 24.6,
+      "abs_pct_err_free": 38.5
+    },
+    {
+      "pid": "polkadot-gov2-1612",
+      "index": "1612",
+      "title": "Subsquare new batch of features development and maintenance",
+      "repo": "opensquare-network/subsquare",
+      "reported_pm": 2.07,
+      "ksloc": 228.203,
+      "basis": "fte*duration",
+      "pred_pm_free": 31.61,
+      "abs_pct_err_free": 1427.1
+    },
+    {
+      "pid": "kusama-treasury-103",
+      "index": "103",
+      "title": "dotreasury maintenance from 05.2021 to 07.2021 and part of M",
+      "repo": "opensquare-network/dotreasury",
+      "reported_pm": 3.0,
+      "ksloc": 62.089,
+      "basis": "fte*duration",
+      "pred_pm_free": 26.71,
+      "abs_pct_err_free": 790.2
+    }
+  ],
+  "calibration_free": {
+    "A": 12.838,
+    "E": -0.108,
+    "loocv": {
+      "SA": -0.038,
+      "MMRE": 5.728,
+      "PRED25": 0.0,
+      "PRED30": 0.0
+    }
+  },
+  "calibration_fixedE0.91": {
+    "loocv": {
+      "SA": -26.913,
+      "MMRE": 184.057,
+      "PRED25": 0.0,
+      "PRED30": 0.0
+    }
+  }
+}
