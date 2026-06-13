@@ -127,8 +127,9 @@ def main():
                                     n_github_repos=len(repos), github_repos=";".join(repos[:8]),
                                     content_len=len(str(content)), status="OK"))
                     got += 1
-                if len(its) < a.page_size: break
-                time.sleep(0.3)
+                # Subsquare ignores pageSize (returns ~10/page); paginate by page number
+                # until an empty page instead of breaking on a short page.
+                time.sleep(0.25)
             print(f"[{net}/{ptype}] {got} proposals")
 
     os.makedirs(os.path.dirname(a.out), exist_ok=True)

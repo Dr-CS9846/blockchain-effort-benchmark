@@ -25,7 +25,7 @@ jobs:
           python scripts/extract/treasury_mine.py \
             --out data/calibration/treasury_proposals.csv \
             --networks polkadot,kusama --types treasury,gov2 \
-            --pages 6 --page-size 100
+            --pages 80 --page-size 100
           echo "=== head ==="; head -c 2500 data/calibration/treasury_proposals.csv || true
       - name: Publish treasury_proposals.csv to 'census'
         run: |
