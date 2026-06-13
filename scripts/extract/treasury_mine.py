@@ -26,15 +26,15 @@ ENDPOINTS = {
     "gov2":     "https://{net}-api.subsquare.io/gov2/referendums?page={p}&pageSize={ps}",
 }
 
-def gj(url, tries=4, debug=False):
+def gj(url, tries=6, debug=False):
     req = urllib.request.Request(url, headers={"Accept": "application/json",
         "User-Agent": "Mozilla/5.0 blockchain-effort-benchmark"})
-    for _ in range(tries):
+    for attempt in range(tries):
         try:
             with urllib.request.urlopen(req, timeout=45) as r:
                 return json.loads(r.read().decode("utf-8"))
         except urllib.error.HTTPError as e:
-            if e.code in (429, 502, 503): time.sleep(6); continue
+            if e.code in (429, 502, 503): time.sleep(5 * (attempt + 1)); continue   # progressive backoff
             if debug: print(f"  [debug] HTTP {e.code} {url}", file=sys.stderr)
             return None
         except Exception as ex:
@@ -60,16 +60,33 @@ def deep_get(it, *paths):
         if ok and cur not in (None, ""): return cur
     return None
 
-# effort regexes (same family as W3F / documented_effort)
-FTE = re.compile(r"\b(?:FTE|full[\s-]?time equivalent)\b[^\d]{0,12}([\d.]+)", re.I)
-DUR = re.compile(r"\b(?:duration|timeline|time\s*frame)\b[^\d]{0,18}([\d.]+)\s*(week|month)", re.I)
+# effort regexes (broadened: treasury/gov2 prose, not just the W3F template phrasing)
+FTE  = re.compile(r"\b(?:FTE|full[\s-]?time equivalent)\b[^\d]{0,12}([\d.]+)", re.I)
+FTE2 = re.compile(r"\b([\d.]+)\s*(?:FTE|full[\s-]?time(?:\s*equivalent)?|developers?|engineers?|devs?)\b", re.I)
+DUR  = re.compile(r"\b(?:duration|timeline|time\s*frame|period)\b[^\d]{0,18}([\d.]+)\s*(week|month)", re.I)
+DUR2 = re.compile(r"\b([\d.]+)[\s-]*(month|week)s?\b", re.I)            # "8 months", "8-month", "12 weeks"
+TEAMN = re.compile(r"\bteam of\s+([\d.]+)\b|\b([\d.]+)\s*(?:team members|teammates|contributors|people)\b", re.I)
+
+def _months(val, unit):
+    try: return round(float(val) * (1/4.345 if unit.lower().startswith("week") else 1.0), 2)
+    except ValueError: return ""
 
 def parse_planned(txt):
-    f = FTE.search(txt); fte = f.group(1) if f else ""
-    months = ""; m = DUR.search(txt)
+    f = FTE.search(txt) or FTE2.search(txt); fte = f.group(1) if f else ""
+    m = DUR.search(txt) or DUR2.search(txt)
+    months = _months(m.group(1), m.group(2)) if m else ""
+    return fte, months
+
+def team_n(txt):
+    t = DE.team_size(txt)            # W3F-style "Team members" list first
+    if t not in ("", None): return t
+    m = TEAMN.search(txt)
     if m:
-        v = float(m.group(1)); months = round(v * (1/4.345 if m.group(2).lower().startswith("week") else 1.0), 2)
-    return fte, (months if months != "" else "")
+        g = m.group(1) or m.group(2)
+        try:
+            n = int(float(g));  return n if 1 <= n <= 40 else ""
+        except (ValueError, TypeError): return ""
+    return ""
 
 def repos_in(txt):
     out = []
@@ -116,7 +133,7 @@ def main():
                     proposer = deep_get(it, ["proposer"], ["author", "username"],
                                         ["onchainData", "proposer"], ["onchainData", "meta", "proposer"]) or ""
                     fte, dur = parse_planned(corpus)
-                    ts = DE.team_size(corpus)
+                    ts = team_n(corpus)
                     dpm, _raw = DE.documented_pm_explicit(corpus)
                     ms_dur, _n, _fn = DE.milestone_signals(corpus)
                     repos = repos_in(corpus)
@@ -131,6 +148,7 @@ def main():
                 # until an empty page instead of breaking on a short page.
                 time.sleep(0.25)
             print(f"[{net}/{ptype}] {got} proposals")
+            time.sleep(3)          # let any rate-limit window reset before the next source
 
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, "w", newline="", encoding="utf-8") as f:
