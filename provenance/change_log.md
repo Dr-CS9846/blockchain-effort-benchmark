@@ -2,6 +2,13 @@
 
 Newest first. Each entry records what changed and why, for reproducibility and review.
 
+## 2026-06-13 (MASTER PLAN locked: curated cleanly-reported PMs -> Blockchain COCOMO PM=PM)
+- USER 15-STEP PLAN (Boehm-style curated calibration; quality over quantity sidesteps the git/size noise-floor wall): (1) take cleanly human-reported PMs from treasury data as pilot cases; (2) compute PM via COCOMO II; (3) verify PM=PM; (4) dig blockchain data globally; (5) hand-pick cleanly reported PMs from each source (5/10/20 each); (6) combine into ONE heterogeneous clean dataset; (7) compute each via COCOMO II; (8) finalise Blockchain-COCOMO constants/variables for PM=PM; (9-12) publish scraping + methodology + dataset + COCOMO as four novelties; (13) ship a blockchain effort tool; (14) deliver to world; (15) deliver PhD + grant.
+- treasury-mine #6 (enriched extraction): duration coverage 8 -> 72, FTE 15. Still polkadot/treasury only (gov2/kusama 429-starved by the fast page rate, not backoff). FINDING: raw extraction is noisy (marketing/education/'100 FTE' mis-parses mixed with clean dev) -> CONFIRMS the plan's hand-pick approach. Clean pilots emerging e.g. #749 Runtime Verification 3FTE x 6mo = 18 PM + repo.
+- BUILT scripts/extract/pilot_select.py (Step 1): filters treasury proposals to DEVELOPMENT work with a computable plausible human-stated PM (FTE x duration preferred, else team x duration), mis-parse guards (FTE<=20, dur<=36mo, PM 0.5-300), DEV/NON-DEV title filters; confidence HIGH=FTE*dur+repo / MED / LOW; outputs data/calibration/pilot_cases.csv ranked for hand-pick. Added workflow pilot_select.yml.
+- FIXED treasury_mine.py page rate 0.25s -> 1.0s so later sources (gov2/kusama) aren't 429-starved.
+- Next: push -> dispatch pilot-select (first pilots from the 344) + re-dispatch treasury-mine (full multi-source). Then Steps 2-3: measure pilot repos' size + synth COCOMO drivers -> predict PM -> verify PM=PM on the cleanly-reported pilots.
+
 ## 2026-06-12 (PM-FIRST: stop fighting the noise floor - find/measure a better TARGET)
 - User direction: use intelligence to find a smarter way; look for better PLANNED/REPORTED-effort data we can mine (foundations already in repo) instead of hitting the predictor wall.
 - RESEARCH: Polkadot OpenGov Treasury proposals (tracked on Polkassembly/Subsquare, on-chain) require explicit milestones+timelines+budgets with FTE/team/per-milestone costs -> a far richer, at-scale PLANNED/REPORTED-effort source than W3F grants. = the expansion lever (mine via Polkassembly/Subsquare API later).

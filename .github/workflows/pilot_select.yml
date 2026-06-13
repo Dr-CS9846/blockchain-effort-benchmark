@@ -1,0 +1,46 @@
+name: pilot-select
+
+# Step 1 of the curated-PM plan: select cleanly human-REPORTED PM pilot cases from the treasury
+# harvest (development proposals with a computable, plausible, stated PM; mis-parse guards;
+# HIGH-confidence = FTE x duration + a GitHub repo to measure). Restores treasury_proposals.csv
+# from 'census', publishes data/calibration/pilot_cases.csv back to 'census'.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pilot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Restore treasury_proposals.csv from 'census'
+        run: |
+          git fetch origin census
+          git checkout origin/census -- data/calibration/treasury_proposals.csv
+      - name: Select pilot cases (cleanly reported PM)
+        run: |
+          mkdir -p data/calibration
+          python scripts/extract/pilot_select.py \
+            --inp data/calibration/treasury_proposals.csv \
+            --out data/calibration/pilot_cases.csv
+          echo "=== pilot_cases.csv ==="; cat data/calibration/pilot_cases.csv || true
+      - name: Publish pilot_cases.csv to 'census'
+        run: |
+          git config user.name  "pilot-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/pilot_cases.csv /tmp/pilot_cases.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/pilot_cases.csv data/calibration/pilot_cases.csv
+          git add data/calibration/pilot_cases.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: pilot case selection (cleanly reported PM) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi

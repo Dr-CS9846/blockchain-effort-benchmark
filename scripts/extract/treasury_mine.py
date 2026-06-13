@@ -144,9 +144,10 @@ def main():
                                     n_github_repos=len(repos), github_repos=";".join(repos[:8]),
                                     content_len=len(str(content)), status="OK"))
                     got += 1
-                # Subsquare ignores pageSize (returns ~10/page); paginate by page number
-                # until an empty page instead of breaking on a short page.
-                time.sleep(0.25)
+                # Subsquare ignores pageSize (returns ~10/page); paginate by page number until an
+                # empty page. ~1s/page keeps us under the rate limit so LATER sources (gov2/kusama)
+                # are not starved (the earlier fast pace got them 429'd after the treasury burst).
+                time.sleep(1.0)
             print(f"[{net}/{ptype}] {got} proposals")
             time.sleep(3)          # let any rate-limit window reset before the next source
 
