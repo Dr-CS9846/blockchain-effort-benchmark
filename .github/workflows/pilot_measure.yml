@@ -1,0 +1,50 @@
+name: pilot-measure
+
+# Steps 2-3 of the curated-PM plan: measure each pilot's code repo size and compare COCOMO II's
+# predicted PM against the human-REPORTED PM (PM=PM) on the cleanly-reported pilot cases.
+# Restores pilot_cases.csv from 'census', clones the pilot repos, publishes
+# reports/pilot_pm_compare.json back to 'census'.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  pilotpm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install cloc + numpy
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq cloc
+          python -m pip install --quiet numpy
+      - name: Restore pilot_cases.csv from 'census'
+        run: |
+          git fetch origin census
+          git checkout origin/census -- data/calibration/pilot_cases.csv
+      - name: Measure pilots + COCOMO II PM vs reported PM
+        run: |
+          mkdir -p reports
+          python scripts/validate/pilot_measure.py \
+            --inp data/calibration/pilot_cases.csv \
+            --out reports/pilot_pm_compare.json --min-conf HIGH
+          echo "=== result ==="; cat reports/pilot_pm_compare.json || true
+      - name: Publish pilot_pm_compare.json to 'census'
+        run: |
+          git config user.name  "pilotpm-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f reports/pilot_pm_compare.json /tmp/pilot_pm_compare.json
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p reports
+          cp -f /tmp/pilot_pm_compare.json reports/pilot_pm_compare.json
+          git add reports/pilot_pm_compare.json
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: pilot PM=PM (COCOMO II vs reported PM) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
