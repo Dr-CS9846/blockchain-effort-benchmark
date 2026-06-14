@@ -860,3 +860,30 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   -> Step3 adjust ONE justified lever, re-run, tighten -> win = ONE global (A,B,driver-rules) fits all 13.
 - Verified all 13 rows well-formed via Read tool (bash mount was serving a truncated copy). Awaiting push ->
   dispatch dissect-pilot (blank=all 13) -> full baseline A_local table.
+
+2026-06-14  Run #4: FULL 13-pilot baseline dissection (objective-only). 11 computed, 2 errored.
+- A_local (PM=PM constant) per clean greenfield: bagpipes 0.729, fennel 0.739, dotcodeschool 0.631,
+  megaclite 0.571, remarker 0.502, ask_v01 0.208, kheopswap 0.157. Geo-mean ~0.45 => working global
+  A ~ 0.45 (~6.5x below published 2.94). E ~1.07-1.10 across all (scale factors ~flat).
+- Artificially-low / buggy (exclude or fix): subsquare_maint 0.237 & subsquare_newfeat 0.121 &
+  ink_analyzer 0.058 (window net-delta OVERCOUNTS, sizes 70-77 & 37 KSLOC); elara 0.044 (date cutoff
+  2020-10-26 predates first commit -> measured FULL repo 68.9 KSLOC, impossible for 20 dev-weeks).
+- ERRORS: dotreasury diff=0 KSLOC (ref e8f09bf..tag release-2.3.1 fetch/range bug); paraspell_base clone
+  failed (dudo50/ParaSpell moved/private).
+- DIAGNOSIS -> Step-3 levers: (1) reuse-adjusted equivalent SLOC (low A_local = most generated/reused
+  frontends Kheopswap/Ask -> shrink size, raise A_local, tighten cluster); (2) fix elara cutoff (v0.1
+  tag/first-commit), dotreasury refs, paraspell repo; (3) drop/commit-isolate window pilots.
+- Full table maintained in COCOMO_DISSECTION_RESULTS.md. Working hypothesis: ONE global A ~ 0.4-0.6 once
+  size is reuse-adjusted + buggy rows fixed.
+
+2026-06-14  Step-3a fixes (before reuse lever): repair the 3 broken/buggy rows from run #4.
+- paraspell_base DROPPED: github.com/dudo50/ParaSpell is 404 (deleted/renamed) -> base-grant-era code
+  unrecoverable. Set now n=12 pilots. (Could re-add later if the moved repo + 2022 state is located.)
+- dotreasury: exact-diff ref 'release-2.3.1' was unresolvable (diff=0 KSLOC) -> switched to funded
+  maintenance-quarter window 2021-05-01..2021-08-01 (net-delta).
+- elara: cutoff 2020-10-26 PREDATED first commit -> silently measured full later repo (68.9 KSLOC, wrong).
+  -> cutoff moved to 2020-12-31 (after the 26-Oct v0.1 delivery).
+- dissector hardened: size_whole now ERRORS if a date cutoff resolves to no commit (prevents silent
+  HEAD-measurement recurring).
+- Awaiting push -> re-dispatch (all 12) -> cleaner baseline (dotreasury+elara real); then Step-3b lever =
+  reuse-adjusted equivalent SLOC.

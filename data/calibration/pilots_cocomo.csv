@@ -2,12 +2,11 @@ project_id;repo_url;reported_pm;sizing_mode;ref;ref_a;ref_b;since;until;has_ci;h
 subsquare_maint;https://github.com/opensquare-network/subsquare;24.7;window;;;;2023-10-01;2024-10-01;1;1;0;1;0;1;0;0;0;1;0;0;;;P1 12mo maintenance slice. window net-delta OVERCOUNTS on a big active repo - treat size as upper bound
 ask_v01;https://github.com/patractlabs/ask;6.9;whole;2021-02-22;;;;;1;1;0;1;0;1;0;1;0;0;0;1;;;P2 AssemblyScript ink! contract language greenfield v0.1 (has_contracts+dep_contract)
 bagpipes;https://github.com/BagpipesOrg/app;9.97;whole;2024-03-01;;;;;1;0;0;1;0;1;0;0;0;1;0;0;;;P3 no-code XCM dApp builder React TS - proposed effort - dep_crosschain
-dotreasury;https://github.com/opensquare-network/dotreasury;0.95;diff;;e8f09bf9cfcbf352425555734c022c59c9ba72ea;release-2.3.1;;;1;1;0;1;0;1;0;0;0;0;0;0;;;P4 EXACT developer diff range (cleanest size) treasury explorer Node TS
+dotreasury;https://github.com/opensquare-network/dotreasury;0.95;window;;;;2021-05-01;2021-08-01;1;1;0;1;0;1;0;0;0;0;0;0;;;P4 funded maintenance quarter 05-07.2021 (exact-diff ref release-2.3.1 was unresolvable -> window) treasury explorer Node TS
 megaclite;https://github.com/patractlabs/megaclite;3.45;whole;2020-12-21;;;;;1;1;0;1;0;1;0;1;0;0;1;1;;;P5 ZKP crypto library Rust greenfield v0.1 - dep_zkcrypto -> synth PREC=L CPLX=VH
 subsquare_newfeat;https://github.com/opensquare-network/subsquare;11.4;window;;;;2022-04-01;2023-07-31;1;1;0;1;0;1;0;0;0;1;0;0;;;P6 new-features slice same repo as P1 - window net-delta OVERCOUNTS - subsquare-share 1736h
 fennel;https://github.com/fennelLabs/Fennel-Protocol;9.0;whole;37cc301f03ebd7eef83b589385fe566bfa777aa2;;;;;1;1;1;1;0;1;1;0;1;0;0;0;;;P7 Substrate Whiteflag chain Rust at Grant-1 delivery commit - onchain_runtime+consensus
-elara;https://github.com/patractlabs/elara;4.6;whole;2020-10-26;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;P8 RPC access layer Infura-like Node TS greenfield v0.1
-paraspell_base;https://github.com/dudo50/ParaSpell;2.0;whole;2022-11-01;;;;;1;0;0;1;0;1;0;0;0;1;0;0;;;P9 XCM dev-tool UI Vue base grant - cutoff approx (base-grant M1 2022)
+elara;https://github.com/patractlabs/elara;4.6;whole;2020-12-31;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;P8 RPC access layer Infura-like Node TS greenfield - cutoff 2020-12-31 (after v0.1 26-Oct delivery - 2020-10-26 predated first commit so measured full repo)
 remarker;https://github.com/Remarkers/Remarkers-market;7.24;whole;2024-09-19;;;;;1;0;0;1;0;1;0;0;0;1;0;0;;;P10 NFT marketplace Vue TS at proposal date - reuse risk
 kheopswap;https://github.com/kheopswap/kheopswap;3.16;whole;2024-08-19;;;;;1;0;0;1;0;1;0;0;0;1;0;0;;;P11 Asset Hub DEX UI PAPI+smoldot greenfield at proposal date (CLEAN anchor A_local 0.157 raw-SLOC)
 ink_analyzer;https://github.com/ink-analyzer/ink-analyzer;2.79;window;;;;2023-09-01;2024-04-01;1;1;0;1;0;1;0;0;0;0;0;0;;;P12 v5-support window - net-delta still OVERCOUNTS (all 7mo dev not v5-only) - upper bound - overrides stripped for baseline

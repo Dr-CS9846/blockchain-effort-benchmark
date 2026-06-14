@@ -65,7 +65,9 @@ def size_whole(d, ref):
     # ref may be a commit/tag OR a YYYY-MM-DD cutoff (checkout repo state at that date)
     if ref and re.match(r"^\d{4}-\d{2}-\d{2}$", ref.strip()):
         c = _resolve_before(d, ref.strip())
-        if c: sh(["git","checkout","--quiet",c], cwd=d)
+        if not c:
+            raise RuntimeError(f"cutoff {ref} predates first commit (no checkout) - pick a later date/commit")
+        sh(["git","checkout","--quiet",c], cwd=d)
     elif ref: sh(["git","checkout","--quiet",ref], cwd=d)
     # prefer cloc; fallback to line count over source files
     r = sh(["cloc","--quiet","--json","--exclude-dir="+",".join(v.strip("/") for v in VENDOR)] + [str(d)])
