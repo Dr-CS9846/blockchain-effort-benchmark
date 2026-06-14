@@ -9,7 +9,11 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - FIXED treasury_mine.py page rate 0.25s -> 1.0s so later sources (gov2/kusama) aren't 429-starved.
 - pilot-select #1 (9s): SUCCESS. census treasury_proposals.csv is now multi-source (polkadot+kusama x treasury+gov2 - the slower-rate harvest landed). pilot_cases.csv = 12 HIGH-confidence pilots (reported PM + repo): ks/66 Patract Ask!v0.1 15PM, ks/81 Ask!v0.2 6.9, pd/749 RuntimeVerification 18, pd/362 Bagpipes 40, pd/1509 Ajuna SAGE 2, pd/1225 [Retro]Subsquare 72, pd/1123 ink!Alliance 120, ks/56 SubBooster 4, ks/103 dotreasury 3, pd/809 Registrar 3.7 (11 repos), ks/57 Metis 3.45, pd/1612 Subsquare 2.07; + MED anchors (no repo) + LOW retro (Talisman 85.6). First-ever human-reported PMs WITH measurable repos. Caveat: a few repo links weak (#749->grants, #362) - hand-pick fixes those.
 - BUILT scripts/validate/pilot_measure.py (Steps 2-3): clones each pilot's primary code repo (drops dep/meta orgs), cloc size, fits the COCOMO power law ln PM = lnA + E*ln(KSLOC) to the REPORTED PMs (free A,E and fixed E=0.91), LOOCV predicted-vs-reported (SA/MMRE/PRED) + per-pilot PM=PM table. Size-only honest first baseline; drivers layer next. Added workflow pilot_measure.yml (installs cloc+numpy, clones pilot repos, publishes reports/pilot_pm_compare.json).
-- Next: push -> dispatch pilot-measure -> first PM=PM on cleanly-reported pilots. Then hand-refine repo picks (Step 5/6) + add drivers + extend to global sources.
+- pilot-measure #1 (53s, n=11): FIRST PM=PM on reported pilots FAILED - LOOCV SA -0.04, PRED30 0%, fitted size exponent E = -0.108 (negative!). DIAGNOSIS (clear, not fatal): SCOPE MISMATCH. reported_pm is ONE proposal's slice (milestone/maintenance/umbrella) but measured ksloc = the WHOLE current codebase or the WRONG repo. Evidence: subsquare repo (228 KSLOC) paired with BOTH 72 PM (#1225) and 2.07 PM (#1612); patractlabs/ask (12.8 KSLOC) paired with BOTH 15 (#66) and 6.9 (#81); #749 RuntimeVerification reported 18 paired with w3f/Grants-Program 0.3 KSLOC (wrong repo). Auto-pairing reported-PM<->whole-repo-size is invalid -> this is exactly why Step 5/6 hand-pick is essential; 'clean' must mean reported PM and measured size describe the SAME scope.
+- FORK to fix scope-match: (A) WINDOWED size - measure code delivered during each proposal's window (Subsquare createdAt +/- duration, team-attributed) so size<->reported-PM correspond; keeps treasury at scale, automatable. (B) HAND-PICK complete-project pilots / pivot to sources where one effort = one complete repo (hackathons/Gitcoin/single-tool grants/papers reporting hours+repo). Recommend A as the principled automated scope-matcher + a small hand-picked gold set.
+- DECISION (the right model, locked): CURATED MATCHED-TRIPLE calibration = Boehm's exact method. Each data point = {REPORTED total PM for one deliverable, equivalent SLOC of the ONE repo it produced (scope-matched), COCOMO drivers properly ASSIGNED by reading the project}. Root cause of every prior wall: unmatched pairs (git-noise effort / scope-mismatched size / coarse auto-drivers). Quality over quantity (~30-40 clean triples; Boehm local-cal needs ~10).
+- BUILT scripts/validate/matched_pair_calibrate.py: foundation run on the W3F census (near-ideal matched pair: one grant->one own-org repo built for it->one reported planned_pm). target=planned_pm (REPORTED, not git); size=equivalent SLOC; velocity gate OFF; NO ratio gate (would manufacture correlation); greenfield-ish via duration<=18mo + effort_reliable. Calibrates size-only (free A,E and fixed E=0.91) + full fixed-weight COCOMO II, LOOCV PM=PM, + per-project residuals (worst/best) to show where hand-assigned drivers must do the work. Added workflow matched_pair.yml.
+- Next: push -> dispatch matched-pair -> read size->reported-PM PM=PM + residuals = the honest floor. Then build the curated matched-triple set (correct repo, scope-matched size, hand-assigned ratings) across W3F + treasury-greenfield + global sources -> the publishable Blockchain-COCOMO calibration.
 
 ## 2026-06-12 (PM-FIRST: stop fighting the noise floor - find/measure a better TARGET)
 - User direction: use intelligence to find a smarter way; look for better PLANNED/REPORTED-effort data we can mine (foundations already in repo) instead of hitting the predictor wall.
@@ -575,3 +579,229 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   identifiable; blockchain effort captured by standard CPLX/RELY/TIME/PVOL under local calibration.
 - #24 COMPLETE. Canonical conformance fully discharged: verified tables, equivalent SLOC, fixed-weight
   vs local calibration, redundancy/necessity/sufficiency, two-axis effort-quality gates, stratification.
+
+2026-06-14  Verified pilot #4 added (curated matched-triple set, brick #4).
+- dotreasury (OpenSquare) — Kusama Treasury Proposal #103, read on-chain via kusama-api.subsquare.io.
+  Retroactive maintenance slice 05.2021–07.2021. Effort itemised on-chain: 10 dev-days maintenance +
+  ~2 dev-week grading/IPFS feature => ~20 dev-days ~= 0.95 PM (server $1,350 excluded as infra).
+  Repo opensquare-network/dotreasury; developers supplied EXACT slice diff e8f09bf...release-2.3.1
+  (best-sizable pilot). On-chain: Awarded 38.66 KSM (~$7,992), council motion #339 12-0 unanimous,
+  award block 8,726,400. Disclosed: same org as Pilot 1 (subsquare) — distinct product/repo/scope.
+- Set spread now 0.95 -> 24.7 PM (26x); two chains; four project types; greenfield+brownfield;
+  forward+retroactive; full-build + micro-maintenance.
+- REJECTED candidate (auditable): Talisman Wallet & Portal, OpenGov Ref #1232 (Executed, 690,600 USDT).
+  Excluded because (a) no effort figure on-chain (cost breakdown lives in an external Google Doc) and
+  (b) 3-repo umbrella (talisman + talisman-web + chaindata) => no single clean matched scope.
+
+2026-06-14  Verified pilot #5 added (user-supplied brick; verified on-chain).
+- Megaclite v0.1 (ZKP crypto library, Patract Hub) — Polkadot Treasury Proposal #24, read on-chain
+  via polkadot-api.subsquare.io. Forward grant, greenfield. Effort verbatim on-chain: "Cost of v0.1
+  (15 developers x weeks)", M1-M5 each "3 developers x 1 week" => 15 dev-weeks => 15/4.345 = 3.45 PM.
+  Window verbatim "5 weeks (16 Nov - 21 Dec)" 2020. Repo patractlabs/megaclite (renamed zkmega).
+  On-chain: Awarded 2020-12-05, 5,431 DOT ($31,500 @ $5.8/DOT), award block 2,764,800, council
+  motion #42 final 8-0.
+- Corrections vs user's submitted table (truth-first):
+  (1) PM 3.25 -> 3.45 to standardise dev-weeks/4.345 across all pilots (matches Ask! method).
+  (2) Motion #42 final 8-0 but NOT unanimous throughout: councillor 1363HWTP first voted Nay
+      (transient 5-1) then flipped to Aye. Recorded as "unanimous final, not throughout".
+  (3) Beneficiary verified as address 123ua9...X2iC ("RTTI-5220" is its identity label).
+- Tags: proposed (not actual) effort; 3rd Patract project (org overlap with Pilot 2 Ask!).
+- Org concentration now disclosed in registry: OpenSquare x2 (#1,#4), Patract x2 (#2,#5),
+  Bagpipes x1 (#3). Balance toward independent teams as set grows to n~30-40.
+
+2026-06-14  Pilot #6 hunt (fresh-team, breaking OpenSquare/Patract concentration) — 4 candidates burned + CSV bug found.
+- Read on-chain, all REJECTED or MISLABELLED:
+  * Kusama #56 SubBooster (sub-box) -> state REJECTED on-chain (council rejectProposal motion #248,
+    bond slashed). Never awarded; budget in external Google Sheet. Out (no award, effort off-chain).
+  * Polkadot gov2 #1509 Ajuna SAGE (ajuna-network) -> state REJECTED (nays>ayes, no award);
+    multi-repo forward proposal. Out.
+  * Polkadot treasury #749 -> CSV labelled "Runtime Verification: Advanced Rust Property Test
+    Verification"; on-chain #749 is actually "Retroactive Tip for Portuguese Content Creation"
+    (Polkadot Brasil, 550 DOT, social media). Record shows proposalIndex 749 vs referendumIndex 667.
+  * Polkadot treasury #162 -> CSV labelled "Polkadot Live"; on-chain #162 is actually "SubWallet
+    Milestone 2" (Koniverse/SubWallet-Extension).
+- DATA-QUALITY BUG: pilot_cases.csv conflates treasury proposalIndex with gov2 referendumIndex, so
+  its titles/rows are misaligned; it also never recorded on-chain award status. ACTION: do not pick by
+  CSV title; re-read every candidate on-chain. (Harvester index-mapping fix = TODO.)
+- LEAD (not yet entered, pending standard): SubWallet Milestone 2 (Polkadot treasury #162). Clears
+  award (Awarded 35,417 DOT, council motion #253 8-0 unanimous, executed 2022-09-18), FRESH TEAM
+  (Koniverse/SubWallet, not OpenSquare/Patract), SINGLE repo (Koniverse/SubWallet-Extension), EXACT
+  completed window (Milestone 2, 12 weeks, Mar->May 2022, GitHub milestone/2 closed). BUT person-effort
+  (FTE/hours) is NOT on-chain -- it lives in an external Google Doc (like Talisman). Held out of the
+  gold set per the on-chain-effort rule; offered to user as a tagged "effort-off-chain" candidate.
+
+2026-06-14  SubWallet #162 follow-up: linked Google Doc (effort/cost breakdown) is DELETED ("file has
+  been deleted"). User relaxed rule to allow linked-doc effort "if real and worthwhile", but SubWallet's
+  source is gone => no recoverable stated effort => OUT. Lesson: Google-Doc-hosted effort is volatile.
+  PIVOT for fresh-team sourcing: prefer DURABLE linked docs = W3F Grants-Program application markdown on
+  GitHub (version-controlled, permanent), which itemise milestone effort (FTE/duration or hours) and map
+  to a single delivered repo; cross-reference to on-chain award where present. Replaces Google-Doc route.
+
+2026-06-14  Verified pilot #6 added (user-supplied brick; verified on-chain) — Subsquare new-features.
+- Polkadot Treasury #336 / OpenGov Referendum #13 (medium_spender), read on-chain via
+  polkadot-api.subsquare.io. OpenSquare. Awarded 36,969 DOT ($168,320 @ EMA7 06.18.2023; ~$194k @ award
+  block 16,588,800, 2023-07-27). Itemised effort tables @ $80/h: total 2,104 h verified line-for-line.
+- MATCHED-PAIR CORRECTION (critical): 2,104 h spans TWO repos + planned work, so it is NOT a matched pair
+  with subsquare alone. Split by repo:
+    * subsquare share = 368(Collectives)+80(enh)+1,288(new) = 1,736 h => 1,736/152 = 11.4 PM  <- entered.
+    * dotreasury share = 48(pie)+320(new) = 368 h => 2.42 PM  <- logged, NOT used (separate slice).
+  Also 1,608/2,104 h (76%) are planned (forward), only 496 h retroactive => tag "mostly proposed".
+- Window 2022-04 -> 2023-07; windowed-slice sizing must use DIFFERENT commits than Pilot 1
+  (subsquare 2023-10->2024-09). Pilots 1 & 6 = two non-overlapping slices of the SAME repo.
+- CONCENTRATION now the set's top weakness: OpenSquare x3 (#1,#4,#6; subsquare repo twice), Patract x2
+  (#2,#5), Bagpipes x1 (#3). #7+ must be independent teams via durable W3F grant applications.
+
+2026-06-14  Verified pilot #7 added (durable-source fresh-team finder delivered) — Fennel Protocol.
+- Source pivot worked: used the existing W3F census manifest (13 delivery-verified grants, all non-
+  OpenSquare/Patract) for discovery, then verified the application LIVE (read full markdown via Chrome
+  on raw.githubusercontent). Fennel chosen.
+- Fennel Protocol (Fennel Labs LLC, Wyoming USA) - FIRST fully-independent team. W3F grant, Whiteflag
+  messaging Substrate chain. Effort consistent: 3 FTE x 3 mo = 9.0 PM, $50,000, 3 milestones all
+  delivered (delivery_verified, count=3). Repo fennelLabs/Fennel-Protocol @ 37cc301 (pinned at delivery).
+  Proof class = W3F milestone delivery (durable, peer-reviewed), NOT on-chain treasury -> first non-on-
+  chain pilot; tagged. Effort = proposed (fixed-price budget).
+- Candidates rejected this hunt (auditable):
+  * AdMeta (AdMetaNetwork/admeta): application self-contradicts duration (header 1 mo vs M1 6 mo) AND
+    team is Litentry/Web3Go-affiliated (not independent). Verified live; rejected for cleanliness.
+  * ParaSpell_follow_up.md, lastic.md: 404 on master (W3F renamed/relocated delivered apps); could not
+    verify live this turn. (Finder TODO: pin app URLs to the mined git ref, not master.)
+- Finder method (reusable): W3F census manifest -> filter delivery_verified=True & single separable repo
+  & independent team & internally-consistent FTE/duration -> verify application markdown live -> enter.
+- Concentration improved: OpenSquare x3, Patract x2, Bagpipes x1, Fennel x1 (independent). Set = 7 pilots,
+  spread 0.95 -> 24.7 PM; proof classes now mixed (6 on-chain treasury + 1 W3F delivery), disclosed.
+
+2026-06-14  Verified pilot #8 added (user-supplied brick; verified on-chain) — Elara v0.1.
+- Polkadot Treasury #16 "Patract Labs' treasury proposal for Elara v0.1", read on-chain via
+  polkadot-api.subsquare.io. Awarded 8,600 DOT ($34,400 @ $4/DOT), council motion #31 8-0 unanimous,
+  award block 2,073,600 (2020-10-18). Greenfield RPC access layer ("Infura for Polkadot"), repo
+  patractlabs/elara. Effort verbatim: "1 designer x week + 20 developers x weeks", 5-wk window
+  21 Sep-26 Oct 2020. 20 dev-weeks => 4.6 PM (dev-only, consistent w/ Ask!/Megaclite); 4.83 PM if the
+  1 designer-week counted. Tag: proposed (forward).
+- CONCENTRATION: 3rd Patract project (Ask! #2, Megaclite #5, Elara #8). Set now OpenSquare x3, Patract x3,
+  Bagpipes x1, Fennel x1. Only 2/8 orgs independent. Re-concentrated right after Fennel broke it.
+- DISCOVERY ANGLE recorded (user insight): Patract & OpenSquare published NUMBERED project roadmaps
+  (Patract roadmap = polkassembly post/100; Elara = their 4th project) where each item is a separate
+  treasury proposal with an itemised FTE x week table. High-yield vein of clean-effort triples, but same
+  1-2 orgs => grows clean subset WITHOUT independence. Mine it for the on-chain-itemised tier; keep W3F/
+  independent route for org diversity. (Patract roadmap projects to enumerate: Ask!, Metis, Megaclite,
+  Elara, + others; OpenSquare: subsquare, dotreasury, statescan, ...)
+
+2026-06-14  Supervisor caution on Pilot #7 (Fennel) — investigated & RESOLVED (read both grant apps live).
+- Fennel Labs has TWO W3F grants:
+  * Grant 1 Fennel_Protocol.md (Q1 2022): 3 months, 3 FTE, $50k, 3 milestones ($15k/$15k/$20k).
+    => 3 FTE x 3 mo = 9.0 PM. This is Pilot #7's source (census pinned this app; delivery_count=3
+    matches its 3 milestones).
+  * Grant 2 Whiteflag-on-Fennel.md (Q2 2022): 3 months, 2 FTE (overview), $90k, 2 milestones
+    (M1 2 FTE x1mo $25k; M2 3 FTE x2mo $65k). The "2 FTE" the supervisor saw belongs to THIS grant,
+    a different later scope (web UI + full Whiteflag + IPFS). NOT Pilot #7.
+  CONCLUSION: #7's 3 FTE / 9 PM is correctly sourced (Grant 1); not conflated. Supervisor's "3
+  milestones ~$15-20k over 3 months" = Grant 1 (which states 3 FTE).
+- Caveats recorded on #7 for final calibration: (a) pin Fennel-Protocol to Grant-1 delivery (~end Q1
+  2022/M3) so size doesn't include Grant-2 code; (b) Grant 1 spanned Fennel-Protocol + fennel-lib +
+  fennel-cli -> sizing only chain repo may undercount (matched-pair risk as #6); (c) Grant 2, if ever
+  added, = 8 PM milestone-weighted (2x1 + 3x2), NOT the 6 PM its "2 FTE x 3 mo" header implies.
+- Also noted: W3F app filenames on master differ from our manifest casing (Lastic.md not lastic.md;
+  ParaSpell_follow-up.md not ParaSpell_follow_up.md; second Fennel grant = Whiteflag-on-Fennel.md).
+  Finder TODO: resolve app URLs against the live tree, not the mined casing.
+
+2026-06-14  Verified pilot #9 added (independent-side rebalance) — ParaSpell (base grant).
+- Read primary apps live. ParaSpell has THREE W3F grants:
+  * base ParaSpell.md: 2 months, 1 FTE, $10k, 1 milestone => 1 FTE x 2 mo = 2.0 PM. Repo dudo50/ParaSpell.
+  * follow-up ParaSpell_follow-up.md: 3 months... actually 6 months, 2 FTE, $28.5k, 3 milestones (M1/M2/M3
+    each 2 FTE x 2 mo) => 2 FTE x 6 mo = 12 PM. Repos paraspell/sdk + paraspell/ui (multi-repo).
+  * follow-up-2 ParaSpell_follow-up2.md (not used).
+- ENTERED base grant as Pilot #9: 2.0 PM, repo dudo50/ParaSpell, independent Slovak team (Dusan Morhac;
+  supervisor = Viktor Valastin/KodaDot, disclosed). Delivered (W3F wave 15; M1 evaluated paraspell_1_
+  keeganquigley.md). Proof class = W3F delivery; effort = proposed. Type = XCM dev tool/UI (novel).
+- CENSUS-CSV BUG CAUGHT (supervisor-rigor win): manifest row "ParaSpell_follow_up" MIXED base-grant
+  effort (2 PM, $10k) with follow-up repo/commit (paraspell/sdk @ ParaSpell-followup-m1). The 2 PM is the
+  BASE grant; correct repo = dudo50/ParaSpell. => derived W3F census CSV effort/repo mappings are NOT
+  trustworthy; re-derive every W3F pilot from the primary application (same lesson as pilot_cases.csv).
+- POLKAWATCH (user lead) verified at primary source: Valletech AB (Sweden), 2 FTE x 10 wk = 4.6 PM,
+  $28.5k, 2 milestones, CONSISTENT & independent. NOT entered this turn because: repo on GitLab
+  (gitlab.com/polkawatch, multi-module) -> out of our GitHub sizing pipeline; delivery not yet confirmed
+  (deliveries listing truncated before 'P'). Held as a strong independent candidate for a GitLab-capable
+  measurement pass.
+- Concentration now: OpenSquare x3, Patract x3, Bagpipes x1, Fennel x1 (US), ParaSpell x1 (EU). 4/9
+  non-OpenSquare/Patract. Set = 9 pilots, spread 0.95 -> 24.7 PM; proof classes 7 on-chain + 2 W3F.
+
+2026-06-14  Verified pilot #10 added (cleaner path: retroactive, COMPLETED, actual effort) — Remarker.
+- Polkadot OpenGov Referendum #1170 "Only Retroactive Funding Proposal: Completed Remarker Development",
+  read on-chain via polkadot-api.subsquare.io/gov2/referendums/1170. NFT marketplace (remarkers.io).
+- On-chain effort table: 6 Months, 1100 work hours, $4/hr = $4,400 => 1100/152 = 7.24 PM. ACTUAL
+  (retroactive completed-work) effort. Single repo Remarkers/Remarkers-market. Solo independent dev
+  (Ashutosh Singh). On-chain Executed (paid) 2024-09-23, 946.91 DOT (=$4,400 at submission), big_tipper
+  track, referendum #1170 / treasury-spend #919.
+- First INDEPENDENT actual-effort pilot (previous actuals all OpenSquare). Caveats: effort is a single
+  lump figure (not itemised), solo self-report; NFT-marketplace reuse -> apply equivalent-SLOC reuse
+  adjustment at measurement.
+- Index note: OpenGov-era proposals are gov2 referenda; treasury/proposals/{n} 404s for these. Use
+  gov2/referendums/{n}; treasurySpendIndex (#919) differs from referendumIndex (#1170).
+- Set = 10 pilots, spread 0.95 -> 24.7 PM. Concentration: OpenSquare x3, Patract x3, Bagpipes 1,
+  Fennel 1, ParaSpell 1, Remarker 1 => 4/10 independent. Proof classes: 8 on-chain treasury + 2 W3F.
+- Remaining clean retroactive independent candidates queued (from mined list, verify on-chain before
+  use): #1102 Kheopswap (kheopswap/kheopswap), #619 ink! Analyzer (ink-analyzer/ink-analyzer),
+  #1132 Polkawatch (Valletech; GitLab -> needs GitLab sizing), #1118 SubWallet 8-mo (multi-repo).
+
+2026-06-14  REJECTED ink!Hub (user brick) + ADDED pilot #11 Kheopswap (user brick).
+- REJECTED: ink!Hub / Swanky Suite (OpenGov Ref #137 / Treasury #417, Executed, 58,018 DOT). Verified
+  on-chain: real & delivered (Astar+AlephZero+Phala joint ink! tooling) BUT fails matched-triple bar:
+  (a) NO person-effort on-chain (only DOT amount; all effort in external Google Doc; cost-derived PM = the
+  rejected approach); (b) multi-repo umbrella across 3 orgs (swanky-cli + swanky-node + drink/drink-cli/
+  drink-pink-runtime + ~26 inkdevhub repos) => no single artifact to match; (c) partial task-based delivery
+  (~90%, payout adjusted) => fuzzy scope<->payment. Same failure mode as Talisman. Auditable exclusion logged.
+- ADDED Pilot #11: Kheopswap (OpenGov Ref #1102 "Kheopswap retroactive funding"). Read on-chain. RETROACTIVE
+  ACTUAL effort: "3 months (approx. 480 hours)" $130/hr = $62,400 => 480/152 = 3.16 PM. Single repo
+  kheopswap/kheopswap (polkadot-api = PAPI dependency, excluded). Solo independent dev "Kheops" (employed at
+  Talisman but Kheopswap is a personal side project, disclosed). On-chain Executed (paid) 2024-09-10, 14,092
+  DOT ($62,400 @ $4.428 EMA), medium_spender, referendum #1102 / treasury-spend #916. Asset Hub DEX UI,
+  first-gen PAPI dApp. Second independent actual-effort pilot (with #10).
+- Set = 11 pilots, spread 0.95 -> 24.7 PM. Concentration: OpenSquare x3, Patract x3, + 5 independent
+  (Bagpipes, Fennel, ParaSpell, Remarker, Kheopswap). Proof classes: 9 on-chain treasury + 2 W3F.
+
+2026-06-14  Verified pilot #12 added (cleanest yet: retroactive, itemised actual effort) — ink! analyzer.
+- Polkadot OpenGov Referendum #619 "ink! Analyzer: Retroactive funding for ink! v5 support", read on-chain.
+  ITEMISED on-chain effort table (8 workstreams): 24+80+136+96+8+48+24+8 = ~424 h x $62.5 = $26,500
+  => 424/152 = 2.79 PM. ACTUAL (retroactive completed). Independent solo dev David Semakula
+  (@davidsemakula; independent rust-analyzer & ink! contributor). Repo ink-analyzer/ink-analyzer
+  (multi-crate monorepo; ink-vscode = thin client). On-chain Executed (paid) 2024-04-17, 2,812.27 DOT
+  ($26,500 @ EMA30), small_spender, referendum #619 / treasury-spend #747. Domain: LSP/semantic analyzer
+  ("rust-analyzer for ink!").
+- First INDEPENDENT itemised actual-effort pilot (gold-standard table granularity from a solo dev).
+- SLICE discipline: 424 h = the ink! v5-support increment of a mature codebase (prior v4 work = 2 W3F
+  grants $30k + $59.6k). Size the v5 DIFF (~late-2023 -> Mar-2024), NOT the whole repo. Brownfield
+  windowed slice like #1/#4/#6.
+- Set = 12 pilots, spread 0.95 -> 24.7 PM. Concentration EVENLY SPLIT: OpenSquare x3 + Patract x3 = 6;
+  independent = 6 (Bagpipes, Fennel, ParaSpell, Remarker, Kheopswap, ink! analyzer). Proof classes:
+  10 on-chain treasury + 2 W3F. Effort-types: actual itemised (1,6,8,12) + actual single-figure (4,10,11)
+  + proposed (2,3,5,7,9).
+
+2026-06-14  ADDED pilot #13 Dot Code School + REJECTED Ink! Dev Hub R1 (#624). (user case study)
+- ADDED Pilot #13: Dot Code School PoC (OpenGov Ref #364 / treasury #563 "[Retroactive] Funding
+  Development Costs for Dot Code School PoC"). Read on-chain. Cost breakdown verbatim: Total 2,500 DOT
+  (~$18,000), FTE 1, $125/hr, 144 hours => 144/152 = 0.95 PM. ACTUAL retroactive. Single repo
+  iammasterbrucewayne/dotcodeschool (renamed saumyakaran/dotcodeschool, archived Mar 2024; Next.js/TS).
+  Solo independent dev Saumya Karan (India). On-chain Executed (paid) 2023-12-28, 2,500 DOT, small_spender,
+  ref #364 / treasury-spend #563. Domain: interactive coding-school web app (novel). Note: Decentralized
+  Futures Program = separate later scope, NOT this pilot (144h PoC only). Low-end point (0.95 PM, like #4).
+- REJECTED: Ink! Dev Hub Round 1 (OpenGov Ref #624 / treasury #719, Awarded, 72,000 USDC). Sibling of the
+  already-rejected ink!Hub #137 — same Astar+AlephZero+Phala Swanky/Drink umbrella. Delivery-based variable
+  funding, NO hours/FTE table, multi-org, multi-repo umbrella, ~90% partial delivery. Same unmatched-scope
+  failure mode. Assessed from user writeup + verified #137 precedent. Auditable exclusion logged.
+- Set = 13 pilots, spread 0.95 -> 24.7 PM. INDEPENDENCE NOW MAJORITY: 7 independent vs 6 OpenSquare/Patract.
+  Proof classes: 11 on-chain treasury + 2 W3F. Ready for first COCOMO II calibration pass on the verified set.
+
+2026-06-14  Moved to COCOMO II dissection (one project at a time, PM=PM). Built harness + ranking.
+- PILOT_RANKING.md: 13 pilots ranked by effort-authenticity, tie-broken by size-measurability. First
+  specimen = Pilot #12 ink! analyzer (actual + itemised 8-workstream hours + independent + executed;
+  size = tractable v5-support window). Method per project: measure matched-slice size -> assign 22
+  COCOMO II drivers (objective signals + evidence overrides) -> E=0.91+0.01*SumSF, prod(EM),
+  PM_pred@A=2.94, and A_local=reported_PM/(Size^E*prod(EM)). PM=PM holds per-project via A_local; the
+  result is whether A_local clusters near 2.94 across the clean set (the calibration evidence).
+- scripts/validate/dissect_pilot.py (+ .github/workflows/dissect_pilot.yml): clone repo, measure size
+  per mode (whole=cloc / window=git log --numstat added / diff=git diff a..b --numstat), synth ratings
+  via cocomo_fit.synth_ratings + cocomo2_tables, apply ov_<DRIVER> evidence overrides, output full
+  breakdown to reports/dissect_<id>.json (published to census). Syntax-checked OK; spec parses.
+- data/calibration/pilots_cocomo.csv: ink_analyzer row (window 2023-09-01..2024-04-01, reported 2.79 PM,
+  overrides CPLX=H + PVOL=H with evidence; blockchain EMs Nominal). Awaiting push -> dispatch dissect-pilot
+  (only=ink_analyzer) via Chrome -> read A_local from census.

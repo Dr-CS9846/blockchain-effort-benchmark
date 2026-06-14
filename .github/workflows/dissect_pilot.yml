@@ -1,0 +1,59 @@
+name: dissect-pilot
+
+# Per-project COCOMO II dissection of ONE verified pilot at a time (PM=PM).
+# Clones the pilot repo, measures the matched slice (whole/window/diff), assigns the 22 COCOMO II
+# drivers (5 SF + 17 EM) from objective signals + evidence overrides, computes E, prod(EM),
+# PM_pred @A=2.94, and the exact A_local that makes PM(COCOMO)=PM(reported).
+# Spec: data/calibration/pilots_cocomo.csv. Publishes reports/dissect_*.json to 'census'.
+
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: "project_id(s) to dissect (comma-sep); blank = all rows in spec"
+        required: false
+        default: "ink_analyzer"
+      abc:
+        description: "optional blockchain-calibrated A to also test (blank = skip)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+jobs:
+  dissect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install cloc + numpy
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq cloc
+          python -m pip install --quiet numpy
+      - name: Dissect pilot(s)
+        run: |
+          mkdir -p reports
+          ABC_ARG=""
+          if [ -n "${{ github.event.inputs.abc }}" ]; then ABC_ARG="--abc ${{ github.event.inputs.abc }}"; fi
+          python scripts/validate/dissect_pilot.py \
+            --spec data/calibration/pilots_cocomo.csv \
+            --only "${{ github.event.inputs.only }}" \
+            $ABC_ARG
+          echo "=== results ==="; cat reports/dissect_all.json || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "dissect-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f reports/dissect_*.json /tmp/ 2>/dev/null || true
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p reports
+          cp -f /tmp/dissect_*.json reports/ 2>/dev/null || true
+          git add reports/dissect_*.json
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: per-pilot COCOMO II dissection [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
