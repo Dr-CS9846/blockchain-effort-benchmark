@@ -17,6 +17,10 @@ on:
         description: "optional blockchain-calibrated A to also test (blank = skip)"
         required: false
         default: ""
+      aam:
+        description: "reuse adaptation modifier for adapted/forked/generated code (default 0.10)"
+        required: false
+        default: "0.10"
 
 permissions:
   contents: write
@@ -38,10 +42,12 @@ jobs:
           mkdir -p reports
           ABC_ARG=""
           if [ -n "${{ github.event.inputs.abc }}" ]; then ABC_ARG="--abc ${{ github.event.inputs.abc }}"; fi
+          AAM_ARG=""
+          if [ -n "${{ github.event.inputs.aam }}" ]; then AAM_ARG="--aam ${{ github.event.inputs.aam }}"; fi
           python scripts/validate/dissect_pilot.py \
             --spec data/calibration/pilots_cocomo.csv \
             --only "${{ github.event.inputs.only }}" \
-            $ABC_ARG
+            $ABC_ARG $AAM_ARG
           echo "=== results ==="; cat reports/dissect_all.json || true
       - name: Publish to 'census'
         run: |

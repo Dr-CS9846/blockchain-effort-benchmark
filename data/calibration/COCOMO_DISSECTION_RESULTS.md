@@ -5,7 +5,30 @@ For each verified pilot: measure matched-slice size → assign 22 drivers (objec
 PM(COCOMO) = PM(reported). The scientific result is whether A_local **clusters** across the clean set
 (a tight cluster ⇒ one defensible Blockchain-COCOMO constant). Published COCOMO II A = 2.94.
 
-### Baseline run (objective-only drivers, raw cloc/diff size) — n=11 computed, 2 errored
+### Run #5 (after Step-3a fixes: dotreasury window, elara cutoff, paraspell dropped) — n=12
+| Pilot | KSLOC | E | ∏EM | Reported PM | **A_local** | size class |
+|---|---|---|---|---|---|---|
+| fennel | 7.84 | 1.070 | 1.34 | 9.0 | **0.739** | clean authored |
+| bagpipes | 10.81 | 1.100 | 1.00 | 9.97 | **0.729** | clean authored |
+| dotcodeschool | 1.45 | 1.100 | 1.00 | 0.95 | **0.631** | clean authored |
+| megaclite | 3.65 | 1.082 | 1.49 | 3.45 | **0.571** | clean authored |
+| remarker | 11.33 | 1.100 | 1.00 | 7.24 | **0.502** | clean authored |
+| dotreasury | 2.37 | 1.070 | 1.00 | 0.95 | **0.379** | clean authored (FIXED: funded-quarter window) |
+| ask_v01 | 20.73 | 1.070 | 1.30 | 6.9 | 0.208 | reuse-inflated (AssemblyScript codegen) |
+| kheopswap | 15.36 | 1.100 | 1.00 | 3.16 | 0.157 | reuse-inflated (PAPI generated) |
+| elara | 69.74 | 1.100 | 1.00 | 4.6 | 0.043 | reuse-inflated (forked Substrate template) |
+| subsquare_maint | 76.89 | 1.070 | 1.00 | 24.7 | 0.237 | window over-count |
+| subsquare_newfeat | 69.97 | 1.070 | 1.00 | 11.4 | 0.121 | window over-count |
+| ink_analyzer | 37.49 | 1.070 | 1.00 | 2.79 | 0.058 | window over-count |
+
+**Headline (Run #5).** The **6 clean-authored pilots cluster at A_local 0.379–0.739 (geo-mean ≈ 0.58, spread ~1.95×)**
+⇒ working Blockchain-COCOMO **A ≈ 0.58** (~5× below published 2.94). **Every outlier is a raw-SLOC size-inflation
+case**: the 3 lowest (Elara 0.043, Kheopswap 0.157, Ask! 0.208) are the most reuse/forked/generated codebases;
+the 3 window pilots over-count by construction. ⇒ **reuse-adjusted equivalent SLOC is the dominant lever**, not a
+minor one. Next: (Step-3b) replace raw cloc with COCOMO reuse-adjusted equivalent SLOC; (Step-3c) commit-isolate
+the 3 window pilots. Expect the spread to collapse toward A ≈ 0.5–0.6.
+
+### Baseline run (objective-only drivers, raw cloc/diff size) — n=11 computed, 2 errored [SUPERSEDED by Run #5]
 | Pilot | KSLOC | E | ∏EM | Reported PM | PM_pred@2.94 | **A_local** | size basis |
 |---|---|---|---|---|---|---|---|
 | bagpipes | 10.81 | 1.100 | 1.00 | 9.97 | 40.2 | **0.729** | whole ✓ |

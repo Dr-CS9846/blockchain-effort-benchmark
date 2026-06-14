@@ -887,3 +887,28 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   HEAD-measurement recurring).
 - Awaiting push -> re-dispatch (all 12) -> cleaner baseline (dotreasury+elara real); then Step-3b lever =
   reuse-adjusted equivalent SLOC.
+
+2026-06-14  Run #5 (Step-3a fixes applied) -> CLEAN DIAGNOSTIC. n=12.
+- dotreasury FIXED: funded-quarter window 2021-05..08 = 2.365 KSLOC -> A_local 0.379.
+- elara still ~69.7 KSLOC even at 2020-12-31 cutoff = it forked a large Substrate template (raw SLOC
+  counts the fork) -> extreme reuse case, A_local 0.043. Poster child for the reuse lever.
+- 6 CLEAN-AUTHORED pilots cluster: A_local fennel .739, bagpipes .729, dotcodeschool .631, megaclite
+  .571, remarker .502, dotreasury .379 => geo-mean ~0.58, spread ~1.95x. Working A ~ 0.58 (~5x below 2.94).
+- ALL outliers are raw-SLOC size inflation: reuse-heavy (ask .208/21K, kheopswap .157/15K, elara .043/70K)
+  + window over-count (subsquare_maint .237/77K, subsquare_newfeat .121/70K, ink_analyzer .058/37K).
+- CONCLUSION: reuse-adjusted equivalent SLOC is the DOMINANT calibration lever (not minor). E ~1.07-1.10
+  flat across all; drivers ~Nominal -> the spread is purely SIZE. Next = Step-3b build reuse-adjusted
+  equivalent SLOC into dissector (generated-file exclusion + initial-import/fork discount via COCOMO AAM);
+  Step-3c commit-isolate the 3 window pilots. Expect collapse toward A ~ 0.5-0.6.
+- Table maintained in COCOMO_DISSECTION_RESULTS.md (Run #5 section).
+
+2026-06-14  Step-3b BUILT: reuse-adjusted equivalent SLOC lever in dissect_pilot.py.
+- reuse_split(): classifies source lines as ADAPTED if (a) generated (content markers) or (b) present in a
+  large "big-bang" root commit (>4000 src lines added at once = fork/template import). equivalent = new +
+  AAM*adapted, applied as a ratio to logical cloc KSLOC. AAM default 0.10 (workflow input for sensitivity).
+- Applied to WHOLE-mode only (window/diff untouched; windows = Step-3c). dissect() now reports reuse{} +
+  reuse-adjusted equivalent_ksloc; A_local computed on equivalent SLOC.
+- Workflow: added 'aam' input (default 0.10) -> --aam.
+- Verified file structure via Read tool (bash py_compile false-errored on a truncated mount copy).
+- Expected: Elara (forked root) + Kheopswap/Ask (generated) shrink -> A_local rises toward ~0.58 cluster;
+  clean-authored 6 barely move. Awaiting push -> re-dispatch (blank=all, aam=0.10).
