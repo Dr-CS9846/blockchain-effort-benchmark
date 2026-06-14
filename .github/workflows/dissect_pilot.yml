@@ -12,7 +12,7 @@ on:
       only:
         description: "project_id(s) to dissect (comma-sep); blank = all rows in spec"
         required: false
-        default: "ink_analyzer"
+        default: ""
       abc:
         description: "optional blockchain-calibrated A to also test (blank = skip)"
         required: false

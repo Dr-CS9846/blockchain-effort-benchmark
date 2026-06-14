@@ -822,3 +822,13 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   proposal date 2024-08-19 (unambiguous size, no slice). Objective drivers only (no overrides).
 - Staged: dissect_pilot.py fixes + pilots_cocomo.csv (kheopswap whole + ink_analyzer net-delta window).
   Awaiting push -> re-dispatch dissect-pilot (only blank = both) -> read kheopswap A_local (clean anchor).
+
+2026-06-14  Run #2 of dissect-pilot — two CSV/dispatch bugs found & fixed (no calibration result yet).
+- BUG A: notes fields contained ';' in a ';'-delimited CSV -> DictReader overflow into None key ->
+  dissect_pilot.py crashed ("'NoneType' has no attribute 'startswith'" in the ov_ override loop).
+  FIX: removed ';' from ink_analyzer + kheopswap notes; AND hardened loop (isinstance(k,str) guard).
+- BUG B: only ink_analyzer ran because a BLANK dispatch field falls back to the YAML input default,
+  which was "ink_analyzer". FIX: workflow `only` default -> "" so blank = all rows.
+- Verified: CSV parses with 0 None-keys; ink_analyzer retains ov_CPLX=H/ov_PVOL=H; kheopswap no overrides.
+- Awaiting push -> re-dispatch (blank=all) -> first CLEAN numbers: kheopswap (greenfield whole-repo
+  A_local) + ink_analyzer (net-delta window, upper bound).

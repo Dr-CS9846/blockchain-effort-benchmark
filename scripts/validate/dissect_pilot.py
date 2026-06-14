@@ -149,7 +149,7 @@ def dissect(row, A_bc=None):
     # evidence-based overrides (ov_<DRIVER>=rating), each must be justified in spec notes
     overrides = {}
     for k,v in row.items():
-        if k.startswith("ov_") and str(v).strip():
+        if isinstance(k,str) and k.startswith("ov_") and v and str(v).strip():
             name = k[3:]; rating = str(v).strip()
             if name in SF: SF[name]=rating; overrides[name]=rating
             elif name in EM: EM[name]=rating; overrides[name]=rating
