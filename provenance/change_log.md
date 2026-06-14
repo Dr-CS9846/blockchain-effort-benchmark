@@ -805,3 +805,20 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - data/calibration/pilots_cocomo.csv: ink_analyzer row (window 2023-09-01..2024-04-01, reported 2.79 PM,
   overrides CPLX=H + PVOL=H with evidence; blockchain EMs Nominal). Awaiting push -> dispatch dissect-pilot
   (only=ink_analyzer) via Chrome -> read A_local from census.
+
+2026-06-14  First dissection run (ink! analyzer) — caught a size-metric bug + the core calibration signal.
+- ink_analyzer raw result: window size 58.4 KSLOC (=git log --numstat added, summed over 7 mo) ->
+  PM_pred@A=2.94 = 306.8 PM vs reported 2.79 (+10,900%), A_local 0.027.
+- FINDING 1 (bug): `window` mode summed per-commit churn (refactors/moves/snapshots double-counted);
+  58.4K added lines for 424h = 138 LOC/h = impossible. FIX: window mode now = NET delta between
+  boundary commits (git diff start..end), not log-sum. `diff` mode (exact 2-commit range) was already
+  correct. dissect_pilot.py size_window rewritten; size_whole now accepts YYYY-MM-DD cutoff.
+- FINDING 2 (the real signal): even at a corrected ~6-10 KSLOC, A=2.94 over-predicts (~35 PM vs ~3).
+  Lean/senior/high-reuse/below-market grant projects deliver far more code per PM than COCOMO's
+  classic calibration -> Blockchain-COCOMO A_local ~ 0.1-0.3, not 2.94. The contribution = the
+  recalibrated A and whether A_local clusters across the clean set.
+- PIVOT: ink! analyzer v5 slice is hard to isolate (7 mo mixed commits) -> poor first anchor. Added
+  Kheopswap (#11, greenfield single-repo, actual 480h) as the FIRST clean specimen: whole-repo cloc at
+  proposal date 2024-08-19 (unambiguous size, no slice). Objective drivers only (no overrides).
+- Staged: dissect_pilot.py fixes + pilots_cocomo.csv (kheopswap whole + ink_analyzer net-delta window).
+  Awaiting push -> re-dispatch dissect-pilot (only blank = both) -> read kheopswap A_local (clean anchor).

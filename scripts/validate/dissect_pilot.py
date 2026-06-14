@@ -24,7 +24,7 @@ Sizing modes:
   window  : git log --since <since> --until <until> --numstat -> added SOURCE lines (brownfield slice).
   diff    : git diff <ref_a>..<ref_b> --numstat -> added+modified SOURCE lines (exact developer range).
 """
-import argparse, csv, json, math, os, subprocess, sys
+import argparse, csv, json, math, os, re, subprocess, sys
 from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cocomo2_tables as T
@@ -55,8 +55,18 @@ def _is_src(path):
     if any(v in p for v in VENDOR): return False
     return os.path.splitext(p)[1] in SRC_EXTS
 
+EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
+def _resolve_before(d, when):
+    """Last commit on HEAD at/just before a YYYY-MM-DD date (repo state at that date)."""
+    r = sh(["git","rev-list","-1",f"--before={when} 23:59:59","HEAD"], cwd=d)
+    return r.stdout.strip()
+
 def size_whole(d, ref):
-    if ref: sh(["git","checkout","--quiet",ref], cwd=d)
+    # ref may be a commit/tag OR a YYYY-MM-DD cutoff (checkout repo state at that date)
+    if ref and re.match(r"^\d{4}-\d{2}-\d{2}$", ref.strip()):
+        c = _resolve_before(d, ref.strip())
+        if c: sh(["git","checkout","--quiet",c], cwd=d)
+    elif ref: sh(["git","checkout","--quiet",ref], cwd=d)
     # prefer cloc; fallback to line count over source files
     r = sh(["cloc","--quiet","--json","--exclude-dir="+",".join(v.strip("/") for v in VENDOR)] + [str(d)])
     if r.returncode == 0 and r.stdout.strip():
@@ -92,10 +102,14 @@ def _numstat(d, gitargs):
     return add, mod_del
 
 def size_window(d, since, until):
-    add, dele = _numstat(d, ["log","--no-merges",f"--since={since}",f"--until={until}",
-                             "--numstat","--pretty=tformat:"])
-    # added source lines authored in the window = the delivered slice; report churn too
-    return add/1000.0, {"added": add, "deleted": dele}
+    # NET delta between the repo state at window-start and window-end (NOT cumulative log churn,
+    # which double-counts refactors/moves/snapshots). Two-snapshot diff = real delivered code.
+    start = _resolve_before(d, since)
+    end = _resolve_before(d, until) or "HEAD"
+    a_ref = start if start else EMPTY_TREE     # empty tree if repo began inside the window
+    add, dele = _numstat(d, ["diff","--numstat",f"{a_ref}..{end}"])
+    return add/1000.0, {"added": add, "deleted": dele, "start": (start[:8] or "EMPTY"),
+                        "end": end[:8], "metric": "net-delta(boundary-diff)"}
 
 def size_diff(d, ref_a, ref_b):
     sh(["git","fetch","--quiet","--tags"], cwd=d)
