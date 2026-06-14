@@ -331,7 +331,117 @@
   },
   {
     "project_id": "dotreasury",
-    "error": "dotreasury: measured 0 KSLOC (mode=diff); check refs/window"
+    "reported_pm": 0.95,
+    "sizing_mode": "window",
+    "size_how": "git-window",
+    "churn": {
+      "added": 2365,
+      "deleted": 6435,
+      "start": "e8f09bf9",
+      "end": "bbcfbe68",
+      "metric": "net-delta(boundary-diff)"
+    },
+    "ksloc": 2.365,
+    "equivalent_ksloc": 2.365,
+    "E": 1.07,
+    "sumSF": 16.0,
+    "prodEM": 0.999,
+    "sf": {
+      "PREC": {
+        "rating": "N",
+        "value": 3.72
+      },
+      "FLEX": {
+        "rating": "N",
+        "value": 3.04
+      },
+      "RESL": {
+        "rating": "H",
+        "value": 2.83
+      },
+      "TEAM": {
+        "rating": "N",
+        "value": 3.29
+      },
+      "PMAT": {
+        "rating": "H",
+        "value": 3.12
+      }
+    },
+    "em": {
+      "RELY": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DATA": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "CPLX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "RUSE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DOCU": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "TIME": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "STOR": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PVOL": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "ACAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCON": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "APEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PLEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "LTEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "TOOL": {
+        "rating": "H",
+        "mult": 0.9
+      },
+      "SITE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "SCED": {
+        "rating": "N",
+        "mult": 1.0
+      }
+    },
+    "overrides": {},
+    "PM_pred_A2_94": 7.378,
+    "pct_err_A2_94": 676.6,
+    "A_local_for_PMeqPM": 0.379
   },
   {
     "project_id": "megaclite",
@@ -669,8 +779,8 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
-    "ksloc": 68.878,
-    "equivalent_ksloc": 68.878,
+    "ksloc": 69.737,
+    "equivalent_ksloc": 69.737,
     "E": 1.0997,
     "sumSF": 18.97,
     "prodEM": 0.999,
@@ -767,13 +877,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 308.496,
-    "pct_err_A2_94": 6606.4,
-    "A_local_for_PMeqPM": 0.044
-  },
-  {
-    "project_id": "paraspell_base",
-    "error": "clone failed: fatal: could not read Username for 'https://github.com': No such device or address"
+    "PM_pred_A2_94": 312.73,
+    "pct_err_A2_94": 6698.5,
+    "A_local_for_PMeqPM": 0.043
   },
   {
     "project_id": "remarker",
