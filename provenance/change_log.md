@@ -832,3 +832,31 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Verified: CSV parses with 0 None-keys; ink_analyzer retains ov_CPLX=H/ov_PVOL=H; kheopswap no overrides.
 - Awaiting push -> re-dispatch (blank=all) -> first CLEAN numbers: kheopswap (greenfield whole-repo
   A_local) + ink_analyzer (net-delta window, upper bound).
+
+2026-06-14  Run #3 of dissect-pilot — FIRST CLEAN CALIBRATION RESULT.
+- KHEOPSWAP (clean greenfield anchor): cloc whole-repo @2024-08-19 = 15.363 KSLOC; E=1.100 (SumSF 18.97);
+  prodEM=0.999 (objective drivers all ~Nominal: DOCU=H x1.11, TOOL=H x0.90 cancel). Reported 3.16 PM.
+  PM_pred@A=2.94 = 59.25 PM (+1775%, ~19x). => A_local = 0.157 makes PM=PM. FIRST trustworthy brick.
+- INK_ANALYZER: net-delta window now works (boundary diff d68e3132..3e7959cc = 37.49 KSLOC added) BUT the
+  7-month window captures ALL dev, not v5-only (88 LOC/h for 424h = implausible). A_local 0.043 unreliable;
+  flagged to re-do with v5-only commit isolation.
+- CENTRAL FINDING (clean specimen): COCOMO II published A=2.94 over-predicts blockchain-grant effort ~19x;
+  Blockchain-COCOMO A ~ 0.1-0.3. Drivers ~Nominal so the whole gap is the constant A (these projects deliver
+  ~32 raw SLOC/h vs ~3-4 implied by 2.94 -> heavy ecosystem reuse + senior solo devs).
+- REFINEMENTS QUEUED: (1) apply canonical reuse-adjusted equivalent_sloc in dissector (raise A_local toward
+  true value; magnitude still <<2.94); (2) ink-analyzer v5-only isolation; (3) run remaining greenfield
+  whole-repo pilots to test A_local clustering near ~0.15.
+- Results tracked in data/calibration/COCOMO_DISSECTION_RESULTS.md. PM=PM holds per-project via A_local;
+  contribution = recalibrated constant + tightness of A_local cluster on the clean curated set.
+
+2026-06-14  Step 1 set up: full 13-pilot dissection spec (objective-only baseline) per user's calibration loop.
+- pilots_cocomo.csv expanded to all 13 pilots with correct sizing mode each:
+  diff (dotreasury exact range e8f09bf..release-2.3.1) ; whole greenfield @cutoff/commit (ask_v01, bagpipes,
+  megaclite, fennel@37cc301, elara, paraspell_base, remarker, kheopswap, dotcodeschool) ; window net-delta
+  (subsquare_maint, subsquare_newfeat, ink_analyzer - flagged OVERCOUNT/upper-bound).
+- Drivers = objective signals ONLY (no ov_ overrides; stripped ink_analyzer's CPLX/PVOL) so the A_local
+  spread is a clean diagnostic. Overrides + reuse-adjusted equivalent SLOC are Step-3 levers.
+- Method (recorded in COCOMO_DISSECTION_RESULTS.md): Step1 exact (E,A_local) for all -> Step2 inspect spread
+  -> Step3 adjust ONE justified lever, re-run, tighten -> win = ONE global (A,B,driver-rules) fits all 13.
+- Verified all 13 rows well-formed via Read tool (bash mount was serving a truncated copy). Awaiting push ->
+  dispatch dissect-pilot (blank=all 13) -> full baseline A_local table.
