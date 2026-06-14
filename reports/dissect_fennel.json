@@ -1,20 +1,14 @@
 {
-  "project_id": "ink_analyzer",
-  "reported_pm": 2.79,
-  "sizing_mode": "window",
-  "size_how": "git-window",
-  "churn": {
-    "added": 37491,
-    "deleted": 10656,
-    "start": "d68e3132",
-    "end": "3e7959cc",
-    "metric": "net-delta(boundary-diff)"
-  },
-  "ksloc": 37.491,
-  "equivalent_ksloc": 37.491,
+  "project_id": "fennel",
+  "reported_pm": 9.0,
+  "sizing_mode": "whole",
+  "size_how": "cloc",
+  "churn": {},
+  "ksloc": 7.841,
+  "equivalent_ksloc": 7.841,
   "E": 1.07,
   "sumSF": 16.0,
-  "prodEM": 0.999,
+  "prodEM": 1.3442,
   "sf": {
     "PREC": {
       "rating": "N",
@@ -47,8 +41,8 @@
       "mult": 1.0
     },
     "CPLX": {
-      "rating": "N",
-      "mult": 1.0
+      "rating": "H",
+      "mult": 1.17
     },
     "RUSE": {
       "rating": "N",
@@ -67,8 +61,8 @@
       "mult": 1.0
     },
     "PVOL": {
-      "rating": "N",
-      "mult": 1.0
+      "rating": "H",
+      "mult": 1.15
     },
     "ACAP": {
       "rating": "N",
@@ -108,7 +102,7 @@
     }
   },
   "overrides": {},
-  "PM_pred_A2_94": 141.911,
-  "pct_err_A2_94": 4986.4,
-  "A_local_for_PMeqPM": 0.058
+  "PM_pred_A2_94": 35.791,
+  "pct_err_A2_94": 297.7,
+  "A_local_for_PMeqPM": 0.739
 }

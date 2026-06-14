@@ -1,17 +1,17 @@
 {
-  "project_id": "ink_analyzer",
-  "reported_pm": 2.79,
+  "project_id": "subsquare_maint",
+  "reported_pm": 24.7,
   "sizing_mode": "window",
   "size_how": "git-window",
   "churn": {
-    "added": 37491,
-    "deleted": 10656,
-    "start": "d68e3132",
-    "end": "3e7959cc",
+    "added": 76890,
+    "deleted": 23679,
+    "start": "c953c8d6",
+    "end": "b4dc95cd",
     "metric": "net-delta(boundary-diff)"
   },
-  "ksloc": 37.491,
-  "equivalent_ksloc": 37.491,
+  "ksloc": 76.89,
+  "equivalent_ksloc": 76.89,
   "E": 1.07,
   "sumSF": 16.0,
   "prodEM": 0.999,
@@ -108,7 +108,7 @@
     }
   },
   "overrides": {},
-  "PM_pred_A2_94": 141.911,
-  "pct_err_A2_94": 4986.4,
-  "A_local_for_PMeqPM": 0.058
+  "PM_pred_A2_94": 306.051,
+  "pct_err_A2_94": 1139.1,
+  "A_local_for_PMeqPM": 0.237
 }

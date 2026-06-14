@@ -1,19 +1,13 @@
 {
-  "project_id": "ink_analyzer",
-  "reported_pm": 2.79,
-  "sizing_mode": "window",
-  "size_how": "git-window",
-  "churn": {
-    "added": 37491,
-    "deleted": 10656,
-    "start": "d68e3132",
-    "end": "3e7959cc",
-    "metric": "net-delta(boundary-diff)"
-  },
-  "ksloc": 37.491,
-  "equivalent_ksloc": 37.491,
-  "E": 1.07,
-  "sumSF": 16.0,
+  "project_id": "elara",
+  "reported_pm": 4.6,
+  "sizing_mode": "whole",
+  "size_how": "cloc",
+  "churn": {},
+  "ksloc": 68.878,
+  "equivalent_ksloc": 68.878,
+  "E": 1.0997,
+  "sumSF": 18.97,
   "prodEM": 0.999,
   "sf": {
     "PREC": {
@@ -25,16 +19,16 @@
       "value": 3.04
     },
     "RESL": {
-      "rating": "H",
-      "value": 2.83
+      "rating": "N",
+      "value": 4.24
     },
     "TEAM": {
       "rating": "N",
       "value": 3.29
     },
     "PMAT": {
-      "rating": "H",
-      "value": 3.12
+      "rating": "N",
+      "value": 4.68
     }
   },
   "em": {
@@ -108,7 +102,7 @@
     }
   },
   "overrides": {},
-  "PM_pred_A2_94": 141.911,
-  "pct_err_A2_94": 4986.4,
-  "A_local_for_PMeqPM": 0.058
+  "PM_pred_A2_94": 308.496,
+  "pct_err_A2_94": 6606.4,
+  "A_local_for_PMeqPM": 0.044
 }
