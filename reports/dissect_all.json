@@ -11,6 +11,7 @@
       "end": "b4dc95cd",
       "metric": "net-delta(boundary-diff)"
     },
+    "reuse": {},
     "ksloc": 76.89,
     "equivalent_ksloc": 76.89,
     "E": 1.07,
@@ -119,6 +120,16 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
+    "reuse": {
+      "new_phys": 27153,
+      "adapted_phys": 0,
+      "generated_phys": 0,
+      "forked_phys": 0,
+      "fork_root": false,
+      "root_added_loc": 830,
+      "adapted_fraction": 0.0,
+      "aam": 0.1
+    },
     "ksloc": 20.729,
     "equivalent_ksloc": 20.729,
     "E": 1.07,
@@ -227,8 +238,18 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
+    "reuse": {
+      "new_phys": 12499,
+      "adapted_phys": 45,
+      "generated_phys": 45,
+      "forked_phys": 0,
+      "fork_root": false,
+      "root_added_loc": 0,
+      "adapted_fraction": 0.004,
+      "aam": 0.1
+    },
     "ksloc": 10.805,
-    "equivalent_ksloc": 10.805,
+    "equivalent_ksloc": 10.77,
     "E": 1.0997,
     "sumSF": 18.97,
     "prodEM": 0.999,
@@ -325,9 +346,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 40.234,
-    "pct_err_A2_94": 303.5,
-    "A_local_for_PMeqPM": 0.729
+    "PM_pred_A2_94": 40.091,
+    "pct_err_A2_94": 302.1,
+    "A_local_for_PMeqPM": 0.731
   },
   {
     "project_id": "dotreasury",
@@ -341,6 +362,7 @@
       "end": "bbcfbe68",
       "metric": "net-delta(boundary-diff)"
     },
+    "reuse": {},
     "ksloc": 2.365,
     "equivalent_ksloc": 2.365,
     "E": 1.07,
@@ -449,6 +471,16 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
+    "reuse": {
+      "new_phys": 4396,
+      "adapted_phys": 0,
+      "generated_phys": 0,
+      "forked_phys": 0,
+      "fork_root": false,
+      "root_added_loc": 3,
+      "adapted_fraction": 0.0,
+      "aam": 0.1
+    },
     "ksloc": 3.652,
     "equivalent_ksloc": 3.652,
     "E": 1.0824,
@@ -563,6 +595,7 @@
       "end": "7f49a1f5",
       "metric": "net-delta(boundary-diff)"
     },
+    "reuse": {},
     "ksloc": 69.971,
     "equivalent_ksloc": 69.971,
     "E": 1.07,
@@ -671,8 +704,18 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
+    "reuse": {
+      "new_phys": 5693,
+      "adapted_phys": 6216,
+      "generated_phys": 6216,
+      "forked_phys": 0,
+      "fork_root": false,
+      "root_added_loc": 0,
+      "adapted_fraction": 0.522,
+      "aam": 0.1
+    },
     "ksloc": 7.841,
-    "equivalent_ksloc": 7.841,
+    "equivalent_ksloc": 4.158,
     "E": 1.07,
     "sumSF": 16.0,
     "prodEM": 1.3442,
@@ -769,9 +812,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 35.791,
-    "pct_err_A2_94": 297.7,
-    "A_local_for_PMeqPM": 0.739
+    "PM_pred_A2_94": 18.153,
+    "pct_err_A2_94": 101.7,
+    "A_local_for_PMeqPM": 1.458
   },
   {
     "project_id": "elara",
@@ -779,6 +822,16 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
+    "reuse": {
+      "new_phys": 150779,
+      "adapted_phys": 0,
+      "generated_phys": 0,
+      "forked_phys": 0,
+      "fork_root": false,
+      "root_added_loc": 0,
+      "adapted_fraction": 0.0,
+      "aam": 0.1
+    },
     "ksloc": 69.737,
     "equivalent_ksloc": 69.737,
     "E": 1.0997,
@@ -887,6 +940,16 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
+    "reuse": {
+      "new_phys": 12212,
+      "adapted_phys": 0,
+      "generated_phys": 0,
+      "forked_phys": 0,
+      "fork_root": false,
+      "root_added_loc": 0,
+      "adapted_fraction": 0.0,
+      "aam": 0.1
+    },
     "ksloc": 11.33,
     "equivalent_ksloc": 11.33,
     "E": 1.0997,
@@ -995,6 +1058,16 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
+    "reuse": {
+      "new_phys": 15548,
+      "adapted_phys": 0,
+      "generated_phys": 0,
+      "forked_phys": 0,
+      "fork_root": false,
+      "root_added_loc": 0,
+      "adapted_fraction": 0.0,
+      "aam": 0.1
+    },
     "ksloc": 15.363,
     "equivalent_ksloc": 15.363,
     "E": 1.0997,
@@ -1109,6 +1182,7 @@
       "end": "3e7959cc",
       "metric": "net-delta(boundary-diff)"
     },
+    "reuse": {},
     "ksloc": 37.491,
     "equivalent_ksloc": 37.491,
     "E": 1.07,
@@ -1217,6 +1291,16 @@
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
+    "reuse": {
+      "new_phys": 1445,
+      "adapted_phys": 0,
+      "generated_phys": 0,
+      "forked_phys": 0,
+      "fork_root": false,
+      "root_added_loc": 121,
+      "adapted_fraction": 0.0,
+      "aam": 0.1
+    },
     "ksloc": 1.452,
     "equivalent_ksloc": 1.452,
     "E": 1.0997,

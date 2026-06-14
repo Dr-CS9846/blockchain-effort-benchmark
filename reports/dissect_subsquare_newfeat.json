@@ -10,6 +10,7 @@
     "end": "7f49a1f5",
     "metric": "net-delta(boundary-diff)"
   },
+  "reuse": {},
   "ksloc": 69.971,
   "equivalent_ksloc": 69.971,
   "E": 1.07,

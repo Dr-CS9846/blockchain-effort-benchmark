@@ -4,8 +4,18 @@
   "sizing_mode": "whole",
   "size_how": "cloc",
   "churn": {},
+  "reuse": {
+    "new_phys": 5693,
+    "adapted_phys": 6216,
+    "generated_phys": 6216,
+    "forked_phys": 0,
+    "fork_root": false,
+    "root_added_loc": 0,
+    "adapted_fraction": 0.522,
+    "aam": 0.1
+  },
   "ksloc": 7.841,
-  "equivalent_ksloc": 7.841,
+  "equivalent_ksloc": 4.158,
   "E": 1.07,
   "sumSF": 16.0,
   "prodEM": 1.3442,
@@ -102,7 +112,7 @@
     }
   },
   "overrides": {},
-  "PM_pred_A2_94": 35.791,
-  "pct_err_A2_94": 297.7,
-  "A_local_for_PMeqPM": 0.739
+  "PM_pred_A2_94": 18.153,
+  "pct_err_A2_94": 101.7,
+  "A_local_for_PMeqPM": 1.458
 }

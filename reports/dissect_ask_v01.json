@@ -4,6 +4,16 @@
   "sizing_mode": "whole",
   "size_how": "cloc",
   "churn": {},
+  "reuse": {
+    "new_phys": 27153,
+    "adapted_phys": 0,
+    "generated_phys": 0,
+    "forked_phys": 0,
+    "fork_root": false,
+    "root_added_loc": 830,
+    "adapted_fraction": 0.0,
+    "aam": 0.1
+  },
   "ksloc": 20.729,
   "equivalent_ksloc": 20.729,
   "E": 1.07,
