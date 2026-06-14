@@ -1,20 +1,14 @@
 {
-  "project_id": "ink_analyzer",
-  "reported_pm": 2.79,
-  "sizing_mode": "window",
-  "size_how": "git-window",
-  "churn": {
-    "added": 37491,
-    "deleted": 10656,
-    "start": "d68e3132",
-    "end": "3e7959cc",
-    "metric": "net-delta(boundary-diff)"
-  },
-  "ksloc": 37.491,
-  "equivalent_ksloc": 37.491,
-  "E": 1.07,
-  "sumSF": 16.0,
-  "prodEM": 1.3442,
+  "project_id": "kheopswap",
+  "reported_pm": 3.16,
+  "sizing_mode": "whole",
+  "size_how": "cloc",
+  "churn": {},
+  "ksloc": 15.363,
+  "equivalent_ksloc": 15.363,
+  "E": 1.0997,
+  "sumSF": 18.97,
+  "prodEM": 0.999,
   "sf": {
     "PREC": {
       "rating": "N",
@@ -25,16 +19,16 @@
       "value": 3.04
     },
     "RESL": {
-      "rating": "H",
-      "value": 2.83
+      "rating": "N",
+      "value": 4.24
     },
     "TEAM": {
       "rating": "N",
       "value": 3.29
     },
     "PMAT": {
-      "rating": "H",
-      "value": 3.12
+      "rating": "N",
+      "value": 4.68
     }
   },
   "em": {
@@ -47,8 +41,8 @@
       "mult": 1.0
     },
     "CPLX": {
-      "rating": "H",
-      "mult": 1.17
+      "rating": "N",
+      "mult": 1.0
     },
     "RUSE": {
       "rating": "N",
@@ -67,8 +61,8 @@
       "mult": 1.0
     },
     "PVOL": {
-      "rating": "H",
-      "mult": 1.15
+      "rating": "N",
+      "mult": 1.0
     },
     "ACAP": {
       "rating": "N",
@@ -107,11 +101,8 @@
       "mult": 1.0
     }
   },
-  "overrides": {
-    "CPLX": "H",
-    "PVOL": "H"
-  },
-  "PM_pred_A2_94": 190.941,
-  "pct_err_A2_94": 6743.8,
-  "A_local_for_PMeqPM": 0.043
+  "overrides": {},
+  "PM_pred_A2_94": 59.249,
+  "pct_err_A2_94": 1775.0,
+  "A_local_for_PMeqPM": 0.157
 }
