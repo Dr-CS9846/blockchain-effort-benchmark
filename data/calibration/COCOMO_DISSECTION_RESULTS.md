@@ -5,7 +5,42 @@ For each verified pilot: measure matched-slice size → assign 22 drivers (objec
 PM(COCOMO) = PM(reported). The scientific result is whether A_local **clusters** across the clean set
 (a tight cluster ⇒ one defensible Blockchain-COCOMO constant). Published COCOMO II A = 2.94.
 
-### Run #5 (after Step-3a fixes: dotreasury window, elara cutoff, paraspell dropped) — n=12
+## ✅ WORKING CALIBRATION (global A fit, from run-#5 dissection numbers)
+Fit ONE global A = geomean(A_local) per subset; evaluate PM_pred = A·Size^E·∏EM vs reported.
+
+| Subset (size class) | n | **A\*** | MMRE | PRED25 | PRED30 | PRED50 |
+|---|---|---|---|---|---|---|
+| **core clean (size↔scope verified)** | 6 | **0.577** | 20% | 83% | **83%** | 83% |
+| + reuse-inflated (ask, kheopswap) | 8 | 0.431 | 56% | 38% | 38% | 75% |
+| + scope-inflated (elara) | 9 | 0.335 | 120% | 11% | 11% | 44% |
+| all incl. windows (12) | 12 | 0.258 | 114% | 17% | 17% | 33% |
+
+**Result:** on 6 clean matched triples, **Blockchain-COCOMO PM = 0.58 · EquivKSLOC^E · ∏EM** (E = 0.91 + 0.01·ΣSF)
+fits with **PRED(30) = 83%, MMRE = 20%** — a *good* calibration, ~5× below classic A = 2.94. Fit degrades
+monotonically as size-inflated pilots are added (0.58→0.43→0.34→0.26) ⇒ the residual is a SIZE-measurement
+artifact (reuse + scope), not model failure. core-6 = bagpipes, megaclite, remarker, dotcodeschool, dotreasury,
+fennel.
+
+**CROSS-VALIDATED (core-6):** in-sample A*=0.577 (MMRE 20%, PRED30 83%). **LOOCV (out-of-sample): MMRE 24%,
+PRED25 67%, PRED30 83%, PRED50 83%** — held-out errors: megaclite 1%, dotcodeschool 10%, remarker 18%,
+bagpipes 24%, fennel 26%, dotreasury 66% (smallest project, edge of COCOMO range). **Bootstrap 95% CI on A =
+[0.475, 0.685]** (B=10,000, median 0.579). ⇒ **A = 0.58 (95% CI 0.48–0.69), NOT overfit** (LOOCV ≈ in-sample),
+5.1× below classic 2.94. Caveats: E≈1.07–1.10
+across all (scale factors ~flat); drivers ~Nominal — the model is essentially A·Size^E.
+
+### Run #6 (Step-3b reuse adjustment, AAM=0.10) — HONEST NEGATIVE: detector too narrow
+Reuse model `equiv = new + 0.10*adapted`, adapted = big-ROOT-commit fork + `@generated` markers.
+Result: it moved only **fennel** (52% generated → equiv 7.84→4.16 KSLOC → A_local 0.739→**1.458**, overshoot) and
+left the 3 intended targets unchanged: **elara 0.043** (root_added_loc=0 → vendored bulk not in root → not
+flagged), **kheopswap 0.157** & **ask 0.208** (PAPI / AssemblyScript codegen has no `@generated` marker → missed).
+Net: whole-mode A_local spread WIDENED to 0.043–1.458. ⇒ reuse *concept* is right but this *auto-detection* is
+incomplete. Flags: elara `_phys` walk = 150,779 lines vs cloc 69.7 KSLOC (2× disagreement = lots of borderline
+code); fennel's jump may be real (authored ~4 KSLOC for 9 PM = complex Rust chain, low LOC/h) — verify the 6,216
+"generated" lines. NEXT ZAG: (a) detect bulk-import commits ANYWHERE in history (not just root) via blame;
+(b) detect framework-generated code by path (descriptors/, .papi/, build/, generated/) not just markers;
+(c) verify fennel generated lines; OR (d) evidence-based per-repo reuse fraction by inspecting the 3 inflated repos.
+
+### Run #5 (after Step-3a fixes: dotreasury window, elara cutoff, paraspell dropped) — n=12 [reuse OFF]
 | Pilot | KSLOC | E | ∏EM | Reported PM | **A_local** | size class |
 |---|---|---|---|---|---|---|
 | fennel | 7.84 | 1.070 | 1.34 | 9.0 | **0.739** | clean authored |
