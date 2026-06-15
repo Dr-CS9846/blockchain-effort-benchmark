@@ -9,8 +9,8 @@
     "adapted_phys": 6216,
     "generated_phys": 6216,
     "forked_phys": 0,
-    "fork_root": false,
-    "root_added_loc": 0,
+    "bulk_import_commits": 1,
+    "bulk_import_files": 7742,
     "adapted_fraction": 0.522,
     "aam": 0.1
   },

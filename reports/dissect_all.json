@@ -121,17 +121,17 @@
     "size_how": "cloc",
     "churn": {},
     "reuse": {
-      "new_phys": 27153,
-      "adapted_phys": 0,
-      "generated_phys": 0,
+      "new_phys": 3961,
+      "adapted_phys": 23192,
+      "generated_phys": 23192,
       "forked_phys": 0,
-      "fork_root": false,
-      "root_added_loc": 830,
-      "adapted_fraction": 0.0,
+      "bulk_import_commits": 0,
+      "bulk_import_files": 0,
+      "adapted_fraction": 0.854,
       "aam": 0.1
     },
     "ksloc": 20.729,
-    "equivalent_ksloc": 20.729,
+    "equivalent_ksloc": 4.794,
     "E": 1.07,
     "sumSF": 16.0,
     "prodEM": 1.2974,
@@ -228,9 +228,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 97.76,
-    "pct_err_A2_94": 1316.8,
-    "A_local_for_PMeqPM": 0.208
+    "PM_pred_A2_94": 20.408,
+    "pct_err_A2_94": 195.8,
+    "A_local_for_PMeqPM": 0.994
   },
   {
     "project_id": "bagpipes",
@@ -239,17 +239,17 @@
     "size_how": "cloc",
     "churn": {},
     "reuse": {
-      "new_phys": 12499,
-      "adapted_phys": 45,
+      "new_phys": 276,
+      "adapted_phys": 12268,
       "generated_phys": 45,
-      "forked_phys": 0,
-      "fork_root": false,
-      "root_added_loc": 0,
-      "adapted_fraction": 0.004,
+      "forked_phys": 12223,
+      "bulk_import_commits": 1,
+      "bulk_import_files": 188,
+      "adapted_fraction": 0.978,
       "aam": 0.1
     },
     "ksloc": 10.805,
-    "equivalent_ksloc": 10.77,
+    "equivalent_ksloc": 1.294,
     "E": 1.0997,
     "sumSF": 18.97,
     "prodEM": 0.999,
@@ -346,9 +346,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 40.091,
-    "pct_err_A2_94": 302.1,
-    "A_local_for_PMeqPM": 0.731
+    "PM_pred_A2_94": 3.901,
+    "pct_err_A2_94": -60.9,
+    "A_local_for_PMeqPM": 7.514
   },
   {
     "project_id": "dotreasury",
@@ -476,8 +476,8 @@
       "adapted_phys": 0,
       "generated_phys": 0,
       "forked_phys": 0,
-      "fork_root": false,
-      "root_added_loc": 3,
+      "bulk_import_commits": 0,
+      "bulk_import_files": 0,
       "adapted_fraction": 0.0,
       "aam": 0.1
     },
@@ -709,8 +709,8 @@
       "adapted_phys": 6216,
       "generated_phys": 6216,
       "forked_phys": 0,
-      "fork_root": false,
-      "root_added_loc": 0,
+      "bulk_import_commits": 1,
+      "bulk_import_files": 7742,
       "adapted_fraction": 0.522,
       "aam": 0.1
     },
@@ -823,17 +823,17 @@
     "size_how": "cloc",
     "churn": {},
     "reuse": {
-      "new_phys": 150779,
-      "adapted_phys": 0,
+      "new_phys": 1765,
+      "adapted_phys": 149014,
       "generated_phys": 0,
-      "forked_phys": 0,
-      "fork_root": false,
-      "root_added_loc": 0,
-      "adapted_fraction": 0.0,
+      "forked_phys": 149014,
+      "bulk_import_commits": 2,
+      "bulk_import_files": 1351,
+      "adapted_fraction": 0.988,
       "aam": 0.1
     },
     "ksloc": 69.737,
-    "equivalent_ksloc": 69.737,
+    "equivalent_ksloc": 7.708,
     "E": 1.0997,
     "sumSF": 18.97,
     "prodEM": 0.999,
@@ -930,9 +930,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 312.73,
-    "pct_err_A2_94": 6698.5,
-    "A_local_for_PMeqPM": 0.043
+    "PM_pred_A2_94": 27.753,
+    "pct_err_A2_94": 503.3,
+    "A_local_for_PMeqPM": 0.487
   },
   {
     "project_id": "remarker",
@@ -941,17 +941,17 @@
     "size_how": "cloc",
     "churn": {},
     "reuse": {
-      "new_phys": 12212,
-      "adapted_phys": 0,
+      "new_phys": 0,
+      "adapted_phys": 12212,
       "generated_phys": 0,
-      "forked_phys": 0,
-      "fork_root": false,
-      "root_added_loc": 0,
-      "adapted_fraction": 0.0,
+      "forked_phys": 12212,
+      "bulk_import_commits": 2,
+      "bulk_import_files": 18,
+      "adapted_fraction": 1.0,
       "aam": 0.1
     },
     "ksloc": 11.33,
-    "equivalent_ksloc": 11.33,
+    "equivalent_ksloc": 1.133,
     "E": 1.0997,
     "sumSF": 18.97,
     "prodEM": 0.999,
@@ -1048,9 +1048,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 42.389,
-    "pct_err_A2_94": 485.5,
-    "A_local_for_PMeqPM": 0.502
+    "PM_pred_A2_94": 3.369,
+    "pct_err_A2_94": -53.5,
+    "A_local_for_PMeqPM": 6.317
   },
   {
     "project_id": "kheopswap",
@@ -1059,17 +1059,17 @@
     "size_how": "cloc",
     "churn": {},
     "reuse": {
-      "new_phys": 15548,
-      "adapted_phys": 0,
+      "new_phys": 3634,
+      "adapted_phys": 11914,
       "generated_phys": 0,
-      "forked_phys": 0,
-      "fork_root": false,
-      "root_added_loc": 0,
-      "adapted_fraction": 0.0,
+      "forked_phys": 11914,
+      "bulk_import_commits": 1,
+      "bulk_import_files": 253,
+      "adapted_fraction": 0.766,
       "aam": 0.1
     },
     "ksloc": 15.363,
-    "equivalent_ksloc": 15.363,
+    "equivalent_ksloc": 4.768,
     "E": 1.0997,
     "sumSF": 18.97,
     "prodEM": 0.999,
@@ -1166,9 +1166,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 59.249,
-    "pct_err_A2_94": 1775.0,
-    "A_local_for_PMeqPM": 0.157
+    "PM_pred_A2_94": 16.364,
+    "pct_err_A2_94": 417.8,
+    "A_local_for_PMeqPM": 0.568
   },
   {
     "project_id": "ink_analyzer",
@@ -1176,15 +1176,15 @@
     "sizing_mode": "window",
     "size_how": "git-window",
     "churn": {
-      "added": 37491,
+      "added": 37067,
       "deleted": 10656,
       "start": "d68e3132",
       "end": "3e7959cc",
       "metric": "net-delta(boundary-diff)"
     },
     "reuse": {},
-    "ksloc": 37.491,
-    "equivalent_ksloc": 37.491,
+    "ksloc": 37.067,
+    "equivalent_ksloc": 37.067,
     "E": 1.07,
     "sumSF": 16.0,
     "prodEM": 0.999,
@@ -1281,9 +1281,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 141.911,
-    "pct_err_A2_94": 4986.4,
-    "A_local_for_PMeqPM": 0.058
+    "PM_pred_A2_94": 140.194,
+    "pct_err_A2_94": 4924.9,
+    "A_local_for_PMeqPM": 0.059
   },
   {
     "project_id": "dotcodeschool",
@@ -1296,8 +1296,8 @@
       "adapted_phys": 0,
       "generated_phys": 0,
       "forked_phys": 0,
-      "fork_root": false,
-      "root_added_loc": 121,
+      "bulk_import_commits": 0,
+      "bulk_import_files": 0,
       "adapted_fraction": 0.0,
       "aam": 0.1
     },

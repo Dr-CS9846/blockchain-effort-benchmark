@@ -5,17 +5,17 @@
   "size_how": "cloc",
   "churn": {},
   "reuse": {
-    "new_phys": 12212,
-    "adapted_phys": 0,
+    "new_phys": 0,
+    "adapted_phys": 12212,
     "generated_phys": 0,
-    "forked_phys": 0,
-    "fork_root": false,
-    "root_added_loc": 0,
-    "adapted_fraction": 0.0,
+    "forked_phys": 12212,
+    "bulk_import_commits": 2,
+    "bulk_import_files": 18,
+    "adapted_fraction": 1.0,
     "aam": 0.1
   },
   "ksloc": 11.33,
-  "equivalent_ksloc": 11.33,
+  "equivalent_ksloc": 1.133,
   "E": 1.0997,
   "sumSF": 18.97,
   "prodEM": 0.999,
@@ -112,7 +112,7 @@
     }
   },
   "overrides": {},
-  "PM_pred_A2_94": 42.389,
-  "pct_err_A2_94": 485.5,
-  "A_local_for_PMeqPM": 0.502
+  "PM_pred_A2_94": 3.369,
+  "pct_err_A2_94": -53.5,
+  "A_local_for_PMeqPM": 6.317
 }
