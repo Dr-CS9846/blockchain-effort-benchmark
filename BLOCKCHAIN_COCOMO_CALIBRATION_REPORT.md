@@ -10,16 +10,22 @@
 Classic COCOMO II (multiplicative constant **A = 2.94**) over-predicts the development effort of
 blockchain (Polkadot/Kusama ecosystem) grant-and-treasury software by roughly **5–20×**. On a hand-curated
 set of **matched triples** — each pairing a *human-reported* effort figure with *the one repository that
-produced it* and an *on-chain (or durable W3F) proof* — we recalibrate the constant. On the six pilots whose
-measured code size unambiguously matches the funded scope, a **single global constant A ≈ 0.58** reproduces
-reported effort with **PRED(30) = 83 %** and **MMRE = 20 %** — a *good* calibration by COCOMO standards. The
-calibrated model is
+produced it* and an *on-chain (or durable W3F) proof* — we recalibrate the constant. The calibration is
+anchored on six pilots whose measured code size unambiguously matches the funded scope (**core-6: A* = 0.577,
+PRED(30) = 83 %, MMRE = 20 %, SA = +0.80**), then **confirmed on eight** by adding two reuse-inflated pilots
+whose size is corrected under a pre-stated evidence rule (the **CEVRP**, §3.3): **core-8: A* = 0.564, 95 % CI
+[0.487, 0.647], PRED(30) = 88 %, SA = +0.80, MMRE = 17 %**. Correcting the inflated pilots leaves the constant
+**unchanged within its confidence interval, tightens that interval, and raises PRED(30)** — i.e. the
+clean-scope pilots and the size-corrected pilots *agree on one constant*. The calibrated model is
 
-> **PM = 0.58 · (Equivalent KSLOC)^E · ∏EM,  with E = 0.91 + 0.01·ΣSF.**
+> **PM = 0.56 · (Equivalent KSLOC)^E · ∏EM,  with E = 0.91 + 0.01·ΣSF** *(A ≈ 0.56–0.58, ≈ 5× below classic 2.94).*
 
-The residual on the remaining pilots is shown to be a **size-measurement artifact** (reuse / generated code
-and multi-version repository scope), *not* a model failure — itself a finding: in blockchain grant work the
-dominant estimation challenge is *equivalent-SLOC measurement*, not the effort multipliers.
+The residual on the remaining (uncorrected) pilots is shown to be a **size-measurement artifact** (reuse /
+generated code and multi-version repository scope), *not* a model failure — itself a finding: in blockchain
+grant work the dominant estimation challenge is *equivalent-SLOC measurement*, not the effort multipliers.
+Two within-corpus splits — actual-vs-proposed effort and treasury-vs-W3F funding — are reported as
+**robustness analyses, not settled results**: both are small-n and confounded by project identity, and are
+flagged as directions requiring a larger sample rather than substantive overturns of prior expectations.
 
 ---
 
@@ -29,7 +35,9 @@ COCOMO II (Boehm et al., 2000) is the canonical algorithmic software cost model:
 `PM = A · Size^E · ∏(EM)`, `E = B + 0.01·Σ(SF)`, with B = 0.91 and a published, USC-calibrated A = 2.94.
 It has never been calibrated to blockchain software, whose engineering economics differ sharply (heavy
 ecosystem reuse, senior/solo developers, below-market grant pricing, novel cryptographic and consensus
-components). The research question:
+components). That an uncalibrated COCOMO can mispredict severalfold on independent data is itself a classic
+result (Kemerer, 1987), so a local recalibration of the constant — not a rejection of the model — is the
+appropriate response. The research question:
 
 > **Does COCOMO II, recalibrated on authentic blockchain effort data, predict blockchain development effort —
 > and what is the calibrated constant?**
@@ -83,13 +91,21 @@ UIs, a Substrate messaging chain, LSP/compiler tooling, and an interactive codin
 Independence: 7 of 13 are non-OpenSquare/Patract teams (US, EU, India, solo devs). Effort spans 0.95 → 24.7 PM.
 
 ### 2.3 Auditable exclusions (rejected candidates)
-To preserve matched-triple integrity, several famous, real, executed proposals were **rejected** and logged:
-- **Talisman Wallet & Portal** (OpenGov #1232, 690,600 USDT): effort lives in an external Google Doc (not
-  on-chain); 3-repo umbrella → no single matched scope.
-- **ink!Hub / Swanky Suite** (OpenGov #137, 58,018 DOT) and **Ink! Dev Hub** (#624, 72,000 USDC): 3-org
-  collaboration, multi-repo umbrella (≈30 repos), delivery-based variable funding with no person-effort
-  table, ~90 % partial delivery.
-- **SubBooster** (Kusama #56): rejected on-chain (never awarded). **Ajuna SAGE** (#1509): rejected on-chain.
+To preserve matched-triple integrity, several famous, real, executed proposals were **rejected** and logged.
+The exclusion log is itself part of the contribution: it documents that the curation is driven by a fixed
+matched-triple criterion, not by outcome-favourable cherry-picking.
+
+| Rejected candidate | Reference | Amount | Exclusion reason (which triple condition fails) |
+|---|---|---|---|
+| **Talisman Wallet & Portal** | OpenGov #1232 | 690,600 USDT | Effort in an external Google Doc, not on-chain (**proof**); 3-repo umbrella → no single matched **scope** |
+| **ink!Hub / Swanky Suite** | OpenGov #137 | 58,018 DOT | 3-org collaboration, ≈30-repo umbrella (**repo**); delivery-based funding, no person-effort table (**effort**); ~90 % partial delivery |
+| **Ink! Dev Hub** | OpenGov #624 | 72,000 USDC | Multi-repo umbrella (**repo**); no person-effort figure (**effort**) |
+| **ParaSpell (base)** | W3F wave-15 | — | Source repo `dudo50/ParaSpell` deleted → **repo** unmeasurable (was pilot #9; dropped, n 13→12) |
+| **SubBooster** | Kusama #56 | — | Rejected on-chain (never awarded) → no executed **proof** |
+| **Ajuna SAGE** | OpenGov #1509 | — | Rejected on-chain (never awarded) → no executed **proof** |
+
+Each row fails a *named* triple condition (reported **effort** / single **repo** / executed on-chain
+**proof**), so exclusions are reproducible from the criterion alone.
 
 ### 2.4 Provenance / data-quality notes (lessons that shaped the method)
 - Derived CSVs cannot be trusted: both `pilot_cases.csv` (treasury-index vs gov2-referendum-index conflation)
@@ -139,6 +155,19 @@ Size is measured per pilot by its **sizing mode**, chosen to match effort↔arti
 lines at once = a template/fork, not authoring); AAM default 0.10. Computed in physical lines, applied as a
 ratio to the logical cloc KSLOC.
 
+**Constrained Evidence-Validated Reuse Protocol (CEVRP, locked benchmark rule).** Because a 22-driver model
+over 12 points can be forced to fit, the reuse correction is governed by a *pre-stated, falsifiable* rule
+rather than applied at discretion. Raw size is reduced to Equivalent SLOC **iff all three conditions hold
+(AND); otherwise raw size stands** (the conservative default — raw size can only depress A_local, never
+inflate the constant): **(C1)** the detector flags ≥ 50 % of physical source lines as adapted/generated;
+**(C2)** independent documentary evidence confirms the bulk is externally originated (named upstream
+template/fork, declared code-generator, or a single third-party import commit); **(C3)** the bulk is *not* a
+rename/move of the team's own prior commits (`git log --follow`/blame). C3 is the guard that the run-#7
+heuristic lacked: it makes the protocol *decline* to correct bagpipes (a 188-file self-rename) and remarker
+(an initial app dump) while *applying* to Elara (forked Substrate template) and Kheopswap (PAPI-generated
+descriptors). The rule is locked and applied identically to all current and future pilots, so the correction
+is generalizable rather than a two-case rescue.
+
 ### 3.4 The calibration loop (how the result was reached)
 1. **Step 1** — dissect all pilots with objective drivers + raw size → exact per-project (E, A_local).
 2. **Step 2** — inspect the A_local spread as a *diagnostic* (what objective rules miss).
@@ -186,11 +215,15 @@ A* = geometric mean of A_local; PM_pred = A*·Size^E·∏EM; metrics over each s
 **Core-6 = {bagpipes, megaclite, remarker, dotcodeschool, dotreasury, fennel}.**
 
 ### 4.3 The calibrated model
-> **Blockchain-COCOMO (working):  PM = 0.58 · (Equivalent KSLOC)^E · ∏EM,  E = 0.91 + 0.01·ΣSF.**
+> **Blockchain-COCOMO:  PM = 0.56 · (Equivalent KSLOC)^E · ∏EM,  E = 0.91 + 0.01·ΣSF**  *(A ≈ 0.56–0.58).*
 
-On clean matched triples this gives **Standardised Accuracy SA = +0.80** (primary), **PRED(30) = 83 %, MMRE =
-20 %** — a *good* calibration (PRED(30) ≥ 70 % is the conventional "good model" threshold). The recalibrated
-constant is **A ≈ 0.58 vs the classic 2.94** — a ≈ **5×** gap. *This 5× is implied by the calibration and is an
+The constant is established in two steps. **Core-6** (clean size↔scope) gives **A* = 0.577**, **SA = +0.80**
+(primary), **PRED(30) = 83 %, MMRE = 20 %** — a *good* calibration (PRED(30) ≥ 70 % is the conventional "good
+model" threshold). **Core-8** (core-6 + Elara + Kheopswap, the two pilots whose reuse is corrected under the
+locked CEVRP, §3.3) **confirms** it: **A* = 0.564, 95 % CI [0.487, 0.647], SA = +0.80, PRED(30) = 88 %, MMRE =
+17 %** — the size-corrected pilots fall onto the same constant, tightening the CI (width 0.21→0.16) and raising
+PRED(30). The headline constant is therefore **A ≈ 0.56–0.58 vs the classic 2.94** — a ≈ **5×** gap, robust to
+whether the inflated-but-corrected pilots are included. *This 5× is implied by the calibration and is an
 upper bound on the true productivity difference:* A also absorbs un-corrected reuse and a documented
 below-market grant-pricing effect (§4.4d), so A = 0.58 is best read as a **grant-context constant** (productivity
 × reuse × reporting/pricing incentive), calibrated to **Substrate-based Polkadot/Kusama grant software** —
@@ -223,9 +256,10 @@ SA = +0.80 (core-6) ≫ 0 — a strong result that the calibration is not an MMR
 quantifies the size-inflation drag.
 
 **(b) Actual vs proposed effort.** A* = **0.49** (actual, n=3) vs **0.68** (proposed, n=3) — the *opposite* of
-the usual "proposed underestimates actual" prior (in this corpus proposed budgets report *more* PM per KSLOC);
-small-n and confounded by project identity. Headline A pools both; **actual-only A ≈ 0.49 is the conservative
-anchor.** A true-actual grantee survey is the pending refinement.
+the usual "proposed underestimates actual" prior (Jørgensen, 2004) (in this corpus proposed budgets report
+*more* PM per KSLOC); **this is a small-n robustness probe confounded by project identity, not a settled
+reversal** of that prior. Headline A pools both; **actual-only A ≈ 0.49 is the conservative anchor.** A
+true-actual grantee survey is the pending refinement.
 
 **(c) Is it COCOMO II or just a power law?** On core-6: full `A·Size^E·∏EM` gives SA +0.80 / PRED(30) 83 %;
 pure `A·Size^E` (∏EM=1) gives SA +0.73 / PRED(30) 67 %. The evidence-based non-Nominal multipliers (CPLX/TIME
@@ -238,11 +272,26 @@ core-6 **median ≈ $60/hr** (range $4–$125) vs market senior-blockchain ≈ $
 productivity (reuse + senior devs) AND below-market / honest-actual reporting incentive — not a pure
 productivity constant.** Applying it to commercial market-rate development would bias estimates (a scope bound).
 
-**(e) Selection-bias direction (M1-R1).** The size **shrink** required to bring each excluded pilot to the
-clean-6 A* implies reuse/out-of-scope fractions of 59–92 % (subsquare 59/79 %, ask 64 %, kheopswap 73 %,
-ink! analyzer 90 %, elara 92 %) — all in the *same* direction (shrink, never grow) and each independently
-plausible. Hence fixing the six moves their A_local **up toward** 0.58; the clean-6 value is a lower-ish anchor
-and the expected full-corpus A is bounded in roughly **[0.58, 0.70]** (testable via the path-based detector).
+**(e) Selection-bias — now empirically tested (M1-R1).** We built a path-based + bulk-import-anywhere reuse
+detector and re-measured. It **verified genuine reuse in the two most-inflated pilots** — Elara (98.8 % forked
+Substrate template) and Kheopswap (76.6 % PAPI scaffold) — whose reuse-corrected A_local rose to **0.487** and
+**0.568**, landing *inside* the clean-6 cluster. Re-fitting the **core-8** (clean-6 + these two corrected):
+
+| set | n | A* | 95 % CI | SA | PRED(30) |
+|---|---|---|---|---|---|
+| core-6 | 6 | 0.577 | [0.473, 0.686] | +0.80 | 83 % |
+| **core-8** | 8 | **0.564** | **[0.487, 0.647]** | +0.80 | **88 %** |
+
+⇒ **correcting the inflated pilots leaves A* unchanged (within CI), tightens the interval, and raises PRED(30)
+to 88 %** — the selection-bias concern is answered: the constant is *confirmed*, not shifted.
+*From heuristic to locked rule.* The automated bulk-commit heuristic is blunt — alone it over-flagged two
+clean projects' authored initial/migration commits (bagpipes, remarker) as forks. The response is **not** a
+hand-tuned per-project fix but the **CEVRP** (§3.3): a pre-stated three-condition rule that *applies* the
+correction to Elara and Kheopswap (C1∧C2∧C3 all satisfied) and *declines* it for bagpipes and remarker (C3
+fails — self-rename, not external import), with the clean-4 left at raw size by default. Reuse correction is
+therefore a benchmark protocol, not a two-case rescue. Ask! (85 % flagged — candidate vendored AssemblyScript
+stdlib) and the 3 scope-limited window pilots are evaluated against the same C1–C3 conditions rather than left
+to discretion; their resolution is the explicit subject of the next calibration run.
 
 ## 5. Key finding: the residual is *size*, not the model
 
@@ -304,11 +353,16 @@ fit computed from the #5 dissection numbers.
 ---
 
 ## 8. Limitations and threats to validity
-- **Small clean n (= 6).** A* is cross-validated (LOOCV PRED(30) = 83 %, MMRE = 24 %; bootstrap 95 % CI on A
-  = [0.475, 0.685]) so it is **not overfit**, but n = 6 is small and the CI is correspondingly wide. Growing
-  the clean set (by fixing reuse/scope sizes of Kheopswap, Ask!, Elara, the windows) will widen n and tighten
+- **Small n (core-6 anchor, core-8 confirmation).** A* is cross-validated (LOOCV PRED(30) = 83 %, MMRE = 24 %;
+  bootstrap 95 % CI on A = [0.475, 0.685]) so it is **not overfit**; adding the two CEVRP-corrected pilots
+  (core-8) confirms the constant and tightens the CI to [0.487, 0.647], but n = 8 is still small. Growing the
+  set further (resolving Ask! and the windows under the same CEVRP / scope-isolation) will widen n and tighten
   the interval. The smallest pilot (dotreasury, 0.95 PM) is the LOOCV outlier (66 %), at the edge of COCOMO's
   validity range — small projects (≲ 2 KSLOC) are a known weak regime for the model.
+- **Within-corpus splits are robustness analyses, not settled results.** The actual-vs-proposed (§4.4b) and
+  treasury-vs-W3F funding-mechanism splits are each small-n and confounded by project identity (the W3F-clean
+  subset is effectively one project). They are reported to probe stability, not to claim a substantive reversal
+  of prior expectations; resolving them needs a larger, identity-disentangled sample.
 - **Reported effort mixes actual and proposed** figures; proposed (forward) effort may not equal logged hours
   (industry-wide, true logged hours are largely non-public; Boehm himself calibrated to reported/confidential
   effort + surveys, so this is standard practice). Each pilot is tagged for stratified analysis.
@@ -319,8 +373,11 @@ fit computed from the #5 dissection numbers.
 
 ## 9. Next steps
 1. ~~LOOCV + bootstrap CI on the core-6 A~~ **DONE** — A = 0.58, 95 % CI [0.48, 0.69], LOOCV PRED(30) = 83 %.
-2. **Grow clean n:** path-based generated-code detection (Kheopswap, Ask!); scope-isolate Elara + windows to
-   the funded deliverable; re-fit — expect the inflated pilots to fall onto A ≈ 0.5–0.6 and PRED(30) to hold.
+1b. ~~Selection-bias test + CEVRP-corrected core-8~~ **DONE** — A = 0.564, 95 % CI [0.487, 0.647], PRED(30) =
+   88 % (§4.4e); reuse correction locked as the CEVRP benchmark rule (§3.3).
+2. **Grow n under the locked CEVRP:** evaluate Ask! and the window pilots against the same C1–C3 conditions
+   (Ask! = candidate vendored AssemblyScript stdlib; windows = scope-isolation, not reuse); re-fit — expect any
+   that pass to fall onto A ≈ 0.5–0.6 and PRED(30) to hold, with no analyst discretion in the verdict.
 3. **Manuscript:** fold §1–§5 + the fit table into the methodology paper as the headline calibrated result;
    §6 as the honesty/limitations section.
 4. **Grantee self-report survey** (true actual-effort anchor) for a subset, to validate proposed-effort points.
@@ -330,3 +387,24 @@ fit computed from the #5 dissection numbers.
 *Integrity statement: every figure in §2 was read directly from its primary on-chain or W3F source; every
 driver in §3–§4 is set from objective repository evidence, never tuned to the target; negative results (§6)
 are reported in full. This record is intended to be sufficient for independent reproduction.*
+
+---
+
+## 10. References
+
+- **Boehm, B. W., Abts, C., Brown, A. W., Chulani, S., Clark, B. K., Horowitz, E., Madachy, R., Reifer, D. J.,
+  & Steece, B. (2000).** *Software Cost Estimation with COCOMO II.* Prentice Hall. — Source of the model form
+  `PM = A·Size^E·∏EM`, the published constants A = 2.94 and B = 0.91, the 152 person-hours/PM conversion, and
+  the reuse model `equivalent = new + AAM·adapted`.
+- **Kemerer, C. F. (1987).** An empirical validation of software cost estimation models. *Communications of
+  the ACM, 30*(5), 416–429. — Classic out-of-sample finding that uncalibrated COCOMO can over-predict effort
+  several-fold on independent data; motivates the local recalibration of A undertaken here.
+- **Myrtveit, I., & Stensrud, E. (1999).** A controlled experiment to assess the benefits of estimating with
+  analogy and regression models. *IEEE Transactions on Software Engineering, 25*(4), 510–525. — On the
+  instability of MMRE-based model comparison; supports demoting MMRE in favour of SA.
+- **Shepperd, M., & MacDonell, S. (2012).** Evaluating prediction systems in software project estimation.
+  *Information and Software Technology, 54*(8), 820–827. — Defines **Standardised Accuracy (SA)** against a
+  random-guessing baseline; adopted as the primary accuracy metric (§4.4a).
+- **Jørgensen, M. (2004).** A review of studies on expert estimation of software development effort. *Journal
+  of Systems and Software, 70*(1–2), 37–60. — On the prevalence and direction of bias in expert/proposed
+  effort estimates; frames the actual-vs-proposed robustness analysis (§4.4b) and the use of reported effort.

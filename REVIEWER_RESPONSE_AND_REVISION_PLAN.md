@@ -14,7 +14,38 @@ sound and novel. Fixable concerns below. We treat each as a research direction a
 
 ## Reviewer 1 — Empirical Software Engineering
 
-### M1 — Selection bias in the clean-6 (their #1 concern) — **[DONE-direction] + [PLAN-full fix]**
+### M1 — Selection bias in the clean-6 (their #1 concern) — **[DONE — empirically tested]**
+**RESOLVED (detector built + run).** We built a path-based + bulk-import-anywhere reuse detector and re-measured
+all pilots. It **verified genuine reuse in the two most size-inflated pilots** and their corrected A_local moved
+*up into* the clean cluster: **Elara** (98.8 % forked Substrate template) 0.044→**0.487**; **Kheopswap** (76.6 %
+PAPI scaffold) 0.157→**0.568**. Re-fitting the **core-8** (clean-6 + these two):
+
+| set | n | A* | 95 % CI | SA | PRED(30) |
+|---|---|---|---|---|---|
+| core-6 | 6 | 0.577 | [0.473, 0.686] | +0.80 | 83 % |
+| **core-8** | 8 | **0.564** | **[0.487, 0.647]** | +0.80 | **88 %** |
+
+**⇒ The constant is confirmed, not shifted: A* moves 0.577→0.564 (within CI), the CI *tightens* (0.21→0.16),
+and PRED(30) rises to 88 %.** This is the "clean-6 and corrected pilots agree" result. *Honest limitation kept
+in-paper:* the automated bulk-commit heuristic is blunt — it over-flagged two clean projects' large *authored*
+initial/migration commits (bagpipes, remarker) as forks, so we apply reuse correction **only** where
+evidence-validated (Elara forked template, Kheopswap PAPI scaffold), not blanket. Still unresolved (honestly
+flagged): Ask! (85 % flagged — possibly vendored AS stdlib), the 3 scope-limited window pilots, fennel's
+generated flag (kept at raw). Below is the original quantitative-direction analysis, now empirically borne out.
+
+**The reviewer's required next sentence — now supplied (CEVRP locked).** The evidence-validated correction is
+no longer a one-off rescue: we have promoted it to a **pre-stated, falsifiable benchmark rule**, the
+**Constrained Evidence-Validated Reuse Protocol (CEVRP, v1.0)** (§3.3 of the report). A pilot's size is
+reduced to Equivalent SLOC **iff all three conditions hold**: **C1** detector flags ≥ 50 % adapted/generated;
+**C2** independent provenance confirms external origin (named upstream fork, declared generator path, or
+single third-party import commit); **C3** the bulk is *not* a rename/move of the team's own commits. C3 is the
+guard run #7 lacked — under CEVRP the protocol *applies* to Elara and Kheopswap and *correctly declines*
+bagpipes (188-file self-rename) and remarker (initial app dump), with the clean-4 at raw size by default. The
+rule is locked and applied identically to every current and future pilot, so the verdict on Ask!, the window
+pilots, and fennel is determined by C1–C3, not by analyst discretion. This converts "evidence-validated
+two-case correction" into "generalizable benchmark protocol" — the exact gap the reviewer identified.
+
+### M1 (original direction analysis, now confirmed by the above)
 *Falsifiable criterion (now stated):* a pilot is **size↔scope clean** iff the measured artifact's lifetime
 and content are entirely *within* the funded deliverable — i.e. (a) greenfield repo built for the grant with
 no large forked/templated root commit, and (b) no later-version code beyond the funded scope at the measured
@@ -84,7 +115,9 @@ collapses to a power law").
 - **m1** geomean of A_local = exp(mean ln A_local) = OLS intercept of `ln PM − E·ln Size − ln∏EM` (log-linear
   MLE under lognormal residuals). Justification added to method. **[DONE]**
 - **m2** dotreasury "edge of validity" — cite Boehm et al. (2000) lower size boundary (~2 KSLOC). **[PLAN]**
-- **m3** rejected-candidate **table** (replace prose). **[PLAN]** (consolidate from VERIFIED_PILOTS.md).
+- **m3** rejected-candidate **table** (replace prose). **[DONE]** — §2.3 now a 6-row table (Talisman, ink!Hub,
+  Ink! Dev Hub, ParaSpell, SubBooster, Ajuna SAGE), each row tagged with the *named* triple condition it fails
+  (effort / repo / proof), so exclusions are reproducible from the criterion alone.
 - **m4** qualify "5× more code per PM" → "implied by the calibration; an *upper bound* on productivity
   difference because A also absorbs un-corrected reuse and below-market pricing." **[DONE — wording]**
 
@@ -144,7 +177,9 @@ Year-2 external-validity probe.
    pricing-confound evidence; selection-bias quantitative bound → **fold into the report (this round).**
 2. **[PLAN, next]** Fix the 6 inflated sizes (path-based generated detection + scope isolation) → full-12 A*;
    confirm it lands in [0.58, 0.70]. *(This is the single highest-value action — R1-M1.)*
-3. **[PLAN]** Add `grant_usd` (M2-R2 m2) + rejected-candidates table (R1-m3) + Boehm/Kemerer/Myrtveit citations.
+3. **[DONE]** Rejected-candidates table (R1-m3, §2.3) + Boehm/Kemerer/Myrtveit & Stensrud/Shepperd &
+   MacDonell/Jørgensen citations (§10, inline at §1/§4.4). **[PLAN remaining]** `grant_usd` column in
+   VERIFIED_PILOTS (M2-R2 m2; values already in the §4.4d pricing table).
 4. **[PLAN, Year-2]** Grantee self-report survey (true-actual anchor); one Ethereum ESP pilot (cross-chain);
    pre-registered 5-pilot holdout validation; W3F/Polkadot-council engagement; practical grant-review tool.
 

@@ -986,3 +986,18 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   ink_analyzer) remain scope-limited (wide-window over-count is scope not reuse) - kept flagged.
 - Verified structure via Read (bash mount truncates). Chrome connected on dissect-pilot workflow page.
   Awaiting push -> dispatch (blank=all, aam=0.10) -> recompute full A* with reuse-corrected sizes.
+
+2026-06-14  Run #7 (upgraded detector) -> CORE-8 CONVERGENCE (answers R1-M1, the #1 reviewer concern).
+- Detector VERIFIED genuine reuse in the 2 most-inflated: elara 98.8% forked Substrate template
+  (149K lines/2 bulk commits) A_local 0.044->0.487; kheopswap 76.6% PAPI scaffold 0.157->0.568. Both land
+  INSIDE the clean cluster.
+- Detector OVER-FIRED on clean projects (false positives): bagpipes 0.73->7.5, remarker 0.50->6.3 - their
+  large AUTHORED initial/migration commits mis-flagged as forks (bagpipes XcmSend->Bagpipes rename; remarker
+  one-shot first commit). => big commit != reuse; auto-heuristic blunt (under #6, over #7).
+- DEFENSIBLE: raw size for low-reuse projects + evidence-validated reuse correction ONLY for elara+kheopswap.
+- CORE-8 (clean-6 raw + elara,kheopswap corrected): A*=0.564, 95%CI [0.487,0.647], SA +0.80, MMRE 17%,
+  PRED30 88%, n=8. vs core-6 A*=0.577 CI[0.473,0.686] PRED30 83%. => constant CONFIRMED not shifted; CI
+  tightened (0.21->0.16); PRED30 up. Landmark "clean-6 and corrected pilots agree".
+- Held out/unresolved (honest): ask_v01 (85% flagged, maybe vendored AS stdlib), 3 window pilots (scope not
+  reuse), fennel generated-flag (raw). 
+- Updated report (SS4.4e + ), COCOMO_DISSECTION_RESULTS (Run#7 section), REVIEWER_RESPONSE M1-R1 -> DONE.
