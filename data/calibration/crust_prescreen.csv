@@ -1,0 +1,16 @@
+project,verdict,n_delivery_files,n_evaluations,status,terminated,app_fte,app_months,app_pm,n_app_repos,repo_url,all_repos
+socbayio,DELIVERED,2,0,,,1.0,4.0,4.0,0,,
+CruTransfer,DELIVERED,2,0,,,1.0,2.0,2.0,2,https://github.com/h2qutc/angular-material-components,h2qutc/angular-material-components; h2qutc/crutransfer
+skyekiwi-protocol,DELIVERED,1,0,,,2.0,1.38,2.76,1,https://github.com/ParityAsia/hackathon-2021-spring,parityasia/hackathon-2021-spring
+klikli,DELIVERED,1,0,,,3.0,3.0,9.0,0,,
+switchswap,DELIVERED,1,0,,,3.0,3.0,9.0,1,https://github.com/switchswapbox/ipfs-crust-action,switchswapbox/ipfs-crust-action
+crust-explorer,DELIVERED,1,0,,,3.0,2.0,6.0,1,https://github.com/HuaZhuangNan/crust-explorer,huazhuangnan/crust-explorer
+crudrive,DELIVERED,1,0,,,3.0,,,0,,
+crustnft,no_delivery_found,0,0,,,3.0,3.0,9.0,0,,
+CurstUploadCacheLayer,no_delivery_found,0,0,,,2.0,3.0,6.0,0,,
+wanke,no_delivery_found,0,0,,,3.0,3.0,9.0,1,https://github.com/bruceli20202020/wk-crust-sdk,bruceli20202020/wk-crust-sdk
+Sinso_Getway,no_delivery_found,0,0,,,4.0,2.0,8.0,1,https://github.com/textileio/powergate,textileio/powergate
+Subscan_explorer,no_delivery_found,0,0,,,4.0,3.5,14.0,0,,
+Crato Service,no_delivery_found,0,0,,,3.0,,,2,https://github.com/cgpiao/nash-spa,cgpiao/nash-api; cgpiao/nash-spa
+IceTrays,no_delivery_found,0,0,,,2.0,3.0,6.0,3,https://github.com/ysh0566/ipfs-fs-cluster,filecoin-project/slingshot; textileio/powergate; ysh0566/ipfs-fs-cluster
+box,no_delivery_found,0,0,,,3.0,3.0,9.0,5,https://github.com/functionland/photos,assister-ai/assister; directionxcorporation/pasajpos; functionland/box; functionland/photos; jsonldresume/lab-web
