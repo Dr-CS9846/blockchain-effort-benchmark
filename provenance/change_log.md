@@ -1312,3 +1312,28 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   .github/workflows/crust_prescreen.yml (workflow_dispatch → publishes crust_prescreen.csv to census branch).
 - NEXT: push → dispatch crust-prescreen → read crust_prescreen.csv → hand-verify each candidate (software,
   single repo, delivered, FTE) → admit clean rows as #91+ under believe-stated-FTE. (Scope sanity per-candidate.)
+
+## 2026-06-17 — Crust prescreen #1 read + hand-verified; first non-W3F admits (#91–92)
+- crust-prescreen ran (16 apps; 7 DELIVERED). Hand-read every delivered candidate (no-miss):
+  - ADMIT #91 CruTransfer (h2qutc/CruTransfer, file-transfer dApp Angular/Node/IPFS, 1 FTE×2mo=2.0 PM, delivered).
+  - ADMIT #92 crust-explorer (HuaZhuangNan/crust-explorer, explorer front+back+DB+API, 3 FTE×2mo=6.0 PM, delivered).
+  - EXCLUDE switchswap (9 PM): no project repo in app (only personal profiles + a tiny ipfs-crust-action helper) → can't match effort to a primary repo.
+  - EXCLUDE socbayio (4 PM): no codebase repo named (personal profile only).
+  - EXCLUDE klikli (9 PM): Team Code Repos is the unfilled template placeholder <your_repo_1>; no repo.
+  - EXCLUDE skyekiwi-protocol (2.76 PM): duplicate of W3F #15 (same protocol/codebase); parsed repo was a hackathon repo.
+  - EXCLUDE crudrive (no duration/pm, no repo) + all no_delivery_found (delivery unproven).
+- Crust is a small program (~16 apps) → 2 clean admits. Real ecosystem diversity (decentralized storage, JS/Angular/Node/React/Solidity, new teams), non-overlapping with W3F.
+- n: 89 → 91. VERIFIED_PILOTS header now tracks Sources (W3F #1–90, Crust #91–92).
+- Next diversification candidates in same W3F-template family if more breadth wanted: Darwinia, Composable/Picasso, OAK, SubQuery.
+
+## 2026-06-17 — next diversified source: Polkadot Open Source Developer Grants (POSG)
+- Darwinia REJECTED: repo rebranded to RingDAO; grant template dropped the FTE field, no separate delivery repo
+  (PR/issue-based, $ only) — fails clean believe-stated-FTE. Phala fork REJECTED: verbatim w3f mirror (same
+  committee, delivery → w3f) = duplication risk.
+- ADOPTED: PolkadotOpenSourceGrants — treasury-funded bounty #59, distinct curators (Ditavia, Alice und Bob,
+  JUST Open Source, Polimec), OWN apply repo (W3F application-template → FTE field) + OWN delivery repo, distinct
+  grantees, now CLOSED (final_report.md) so corpus is bounded + fully evaluated. Non-overlapping with our W3F set.
+- BUILT: scripts/extract/posg_prescreen.py (clones apply + delivery; extracts FTE×duration→pm, repos, status;
+  cross-refs delivery → DELIVERED; ranks clean single-repo+stated-FTE) + .github/workflows/posg_prescreen.yml
+  (workflow_dispatch → publishes posg_prescreen.csv to census).
+- NEXT: push → dispatch posg-prescreen → read csv → hand-verify each candidate (no miss) → admit clean rows #93+.
