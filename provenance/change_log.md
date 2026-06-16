@@ -1262,3 +1262,53 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   delivery_actuals.csv ranked by score. Effort regexes validated (incl. single-digit PM fix). 
 - NEXT: push -> dispatch scan-actuals -> read delivery_actuals.csv -> cross-ref to our pilots/repos -> promote
   Extended->GOLD where the delivery doc states actual hours; admit NEW actual-effort projects found.
+
+## 2026-06-15 (cont.) — scan-actuals #1 READ: actual-FTE vein DEFINITIVELY ~exhausted (no miss)
+- scan_actual_effort.py ran (#1, 18s) over ~500 W3F delivery+evaluation docs → delivery_actuals.csv = 1 hit,
+  load_balanced_endpoints_operations (EVALUATION doc, 60h→0.39PM) = FALSE POSITIVE (evaluator note, not grantee
+  effort; implausibly small for a delivered grant). Excluded. No genuine actual-effort figures in delivery docs.
+- Reason: W3F grantees put hours in the PRIVATE invoice form; public delivery markdown carries deliverable
+  links/specs, not hours.
+- DEFINITIVE (3 independent exhausted veins): on-chain retroactive harvest + web search + delivery-doc scan →
+  actual-FTE population ~6 in the Polkadot ecosystem, and we hold all 6 (GOLD core). No padding (PI: "must not be a miss").
+- This scarcity is itself a publishable finding (explains thinness of prior blockchain effort-estimation work).
+- GOLD core stands at n=6 actual; EXTENDED n=80 planned (range/robustness only). Next legitimate gold growth =
+  grantee survey (ask teams for private actual hours) OR accept n=6 as the calibration anchor.
+
+## 2026-06-16 — GOVERNANCE RE-LOCK: effort ground truth = grantee-stated W3F FTE (git lane closed)
+- PI decision: believe the FTE/effort the grantee committed on-record in the W3F grant. Self-reconstructed
+  (git-history) effort REJECTED, permanently — will not be revisited. Surveys not relied upon.
+- GOLD/EXTENDED wall REMOVED. Calibration set = full matched-triple corpus on grantee-stated effort, n=86 now.
+- The 6 actual-hours rows retained only as a flagged sensitivity subset (show A stable actual-hrs vs stated-FTE).
+- Growth rule: grow the W3F-stated-effort matched-triple corpus toward & past Boehm (n=161); 3 gates per row —
+  delivered (on-chain executed OR W3F milestones delivered) + single matched repo + scope sanity (ks_per_pm band).
+- VERIFIED_PILOTS.md header rewritten to this governance. Closing abandoned tracks: git-effort, grantee survey,
+  gold-actuals-only campaign.
+
+## 2026-06-17 — admitted #88–90 from pre-screen pool (verified, no-miss); pool now ~exhausted
+- Reviewed the 7 clean+new candidates surviving strict gates over census_prescreen.csv (384 DELIVERED rows).
+- ADMITTED (3): #88 hs-web3 (airalab, Haskell web3 lib, 0.4 FTE×3.68mo=1.47 PM); #89 GrantMaster (Zaniyar,
+  grant-mgmt dApp, 0.6×5=3.0 PM); #90 RainbowDAO Protocol ink! (Rainbowcity, ink! DAO suite, 8×1.84=14.72 PM).
+  Each: verdict=DELIVERED, single matched repo, scope sanity OK, FTE read from W3F application.
+- REJECTED (4, read application to confirm — no miss): da_comparative_study = research/benchmark REPORT (no
+  software); SubDAO ×2 = one 8-PM app the pre-screen split across two component repos (multi-repo, already held
+  once as #81 node-only); Afloat = deliverables span Rust pallets + Angular FE + Node BE across repos (multi-repo,
+  matched repo was client-API slice only).
+- n: 86 → 89. Pre-screen pool now near-exhausted for clean single-repo+parsed-FTE rows.
+- NEXT (path to 161): widen the census — ingest the rest of the W3F Grants-Program applications + improve FTE
+  extraction + add a principled primary-repo rule for multi-repo grants (so projects like Afloat/SubDAO can be
+  admitted against their main deliverable repo instead of dropped).
+
+## 2026-06-17 — diversify source: Filecoin dropped, Crust Grants Program adopted
+- Filecoin devgrants REJECTED as a source: GitHub-issue-based (no clonable app corpus), NO FTE field (effort only
+  in roadmap prose), no central delivery repo — high miss risk, fails believe-stated-FTE cleanly. (PI: switch.)
+- Surveyed famous chains: household names (Moonbeam, Acala, Optimism, Arbitrum, Ethereum ESP) fund by $ budget via
+  portals — no clean public effort. Clean in-GitHub FTE exists almost only in the W3F-template family.
+- ADOPTED: Crust Grants Program — own program (crustio/Crust-Grants-Program) + own delivery repo
+  (crustio/Crust-Grant-Milestone-Delivery) + W3F-identical FTE template + distinct storage-domain grantees
+  (non-overlapping with our W3F set). Verified template carries Total Estimated Duration + FTE per milestone.
+- BUILT: scripts/extract/crust_prescreen.py (clones both Crust repos; extracts app FTE×duration→pm, repos,
+  status; cross-refs delivery repo → DELIVERED; ranks clean single-repo DELIVERED+stated-FTE) and
+  .github/workflows/crust_prescreen.yml (workflow_dispatch → publishes crust_prescreen.csv to census branch).
+- NEXT: push → dispatch crust-prescreen → read crust_prescreen.csv → hand-verify each candidate (software,
+  single repo, delivered, FTE) → admit clean rows as #91+ under believe-stated-FTE. (Scope sanity per-candidate.)

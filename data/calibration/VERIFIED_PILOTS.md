@@ -6,19 +6,25 @@ Every figure below was read directly from the on-chain proposal / repo (not auto
 Person-month unit = Boehm's **152 person-hours/PM** (hours-reported cases); FTE×duration where the
 proposal reports developer-weeks. Conversion is shown per project for full transparency.
 
-## ⭐ DATASET TIERS (PM-quality governance, locked 2026-06-15)
-**The hinge is PM. Only ACTUAL logged effort is gold.** Two formally-separated tiers:
+## ⭐ EFFORT GROUND TRUTH & GROWTH RULE (governance, re-locked 2026-06-16)
+**Decision (PI, 2026-06-16): the effort ground truth is the FTE/effort the grantee committed on-record in the
+W3F (and equivalent) grant — believed as written.** Self-reconstructed effort (git-history mining) is REJECTED
+and will not be revisited; grantee surveys are not relied upon. Rationale: an on-record figure the builder
+themselves signed up to is more trustworthy than any number we reconstruct.
 
-- **GOLD CORE — actual logged effort (completed, retrospective) — the PRIMARY calibration set, n = 6:**
-  **#1 Subsquare (3,760 dev-hrs)**, **#4 dotreasury (~20 dev-days)**, **#10 Remarker (1,100 work-hrs)**,
-  **#11 Kheopswap (480 dev-hrs)**, **#12 ink! analyzer (424 dev-hrs, itemised)**, **#13 Dot Code School (144 hrs)**.
-  *(All report hours actually spent on completed work, read on-chain.)* The headline constant A is fit on GOLD only.
-- **EXTENDED — planned/budgeted FTE×duration (delivered, but proposed-effort), n = 80:** all other rows
-  (#2,3,5,7,8 + #14–87). Used ONLY for range/robustness, NEVER for the headline. **Each is a survey-conversion
-  target:** if its team confirms actual logged hours, it is promoted GOLD→. Planned-effort expansion is HALTED.
+- **Calibration set = the full matched-triple corpus, n = 89 (and growing):** every row is {grantee-stated
+  effort (FTE×duration → PM, or hours where given) · the ONE repo that produced it · on-chain/milestone delivery
+  proof}. The headline constant A is fit on this set. The earlier GOLD/EXTENDED wall is REMOVED — all delivery-
+  proven triples sit on one footing.
+- **Best-grounded subset (sensitivity only, NOT segregated):** the 6 rows reporting *actual logged hours*
+  (#1 Subsquare, #4 dotreasury, #10 Remarker, #11 Kheopswap, #12 ink! analyzer, #13 Dot Code School) are kept
+  flagged so we can report a robustness check that A is stable between "actual-hours" and "stated-FTE" rows.
+  This is a sensitivity analysis, not a separate headline.
 
-**Growth rule going forward:** grow GOLD only — via (a) the grantee actual-hours survey (convert Extended→Gold),
-and (b) any genuinely actual-effort completed project found. No more planned admissions.
+**Growth rule going forward:** grow the W3F-stated-effort matched-triple corpus toward and past Boehm (n=161),
+admitting only rows that pass all three gates — (1) delivered (on-chain executed OR W3F milestones delivered),
+(2) a single matched repo that produced the funded work, (3) scope sanity (ks_per_pm within band). Effort is
+taken as the grantee-stated FTE×duration. No proxy reconstruction, no survey dependence.
 
 | # | Project | Chain / yr | Type | Codebase | Reported effort | ≈ PM | Repo | On-chain |
 |---|---|---|---|---|---|---|---|---|
@@ -109,6 +115,9 @@ and (b) any genuinely actual-effort completed project found. No more planned adm
 | 85 | **Deeper Network** (VPN chain) | W3F | Forward grant | Greenfield | 5 FTE × 1 mo | **5.0** | deeper-chain/deeper-chain | W3F delivered · scope-recheck |
 | 86 | **Plus** (polkadot-js-plus wallet) | W3F | Forward grant | Greenfield | 1 FTE × 3 mo | **3.0** | Nick-1979/polkadot-Js-Plus-extension | W3F delivered · scope-recheck |
 | 87 | **Faucet** (sybil-resistant faucet) | W3F | Forward grant | Greenfield | 1 FTE × 1 mo | **1.0** | karooolis/sybil-resistant-substrate-faucet | W3F delivered |
+| 88 | **hs-web3** (Haskell Web3 client lib) | W3F | Forward grant | Greenfield (Haskell) | 0.4 FTE × 3.68 mo | **1.47** | airalab/hs-web3 | W3F delivered |
+| 89 | **GrantMaster** (grant-management dApp) | W3F | Forward grant | Greenfield | 0.6 FTE × 5 mo | **3.0** | Zaniyar/grantmaster | W3F delivered |
+| 90 | **RainbowDAO Protocol ink!** (DAO contract suite) | W3F | Forward grant | Greenfield (ink!) | 8 FTE × 1.84 mo | **14.72** | RainbowcityFoundation/RainbowDAO-Protocol-Ink-milestone_1 | W3F delivered (M1) |
 
 Spread so far: **0.95 → 24.7 PM** (26×), two chains, five project types (governance app / language-compiler /
 no-code dApp / treasury-explorer maintenance slice / ZKP crypto library), greenfield + brownfield, forward +
