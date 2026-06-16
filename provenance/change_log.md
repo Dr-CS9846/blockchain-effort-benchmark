@@ -1112,3 +1112,31 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   (correctly flagged, consistent with its terminated status). Decisive signal = #delivery files per candidate.
 - Next: user pushes → dispatch prescreen workflow via Chrome → read census_prescreen.csv → deep-verify only the
   DELIVERED shortlist (kills the ~1-in-2 cold-pick rejection; no more Spacewalks).
+
+## 2026-06-15 (cont.) — delivery pre-screen RAN (CI #1), shortlist built
+- Dispatched prescreen-delivery workflow via Chrome; ran ~17s; published census_prescreen.csv to census branch.
+- Result: scanned whole W3F Grants-Program + Grant-Milestone-Delivery → ~270 DELIVERED (ranked by milestone
+  count) vs ~45 REJECT_terminated. SPACEWALK correctly in REJECT_terminated (validates the pre-screen end-to-end),
+  alongside openbrush/tuxedo/polkadex/manta/deip/redstone/polkamusic/etc.
+- Abridged synced copy: data/calibration/census_prescreen.csv (full list on census branch).
+- Built Batch C shortlist (DELIVERED + census-PM + new type): hyperfridge (FIAT/banking bridge), melodot (DA layer),
+  NewOmega (game), fair_squares (real-estate DAO), logion_wallet (legal), PrivaDEX (DEX aggregator), subcoin (BTC).
+- Effect: cold-pick rejection now near-zero; deep-verify only DELIVERED rows. Corpus n=15 (admits resume next).
+
+## 2026-06-15 (cont.) — Batch C verify (hyperfridge HOLD) + treasury-mine #7 dispatched (parallel)
+- Parallel track ON: dispatched treasury-mine workflow run #7 (retroactive/actual OpenGov harvester) via Chrome.
+- Batch C: hyperfridge → HOLD (multi-repo: 9 PM spans hyperfridge-r0 + ocw-ebics + ebics-java-service; census
+  measured only the ZK circuit). Salvage = milestone-isolate M1 (3.0 PM ↔ hyperfridge-r0). melodot/subcoin app
+  filenames 404 → re-fetch next pass. Lesson: prioritize single-artifact grants; pre-screen v2 should emit
+  matched app-filename + repo-count per grant.
+- Corpus n=15. Admits continue next pass from single-artifact DELIVERED candidates + treasury-mine manifest.
+
+## 2026-06-15 (cont.) — pre-screen v2 built + treasury-mine #7 read
+- Pre-screen v2 (prescreen_delivery.py): adds matched_app_file, app_fte/app_months/app_pm (primary effort),
+  n_app_repos, ks_per_pm scope ratio (warning-only, threshold softened to <0.15 so reuse-heavy clean pilots
+  aren't de-ranked). Validated locally: effort regex correct on skyekiwi/stable-asset/hyperfridge/spacewalk/galaxy;
+  hyperfridge auto-flags ks/pm 0.19. Ranks admit-ready (app_pm + <=2 repos) DELIVERED to top.
+- treasury-mine #7 read: manifest reaches 2024 (idx 1583..544; Remarker/Kheopswap/ink!analyzer present).
+  Finding: retroactive vein largely exhausted — mostly tips/events; dev proposals multi-repo (SubWallet=3) or
+  already admitted. Thin leads: LiteScan #970, Telenova #611, Polkawatch #1132. W3F v2 = primary engine.
+- Corpus n=15. Next: push prescreen v2 → dispatch → admit from ranked shortlist.

@@ -154,3 +154,51 @@ effort — no inline reject-fetching, no context bloat. *(Local bash harvesting 
 go through the sanctioned tools; CI is the sanctioned at-scale path.)* **Next:** dispatch `treasury_mine` for
 the 2024 executed range → triage the manifest for retroactive + on-chain-table + single-repo → verify 3.
 *No off-chain-effort or rejected proposal will be admitted.*
+
+### Delivery pre-screen — DONE (CI run #1, 2026-06-15)
+`prescreen-delivery` workflow ran clean (~17 s). It scanned the **whole** W3F Grants-Program + Grant-Milestone-
+Delivery and ranked every census project: **~270 DELIVERED** (by milestone count) vs **~45 REJECT_terminated**.
+**Spacewalk correctly landed in REJECT_terminated** — as did openbrush, tuxedo, polkadex, manta, deip, redstone,
+polkamusic, etc. (all `Status: Terminated`). Full CSV on the `census` branch; abridged copy in
+`census_prescreen.csv`. ⇒ cold-pick rejection now near-zero: **deep-verify only DELIVERED rows**.
+
+**Batch C shortlist (DELIVERED + census-PM + new project type — deep-verify next, 3 at a time):**
+| candidate | PM~ | deliv | type (diversity) | repo |
+|---|---|---|---|---|
+| hyperfridge | 9.0 | 5 | **FIAT/banking bridge (EBICS, RWA)** | element36-io/hyperfridge-r0 |
+| melodot | 6.75 | 4 | **data-availability layer** | ZeroDAO/melodot |
+| NewOmega | 4.0 | 4 | **on-chain game** (exact commit) | WiktorStarczewski/newomega.polkadot |
+| fair_squares | 12.0 | 5 | real-estate DAO/DeFi | Fair-Squares/fair-squares |
+| logion_wallet | 20.0 | 4 | legal/notary identity | logion-network/logion-wallet |
+| PrivaDEX | 11.0 | 4 | cross-chain DEX aggregator | kapilsinha/privadex |
+| subcoin | 3.0 | 3 | Bitcoin-on-Substrate | subcoin-project/subcoin |
+Each still gets the 4-point primary check (effort accuracy · FTE consistency · single repo · not-terminated[pre-passed]).
+
+**Batch C verification status (2026-06-15):**
+- **hyperfridge → HOLD.** Effort clean (1.5 FTE × 6 mo = 9.0 PM, census agrees) BUT **multi-repo grant**: the
+  9 PM spans `element36-io/hyperfridge-r0` (ZK circuit, M1) + `ocw-ebics` (pallet, M3) + `ebics-java-service`
+  (backend, M2) + parachain (M4) + UI (M5). Census measured only the circuit (1.68 KSLOC) → 9 PM↔1 component
+  fails single-scope (G1). *Salvage option:* milestone-isolate **M1 (1.5 FTE×2 mo = 3.0 PM) ↔ hyperfridge-r0**
+  as a clean sub-pilot (needs M1-delivery confirm + size the circuit only). element36, Zug CH; walter.strametz@element36.io.
+- **melodot / subcoin → app filename not resolved** (raw `melodot.md` / `subcoin.md` 404). Re-fetch with correct
+  filenames next pass.
+- **Lesson (efficiency):** prioritize **single-artifact** candidates (one pallet / one node / one library) — a
+  full-stack grant (hyperfridge) is inherently multi-repo. *Pre-screen v2 idea:* have the CI script also emit the
+  matched application filename + a **repo-count** per grant, so the shortlist is directly actionable (correct
+  filename + single-vs-multi-repo flag) without per-candidate full-app fetches.
+
+**Parallel track — `treasury-mine` run #7 READ (2026-06-15):** manifest reached the **2024 range** (idx
+~1583→544; our actuals #1170/#1102/#619 present → data is sound). **Finding:** the retroactive treasury vein
+is **largely exhausted** of clean matched triples — the overwhelming majority are **tips / events / marketing**
+(no repo, no effort table), and the few dev proposals are **multi-repo** (SubWallet #1118 = 3 repos) or already
+admitted. Thin remaining single-repo leads to verify per-candidate (Subsquare API → state + on-chain hours
+table): **LiteScan #970** (indexer), **Telenova #611** (Telegram wallet), **Polkawatch #1132** (analytics).
+⇒ retroactive = diminishing returns; **W3F pre-screen v2 is the primary n-growth engine.**
+
+### Pre-screen v2 — BUILT (deploy next)
+`prescreen_delivery.py` upgraded: now also emits per grant **matched_app_file** (kills 404 filename churn),
+**app_fte / app_months / app_pm** (PRIMARY effort straight from the application), **n_app_repos** (multi-repo
+signal), and **ks_per_pm** scope ratio (informational warning, not auto-reject — reuse-heavy clean pilots run
+low: pontem 0.14, skyekiwi 0.21). Effort-regex + scope logic validated locally (skyekiwi 8.0, stable-asset
+2.0, hyperfridge 9.0→ks/pm 0.19, spacewalk terminated). **Next:** push → dispatch prescreen v2 → admit
+straight from the ranked admit-ready shortlist (correct filename + app_pm + single-repo in hand).

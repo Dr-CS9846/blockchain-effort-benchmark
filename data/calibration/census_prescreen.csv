@@ -1,0 +1,37 @@
+project_id,verdict,n_delivery_files,n_evaluations,app_status,terminated,repo_url,planned_pm_census,commit_source,equivalent_sloc
+# Delivery-verified pre-screen output (generated in CI by scripts/extract/prescreen_delivery.py, 2026-06-15).
+# Full ranked list lives on the repo 'census' branch; this is the synced working copy.
+# verdict: DELIVERED (>=1 milestone delivery file) > no_delivery_found > REJECT_terminated (app Status header).
+# USE: deep-verify only DELIVERED rows; never admit REJECT_terminated. Spacewalk correctly flagged terminated.
+ink-analyzer,DELIVERED,7,5,,,https://github.com/ink-analyzer/ink-analyzer,,cutoff,20.877
+fair_squares,DELIVERED,5,5,,,https://github.com/Fair-Squares/fair-squares,12.00,cutoff,17.0135
+hyperfridge,DELIVERED,5,5,,,https://github.com/element36-io/hyperfridge-r0,9.00,cutoff,1.6814
+Interstellar-Network,DELIVERED,5,6,,,https://github.com/Interstellar-Network/api_garble,55.00,cutoff,0.5015
+perun_integration,DELIVERED,5,5,,,https://github.com/perun-network/perun-polkadot-pallet,9.06,cutoff,1.649
+ajuna,DELIVERED,4,2,,,https://github.com/ajuna-network/Ajuna.SDK,4.00,cutoff,6.098
+hs-web3,DELIVERED,4,4,,,https://github.com/airalab/hs-web3,,cutoff,11.795
+hybrid,DELIVERED,4,2,,,https://github.com/hybrid-explorer/hybrid-indexer,,cutoff,2.931
+kuma-wallet,DELIVERED,4,1,,,https://github.com/blockcoders/kuma-wallet,,cutoff,20.612
+KZero,DELIVERED,4,2,,,https://github.com/kzero-xyz/kzero,,cutoff,3.4264
+Libra,DELIVERED,4,4,,,https://github.com/atscaletech/libra,,cutoff,5.4485
+logion_wallet,DELIVERED,4,4,,,https://github.com/logion-network/logion-wallet,20.00,cutoff,27.6568
+melodot,DELIVERED,4,4,,,https://github.com/ZeroDAO/melodot,6.75,cutoff,13.944
+NewOmega,DELIVERED,4,4,,,https://github.com/WiktorStarczewski/newomega.polkadot,4.00,commit,0.982
+PrivaDEX_aggregator,DELIVERED,4,4,,,https://github.com/kapilsinha/privadex,11.00,cutoff,19.6941
+crossbow,DELIVERED,3,3,,,https://github.com/dodorare/crossbow,17.50,commit,3.9117
+myriad_social,DELIVERED,3,3,,,https://github.com/myriadsocial/myriad-node-parachain,9.00,cutoff,5.2005
+subcoin,DELIVERED,3,3,,,https://github.com/subcoin-project/subcoin,3.00,cutoff,10.9936
+stable-asset,DELIVERED,3,3,,,https://github.com/nutsfinance/stable-asset,2.00,cutoff,4.115
+pontem-network,DELIVERED,3,3,,,https://github.com/pontem-network/sp-move,4.00,commit,1.9192
+skyekiwi-protocol,DELIVERED,2,2,,,https://github.com/skyekiwi/skyekiwi-protocol,8.00,commit,1.688
+parallel,DELIVERED,2,2,,,https://github.com/parallel-finance/parallel,16.00,cutoff,14.8596
+liberland,DELIVERED,2,2,,,https://github.com/liberland/liberland_substrate,15.00,cutoff,64.49
+galaxy,DELIVERED,2,1,,,https://github.com/7flash/galaxy-polkadot,1.00,commit,1.7518
+spacewalk,REJECT_terminated,2,1,Terminated,Y,https://github.com/pendulum-chain/spacewalk,1.50,cutoff,24.4058
+openbrush,REJECT_terminated,3,3,Terminated,Y,https://github.com/727-Ventures/openbrush-contracts,,cutoff,19.121
+tuxedo,REJECT_terminated,3,2,Terminated,Y,https://github.com/Off-Narrative-Labs/Tuxedo,,cutoff,
+polkadex,REJECT_terminated,1,1,Terminated via email,Y,https://github.com/Polkadex-Substrate/Polkadex,,cutoff,2.363
+manta_network,REJECT_terminated,1,1,Terminated,Y,https://github.com/Manta-Network/pallet-manta-dap,,head,1.1951
+# NOTE: this synced copy is ABRIDGED to the actionable head + the terminated exemplars.
+# The COMPLETE ~270 DELIVERED + ~45 REJECT_terminated list is on the 'census' branch:
+# https://raw.githubusercontent.com/Dr-CS9846/blockchain-effort-benchmark/census/data/calibration/census_prescreen.csv
