@@ -1207,3 +1207,58 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   (executed + retroactive + hours + repo). Hour-parser validated on Remarker/Kheopswap/DotCodeSchool/ink-analyzer/Subsquare.
 - NEXT: push treasury_mine.py -> dispatch treasury-mine -> read GOLD shortlist -> verify+admit actual pilots in
   batches of 3 (executed + on-chain hours table + single repo) toward n=60.
+
+## 2026-06-15 (cont.) — treasury-mine #8 (deep) READ: gold on-chain vein nearly exhausted
+- Deep harvest (40 pages, Polkadot to ~early 2024) → ~40 retroactive proposals: vast majority tips/events/
+  marketing/reimbursements. Dev-with-repo ≈5, most disqualified (Remarker/Kheopswap/ink!analyzer already ours;
+  SubWallet 3 repos; KAGOME whole-host; Substrate-Python 4 repos). No clean on-chain hours except Kheopswap (ours).
+  (NOTE: state column came back empty — list endpoint path; verify executed per-candidate via API.)
+- FINDING: on-chain retroactive vein ~exhausted; ~1-3 marginal new gold left. SCALABLE gold path = GRANTEE
+  SELF-REPORT SURVEY (task #35): ask delivered-pilot teams for ACTUAL logged hours → convert planned→actual at
+  scale (19 W3F delivered pilots → gold). Boehm used surveys too.
+- Decision pending: survey-based gold vs cherry-pick marginal on-chain vs both.
+
+## 2026-06-15 (cont.) — BIG n push: pilots #32-#61 ADMITTED → n=60
+- PI directive: pick ALL clean available now; reach toward 165; verify one-by-one (survey) later.
+- Admitted 30 from the v2 pre-screen admit-ready pool (DELIVERED + not-terminated + PRIMARY app_pm FTE×duration +
+  single-repo + scope-sane). Deduped multi-repo/duplicate-milestone grants. Types added: zk-login, escrow,
+  storage, validator-dashboard, e-signing, wallet, DAO×3, PoCS-consensus, identity, stats, NFT-marketplace,
+  AMM, payments, privacy×2, IPFS, Java-client, NFT-portfolio, token-sale, lending-parachain, PHP-SDK, XCM-automation,
+  gaming-chain, stablecoin×2, naming, C++-light-client, CLI, court, indexer.
+- ~30 more admit-ready rows remain queued (epirus, lunie, MangoBOX, sandox, signet, slonigiraf, sol2ink, Standard,
+  Starry, stone-index, subdao, Faucet, halva, idavoll, konomi, deeper, dauth, decentralml, nftstore, ocelloids,
+  offline-election, polkadot-analytics, PRIMIS, Plus, GreenLemon, ...). Next pass.
+- Flagged scope-recheck (high/low ks/PM) on #40,46,48,49,50,57 — verify size↔scope at dissection.
+- Corpus n=60. ALL effort = primary FTE×duration (v2). Actual-vs-planned conversion deferred to survey phase.
+
+## 2026-06-15 (cont.) — n push #62-#87 → n=86 (clean single-repo W3F pool ~exhausted)
+- Admitted 26 more (GreenLemon, Epirus, Halva, Idavoll, Konomi, Lunie, MangoBOX, NFTMart, Ocelloids, OfflineElection,
+  PolkadotAnalytics, PRIMIS, Sandox, Signet, Slonigiraf, sol2ink, StandardProtocol, Starry, StoneIndex, SubDAO-node,
+  DistributedKeyMgmt, DecentralML, DAuth, Deeper, Plus, Faucet). All DELIVERED + primary app_pm + single-repo + scope-sane.
+- This EXHAUSTS the v2 admit-ready single-repo pool (~66 clean rows → ~56 distinct admitted; rest were dups/already-in).
+- Corpus n=86 (IDs 1-87, P09 dropped). PM range 0.85 → 24.7. ~30 distinct project types.
+- REMAINING path to 165: (a) multi-repo W3F grants (n_app_repos>2 → milestone/repo isolation); (b) no-app_pm grants
+  (FTE not in app, person-days like Pontem → manual effort read); (c) DELIVERED rows w/ empty equivalent_sloc (CI sizing).
+  Plus on-chain actuals (thin) and the grantee survey to convert planned→actual. Then verify one-by-one.
+
+## 2026-06-15 (cont.) — PM-QUALITY PIVOT: GOLD (actual) core locked; planned expansion HALTED
+- PI directive: stop building n on weak planned benchmark; focus on completed projects with ACTUAL FTE ("even 5 work").
+- VERIFIED_PILOTS re-tiered: GOLD CORE (actual logged effort) = 6 (#1 Subsquare 3760h, #4 dotreasury ~20 dev-days,
+  #10 Remarker 1100h, #11 Kheopswap 480h, #12 ink!analyzer 424h, #13 DotCodeSchool 144h) = PRIMARY calibration set.
+  EXTENDED (planned/budgeted, delivered) = 80 (#2,3,5,7,8 + #14-87) = range/robustness only, NEVER headline.
+- Planned-effort admissions HALTED. GROWTH RULE: grow GOLD only, via (a) grantee actual-hours survey (Extended→Gold),
+  (b) any genuinely-actual completed project.
+- GOLD_ACTUAL_SURVEY.md drafted: T-ACTUAL email (asks logged hours) + priority targets with captured contacts
+  (Fennel, Pontem, SkyeKiwi, StableAsset, Subcoin, NewOmega, DTSS, Aisland, Bagpipes) + promotion protocol. Queued.
+
+## 2026-06-15 (cont.) — FOCUS: find harder-to-locate ACTUAL FTE. Built delivery-doc effort scanner.
+- PI directive: focus on finding completed projects with REPORTED ACTUAL FTE (not survey, not planned, not calibration).
+- Established (data-backed): on-chain retroactive vein + web search ~exhausted of clean actual-effort dev projects
+  (~6-8 exist; rest tips/events/planned). treasury/proposals API path differs from gov2 referendum index (noted).
+- UNTAPPED VEIN identified: W3F milestone-DELIVERY docs — grant rules REQUIRE grantees to report "time spent on
+  each task". Where written, that's a public ON-RECORD ACTUAL figure for a completed project whose repo we have.
+- Built scripts/extract/scan_actual_effort.py + .github/workflows/scan_actuals.yml: scans w3f/Grant-Milestone-
+  Delivery deliveries/ + evaluations/ for actual time/hours/person-month/day signals + time-table columns; emits
+  delivery_actuals.csv ranked by score. Effort regexes validated (incl. single-digit PM fix). 
+- NEXT: push -> dispatch scan-actuals -> read delivery_actuals.csv -> cross-ref to our pilots/repos -> promote
+  Extended->GOLD where the delivery doc states actual hours; admit NEW actual-effort projects found.

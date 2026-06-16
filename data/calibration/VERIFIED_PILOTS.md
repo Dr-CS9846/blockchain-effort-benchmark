@@ -6,6 +6,20 @@ Every figure below was read directly from the on-chain proposal / repo (not auto
 Person-month unit = Boehm's **152 person-hours/PM** (hours-reported cases); FTE×duration where the
 proposal reports developer-weeks. Conversion is shown per project for full transparency.
 
+## ⭐ DATASET TIERS (PM-quality governance, locked 2026-06-15)
+**The hinge is PM. Only ACTUAL logged effort is gold.** Two formally-separated tiers:
+
+- **GOLD CORE — actual logged effort (completed, retrospective) — the PRIMARY calibration set, n = 6:**
+  **#1 Subsquare (3,760 dev-hrs)**, **#4 dotreasury (~20 dev-days)**, **#10 Remarker (1,100 work-hrs)**,
+  **#11 Kheopswap (480 dev-hrs)**, **#12 ink! analyzer (424 dev-hrs, itemised)**, **#13 Dot Code School (144 hrs)**.
+  *(All report hours actually spent on completed work, read on-chain.)* The headline constant A is fit on GOLD only.
+- **EXTENDED — planned/budgeted FTE×duration (delivered, but proposed-effort), n = 80:** all other rows
+  (#2,3,5,7,8 + #14–87). Used ONLY for range/robustness, NEVER for the headline. **Each is a survey-conversion
+  target:** if its team confirms actual logged hours, it is promoted GOLD→. Planned-effort expansion is HALTED.
+
+**Growth rule going forward:** grow GOLD only — via (a) the grantee actual-hours survey (convert Extended→Gold),
+and (b) any genuinely actual-effort completed project found. No more planned admissions.
+
 | # | Project | Chain / yr | Type | Codebase | Reported effort | ≈ PM | Repo | On-chain |
 |---|---|---|---|---|---|---|---|---|
 | 1 | **Subsquare** (gov app) | Polkadot 2024 | Retroactive | Brownfield | 3,760 dev-hrs (itemised) | **24.7** | opensquare-network/subsquare | Executed, 469,845 USDT |
@@ -39,6 +53,62 @@ proposal reports developer-weeks. Conversion is shown per project for full trans
 | 29 | **Decentralized Threshold Signing** (crypto) | W3F | Forward grant | Greenfield lib | 1 FTE × 3 mo (primary) | **3.0** | Fiono11/decentralized_threshold_signing_service | W3F: 3 milestones delivered |
 | 30 | **Aisland DocSig** (document signing) | W3F | Forward grant | Greenfield pallet/dApp | 1.5 FTE × 2 mo (primary) | **3.0** | aisland-dao/docsig | W3F: 2 milestones delivered |
 | 31 | **Roloi** (payment streaming) | W3F | Forward grant | Greenfield pallet | 2 FTE × 1 mo (primary) | **2.0** | RoloiMoney/roloi-polkadot-w3f-grant | W3F: 2 milestones delivered |
+| 32 | **KZero** (zk-login identity) | W3F | Forward grant | Greenfield | 4 FTE × 2 mo | **8.0** | kzero-xyz/kzero | W3F delivered |
+| 33 | **Libra** (escrow payments) | W3F | Forward grant | Greenfield | 1.5 FTE × 4 mo | **6.0** | atscaletech/libra | W3F delivered |
+| 34 | **CESS** (decentralized storage) | W3F | Forward grant | Greenfield | 2 FTE × 4 mo | **8.0** | Cumulus2021/cess | W3F delivered |
+| 35 | **Cyclops** (validator dashboard) | W3F | Forward grant | Greenfield | 1 FTE × 3 mo | **3.0** | ArthurHoeke/cyclops | W3F delivered |
+| 36 | **DAOsign** (e-signing contracts) | W3F | Forward grant | Greenfield | 2 FTE × 2 mo | **4.0** | DAOsign/polkadot-smart-contracts | W3F delivered |
+| 37 | **Fractapp** (wallet) | W3F | Forward grant | Greenfield | 3.5 FTE × 3 mo | **10.5** | fractapp/fractapp | W3F delivered |
+| 38 | **GenesisDAO** (DAO node) | W3F | Forward grant | Greenfield | 3 FTE × 3 mo | **9.0** | deep-ink-ventures/genesis-dao-node | W3F delivered |
+| 39 | **PoCS** (proof-of-contract-stake) | W3F | Forward grant | Greenfield | 3 FTE × 3.45 mo | **10.35** | auguth/pocs | W3F delivered |
+| 40 | **SubIdentity** (identity) | W3F | Forward grant | Greenfield | 3 FTE × 3 mo | **9.0** | TDSoftware/subidentity-webapp | W3F delivered · scope-recheck (low ks/PM) |
+| 41 | **Substats** (chain stats) | W3F | Forward grant | Greenfield | 2 FTE × 5 mo | **10.0** | CESSProject/substats | W3F delivered |
+| 42 | **ArtZero / InkWhale** (NFT marketplace) | W3F | Forward grant | Greenfield (ink!) | 5 FTE × 4 mo | **20.0** | ArtZero-io/Contracts | W3F delivered |
+| 43 | **Curve AMM** (DeFi AMM) | W3F | Forward grant | Greenfield | 3 FTE × 1.38 mo | **4.14** | equilibrium-eosdt/equilibrium-curve-amm | W3F delivered |
+| 44 | **DotPay** (payments) | W3F | Forward grant | Greenfield | 5 FTE × 1.84 mo | **9.2** | bytepayment/bytepay | W3F delivered |
+| 45 | **Evanesco** (privacy network) | W3F | Forward grant | Greenfield | 3 FTE × 3 mo | **9.0** | Evanesco-Labs/WhiteNoise.rs | W3F delivered |
+| 46 | **IPFS Utilities** (IPFS pallet) | W3F | Forward grant | Greenfield | 2 FTE × 2 mo | **4.0** | TDSoftware/substrate-ipfs | W3F delivered · scope-recheck (high ks/PM) |
+| 47 | **PolkaJ** (Java client) | W3F | Forward grant | Greenfield (Java) | 0.8 FTE × 3 mo | **2.4** | emeraldpay/polkaj | W3F delivered |
+| 48 | **Liisa Portfolio Tracker** (NFT) | W3F | Forward grant | Greenfield | 2.25 FTE × 5 mo | **11.25** | LiisaNFT/PolkadotNFTPortfolioTracker | W3F delivered · scope-recheck |
+| 49 | **MangoSale** (token sale) | W3F | Forward grant | Greenfield | 4 FTE × 2 mo | **8.0** | Mangoboxlabs/MangoSale | W3F delivered · scope-recheck |
+| 50 | **NuLink** (privacy KMS) | W3F | Forward grant | Greenfield | 2 FTE × 6 mo | **12.0** | NuLink-network/nulink-chain | W3F delivered · scope-recheck (low ks/PM) |
+| 51 | **Parallel** (DeFi lending parachain) | W3F | Forward grant | Greenfield | 4 FTE × 4 mo | **16.0** | parallel-finance/parallel | W3F delivered |
+| 52 | **php-scale-codec** (PHP SDK) | W3F | Forward grant | Greenfield (PHP) | 1 FTE × 2 mo | **2.0** | gmajor-encrypt/php-scale-codec | W3F delivered |
+| 53 | **RainbowDAO** (DAO protocol) | W3F | Forward grant | Greenfield (ink!) | 8 FTE × 1.84 mo | **14.72** | RainbowcityFoundation/RainbowDAO-Protocol-Ink | W3F delivered |
+| 54 | **Tempora** (XCM payment automation) | W3F | Forward grant | Greenfield | 3 FTE × 2.5 mo | **7.5** | NeoPower-Digital/tempora | W3F delivered |
+| 55 | **SubGame** (gaming chain) | W3F | Forward grant | Greenfield | 3 FTE × 2.76 mo | **8.28** | SubGame-Network/subgame-network | W3F delivered |
+| 56 | **AlgoCash** (algorithmic stablecoin) | W3F | Forward grant | Greenfield | 1.5 FTE × 1.38 mo | **2.07** | ReserveLabs/AlgoCash | W3F delivered |
+| 57 | **Anchor** (naming service) | W3F | Forward grant | Greenfield | 1 FTE × 1 mo | **1.0** | ff13dfly/Anchor | W3F delivered · scope-recheck |
+| 58 | **C++ Light Client** | W3F | Forward grant | Greenfield (C++) | 1 FTE × 1.15 mo | **1.15** | eqlabs/polkadot-light-client | W3F delivered |
+| 59 | **create-substrate-app** (CLI scaffolder) | W3F | Forward grant | Greenfield | 1 FTE × 1 mo | **1.0** | philoniare/create-substrate-app | W3F delivered |
+| 60 | **Shivarthu** (decentralized court) | W3F | Forward grant | Greenfield | 2 FTE × 8 mo | **16.0** | amiyatulu/shivarthu | W3F delivered |
+| 61 | **SubQuery** (indexer) | W3F | Forward grant | Greenfield | 2 FTE × 1.5 mo | **3.0** | OnFinality-io/subql | W3F delivered |
+| 62 | **GreenLemon** (stealth-address payments) | W3F | Forward grant | Greenfield | 2 FTE × 2.76 mo | **5.52** | GreenLemonProtocol/dksap-polkadot | W3F delivered · scope-recheck |
+| 63 | **Epirus Explorer** (contract explorer) | W3F | Forward grant | Greenfield | 2 FTE × 3 mo | **6.0** | web3labs/epirus-substrate | W3F delivered |
+| 64 | **Halva** (testing framework) | W3F | Forward grant | Greenfield | 1.5 FTE × 1.15 mo | **1.72** | halva-suite/halva | W3F delivered |
+| 65 | **Idavoll** (DAO) | W3F | Forward grant | Greenfield | 3 FTE × 0.92 mo | **2.76** | idavollnetwork/idavoll | W3F delivered |
+| 66 | **Konomi** (money market) | W3F | Forward grant | Greenfield | 2 FTE × 1.5 mo | **3.0** | konomi-network/cumulus | W3F delivered · scope-recheck |
+| 67 | **Lunie** (governance UI) | W3F | Forward grant | Greenfield | 5.5 FTE × 1.15 mo | **6.32** | luniehq/lunie | W3F delivered |
+| 68 | **MangoBOX** (launchpad, ink!) | W3F | Forward grant | Greenfield | 4 FTE × 2 mo | **8.0** | Mangoboxlabs/Mangoboxink | W3F delivered · scope-recheck |
+| 69 | **NFTMart** (NFT market node) | W3F | Forward grant | Greenfield | 2 FTE × 2 mo | **4.0** | NFTT-studio/NFTMart-Node | W3F delivered |
+| 70 | **Ocelloids** (monitoring SDK) | W3F | Forward grant | Greenfield | 2 FTE × 2 mo | **4.0** | sodazone/ocelloids | W3F delivered |
+| 71 | **Offline Election Tool** (staking) | W3F | Forward grant | Greenfield | 1 FTE × 0.92 mo | **0.92** | antiers-solutions/polkadot-staking-miner | W3F delivered |
+| 72 | **Polkadot Analytics** (analytics) | W3F | Forward grant | Greenfield | 0.85 FTE × 1 mo | **0.85** | mobr-ai/PolkadotAnalytics | W3F delivered |
+| 73 | **PRIMIS** (identity client) | W3F | Forward grant | Greenfield | 3 FTE × 1.38 mo | **4.14** | Primis-Labs/client | W3F delivered |
+| 74 | **Sandox** (no-code dApp builder) | W3F | Forward grant | Greenfield | 4 FTE × 4 mo | **16.0** | sandoxio/sandox | W3F delivered |
+| 75 | **Signet** (sign-in with Substrate) | W3F | Forward grant | Greenfield | 1 FTE × 1 mo | **1.0** | TalismanSociety/siws | W3F delivered |
+| 76 | **Slonigiraf** (education) | W3F | Forward grant | Greenfield | 1 FTE × 1 mo | **1.0** | slonigiraf/recommendation-letter | W3F delivered |
+| 77 | **sol2ink** (Solidity→ink! transpiler) | W3F | Forward grant | Greenfield | 1 FTE × 4.6 mo | **4.6** | 727-Ventures/sol2ink | W3F delivered |
+| 78 | **Standard Protocol** (stablecoin) | W3F | Forward grant | Greenfield | 1 FTE × 2 mo | **2.0** | digitalnativeinc/standard-substrate | W3F delivered · scope-recheck |
+| 79 | **Starry Network** (NFT) | W3F | Forward grant | Greenfield | 1 FTE × 2.5 mo | **2.5** | Starry-Network/starry_node | W3F delivered |
+| 80 | **Stone Index** (index fund) | W3F | Forward grant | Greenfield | 3 FTE × 0.69 mo | **2.07** | stonedefi/stone-index-substrate-ui | W3F delivered |
+| 81 | **SubDAO** (DAO node) | W3F | Forward grant | Greenfield | 4 FTE × 2 mo | **8.0** | SubDAO-Network/subdao-node | W3F delivered (multi-repo grant → node only) |
+| 82 | **Distributed Key Mgmt** (KMS) | W3F | Forward grant | Greenfield | 4 FTE × 3 mo | **12.0** | KryptikApp/swordExample | W3F delivered |
+| 83 | **DecentralML** (decentralized ML) | W3F | Forward grant | Greenfield | 2.5 FTE × 2 mo | **5.0** | livetreetech/DecentralML | W3F delivered |
+| 84 | **DAuth Network** (auth/identity) | W3F | Forward grant | Greenfield | 3 FTE × 8 mo | **24.0** | DAuth-Network/instant-proof | W3F delivered · scope-recheck |
+| 85 | **Deeper Network** (VPN chain) | W3F | Forward grant | Greenfield | 5 FTE × 1 mo | **5.0** | deeper-chain/deeper-chain | W3F delivered · scope-recheck |
+| 86 | **Plus** (polkadot-js-plus wallet) | W3F | Forward grant | Greenfield | 1 FTE × 3 mo | **3.0** | Nick-1979/polkadot-Js-Plus-extension | W3F delivered · scope-recheck |
+| 87 | **Faucet** (sybil-resistant faucet) | W3F | Forward grant | Greenfield | 1 FTE × 1 mo | **1.0** | karooolis/sybil-resistant-substrate-faucet | W3F delivered |
 
 Spread so far: **0.95 → 24.7 PM** (26×), two chains, five project types (governance app / language-compiler /
 no-code dApp / treasury-explorer maintenance slice / ZKP crypto library), greenfield + brownfield, forward +

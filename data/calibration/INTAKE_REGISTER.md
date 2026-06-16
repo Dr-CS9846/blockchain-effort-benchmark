@@ -197,6 +197,17 @@ Each still gets the 4-point primary check (effort accuracy · FTE consistency ·
   matched application filename + a **repo-count** per grant, so the shortlist is directly actionable (correct
   filename + single-vs-multi-repo flag) without per-candidate full-app fetches.
 
+**GOLD actual-effort vein — DEPTH FINDING (treasury-mine #8, 40-page deep, 2026-06-15):** of ~40 retroactive
+proposals harvested (Polkadot, back to early 2024), the vast majority are **tips/events/marketing/reimbursements**
+(not dev-with-effort). Dev-with-repo ≈ 5, and most are disqualified: Remarker/Kheopswap/ink!analyzer (already
+ours), SubWallet (3 repos), KAGOME (whole C++ host, multi-ms), Substrate-Python (4 repos). **None had a clean
+on-chain hours figure except Kheopswap (ours).** ⇒ **the on-chain retroactive vein is nearly exhausted** — our
+7 actuals captured essentially all the clean single-repo logged-hours dev proposals. Realistic NEW gold here:
+~1–3 marginal (SubWallet-isolated, cyclops #673, Telenova #611) requiring per-body verification.
+**Therefore the scalable gold path is the GRANTEE SELF-REPORT SURVEY (task #35):** ask the teams of our already-
+DELIVERED pilots for ACTUAL logged hours → converts planned→actual at scale (Boehm used surveys too). This
+turns the 19 W3F delivered pilots into gold without hunting for non-existent on-chain-hours proposals.
+
 **Parallel track — `treasury-mine` run #7 READ (2026-06-15):** manifest reached the **2024 range** (idx
 ~1583→544; our actuals #1170/#1102/#619 present → data is sound). **Finding:** the retroactive treasury vein
 is **largely exhausted** of clean matched triples — the overwhelming majority are **tips / events / marketing**
