@@ -799,6 +799,11 @@ polkadot,treasury,275,Treasury Proposal：A supplementary proposal for the 2023/
 polkadot,treasury,272,"SUBWALLET EXTENSION - MILESTONE 3: SubWallet 3rd proposal: Hardware wallet integration (Ledger, Parity Signer, Keystone)",420000000000000,1C42oGF3s8ztCsc22MA4LKd8BogMJNdVmCgtTXGfxqwjrSb,,,,,,1,Koniverse/SubWallet-Extension,4943,OK
 polkadot,treasury,267, Treasury Proposal by Centrifuge: Support Axelar General Message Passing in the Polkadot ecosystem (via BridgeHub),439130000000000,12wWLUd5qMzLFGqBsMnHLVFeTuYJwuo5ygMAxuSywrBX1XSF,,,,,,0,,3133,OK
 polkadot,treasury,266,Hardware signer and key storage Kampela: Milestones 5&6,499174900000000,12bFooBAK4hHUfiri7v2Eiz96v7TDoiLWdNKCFYmhWzGG1Tq,,,,,,1,Alzymologist/Kampela,6055,OK
+polkadot,gov2,1908,Hub Runtime Upgrade 2.3.1,,13TRAXTALwNp5vApqwiE74fg8G8ypMyaF9TxRfs4RwrCwxUE,,,,,,1,polkadot-fellows/runtimes,274,OK
+polkadot,gov2,1907,Subscan Enterprise Explorer License - Westend 2026 Milestone-Based Service,,14RYaXRSqb9rPqMaAVp1UZW2czQ6dMNGMbvukwfifi6m8ZgZ,,12.0,,,,0,,13319,OK
+polkadot,gov2,1906,Subscan Enterprise Explorer License - Polkadot 2026 Milestone-Based Service,,14RYaXRSqb9rPqMaAVp1UZW2czQ6dMNGMbvukwfifi6m8ZgZ,,12.0,,,,0,,13340,OK
+polkadot,gov2,1905,[Invoice] Subscan Explorer - Polkadot 2025 Q3-Q4 SaaS Infrastructure & AssetHub Migration Settlement,,14RYaXRSqb9rPqMaAVp1UZW2czQ6dMNGMbvukwfifi6m8ZgZ,,6.0,,,,0,,10708,OK
+polkadot,gov2,1904,Bifrost DOT Liquidity Loan — Year 2 Renewal,,14p3Eosth7EZ2tHxMngz5dJ7kLYtUnFUMCudwwhWN8NXtgp4,,12.0,,,,0,,8918,OK
 polkadot,gov2,1903,Vibly Short-Term Repayable Bridge Funding Request,,12gj7WyRWVAbmUXk1nLoGaK1Um47tcmxdd138DSuYZgngetP,,,,,,6,ArcheLabs/concord;ArcheLabs/vibly-chain;ArcheLabs/vibly-coordinator;ArcheLabs/vibly-client;ArcheLabs/vibly-console;ArcheLabs/vibly-e2e-lab,12918,OK
 polkadot,gov2,1899,Closeout of Bounty 22 (Polkadot Assurance Legion / DotPAL) and Bounty 36 (DeFi Infrastructure & Tooling),,138bU3vLAuBkJJ9ujdpjMpZpkT5AKakVnXmQBVZNMCgfjtxp,,,,,,0,,2244,OK
 polkadot,gov2,1898,.ID username authority registration for the dotID identity registrar,,16g6ZBYbEP3kRMgVBki7zdvdGpymXDyHWzj3D3rDaEATXzc8,,,,,,0,,2842,OK
@@ -1594,11 +1599,6 @@ polkadot,gov2,1112,Support for Investigative Work and Communication Initiatives 
 polkadot,gov2,1111,2025 Polkadot Motorsports Program w/ Global Ambassador - Conor Daly,,1s2mPd5i2ryNafYRVueZbKSnYFtjbTspaTssjctDWL3qNJT,,,,,,0,,25905,OK
 polkadot,gov2,1110,Connecting the DOTS: Training the Next Generation of Blockchain Security Experts,,1EBZ8G69NWwuu1KRFb7mfD7eD5f2xZ7BQkHd6L9fSHzpDGi,,,,,,0,,7225,OK
 polkadot,gov2,1109,Polkadot AI Navigator: Enhancing User Experience with an Intelligent Ecosystem Assistant Proposal,,1R47BQXKguCHASHYPYyXgkiD3uepGADm715mgZxZ9aNccAL,1.,1.5,,,,0,,8847,OK
-polkadot,gov2,1108,Wrong Call Data Please Vote NAY,,1s2mPd5i2ryNafYRVueZbKSnYFtjbTspaTssjctDWL3qNJT,,,,,,0,,31,OK
-polkadot,gov2,1107,[Whitelisted Caller] Register the Polkadot Coretime Chain,,142zGifFwRrDbFLJD7LvbyoHQAqDaXeHjkxJbUVwmDYBD7Gf,,,,,,1,polkadot-fellows/runtimes,741,OK
-polkadot,gov2,1106,CoinGecko - Polkadot Campaign,,14uLqkHHErahJ58K8GMSeR6183xFm9YM5DtEKT2rZ6veZqiL,,5.0,,,,0,,3352,OK
-polkadot,gov2,1105,Polkadot At The Australian Crypto Convention,,14QVZVSc1T7Gi55EL25LJfN5xDuCkdRNwPda4ZUvwMvJBC2g,,,,,,0,,4613,OK
-polkadot,gov2,1104,Convert Part of DOT Assets to Stablecoins,,15DCWHQknBjc5YPFoVj8Pn2KoqrqYywJJ95BYNYJ4Fj3NLqz,,,,,,0,,610,OK
 kusama,treasury,397,"UPDATE ""Refunding MIDL.DEV's GOV1 Treasury Spend Deposit""",1000000000000,D8G8RhehhFV1HTT612mbBg4BFBHUimJixPydBMVmN1n1dH4,.,,,,,0,,116,OK
 kusama,treasury,332,wenbeefy,8250000000000,EtommijqrHDFWFvBxP515oUbkXx9vK2qohzrmwpCXbU7Yx2,,,,,,1,rotkonetworks/wenbeefy,396,OK
 kusama,treasury,331,Descentralized art project,111000000000000,EJgdRddcYSd6XWnwr8oZkkzxJJX8SLwig38d5yxZSRgJGQZ,,,,,,0,,1981,OK
@@ -2058,6 +2058,8 @@ kusama,treasury,3,OnFinality High Performance Public Infrastructure (Nov - Dec 2
 kusama,treasury,2,OnFinality High Performance Public Infrastructure (Aug - October 2022),1000000000000,JC54u4ELHZJ4CNzjDsSeSVA5gSCQXk3gwANo8tnft4PS1MS,,2.0,,,,0,,3200,OK
 kusama,treasury,1,Dwellir: RPC-node service for Moonriver Q3 2022,1420000000000,Dymb5TxbkZiBybSoyo93wYdPCefK1Hrru8EwfQT6ZTvCVWb,,,,,,0,,467,OK
 kusama,treasury,0,Nova Wallet Moonriver Treasury proposal: Milestone 1 — ERC20 tokens integration and management,50000000000000,H9eSvWe34vQDJAWckeTHWSqSChRat8bgKHG39GC1fjvEm7y,,,,,,0,,646,OK
+kusama,gov2,652,[Invoice] Subscan Explorer - Kusama 2025 Q3-Q4 SaaS Infrastructure Settlement,,Fzs6WWFcAuJhxAVyZa4EN2suxggjidJjV3AzJxKbRHjh2Jc,,6.0,,,,0,,9395,OK
+kusama,gov2,653,Subscan Enterprise Explorer License - Kusama 2026 Milestone-Based Service,,Fzs6WWFcAuJhxAVyZa4EN2suxggjidJjV3AzJxKbRHjh2Jc,,12.0,,,,0,,17720,OK
 kusama,gov2,651,Runtime Upgrade 2.3,,F2jgWXy7X8GQ2ykf1UGrsCXRERZvjEcd2aDf39fMf3BWVy6,,,,,,1,polkadot-fellows/runtimes,252,OK
 kusama,gov2,650,Funding for Public RPC Providers (Kusama),,DNDBcYD8zzqAoZEtgNzouVp2sVxsvqzD4UdB5WrAUwjqpL8,,12.0,,,,0,,2442,OK
 kusama,gov2,649,[Small Spender] Set up the Kusama Vision ZKProofs Multi-Asset Bounty,,Dax95Nps5EEVfw7eQ2mvB3bX8p2hX2ZCtYSLiA357ZRq3aK,,,,,,0,,182,OK
