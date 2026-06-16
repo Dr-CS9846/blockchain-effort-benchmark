@@ -1,0 +1,11 @@
+project,verdict,n_delivery_files,n_evaluations,status,terminated,app_fte,app_months,app_pm,n_app_repos,repo_url,all_repos
+voting-tool,DELIVERED,2,1,,,2.5,2.0,5.0,1,https://github.com/ZelmaCorp/VotingTool,zelmacorp/votingtool
+create-dot-app,DELIVERED,2,1,,,2.0,,,1,https://github.com/preschian/create-dot-app,preschian/create-dot-app
+chroma,DELIVERED,2,1,,,1.0,,,3,https://github.com/kodadot/nft-gallery,avalix-labs/chroma; kodadot/nft-gallery; preschian/create-dot-app
+sublua,DELIVERED,2,2,,,1.5,,,1,https://github.com/MontaQLabs/sublua,montaqlabs/sublua
+swush-dex-aggregator,DELIVERED,2,2,,,2.0,,,2,https://github.com/user-attachments/assets,swush-labs/swush-app; user-attachments/assets
+polkadot-java-sdk,DELIVERED,1,1,,,2.5,,,2,https://github.com/splix/polkaj,polkadot-java/api; splix/polkaj
+opentgov,DELIVERED,1,2,,,1.0,,,1,https://github.com/mar1/polkadot-hackathon-2024,mar1/polkadot-hackathon-2024
+opentribe,evaluated_no_delivery_file,0,1,,,2.0,,,0,,
+polkadart,REJECT_terminated,1,1,Terminated,Y,1.0,6.0,6.0,1,https://github.com/justkawal/polkadart,justkawal/polkadart
+dot-ring,REJECT_terminated,0,1,Terminated,Y,6.0,,,4,https://github.com/davxy/bandersnatch-vrfs-spec,davxy/ark-vrf; davxy/bandersnatch-vrf-spec; davxy/bandersnatch-vrfs-spec; davxy/ring-proof-spec
