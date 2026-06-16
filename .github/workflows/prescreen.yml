@@ -1,0 +1,41 @@
+name: prescreen-delivery
+
+# Delivery-verified pre-screen of the W3F census candidates.
+# Cross-references each census project against the W3F Grant-Milestone-Delivery repo
+# (deliveries/ + evaluations/) and Grants-Program application Status headers, so deep
+# hand-verification only targets ACCEPTED/DELIVERED grants (no terminated/partial picks).
+# Publishes data/calibration/census_prescreen.csv to the 'census' branch.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  prescreen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Run delivery pre-screen
+        run: |
+          python scripts/extract/prescreen_delivery.py
+          echo "=== head of result ==="
+          head -30 data/calibration/census_prescreen.csv || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "prescreen-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/census_prescreen.csv /tmp/census_prescreen.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/census_prescreen.csv data/calibration/census_prescreen.csv
+          git add data/calibration/census_prescreen.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: delivery-verified census pre-screen [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi

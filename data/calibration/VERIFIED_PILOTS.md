@@ -21,6 +21,9 @@ proposal reports developer-weeks. Conversion is shown per project for full trans
 | 11 | **Kheopswap** (Asset Hub DEX UI) | Polkadot 2024 | **Retroactive (actual)** | dApp | 480 dev-hrs (completed) | **3.16** | kheopswap/kheopswap | Executed, 14,092 DOT |
 | 12 | **ink! analyzer** (LSP/semantic analyzer) | Polkadot 2024 | **Retroactive (actual)** | Brownfield slice | 424 dev-hrs (itemised, v5-support) | **2.79** | ink-analyzer/ink-analyzer | Executed, 2,812.27 DOT |
 | 13 | **Dot Code School** (interactive coding edu) | Polkadot 2023 | **Retroactive (actual)** | dApp/web | 144 dev-hrs (PoC; FTE 1 @ $125/h) | **0.95** | iammasterbrucewayne/dotcodeschool | Executed, 2,500 DOT |
+| 14 | **Pontem (Move VM pallet)** | W3F 2020–21 | Forward grant | Greenfield (forked Libra Move VM) | M1+M2 = 252 person-days (28×4 + 28×5) | **13.3** | pontem-network/sp-move | W3F: M1 (PR#72) + M2 (PR#113) delivered |
+| 15 | **SkyeKiwi Protocol** (secret-sharing crypto) | W3F 2021 | Forward grant | Greenfield (privacy lib) | 2 FTE × 4 mo | **8.0** | skyekiwi/skyekiwi-protocol | W3F grant delivered |
+| 16 | **Stable Asset** (DeFi synth-asset) | W3F 2021 (Wave 9) | Forward grant | Greenfield (Substrate modules) | 2 FTE × 1 mo | **2.0** | nutsfinance/stable-asset | W3F grant delivered |
 
 Spread so far: **0.95 → 24.7 PM** (26×), two chains, five project types (governance app / language-compiler /
 no-code dApp / treasury-explorer maintenance slice / ZKP crypto library), greenfield + brownfield, forward +
@@ -239,6 +242,75 @@ peer-reviewed), not an on-chain award. Tag each pilot's proof class so calibrati
   - **Repo rename** (`iammasterbrucewayne` → `saumyakaran`) — same codebase; pin to the PoC commit.
   - **Proof class = on-chain treasury (Executed).**
 
+## Pilot 14 — Pontem Move VM pallet (W3F Grant, delivered) — *first non-Polkadot-stack / Move-language pilot*
+- **Application (open it):** https://github.com/w3f/Grants-Program/blob/master/applications/pontem.md
+- **What:** **Pontem** — a Substrate **pallet embedding the Move VM and Move language** (Facebook/Libra's
+  resource-oriented smart-contract stack) so Polkadot chains can publish/execute Move modules and scripts.
+  By **Dfinance / Wings Stiftung** (Zug, Switzerland). The on-chain analogue of Ask! (#2) but for the **Move**
+  language rather than ink!/AssemblyScript → a new language/VM stack in the corpus.
+- **Type:** forward W3F grant (**proposed** effort, but unusually precise — per-milestone working-days × people);
+  greenfield pallet that **forks the Libra Move VM** (vendored upstream → CEVRP reuse case).
+- **Reported effort (verbatim, per-milestone "Working days × ppl"):**
+  - M1 Pre-Alpha: 28 days × 4 ppl = **112 person-days**
+  - M2 Alpha: 28 days × 5 ppl = **140 person-days**
+  - (M3 Beta: 21 × 5 = 105 person-days — **NOT delivered to W3F**, continued under Pontem's own funding → excluded)
+  - **W3F-delivered matched scope = M1 + M2 = 252 person-days.** Conversion (Boehm 152 h/PM, 8 h/day):
+    252 × 8 / 152 = **13.3 PM** (alt. working-month 21.7 d/PM → 11.6 PM; record both, headline 13.3).
+  - Application also states "Total Effort 357 days" (all 3 milestones) — that figure includes the un-delivered M3.
+- **Repo (the code, named in proposal):** https://github.com/pontem-network/sp-move — archived by W3F at
+  **https://github.com/w3f-grants-archive/sp-move** (durable provenance). Census-pinned commit
+  `49d6f1d8598aca86bf7e59f309a078cd573fcc0e` (grant-end, Mar 2021 ≈ M1+M2 state; **confirm = M2-delivery commit
+  at dissection**). Rust pallet, has CI + tests + Docker.
+- **Completion proof:** W3F **Grant-Milestone-Delivery** — **Milestone #1 = PR #72** and **Milestone #2 = PR
+  #113**, both **merged/accepted** (durable, peer-reviewed). Proof class = W3F grant delivery (like #7, #9).
+- **Sizing mode:** greenfield-ish pallet at the M2-delivery commit. Census raw ≈ **2.53 KSLOC code**;
+  **adapted fraction ≈ 0.44** (the forked Libra Move VM crates) → **CEVRP applies**: C1 (44% flagged), C2 (named
+  upstream = Libra Move VM, documented in the M1 delivery), C3 (single vendored fork, not the team's own rename)
+  → reuse-correct to equivalent SLOC at dissection.
+- **Team / contact:** Boris Povod (R&D lead) — **boris@dfinance.co**; Oleg Gaidukov (CTO); Dfinance / Wings
+  Stiftung, Zug CH. Independent of OpenSquare/Patract. Later became Pontem Network (pivoted to Aptos/Move).
+- **Honesty notes:**
+  - **Effort = proposed** (planned working-days × people), tag "proposed". Precise but not logged actuals.
+  - **Matched-scope discipline:** only M1+M2 were W3F-delivered; M3 (Beta) excluded to keep effort↔artifact
+    matched (same discipline as #6/#12). The 357-day figure would over-count.
+  - **Census row was wrong** (planned_pm=4, cost=$96 — mis-parsed "1.4658 BTC"); the primary application gives
+    the correct effort. Caught by hand-verification — exactly why the census `planned_pm` is treated as a
+    candidate value only.
+  - **Diversity contribution:** first **Move-language / Move-VM** pilot; first **Swiss** team; mid-size (~13 PM).
+
+## Pilot 15 — SkyeKiwi Protocol (W3F Grant, delivered) — *first secret-sharing / privacy-crypto pilot*
+- **Application (open it):** https://github.com/w3f/Grants-Program/blob/master/applications/skyekiwi-protocol.md
+- **What:** a generic **secret-sharing / encrypted-content protocol** (threshold SSS + x25519 + Crust/IPFS
+  storage + an `ink!` contract / `pallet-secrets`) — a privacy-crypto library, distinct from Megaclite's ZKP.
+- **Type:** forward W3F grant (**proposed** effort); greenfield library (TS/JS + ink! + Rust).
+- **Reported effort (verbatim):** *Total Duration 4 months (16 weeks) · **FTE 2** · $30,000.* M1 (2 mo × 2 FTE,
+  $12k) + M2 (2 mo × 2 FTE, $18k). **2 FTE × 4 mo = 8.0 PM.** (Census planned_pm = 8.0 — agrees; primary-verified.)
+- **Repo (the code):** https://github.com/skyekiwi/skyekiwi-protocol (the protocol library; `skyekiwi/contract-demo`
+  is example contracts — minor, excluded). Single matched artifact.
+- **Completion proof:** W3F grant delivery (extracted from the earlier SkyePass grant PR#212 via amendment
+  PR#553); census resolved an exact delivery commit. **Confirm delivery PR at dissection.**
+- **Reuse:** forks the audited `secret.js` SSS library + uses tweetnacl (dependencies) → assess CEVRP at
+  dissection (some adapted crypto; most is integration of dependencies, which are excluded from size).
+- **Team / contact:** Song Zhou (@RoyTimes) — **song.zhou@skye.kiwi**. Independent.
+- **Honesty notes:** effort = proposed (2 FTE×4 mo budget); tag "proposed". First privacy/secret-sharing type.
+
+## Pilot 16 — Stable Asset / NUTS Finance (W3F Grant, delivered) — *first DeFi-primitive pilot*
+- **Application (open it):** https://github.com/w3f/Grants-Program/blob/master/applications/stable-asset.md
+- **What:** a **synthetic stable-asset DeFi protocol** (Curve StableSwap-based Substrate modules: Stable Swap,
+  Stable Asset, yield) by **NUTS Finance** — first DeFi primitive in the corpus.
+- **Type:** forward W3F grant (**proposed** effort, Wave 9); greenfield Substrate modules.
+- **Reported effort (verbatim):** *Total Duration 1 month · **FTE 2** · 20,000 DAI.* 3 milestones (1.5 wk +
+  1.5 wk + 2 wk). **2 FTE × 1 mo = 2.0 PM** (headline; milestones sum ≈ 5 wk → ≤ 2.3 PM — record 2.0). Census
+  planned_pm = 2.0 — agrees.
+- **Repo (the code):** https://github.com/nutsfinance/stable-asset — single repo (the 3 Substrate modules).
+- **Completion proof:** W3F Wave-9 grant, accepted/funded; census measured a delivery state. **Confirm delivery
+  PR + pin exact commit at dissection** (census used a date cutoff, not an exact commit — tighten before final).
+- **Reuse:** algorithm **ported from their own Ethereum acBTC Solidity** (`ACoconutSwap.sol`) into Substrate
+  Rust — a cross-language *re-implementation* (authoring, not copy) → treat as authored, not CEVRP-adapted.
+- **Team / contact:** Terry Lam (co-founder) — **terry@nuts.finance**; Daniel Tang. NUTS Finance (Cayman).
+- **Honesty notes:** effort = proposed; tag "proposed". Small clean point (2 PM). First DeFi type. *Caveat:*
+  census commit_source = cutoff → pin the exact delivery commit before dissection (matched-scope hygiene).
+
 ---
 
 ### Provenance / honesty notes
@@ -258,3 +330,8 @@ peer-reviewed), not an on-chain award. Tag each pilot's proof class so calibrati
   `inkdevhub` example repos, so no single artifact to match effort against; (c) **partial, task-based delivery**
   (~90% of tasks, payout adjusted) → fuzzy scope↔payment mapping. Same unmatched-scope failure mode as Talisman.
 - **Rejected candidate — Talisman Wallet & Portal (OpenGov Ref #1232, Executed, 690,600 USDT).** Famous and clean on-chain, but **excluded** from the verified set: (a) the proposal states *"see the [external Google Doc] for the cost breakdown"* — **no effort figure is on-chain**, so PM is not verifiable to our standard; (b) it is a **3-repo umbrella** (`talisman` + `talisman-web` + `chaindata`), so there is no single clean matched scope. Recorded here so the exclusion is auditable.
+- **Rejected candidate — RegionX Hub (OpenGov Ref #1762, "Retroactive + Key Features + Maintenance").** **Rejected on-chain** (nays > ayes; treasury spend never executed → fails proof gate G3) AND effort/breakdown lives in an **external Google Doc** (no on-chain person-effort → fails G4). Verified live via Subsquare API. Auditable reject.
+- **Rejected candidate — Mimir multisig tool (OpenGov Ref #1799, "Retroactive Fund").** **Rejected on-chain** (nays ≫ ayes; 138,385 USDT never executed → G3 fail) AND budget breakdown in an **external Google Sheet** (no on-chain hours table → G4 fail). Verified live via Subsquare API. *Pattern note: recent (2025) retroactive proposals frequently fail both gates — target executed 2024-era proposals with on-chain effort tables instead.*
+- **Rejected candidate — Kitdot (OpenGov Ref #1805, "Development Funding (Retroactive)").** **Rejected on-chain** (nays > ayes; 9,999 USDT never executed → G3 fail) AND a **5-repo umbrella** (kitdot CLI + web3auth-examples + create-polkadot-dapp + hackers-survival-guide + personal) → no single matched scope (G1 fail). Effort = "~20 h/week × 3 mo part-time" (no on-chain itemised table). Verified live via Subsquare API.
+- **Rejected candidate — Spacewalk / Pendulum (W3F Wave 13, "Stellar bridge").** Application header states **`Status: Terminated`** → grant not delivered (G2/G3 fail). Also **internally inconsistent effort** (overview "FTE 0.5 / 3 mo" vs milestones summing ~5 person-months). The census had listed it as a basic-clean candidate (planned_pm 1.5) — **hand-verification overturned it.** Lesson: census "clean" ≠ delivered; always read the application `Status` header + milestone-delivery record. (Bridge type + this team remain of interest if a *delivered* sibling grant exists.)
+- **Empirical pattern (n=3/3 recent retroactive rejected: #1762, #1799, #1805):** late-2025 Polkadot OpenGov retroactive proposals are being rejected at high rate and routinely place effort in off-chain Google Docs/Sheets. **Conclusion:** the clean executed-retroactive vein is **2024-era** (our existing actuals: Remarker #1170, Kheopswap #1102, ink!analyzer #619, dotcodeschool #364). Harvest that range via the `treasury_mine` CI harvester rather than scanning recent referenda.

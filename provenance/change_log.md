@@ -1001,3 +1001,114 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - Held out/unresolved (honest): ask_v01 (85% flagged, maybe vendored AS stdlib), 3 window pilots (scope not
   reuse), fennel generated-flag (raw). 
 - Updated report (SS4.4e + ), COCOMO_DISSECTION_RESULTS (Run#7 section), REVIEWER_RESPONSE M1-R1 -> DONE.
+
+## 2026-06-15 — n-growth campaign launched (Dataset Expansion Charter v1.0)
+- Reviewer round closed: CEVRP locked as benchmark reuse rule (§3.3); abstract/conclusion lead with core-8
+  (A=0.564, CI [0.487,0.647], PRED30 88%, SA +0.80); rejected-candidate table + 5 citations added.
+- New governing docs in data/calibration/:
+  - DATASET_EXPANSION_CHARTER.md — mandate (surpass Boehm n=161 in count AND auditability), twin north stars
+    QUALITY+DIVERSITY, gates G1–G7, 9-axis diversity matrix, Tier A–D source universe, 9-stage intake pipeline,
+    author-verification protocol, Boehm quality bar, gated re-fit cadence, integrity invariants.
+  - INTAKE_REGISTER.md — per-pilot field dictionary incl. REQUIRED author-contact fields; 12 admitted pilots
+    flagged TO-CAPTURE/unverified for retro contact+verification; diversity snapshot (corpus is mono-ecosystem
+    Polkadot → cross-ecosystem is highest-yield next move); Wave-1 candidate board (8 cross-ecosystem targets).
+  - AUTHOR_VERIFICATION_EMAILS.md — T1 initial + T2 follow-up templates; send rules (email everyone admitted,
+    follow up doubtful non-responders +7d/+21d); all sends require per-batch user approval.
+- User directives: do not restrict scope (quality + diversity); mine everything; pick good data then email
+  everyone, follow up doubtful non-responders → contact-info capture is mandatory.
+
+## 2026-06-15 (cont.) — 6. Logs blueprint + contact capture for the 12
+- Created Thesis-level "6. Logs/" blueprint library (01_dataset, 02_publication, 03_experimental_results,
+  04_codes, 05_provenance + INDEX.md); curated light copies of load-bearing .md/.csv/.py (originals stay in
+  06_measurement). This is the consumption/reading + publication layer.
+- Captured author contacts + EXACT effort-proof links for all 12 pilots into INTAKE_REGISTER §B:
+  verified emails — OpenSquare yongfeng@opensquare.network (P01/P04/P06), Fennel info@fennellabs.com (P07);
+  strong channels (no public email) for solo devs P10 Remarker, P11 Kheopswap, P12 ink!analyzer (davidsemakula),
+  P13 DotCodeSchool (saumyakaran), P03 Bagpipes (decentration). Patract P02/P05/P08 flagged org-inactive →
+  GitHub-issue route then "public-record only." No contact fabricated.
+- Drafted personalized Batch-1 outbox (OUTBOX_verification_emails_batch1.md): 8 sends covering 12 pilots,
+  grouped ready-to-send / send-via-channel / at-risk. Queued for user approval — nothing sent.
+- Note: each dataset row now carries the author email/owner-channel AND the exact online effort-proof link
+  (the page from which PM is computed), per user directive.
+
+## 2026-06-15 (cont.) — outreach: Group 1 emailed, Groups 2&3 via GitHub issues
+- Group 1 (P01/P04/P06 OpenSquare, P07 Fennel): emailed by PI.
+- Groups 2&3: no inbox on GitHub → brief public verification Issues, one per repo, drafted in
+  OUTBOX_github_comments_batch1.md (ink-analyzer, Remarkers-market, kheopswap, BagpipesOrg/app, dotcodeschool[archived→fallback],
+  patractlabs/ask, patractlabs/megaclite, patractlabs/elara). Tailored confirm-points (actual-vs-proposed,
+  matched repo/slice, team size, reuse/generated share). Check-back cycle = 24 h, logged in the file's tracker.
+- INTAKE_REGISTER outreach-status block updated. Assistant cannot post to GitHub (no write access / browser
+  read-only); drafts are copy-paste-ready for the PI to post.
+
+## 2026-06-15 (cont.) — Pilot #14 ADMITTED: Pontem (Move VM pallet) + census guardrail
+- n-growth Wave 1: mined the 439-row W3F census (146 clean-on-basics). Discovery largely solved; bottleneck =
+  hand-verification.
+- **Census guardrail established:** planned_pm/planned_fte/cost_usd in measurements_census.csv are unreliable
+  parse artifacts (Pontem row: 4 PM / $96 vs primary 252 person-days / 1.4658 BTC). Effort MUST be re-read from
+  the primary W3F application before admission.
+- **Pilot #14 = Pontem Move VM pallet** (Dfinance/Wings Stiftung, Zug CH). W3F grant, delivered M1 (PR#72) +
+  M2 (PR#113), both merged/accepted; repo pontem-network/sp-move (archived w3f-grants-archive/sp-move), commit
+  49d6f1d (grant-end). Matched scope = M1+M2 = 252 person-days → 13.3 PM (Boehm 152h/PM; alt 11.6). M3 (Beta)
+  NOT W3F-delivered → excluded (matched-scope discipline). Forked Libra Move VM (44% adapted) → CEVRP applies
+  (C1✓ C2 named-upstream✓ C3 vendored-fork✓). Contact boris@dfinance.co. Diversity: first Move-language/VM
+  pilot, first Swiss team, ~13 PM, proposed effort. Status: admitted, pending CI dissection (confirm M2 commit).
+- **Perun state channels** → HOLD: clean repo+proof+contact but app states duration+cost, no explicit FTE →
+  effort needs author confirmation (seb@perun.network). Good candidate once effort confirmed.
+- Cross-ecosystem finding: clean non-Polkadot person-effort is scarce (Ethereum/Gitcoin/RetroPGF no FTE;
+  Filecoin vague). Strategy: W3F/OpenGov = volume engine to surpass Boehm; cross-ecosystem opportunistic+labeled.
+
+## 2026-06-15 (cont.) — Batch A: pilots #15, #16 ADMITTED; #17 (galaxy) HOLD
+- All effort re-read from primary W3F applications (census values cross-checked).
+- **#15 SkyeKiwi Protocol** (Song Zhou, song.zhou@skye.kiwi): 2 FTE × 4 mo = 8.0 PM; repo skyekiwi/skyekiwi-protocol;
+  privacy/secret-sharing crypto (NEW type). Census agreed (8.0). Proposed. Pending dissection + delivery-PR pin.
+- **#16 Stable Asset / NUTS Finance** (Terry Lam, terry@nuts.finance): 2 FTE × 1 mo = 2.0 PM; repo
+  nutsfinance/stable-asset; DeFi synthetic-asset primitive (NEW type); ported from own acBTC Solidity = authored
+  rewrite (not CEVRP-adapted). Census agreed (2.0). Proposed. Pending dissection + exact-commit pin (census used cutoff).
+- **#17 Galaxy (HOLD):** effort clean (1 FTE×1 mo = 1 PM) but built on Excalidraw (heavy upstream) + W3F delivery
+  unconfirmed + thematically light Polkadot → not admitted; confirm delivery & CEVRP first.
+- Corpus now n=15 admitted (P01-08,10-16). Balance caveat: P14/15/16 all PROPOSED → actual/proposed tilting to
+  proposed; next batch should include OpenGov RETROACTIVE (actual) candidates to keep ≥50% actual (Charter).
+
+## 2026-06-15 (cont.) — re-verify Batch A + Batch B (retroactive) start
+- Re-verified #14 Pontem: read delivery file pontem-network_milestone-2.md (M2 merged to Open-Grants-Program PR#138) — confirmed.
+- #15 SkyeKiwi flag → admitted; delivery = census EXACT commit (strong); pin PR at dissection.
+- #16 Stable Asset flag → admitted (provisional); confirm delivery + pin exact commit at dissection (census used cutoff).
+  (W3F grants dashboard route redirects to homepage — not usable; relying on census-resolved commits + honest flag.)
+- Batch B (retroactive/actual): validated Subsquare per-referendum API as verification tool (no Chrome needed).
+  REJECTED 2 candidates cleanly: #1762 RegionX (rejected on-chain + external Google Doc effort), #1799 Mimir
+  (rejected on-chain + external Google Sheet budget). Both logged in VERIFIED_PILOTS exclusions.
+  FINDING: recent (2025) retroactive proposals = high on-chain rejection + off-chain effort docs → low yield.
+  Re-target EXECUTED 2024-era retroactive proposals with on-chain itemized hours tables (Remarker/Kheopswap/
+  ink!analyzer/dotcodeschool profile). Queue indexes to state-check: 1811,1805,1798,1745,1724,1897.
+- Corpus unchanged at n=15 admitted (no compromise: 0 admitted this pass since both retroactive candidates failed gates).
+
+## 2026-06-15 (cont.) — Batch B retroactive: 3/3 recent candidates rejected (gate held)
+- Checked #1805 Kitdot → Rejected on-chain + 5-repo umbrella → reject. Now 3/3 recent retroactive rejected
+  (#1762, #1799, #1805). Logged in VERIFIED_PILOTS exclusions.
+- CONFIRMED FINDING: 2025 OpenGov retroactive proposals = high rejection + off-chain effort docs. The
+  retroactive text-scan returned 2025 (wrong era). Clean executed-retroactive triples are 2024-era.
+- METHOD CORRECTION: use the treasury_mine CI harvester (task #38) to page full treasury history server-side
+  and emit an EXECUTED-proposals candidate manifest. (Local bash web-fetch of APIs is disallowed; CI is the
+  sanctioned at-scale path.) Inline per-referendum API fetch remains the per-candidate VERIFICATION tool.
+- Corpus unchanged: n=15 admitted. Zero junk admitted (quality gate upheld).
+
+## 2026-06-15 (cont.) — parallel tracks: W3F verify (Spacewalk reject) + harden census guardrail
+- W3F track: verified Spacewalk/Pendulum (Wave 13 Stellar bridge) → REJECT: application header `Status: Terminated`
+  (not delivered) + internally inconsistent FTE (0.5 FTE/3mo vs ~5 PM in milestones). Census had it "clean".
+  Logged in VERIFIED_PILOTS exclusions.
+- Hardened the census guardrail (INTAKE_REGISTER): per-candidate primary check must verify (1) effort accuracy,
+  (2) DELIVERY STATUS via app `Status` header + milestone record (terminated/partial grants ARE in census),
+  (3) FTE internal consistency, (4) single repo. True clean-yield < raw 146; budget ~1-in-2 cold-pick rejection.
+- Retroactive track: CI harvester (treasury_mine) remains the route for 2024 executed range (queued).
+- This pass: 0 admitted, gate rejected Spacewalk + the 3 retroactive — quality upheld, no junk. Corpus n=15.
+
+## 2026-06-15 (cont.) — built delivery-verified pre-screen (script + CI workflow)
+- scripts/extract/prescreen_delivery.py: clones w3f/Grant-Milestone-Delivery + Grants-Program (CI), counts
+  delivery/evaluation files per census project_id (normalized matching), reads application Status headers,
+  emits data/calibration/census_prescreen.csv ranked DELIVERED > evaluated_only > no_delivery_found > REJECT_terminated.
+- .github/workflows/prescreen.yml: workflow_dispatch; publishes census_prescreen.csv to census branch.
+- Logic validated locally (self-contained): stem-stripping handles _milestone-N/_N/-milestoneN variants;
+  pontem-network/skyekiwi-protocol/stable-asset/remarker/ink-analyzer all match a delivered stem; SPACEWALK→None
+  (correctly flagged, consistent with its terminated status). Decisive signal = #delivery files per candidate.
+- Next: user pushes → dispatch prescreen workflow via Chrome → read census_prescreen.csv → deep-verify only the
+  DELIVERED shortlist (kills the ~1-in-2 cold-pick rejection; no more Spacewalks).
