@@ -66,6 +66,21 @@ FTE2 = re.compile(r"\b([\d.]+)\s*(?:FTE|full[\s-]?time(?:\s*equivalent)?|develop
 DUR  = re.compile(r"\b(?:duration|timeline|time\s*frame|period)\b[^\d]{0,18}([\d.]+)\s*(week|month)", re.I)
 DUR2 = re.compile(r"\b([\d.]+)[\s-]*(month|week)s?\b", re.I)            # "8 months", "8-month", "12 weeks"
 TEAMN = re.compile(r"\bteam of\s+([\d.]+)\b|\b([\d.]+)\s*(?:team members|teammates|contributors|people)\b", re.I)
+# ACTUAL-effort signals (for gold retroactive pilots): logged hours + "retroactive/completed" framing.
+# two directions: number-before ("1,100 work hours") and keyword-before ("Work Hours: 1100", table cells)
+HOURS   = re.compile(r"([\d][\d,\.]{1,6})\s*(?:work[\s-]?hours?|dev(?:eloper|elopment)?[\s-]?hours?|man[\s-]?hours?|person[\s-]?hours?|\bhrs?\b|\bhours?\b)", re.I)
+HOURS_B = re.compile(r"(?:work|dev(?:eloper|elopment)?|man|person|total)[\s-]?hours?\s*[:|]?\s*([\d][\d,\.]{1,6})", re.I)
+RETRO = re.compile(r"retroactiv|already (?:built|developed|completed|done)|work (?:done|achieved|completed)|completed (?:development|work)|funding for completed", re.I)
+
+def parse_hours(txt):
+    for rx in (HOURS, HOURS_B):
+        m = rx.search(txt or "")
+        if m:
+            try:
+                h = float(m.group(1).replace(",", ""))
+                if 30 <= h <= 100000: return int(h), round(h / 152.0, 2)   # Boehm 152 h/PM
+            except ValueError: pass
+    return "", ""
 
 def _months(val, unit):
     try: return round(float(val) * (1/4.345 if unit.lower().startswith("week") else 1.0), 2)
@@ -102,11 +117,12 @@ def main():
     ap.add_argument("--out", default=os.path.join(root, "data/calibration/treasury_proposals.csv"))
     ap.add_argument("--networks", default="polkadot,kusama")
     ap.add_argument("--types", default="treasury,gov2")
-    ap.add_argument("--pages", type=int, default=6)
+    ap.add_argument("--pages", type=int, default=40)   # deep: reach 2021-2024 retroactive dev proposals
     ap.add_argument("--page-size", type=int, default=100)
     a = ap.parse_args()
 
-    FIELDS = ["network", "proposal_type", "index", "title", "requested", "proposer",
+    FIELDS = ["network", "proposal_type", "index", "title", "state", "is_retroactive",
+              "reported_hours", "reported_pm_hours", "requested", "proposer",
               "planned_fte", "planned_duration_months", "team_size", "documented_pm_explicit",
               "sum_milestone_duration_months", "n_github_repos", "github_repos", "content_len", "status"]
     out = []
@@ -137,8 +153,13 @@ def main():
                     dpm, _raw = DE.documented_pm_explicit(corpus)
                     ms_dur, _n, _fn = DE.milestone_signals(corpus)
                     repos = repos_in(corpus)
+                    state = deep_get(it, ["state", "name"], ["onchainData", "state", "name"]) or ""
+                    rep_hours, pm_hours = parse_hours(corpus)
+                    is_retro = "Y" if RETRO.search(corpus) else ""
                     out.append(dict(network=net, proposal_type=ptype, index=idx,
-                                    title=str(title)[:120], requested=req, proposer=str(proposer)[:50],
+                                    title=str(title)[:120], state=str(state)[:24], is_retroactive=is_retro,
+                                    reported_hours=rep_hours, reported_pm_hours=pm_hours,
+                                    requested=req, proposer=str(proposer)[:50],
                                     planned_fte=fte, planned_duration_months=dur, team_size=ts,
                                     documented_pm_explicit=dpm, sum_milestone_duration_months=ms_dur,
                                     n_github_repos=len(repos), github_repos=";".join(repos[:8]),
@@ -166,6 +187,15 @@ def main():
                  and (r["planned_fte"] or r["planned_duration_months"]))
     print(f"Total {len(out)} | with content {has_content} | repo {has_repo} | FTE/duration {has_plan} "
           f"| team {has_team} | explicit-PM {has_expl} | ANY effort {any_effort} | repo+plan {useful}")
+    # GOLD actual-effort candidates: executed + retroactive + logged hours + a single repo signal
+    def is_exec(r): return str(r.get("state", "")).lower() in ("executed", "approved", "confirmed", "awarded")
+    gold = [r for r in ok if r.get("reported_hours") and r.get("is_retroactive") == "Y"
+            and r.get("n_github_repos") and int(r["n_github_repos"]) >= 1]
+    gold_exec = [r for r in gold if is_exec(r)]
+    print(f"GOLD actual candidates (retroactive + reported_hours + repo): {len(gold)} | of which executed: {len(gold_exec)}")
+    for r in gold_exec[:40]:
+        print(f"  [{r['network']}/{r['proposal_type']} #{r['index']}] {r['reported_hours']}h -> {r['reported_pm_hours']}PM "
+              f"| repos={r['n_github_repos']} | {str(r['title'])[:70]}")
     print(f"Wrote {a.out}")
 
 if __name__ == "__main__":

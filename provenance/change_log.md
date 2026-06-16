@@ -1140,3 +1140,70 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   Finding: retroactive vein largely exhausted — mostly tips/events; dev proposals multi-repo (SubWallet=3) or
   already admitted. Thin leads: LiteScan #970, Telenova #611, Polkawatch #1132. W3F v2 = primary engine.
 - Corpus n=15. Next: push prescreen v2 → dispatch → admit from ranked shortlist.
+
+## 2026-06-15 (cont.) — pre-screen v2 deployed (CI run #2); admit-ready shortlist locked
+- v2 prescreen ran (run #2, 14s). Raw census branch was CDN-cached to v1 schema at read; v2 columns surface on
+  next fetch. From v1 DELIVERED data, locked admit-ready single-artifact shortlist (delivery-verified + single
+  repo + census PM + new type): subcoin (BTC node 3PM), myriad_social (social parachain 9PM), melodot (DA layer
+  6.75PM), gafi (gaming 13.8PM), fair_squares (real-estate DAO 12PM), NewOmega (game 4PM). All scope-sane (ks/PM 0.25-3.7).
+- Next: fetch fresh v2 CSV (grep saved file for matched_app_file/app_pm), confirm primary FTE×duration per
+  candidate, admit clean ones as #16+. Corpus n=15.
+
+## 2026-06-15 (cont.) — n-building: pilots #17-19 ADMITTED (provisional) via pre-screen machinery
+- PI directive: "build n" on the strength of the quality checks now in place.
+- Admitted 3 via pre-screen gates (DELIVERED + not-terminated + single-repo + scope-ratio-sane), effort =
+  scope-validated census PM, to be finalized by primary-FTE re-read + CI dissection (A_local):
+  - #17 Subcoin (subcoin-project/subcoin) — Bitcoin-on-Substrate full node — 3.0 PM — NEW type (BTC node).
+  - #18 Myriad Social (myriadsocial/myriad-node-parachain) — social parachain — 9.0 PM — NEW type (social).
+  - #19 Melodot (ZeroDAO/melodot) — data-availability layer — 6.75 PM — NEW type (DA).
+- Established the n-building admission standard (provisional-on-gates → finalize via FTE + dissection). Corpus n=18.
+- Note: GitHub raw CDN still served v1 prescreen schema (v2 columns deployed but cached); not blocking — repos +
+  delivery + scope ratio sufficient to admit. Next: add P14-19 to pilots_cocomo.csv → CI dissection batch → A_local.
+
+## 2026-06-15 (cont.) — n-building: pilots #20-22 ADMITTED (provisional) via pre-screen gates
+- #20 Gafi (cryptoviet/gafi) — GameFi infra parachain — 13.8 PM — type: GameFi.
+- #21 Fair Squares (Fair-Squares/fair-squares) — real-estate/housing DAO — 12.0 PM — type: RWA/housing.
+- #22 NewOmega (WiktorStarczewski/newomega.polkadot) — on-chain turn-based game (ink!) — 4.0 PM — type: game.
+- All passed pre-screen gates (DELIVERED + not-terminated + single-repo + scope-ratio-sane). Corpus n=21.
+
+## 2026-06-15 (cont.) — n-building: pilots #23-25 ADMITTED (provisional)
+- #23 Delmonicos (Delmonicos/charger-node) EV-charging payments pallet 3.0 PM — type IoT/EV-payments.
+- #24 DelightfulDOT/Dedot (CoongCrafts/delightfuldot) TS Substrate client SDK 9.0 PM — type client library.
+- #25 Bit.Country (bit-country/Bit-Country-Blockchain) metaverse parachain 5.0 PM — type metaverse.
+- All passed pre-screen gates (DELIVERED + not-terminated + single-repo + scope-ratio-sane). Corpus n=24.
+- NEXT: CI dissection batch for #14-25 (add to pilots_cocomo.csv → dispatch dissect → A_local per pilot).
+
+## 2026-06-15 (cont.) — n-building: pilots #26-28 ADMITTED (provisional)
+- #26 EightFish (eightfish-org/eightfish) substrate dApp framework 4.0 PM.
+- #27 Candle Auction ink! (agryaznov/candle-auction-ink) ink! auction contract 1.0 PM.
+- #28 inkscope Fuzzer (inkscopexyz/inkscope-fuzzer) ink! security fuzzer 4.5 PM — type security/fuzzing.
+- All passed pre-screen gates (DELIVERED + not-terminated + single-repo + scope-ratio-sane). Corpus n=27.
+
+## 2026-06-15 (cont.) — PM QUALITY: provisional pilots primary-confirmed + #29-31 admitted
+- KEY: pulled pre-screen v2 (cache-buster) → app_pm = primary FTE×duration from each W3F application.
+  For ALL provisional pilots #15-28 (except Pontem), app_pm == census planned_pm EXACTLY → PM now
+  PRIMARY-CONFIRMED (FTE×mo): Subcoin 1×3, Myriad 3×3, Melodot 1.5×4.5, Gafi 1.2×11.5, FairSquares 2×6,
+  NewOmega 2×2, Delmonicos 1×3, Dedot 2×4.5, Bit.Country 5×1, EightFish 2×2, Candle 1×1, inkscope 1.5×3,
+  SkyeKiwi 2×4, StableAsset 2×1. Pontem app has no FTE (person-days) → 13.3 hand-derived stands.
+- Admitted #29-31 with primary app_pm: Decentralized Threshold Signing (Fiono11) 1×3=3.0; Aisland DocSig
+  (aisland-dao/docsig) 1.5×2=3.0; Roloi (RoloiMoney) 2×1=2.0. All DELIVERED + single-repo + scope-sane.
+- Corpus n=30. PM is now primary-source for the whole W3F set; the census PM is corroborated (not trusted blind).
+
+## 2026-06-15 (cont.) — Supervisor Evidence Pack built (delivery + verifiable links for all 30)
+- SUPERVISOR_EVIDENCE_PACK.md: 30/30 completed & delivered = 11 on-chain treasury-executed + 19 W3F
+  milestone-delivered (delivered-ms counts + not-terminated from pre-screen). Each row carries a single
+  primary-source link (Subsquare/Polkassembly for on-chain; w3f/Grants-Program application for W3F) where the
+  supervisor can read the reported effort and match our PM. Plus delivery-record pointers + actual/proposed
+  + PM-provenance caveats.
+
+## 2026-06-15 (cont.) — STRATEGY: gold actuals first (n→60), then secondary. Harvester upgraded.
+- PI decision: next ~10 batches = ACTUAL reported FTE/hours from completed projects (gold); after n=60, allow
+  planned/secondary. "Gold is gold."
+- Supervisor Evidence Pack: links verified (trickiest-cased apps spot-fetched OK; FTE×dur matches). NewOmega
+  repo flag (app names newomega.trinity vs census newomega.polkadot — resolve at dissection).
+- treasury_mine.py UPGRADED for gold actual-effort mining: captures on-chain STATE; is_retroactive flag (RETRO
+  regex); reported_hours + reported_pm_hours (HOURS both directions: "1,100 work hours" AND table "Work Hours
+  1100"; Boehm 152 h/PM); pages 6->40 (reach 2021-2024 retroactive dev proposals); prints GOLD shortlist
+  (executed + retroactive + hours + repo). Hour-parser validated on Remarker/Kheopswap/DotCodeSchool/ink-analyzer/Subsquare.
+- NEXT: push treasury_mine.py -> dispatch treasury-mine -> read GOLD shortlist -> verify+admit actual pilots in
+  batches of 3 (executed + on-chain hours table + single repo) toward n=60.

@@ -53,8 +53,18 @@ exists. The **effort-proof link** is the exact page showing the reported effort 
 | **P14** | **Pontem (Move VM pallet)** | Boris Povod / Dfinance (Zug, CH) | **boris@dfinance.co** | GitHub pontem-network · dfinance.co | [W3F pontem.md — M1+M2 252 person-days](https://github.com/w3f/Grants-Program/blob/master/applications/pontem.md) · [delivery PR#113](https://github.com/w3f/Grant-Milestone-Delivery/pull/113) | unverified (admitted, pending dissection) |
 | **P15** | **SkyeKiwi Protocol** | Song Zhou / SkyeKiwi (@RoyTimes) | **song.zhou@skye.kiwi** | GitHub skyekiwi · cdocs.skye.kiwi | [W3F skyekiwi-protocol.md — 2 FTE×4 mo = 8.0 PM](https://github.com/w3f/Grants-Program/blob/master/applications/skyekiwi-protocol.md) | admitted; delivery = census **exact** commit (strong); pin PR at dissection |
 | **P16** | **Stable Asset (DeFi)** | Terry Lam / NUTS Finance | **terry@nuts.finance** | GitHub nutsfinance · LinkedIn /in/terry-lam-80a71927 | [W3F stable-asset.md — 2 FTE×1 mo = 2.0 PM](https://github.com/w3f/Grants-Program/blob/master/applications/stable-asset.md) | admitted (provisional); confirm delivery + pin **exact** commit at dissection (census used cutoff) |
+| **P17** | **Subcoin (BTC-on-Substrate node)** | subcoin-project (Liu-Cheng Xu) | TO-CAPTURE (GitHub subcoin-project) | GitHub subcoin-project | [pre-screen DELIVERED ×3; W3F app](https://github.com/subcoin-project/subcoin) | admitted (provisional); primary-FTE + CI dissection to finalize |
+| **P18** | **Myriad Social (social parachain)** | Myriad Social | TO-CAPTURE (GitHub myriadsocial) | GitHub myriadsocial · myriad.social | [pre-screen DELIVERED ×3](https://github.com/myriadsocial/myriad-node-parachain) | admitted (provisional); primary-FTE + CI dissection to finalize |
+| **P19** | **Melodot (data-availability layer)** | ZeroDAO | TO-CAPTURE (GitHub ZeroDAO) | GitHub ZeroDAO | [pre-screen DELIVERED ×4](https://github.com/ZeroDAO/melodot) | admitted (provisional); primary-FTE + CI dissection to finalize |
 *(P09 ParaSpell — dropped (repo deleted); contact retained for a possible base-grant revisit: Dušan Morháč,
 xmorhac@stuba.sk, GitHub dudo50.)*
+
+**Admission standard for n-building (P17+):** with the quality machinery now in place (pre-screen =
+DELIVERED + not-terminated + single-repo + scope-ratio-sane), candidates passing ALL automated gates are
+admitted **provisional** on the scope-validated census PM, then **finalized** by (a) primary FTE×duration
+re-read and (b) CI dissection computing A_local (which flags any effort grossly off-cluster). Contact capture +
+verification email follow as part of finalization. This is the practical scaling the PI authorized — quality
+enforced by the gates, not by a full hand-dive per candidate.
 
 **Contact-capture notes:**
 - **OpenSquare (P01/P04/P06)** share one team email → one combined message can verify all three (each proposal
@@ -195,7 +205,24 @@ admitted. Thin remaining single-repo leads to verify per-candidate (Subsquare AP
 table): **LiteScan #970** (indexer), **Telenova #611** (Telegram wallet), **Polkawatch #1132** (analytics).
 ⇒ retroactive = diminishing returns; **W3F pre-screen v2 is the primary n-growth engine.**
 
-### Pre-screen v2 — BUILT (deploy next)
+### Pre-screen v2 — DEPLOYED (CI run #2, 2026-06-15)
+v2 dispatched + ran (14 s). Raw census branch was CDN-cached to v1 schema at read time; v2 columns
+(matched_app_file/app_pm/n_app_repos/ks_per_pm) will surface on next fetch. **From the v1 DELIVERED data in
+hand**, the admit-ready **single-artifact** shortlist (delivery-verified · single node/pallet/library repo ·
+census PM present · NEW project type) — deep-verify effort next, 3 at a time:
+
+| candidate | census PM | eq KSLOC | ks/PM | type (new) | repo |
+|---|---|---|---|---|---|
+| **subcoin** | 3.0 | 10.99 | 3.7 | **Bitcoin-on-Substrate full node** | subcoin-project/subcoin |
+| **myriad_social** | 9.0 | 5.20 | 0.58 | **social parachain** | myriadsocial/myriad-node-parachain |
+| **melodot** | 6.75 | 13.94 | 2.07 | **data-availability layer** | ZeroDAO/melodot |
+| gafi | 13.8 | 15.40 | 1.12 | gaming infra parachain | cryptoviet/gafi |
+| fair_squares | 12.0 | 17.01 | 1.42 | real-estate DAO | Fair-Squares/fair-squares |
+| NewOmega | 4.0 | 0.98 | 0.25 | on-chain game (exact commit) | WiktorStarczewski/newomega.polkadot |
+All DELIVERED (pre-screen), all single-repo, all scope-sane (ks/PM 0.25–3.7). Next: pull v2 (fresh, not cached)
+to grab each `matched_app_file`, confirm primary FTE×duration, admit the clean ones as #16+.
+
+### Pre-screen v2 — BUILT (history)
 `prescreen_delivery.py` upgraded: now also emits per grant **matched_app_file** (kills 404 filename churn),
 **app_fte / app_months / app_pm** (PRIMARY effort straight from the application), **n_app_repos** (multi-repo
 signal), and **ks_per_pm** scope ratio (informational warning, not auto-reject — reuse-heavy clean pilots run

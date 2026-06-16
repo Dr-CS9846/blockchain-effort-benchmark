@@ -24,6 +24,21 @@ proposal reports developer-weeks. Conversion is shown per project for full trans
 | 14 | **Pontem (Move VM pallet)** | W3F 2020–21 | Forward grant | Greenfield (forked Libra Move VM) | M1+M2 = 252 person-days (28×4 + 28×5) | **13.3** | pontem-network/sp-move | W3F: M1 (PR#72) + M2 (PR#113) delivered |
 | 15 | **SkyeKiwi Protocol** (secret-sharing crypto) | W3F 2021 | Forward grant | Greenfield (privacy lib) | 2 FTE × 4 mo | **8.0** | skyekiwi/skyekiwi-protocol | W3F grant delivered |
 | 16 | **Stable Asset** (DeFi synth-asset) | W3F 2021 (Wave 9) | Forward grant | Greenfield (Substrate modules) | 2 FTE × 1 mo | **2.0** | nutsfinance/stable-asset | W3F grant delivered |
+| 17 | **Subcoin** (Bitcoin-on-Substrate full node) | W3F | Forward grant | Greenfield node | FTE×mo PRIMARY-confirmed (v2) | **3.0** | subcoin-project/subcoin | W3F: 3 milestones delivered |
+| 18 | **Myriad Social** (social parachain) | W3F | Forward grant | Greenfield parachain | FTE×mo PRIMARY-confirmed (v2) | **9.0** | myriadsocial/myriad-node-parachain | W3F: 3 milestones delivered |
+| 19 | **Melodot** (data-availability layer) | W3F | Forward grant | Greenfield DA node | FTE×mo PRIMARY-confirmed (v2) | **6.75** | ZeroDAO/melodot | W3F: 4 milestones delivered |
+| 20 | **Gafi** (GameFi infra parachain) | W3F | Forward grant | Greenfield parachain | FTE×mo PRIMARY-confirmed (v2) | **13.8** | cryptoviet/gafi | W3F: 3 milestones delivered |
+| 21 | **Fair Squares** (real-estate/housing DAO) | W3F | Forward grant | Greenfield pallets | FTE×mo PRIMARY-confirmed (v2) | **12.0** | Fair-Squares/fair-squares | W3F: 5 milestones delivered |
+| 22 | **NewOmega** (on-chain turn-based game) | W3F | Forward grant | Greenfield game (ink!) | FTE×mo PRIMARY-confirmed (v2) | **4.0** | WiktorStarczewski/newomega.polkadot | W3F: 4 milestones delivered |
+| 23 | **Delmonicos** (EV-charging payments) | W3F | Forward grant | Greenfield pallet | FTE×mo PRIMARY-confirmed (v2) | **3.0** | Delmonicos/charger-node | W3F: 3 milestones delivered |
+| 24 | **DelightfulDOT/Dedot** (TS Substrate client SDK) | W3F | Forward grant | Greenfield library | FTE×mo PRIMARY-confirmed (v2) | **9.0** | CoongCrafts/delightfuldot | W3F: 2 milestones delivered |
+| 25 | **Bit.Country** (metaverse parachain) | W3F | Forward grant | Greenfield parachain | FTE×mo PRIMARY-confirmed (v2) | **5.0** | bit-country/Bit-Country-Blockchain | W3F: 2 milestones delivered |
+| 26 | **EightFish** (substrate dApp framework) | W3F | Forward grant | Greenfield framework | FTE×mo PRIMARY-confirmed (v2) | **4.0** | eightfish-org/eightfish | W3F: 2 milestones delivered |
+| 27 | **Candle Auction (ink!)** (auction contract) | W3F | Forward grant | Greenfield ink! contract | FTE×mo PRIMARY-confirmed (v2) | **1.0** | agryaznov/candle-auction-ink | W3F: 3 milestones delivered |
+| 28 | **inkscope Fuzzer** (ink! security fuzzer) | W3F | Forward grant | Greenfield tool | 1.5 FTE × 3 mo (primary) | **4.5** | inkscopexyz/inkscope-fuzzer | W3F: 2 milestones delivered |
+| 29 | **Decentralized Threshold Signing** (crypto) | W3F | Forward grant | Greenfield lib | 1 FTE × 3 mo (primary) | **3.0** | Fiono11/decentralized_threshold_signing_service | W3F: 3 milestones delivered |
+| 30 | **Aisland DocSig** (document signing) | W3F | Forward grant | Greenfield pallet/dApp | 1.5 FTE × 2 mo (primary) | **3.0** | aisland-dao/docsig | W3F: 2 milestones delivered |
+| 31 | **Roloi** (payment streaming) | W3F | Forward grant | Greenfield pallet | 2 FTE × 1 mo (primary) | **2.0** | RoloiMoney/roloi-polkadot-w3f-grant | W3F: 2 milestones delivered |
 
 Spread so far: **0.95 → 24.7 PM** (26×), two chains, five project types (governance app / language-compiler /
 no-code dApp / treasury-explorer maintenance slice / ZKP crypto library), greenfield + brownfield, forward +
