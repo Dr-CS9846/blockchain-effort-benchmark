@@ -1,0 +1,101 @@
+id,project,source,listed_repo,delivery_repo,repo_mismatch,commit_sha,commit_date,n_files,code_lines,ksloc,status
+1,Subsquare (gov app),W3F,opensquare-network/subsquare,,,e51c68417235,2026-06-16,4950,235249,235.249,ok
+2,Ask! v0.1 (ink!/AS language),W3F,patractlabs/ask,,,20e04b7edc16,2021-12-01,184,13597,13.597,ok
+3,Bagpipes (no-code XCM dApp),W3F,BagpipesOrg/app,,,89c68effe8ed,2024-12-20,572,176151,176.151,ok
+4,dotreasury (treasury explorer),W3F,opensquare-network/dotreasury,,,b6c3aec8044d,2026-06-11,1529,72337,72.337,ok
+5,Megaclite v0.1 (ZKP crypto lib),W3F,patractlabs/megaclite,,,cdbfc7b1cbd4,2021-03-16,44,2414,2.414,ok
+6,Subsquare new-features (gov app),W3F,opensquare-network/subsquare,,,e51c68417235,2026-06-16,4950,235249,235.249,ok
+7,Fennel Protocol (Whiteflag msg chain),W3F,fennelLabs/Fennel-Protocol,fennelLabs/Fennel-Protocol,,3764f3b0de5a,2023-12-03,125,10351,10.351,ok
+8,Elara v0.1 (RPC access layer),W3F,patractlabs/elara,,,02dff2936b58,2021-01-13,1142,160727,160.727,ok
+10,Remarker (NFT marketplace),W3F,Remarkers/Remarkers-market,,,43f9e42d37f2,2024-08-17,28,29981,29.981,ok
+11,Kheopswap (Asset Hub DEX UI),W3F,kheopswap/kheopswap,,,7a6be1f184ff,2026-06-16,403,56832,56.832,ok
+12,ink! analyzer (LSP/semantic analyzer),W3F,ink-analyzer/ink-analyzer,ink-analyzer/ink-analyzer,,28f023ef095d,2025-11-14,197,61600,61.6,ok
+13,Dot Code School (interactive coding edu),W3F,iammasterbrucewayne/dotcodeschool,,,4efd1a0c709f,2024-03-14,23,1959,1.959,ok
+14,Pontem (Move VM pallet),W3F,pontem-network/sp-move,dfinance/move-tools,Y,8ca20938a3bd,2022-11-19,141,25448,25.448,ok
+15,SkyeKiwi Protocol (secret-sharing crypto,W3F,skyekiwi/skyekiwi-protocol,skyekiwi/skyekiwi-network,Y,b1ba5b98115d,2023-03-05,76,4005,4.005,ok
+16,Stable Asset (DeFi synth-asset),W3F,nutsfinance/stable-asset,nutsfinance/stable-asset,,aa101e87234b,2025-12-01,12,4030,4.03,ok
+17,Subcoin (Bitcoin-on-Substrate full node),W3F,subcoin-project/subcoin,subcoin-project/subcoin,,38e39fb28168,2026-01-04,217,38664,38.664,ok
+18,Myriad Social (social parachain),W3F,myriadsocial/myriad-node-parachain,myriadsocial/myriad-web,Y,3ab2927ad397,2024-09-20,80,7843,7.843,ok
+19,Melodot (data-availability layer),W3F,ZeroDAO/melodot,ZeroDAO/melodot,,b99b8c12d624,2025-05-05,145,48609,48.609,ok
+20,Gafi (GameFi infra parachain),W3F,cryptoviet/gafi,grindytech/gafi,Y,2090ecdf9b82,2022-07-27,184,18916,18.916,ok
+21,Fair Squares (real-estate/housing DAO),W3F,Fair-Squares/fair-squares,Fair-Squares/fair-squares,,fb8e71b57e97,2023-08-29,139,19906,19.906,ok
+22,NewOmega (on-chain turn-based game),W3F,WiktorStarczewski/newomega.polkadot,WiktorStarczewski/newomega-polkadot-hybrid,Y,6d87bf06cbac,2021-04-20,79,64970,64.97,ok
+23,Delmonicos (EV-charging payments),W3F,Delmonicos/charger-node,Delmonicos/pallet-did,Y,b6638577361f,2022-04-28,55,4442,4.442,ok
+24,DelightfulDOT/Dedot (TS Substrate client,W3F,CoongCrafts/delightfuldot,CoongCrafts/delightfuldot,,8399a99e2a94,2026-04-27,1940,87125,87.125,ok
+25,Bit.Country (metaverse parachain),W3F,bit-country/Bit-Country-Blockchain,bit-country/Metaverse-Network,Y,3b661f51ad79,2025-01-20,229,51225,51.225,ok
+26,EightFish (substrate dApp framework),W3F,eightfish-org/eightfish,eightfish-org/eightfish,,3869741ca4e3,2025-07-04,27,3072,3.072,ok
+27,Candle Auction (ink!) (auction contract),W3F,agryaznov/candle-auction-ink,agryaznov/substrate-docs,Y,f6e3c53ac9dc,2021-12-17,4,862,0.862,ok
+28,inkscope Fuzzer (ink! security fuzzer),W3F,inkscopexyz/inkscope-fuzzer,inkscopexyz/inkscope-fuzzer,,af2c7e75229a,2024-10-03,57,4589,4.589,ok
+29,Decentralized Threshold Signing (crypto),W3F,Fiono11/decentralized_threshold_signing_service,Fiono11/decentralized_threshold_signing_service,,8f735e236536,2025-10-30,11,10796,10.796,ok
+30,Aisland DocSig (document signing),W3F,aisland-dao/docsig,aisland-dao/docsig,,5e055263df88,2024-01-11,105,31745,31.745,ok
+31,Roloi (payment streaming),W3F,RoloiMoney/roloi-polkadot-w3f-grant,RoloiMoney/roloi-polkadot-w3f-grant,,fe0b09f35794,2022-07-17,107,3696,3.696,ok
+32,KZero (zk-login identity),W3F,kzero-xyz/kzero,kzero-xyz/kzero-circuit,Y,eadc7efa85a4,2025-08-25,44,5309,5.309,ok
+33,Libra (escrow payments),W3F,atscaletech/libra,atscaletech/libra,,af806ee6c858,2022-11-25,54,6721,6.721,ok
+34,CESS (decentralized storage),W3F,Cumulus2021/cess,CESSProject/web-app,Y,c90200680b1f,2025-08-18,189,35682,35.682,ok
+35,Cyclops (validator dashboard),W3F,ArthurHoeke/cyclops,ArthurHoeke/cyclops,,158b56ff80e7,2024-11-30,80,32356,32.356,ok
+36,DAOsign (e-signing contracts),W3F,DAOsign/polkadot-smart-contracts,DAOsign/daosign-ink-js-sdk,Y,862aa66d485e,2024-03-28,134,23053,23.053,ok
+37,Fractapp (wallet),W3F,fractapp/fractapp,fractapp/fractapp-server,Y,6a8facadd43b,2021-11-25,266,41951,41.951,ok
+38,GenesisDAO (DAO node),W3F,deep-ink-ventures/genesis-dao-node,deep-ink-ventures/genesis-dao-node,,bc49fbee1230,2023-11-27,115,16091,16.091,ok
+39,PoCS (proof-of-contract-stake),W3F,auguth/pocs,auguth/pocs,,097d3b552bff,2025-03-18,216,56155,56.155,ok
+40,SubIdentity (identity),W3F,TDSoftware/subidentity-webapp,TDSoftware/subidentity-webapp,,0dcddc77756e,2022-10-14,103,19308,19.308,ok
+41,Substats (chain stats),W3F,CESSProject/substats,CESSProject/substats,,8f8581411cee,2023-03-08,197,11920,11.92,ok
+42,ArtZero / InkWhale (NFT marketplace),W3F,ArtZero-io/Contracts,avirajkhare00/ink-wizard,Y,7ea14283c23a,2023-12-14,176,77644,77.644,ok
+43,Curve AMM (DeFi AMM),W3F,equilibrium-eosdt/equilibrium-curve-amm,equilibrium-eosdt/equilibrium-curve-amm,,cf5afc61364f,2022-02-17,35,6509,6.509,ok
+44,DotPay (payments),W3F,bytepayment/bytepay,bytepayment/bytepay,,b1776f00ec0e,2022-10-08,216,13849,13.849,ok
+45,Evanesco (privacy network),W3F,Evanesco-Labs/WhiteNoise.rs,Evanesco-Labs/WhiteNoise.rs,,3d37dbf69117,2021-09-14,48,4222,4.222,ok
+46,IPFS Utilities (IPFS pallet),W3F,TDSoftware/substrate-ipfs,TDSoftware/substrate-ipfs,,5e0a0744c7b5,2023-04-19,2153,420010,420.01,ok
+47,PolkaJ (Java client),W3F,emeraldpay/polkaj,emeraldpay/polkaj,,226ae141ebb6,2022-06-30,310,17781,17.781,ok
+48,Liisa Portfolio Tracker (NFT),W3F,LiisaNFT/PolkadotNFTPortfolioTracker,LiisaNFT/PolkadotNFTPortfolioTracker,,f84e616523b9,2024-06-07,481,126789,126.789,ok
+49,MangoSale (token sale),W3F,Mangoboxlabs/MangoSale,Mangoboxlabs/MangoSale,,0916c658db3a,2024-01-05,449,92513,92.513,ok
+50,NuLink (privacy KMS),W3F,NuLink-network/nulink-chain,NuLink-network/nulink-chain,,8f765262546d,2022-08-05,34,2648,2.648,ok
+51,Parallel (DeFi lending parachain),W3F,parallel-finance/parallel,parallel-finance/parallel,,15344f7b897d,2024-09-23,331,66175,66.175,ok
+52,php-scale-codec (PHP SDK),W3F,gmajor-encrypt/php-scale-codec,,,772aede10bfa,2026-03-30,232,73470,73.47,ok
+53,RainbowDAO (DAO protocol),W3F,RainbowcityFoundation/RainbowDAO-Protocol-Ink,RainbowcityFoundation/RainbowDAO-Protocol-Ink-milestone_1,Y,,,0,0,,clone_failed
+54,Tempora (XCM payment automation),W3F,NeoPower-Digital/tempora,NeoPower-Digital/tempora,,d1e7f26ba7ab,2024-04-19,105,10358,10.358,ok
+55,SubGame (gaming chain),W3F,SubGame-Network/subgame-network,SubGame-Network/subgame-network,,bcad89c333cc,2022-05-24,138,13384,13.384,ok
+56,AlgoCash (algorithmic stablecoin),W3F,ReserveLabs/AlgoCash,ReserveLabs/AlgoCash,,969117082c1e,2024-10-18,25,2155,2.155,ok
+57,Anchor (naming service),W3F,ff13dfly/Anchor,ff13dfly/Anchor,,a10cc72f40e2,2023-09-06,92,45460,45.46,ok
+58,C++ Light Client,W3F,eqlabs/polkadot-light-client,eqlabs/polkadot-light-client-spec,Y,6bd91b565732,2026-04-29,104,3771,3.771,ok
+59,create-substrate-app (CLI scaffolder),W3F,philoniare/create-substrate-app,philoniare/create-substrate-app,,c72e48c712ad,2024-03-12,87,3327,3.327,ok
+60,Shivarthu (decentralized court),W3F,amiyatulu/shivarthu,reaudito/shivarthu,Y,62a6003a8ee2,2024-02-22,132,15106,15.106,ok
+61,SubQuery (indexer),W3F,OnFinality-io/subql,OnFinality-io/subql,,51e2a2c985c3,2026-04-01,811,100322,100.322,ok
+62,GreenLemon (stealth-address payments),W3F,GreenLemonProtocol/dksap-polkadot,GreenLemonProtocol/dksap-polkadot,,fbb9ea259d91,2023-02-18,15,1368,1.368,ok
+63,Epirus Explorer (contract explorer),W3F,web3labs/epirus-substrate,web3labs/epirus-substrate,,53c0a1c1f7f1,2024-01-12,367,70166,70.166,ok
+64,Halva (testing framework),W3F,halva-suite/halva,halva-suite/halva,,e69b7c16a311,2020-12-19,58,31493,31.493,ok
+65,Idavoll (DAO),W3F,idavollnetwork/idavoll,idavollnetwork/idavoll,,79dc2c70e29d,2021-06-16,30,3244,3.244,ok
+66,Konomi (money market),W3F,konomi-network/cumulus,konomi-network/cumulus,,4b7791d6915a,2021-07-08,257,33133,33.133,ok
+67,Lunie (governance UI),W3F,luniehq/lunie,luniehq/lunie,,6d56729540e4,2020-12-09,589,59489,59.489,ok
+68,"MangoBOX (launchpad, ink!)",W3F,Mangoboxlabs/Mangoboxink,Mangoboxlabs/Mangoboxink,,fc5c1ce0bdb5,2024-01-02,437,95183,95.183,ok
+69,NFTMart (NFT market node),W3F,NFTT-studio/NFTMart-Node,nftt-studio/NFTMart-Node,,424ffcc18afc,2022-06-23,257,42902,42.902,ok
+70,Ocelloids (monitoring SDK),W3F,sodazone/ocelloids,sodazone/xcm-monitoring,Y,f019b44221d0,2024-12-13,140,17540,17.54,ok
+71,Offline Election Tool (staking),W3F,antiers-solutions/polkadot-staking-miner,antiers-solutions/polkadot-staking-miner,,b0335fa9fda4,2026-01-29,45,7906,7.906,ok
+72,Polkadot Analytics (analytics),W3F,mobr-ai/PolkadotAnalytics,mobr-ai/PolkadotAnalytics,,fecf1977bc24,2023-09-13,38,4704,4.704,ok
+73,PRIMIS (identity client),W3F,Primis-Labs/client,emeraldpay/polkaj,Y,c125bf3ae939,2022-11-10,83,7321,7.321,ok
+74,Sandox (no-code dApp builder),W3F,sandoxio/sandox,sandoxio/sandox,,390a3895d484,2023-12-06,154,14689,14.689,ok
+75,Signet (sign-in with Substrate),W3F,TalismanSociety/siws,TalismanSociety/signet-web,Y,da687b9e0099,2025-01-07,21,24984,24.984,ok
+76,Slonigiraf (education),W3F,slonigiraf/recommendation-letter,slonigiraf/recommendation-letter,,669c7762c2bb,2024-11-17,6,762,0.762,ok
+77,sol2ink (Solidity→ink! transpiler),W3F,727-Ventures/sol2ink,Supercolony-net/sol2ink,Y,65faf0691db4,2023-06-16,231,18603,18.603,ok
+78,Standard Protocol (stablecoin),W3F,digitalnativeinc/standard-substrate,digitalnativeinc/standard-substrate,,6b1b5263de29,2022-04-28,112,19668,19.668,ok
+79,Starry Network (NFT),W3F,Starry-Network/starry_node,Starry-Network/starry_node,,cc9047c01245,2021-06-03,58,6900,6.9,ok
+80,Stone Index (index fund),W3F,stonedefi/stone-index-substrate-ui,,,f05e3e6944d0,2021-09-15,37,1623,1.623,ok
+81,SubDAO (DAO node),W3F,SubDAO-Network/subdao-node,SubDAO-Network/subdao-node,,56358354cf74,2021-09-22,16,1242,1.242,ok
+82,Distributed Key Mgmt (KMS),W3F,KryptikApp/swordExample,,,dbe5d4a74b94,2023-04-03,150,10346,10.346,ok
+83,DecentralML (decentralized ML),W3F,livetreetech/DecentralML,livetreetech/DecentralML,,2afc8b512deb,2024-04-04,83,4742,4.742,ok
+84,DAuth Network (auth/identity),W3F,DAuth-Network/instant-proof,DAuth-Network/instant-proof,,487d89776842,2024-01-17,49,4866,4.866,ok
+85,Deeper Network (VPN chain),W3F,deeper-chain/deeper-chain,deeper-chain/deeper-chain,,ce700b14a583,2025-01-24,162,55792,55.792,ok
+86,Plus (polkadot-js-plus wallet),W3F,Nick-1979/polkadot-Js-Plus-extension,Nick-1979/polkadot-Js-Plus-extension,,38423fe2ddf9,2023-03-18,494,44288,44.288,ok
+87,Faucet (sybil-resistant faucet),W3F,karooolis/sybil-resistant-substrate-faucet,karooolis/sybil-resistant-substrate-faucet,,a9c7b2fc87df,2022-10-13,42,1074,1.074,ok
+88,hs-web3 (Haskell Web3 client lib),W3F,airalab/hs-web3,airalab/hs-web3,,e9f343dcc355,2026-02-24,180,68762,68.762,ok
+89,GrantMaster (grant-management dApp),W3F,Zaniyar/grantmaster,Zaniyar/grantmaster,,b0b3c1cf56f7,2023-12-27,47,24660,24.66,ok
+90,RainbowDAO Protocol ink! (DAO contract s,W3F,RainbowcityFoundation/RainbowDAO-Protocol-Ink-milestone_1,RainbowcityFoundation/RainbowDAO-Protocol-Ink-milestone_1,,e4f3dded0805,2022-01-18,373,48582,48.582,ok
+91,CruTransfer (decentralized file-transfer,Crust,h2qutc/CruTransfer,h2qutc/CruTransfer,,6aa14b401360,2021-09-19,238,65708,65.708,ok
+92,crust-explorer (blockchain explorer + op,Crust,HuaZhuangNan/crust-explorer,Grasspig-Tech/crust-explorer,Y,,,0,0,,clone_failed
+93,OpenGov Voting Tool (DAO voting automati,POSG,ZelmaCorp/VotingTool,ZelmaCorp/VotingTool,,538729ded1ca,2025-12-12,229,83908,83.908,ok
+94,SubLua (Substrate SDK for Lua),POSG,MontaQLabs/sublua,MontaQLabs/sublua,,127d41306d85,2026-02-17,33,3453,3.453,ok
+95,Create Dot App (dApp scaffolding CLI),POSG,preschian/create-dot-app,preschian/create-dot-app,,530af9534b53,2026-06-17,221,15324,15.324,ok
+96,Polkadot Java SDK (Jot) (JVM Substrate S,POSG,methodfive/jot,methodfive/jot,,3f7ede94cac7,2025-10-06,534,126802,126.802,ok
+97,Nolik (censorship-resistant messaging pr,W3F,chainify/nolik,chainify/pallet-nolik,Y,d9a3d5751462,2023-04-13,54,11553,11.553,ok
+98,Typechain-Polkadot (ink! TS type generat,W3F,Supercolony-net/typechain-polkadot,Supercolony-net/typechain-polkadot,,8fd42b0ba6ab,2022-08-16,54,6457,6.457,ok
+99,Calamar (multi-chain block explorer),W3F,topmonks/calamar,topmonks/calamar,,2106674327ba,2024-01-22,426,75544,75.544,ok
+100,TuxedoDApp (UTXO dApp + wallet),W3F,mlabs-haskell/TuxedoDapp,orgs/Off-Narrative-Labs,Y,0160b433517a,2024-11-12,45,42840,42.84,ok
+101,Ventur (business-process pallets),W3F,Popular-Coding/ventur,Popular-Coding/ventur,,c775f0df1dc9,2023-01-19,62,7165,7.165,ok
