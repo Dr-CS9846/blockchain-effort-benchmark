@@ -1376,3 +1376,53 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   delivery-doc repo cross-check that kills the prior-art-repo trap for the ongoing push to 161.
 - NEXT: push → dispatch measure-pilots → read pilot_sizes.csv → adjudicate mismatches/clone-fails → calibrate
   Effort=A*Size^E on n=100 (+ gold-6 actual-hours sensitivity).
+
+## 2026-06-17 — measure-pilots #1: sizes pinned + integrity audit (duplicate caught)
+- measure-pilots ran: 98/100 repos cloned + cloc'd, commit SHA+date pinned. KSLOC range 0.76 (Slonigiraf) →
+  420 (IPFS Utilities); most 5–100 KSLOC. Output: data/calibration/pilot_sizes.csv on census branch.
+- INTEGRITY (the point of the cross-check):
+  * DUPLICATE removed — #53 RainbowDAO == #90 RainbowDAO Protocol ink! (same team/effort/repo). I introduced
+    #90 this session without spotting #53 (census bulk-admit). Removed #53; kept #90 (working+measured repo).
+    n: 100 → 99 unique. Need +1 clean admit to legitimately re-reach 100.
+  * repo CORRECTIONS from delivery-doc cross-check: #92 crust-explorer HuaZhuangNan→Grasspig-Tech (repo moved;
+    fixes clone_failed); #97 Nolik chainify/nolik→chainify/pallet-nolik (we'd measured the messenger, not the
+    funded pallet).
+- repo_mismatch flags: 24 raised; triaged — MOST benign (org renames e.g. sol2ink Supercolony→727-Ventures,
+  NFTMart case-only, Gafi cryptoviet→grindytech; or delivery doc links a companion frontend/spec/SDK while the
+  listed repo is the real deliverable e.g. Pontem sp-move, KZero kzero, CESS chain, DAOsign contracts; or a bad
+  match e.g. PRIMIS→polkaj, ArtZero→ink-wizard where listed is correct). Genuine wrong-repo fixes were #92,#97.
+  UNCERTAIN, flag for closer look (non-blocking): #22 NewOmega (hybrid), #70 Ocelloids (xcm-monitoring),
+  #75 Signet (siws vs signet-web).
+- 2 clone_fails resolved (#92 via delivery repo; #53 was the dup). Re-run measure-pilots to re-size #92,#97.
+- NEXT: re-measure (#92,#97), then calibrate Effort=A*Size^E on the measured set (+ gold-6 sensitivity); push +1
+  to re-reach 100 and continue toward 161.
+
+## 2026-06-17 — first full-set calibration Effort=A·KSLOC^E (n=97 measured) — WEAK, as expected
+- Fit (raw whole-repo cloc vs stated-FTE PM): A=2.78 [1.92,4.11], E=0.17 [0.05,0.28], log-log R²=0.083,
+  Pearson 0.29, MMRE 0.83, PRED(30)=24%. E:=1 productivity even worse (PRED30 12%). Gold-6 → A=1.80 @E=0.17 (-35%).
+- HONEST READ: raw size explains ~8% of stated-effort variance — confirms the size↔effort DECOUPLING flagged
+  earlier (task #17). Two dominant, identified causes:
+  (1) BROWNFIELD/FORK OVERCOUNT — we cloc the WHOLE repo, but many grants only added a slice or forked the
+      substrate node-template. Top over-estimate is #4 dotreasury (K=72 KSLOC measured, but grant effort ~20
+      dev-days on a small feature) — classic whole-repo-vs-grant-slice error.
+  (2) PLANNED-FTE LUMPINESS — stated effort is quantized ("2 FTE×3mo") and bounded ($10–30k grants), compressing
+      PM range vs the 600× size range.
+- A=2.78 lands near Boehm's 2.94 by COINCIDENCE given the poor fit — NOT a recovered blockchain constant. Do not claim it.
+- IMPLICATION: the path is the reuse-adjusted EQUIVALENT-SLOC we already built (task #23/#24): count grant-ADDED
+  code (diff vs forked baseline / strip vendored template), not raw whole-repo cloc; then re-fit. The earlier
+  curated core-8 with reuse-adjusted size fit well (PRED30~88%), so the method works — the broad raw fit is the foil.
+- Artefacts: scripts/validate/calibrate_AE.py, data/calibration/pilot_sizes.csv (97 clean pts), commit-pinned.
+- NEXT: equivalent-SLOC re-measure (reuse adjustment) → re-fit A,E; re-measure #92,#97; +1 admit to re-reach 100.
+
+## 2026-06-17 — built reuse-adjusted equivalent-SLOC measure (fix for the weak raw fit)
+- scripts/extract/measure_equiv_sloc.py: full-clone each pilot repo, `git log --numstat` over history, sum CODE
+  additions per commit (whitelisted source exts; docs/json/lock/assets excluded), flag bulk-import commits
+  (>12k lines = template/vendored, excluded from grant total), then slide a window = the grant's stated duration
+  over the commit timeline and take the densest-by-added-code window = the grant DEVELOPMENT BURST. equiv_sloc =
+  code authored in that burst. Greenfield → burst≈full build; brownfield/fork → burst≈funded slice only. Emits
+  pilot_equiv_sloc.csv (+ equiv/full ratio so reuse discount is visible). This operationalises the COCOMO II
+  reuse model without hand DM/CM/IM judgements.
+- .github/workflows/measure_equiv.yml (30-min timeout). calibrate_AE.py now takes a mode arg: `equiv` fits on
+  equiv_ksloc, default `raw` on whole-repo cloc — so we can compare both fits + gold-6 head-to-head.
+- NEXT: push → dispatch measure-equiv → read pilot_equiv_sloc.csv → `python scripts/validate/calibrate_AE.py equiv`
+  → compare A,E,R²,PRED30 vs raw (expect materially better fit if reuse/HEAD-growth was the culprit).

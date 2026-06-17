@@ -1,0 +1,38 @@
+name: measure-equiv
+
+# Reuse-adjusted equivalent-SLOC (grant development burst) for every pilot repo.
+# Publishes data/calibration/pilot_equiv_sloc.csv to the 'census' branch.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  equiv:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Measure grant-burst equivalent SLOC from git history
+        run: |
+          python scripts/extract/measure_equiv_sloc.py
+          echo "=== head ==="; head -40 data/calibration/pilot_equiv_sloc.csv || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "measure-equiv-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/pilot_equiv_sloc.csv /tmp/pilot_equiv_sloc.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/pilot_equiv_sloc.csv data/calibration/pilot_equiv_sloc.csv
+          git add data/calibration/pilot_equiv_sloc.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: reuse-adjusted equivalent-SLOC (grant burst) [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
