@@ -1,0 +1,39 @@
+name: measure-pilots
+
+# Delivery-repo cross-check + cloc size (KSLOC) for every row of VERIFIED_PILOTS.md.
+# Publishes data/calibration/pilot_sizes.csv to the 'census' branch.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install cloc
+        run: sudo apt-get update && sudo apt-get install -y cloc
+      - name: Resolve delivery repos + measure sizes
+        run: |
+          python scripts/extract/measure_pilots.py
+          echo "=== head ==="; head -40 data/calibration/pilot_sizes.csv || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "measure-pilots-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/pilot_sizes.csv /tmp/pilot_sizes.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/pilot_sizes.csv data/calibration/pilot_sizes.csv
+          git add data/calibration/pilot_sizes.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: delivery-repo cross-check + cloc sizes for pilot set [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi

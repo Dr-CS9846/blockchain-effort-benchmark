@@ -1337,3 +1337,42 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   cross-refs delivery → DELIVERED; ranks clean single-repo+stated-FTE) + .github/workflows/posg_prescreen.yml
   (workflow_dispatch → publishes posg_prescreen.csv to census).
 - NEXT: push → dispatch posg-prescreen → read csv → hand-verify each candidate (no miss) → admit clean rows #93+.
+
+## 2026-06-17 — POSG prescreen #1 read + hand-verified; admits #93–96 (Lua + Java diversity)
+- posg-prescreen ran (10 apps; 7 DELIVERED, 2 terminated). Hand-read each delivered candidate (no-miss):
+  - ADMIT #93 OpenGov Voting Tool (ZelmaCorp/VotingTool, TS/Express, 2.5 FTE×2mo=5.0 PM, delivered).
+  - ADMIT #94 SubLua (MontaQLabs/sublua, Lua+Rust FFI SDK, 1.5×3=4.5 PM, delivered).
+  - ADMIT #95 Create Dot App (preschian/create-dot-app, dApp CLI, delivered). Overview said 2 FTE but team=1 +
+    budget funds 1 dev → used team-consistent 1 FTE×2mo=2.0 PM (flagged in row).
+  - ADMIT #96 Polkadot Java SDK "Jot" (methodfive/jot — real repo confirmed via delivery doc; parsed splix/polkaj
+    was cited prior-art only; published to Maven Central; 2.5×3=7.5 PM, all milestones delivered).
+  - EXCLUDE swush-dex-aggregator: v2 of a project whose v1 was a W3F grant on the SAME repo (swush-labs/swush-app)
+    → duplicate-repo contamination; also duration 5-6mo exceeds program cap. (skyekiwi-type dup.)
+  - EXCLUDE polkadart, dot-ring (terminated); opentribe (evaluated, no delivery). DEFER opentgov (repo is a
+    hackathon monorepo) + chroma (multi-repo, shared kodadot/nft-gallery) to a later closer look.
+- POSG = distinct treasury-funded program, non-overlapping; adds Lua + Java language diversity.
+- n: 91 → 95. Sources now W3F #1–90, Crust #91–92, POSG #93–96.
+
+## 2026-06-17 — reached n=100: +5 hand-verified W3F delivered grants (#97–101)
+- Mined unadmitted-DELIVERED W3F pool (stated FTE, single repo). Read each application (no-miss); rejected traps:
+  SubsCrypt (matched repo = prior Solidity work, grant built ink! version), xcm-domain-service (RESEARCH grant,
+  litepaper not software), SydTek/Stardust/da_comparative_study (research/materials), web3-compatible-api
+  (repo=whole Moonbeam), zenlink (whitepaper repo), data_platform (pm=300 nonsense), subdao (multi-repo dup).
+- ADMITTED 5 clean (delivered + single repo + stated FTE, application-verified):
+  #97 Nolik (chainify/nolik, messaging, 1×2=2.0); #98 Typechain-Polkadot (Supercolony-net/typechain-polkadot,
+  ink! TS typegen, M1 2FTE×8wk=3.68); #99 Calamar (topmonks/calamar, explorer TS/React, 1×11wk=2.53);
+  #100 TuxedoDApp (mlabs-haskell/TuxedoDapp, UTXO dApp React+Rust, 2×3=6.0); #101 Ventur (Popular-Coding/ventur,
+  Substrate pallets, 4×2=8.0).
+- n: 95 → 100. Milestone. Sources: W3F #1–90 & #97–101, Crust #91–92, POSG #93–96 (3 programs).
+
+## 2026-06-17 — built delivery-repo + size extractor (calibration-readiness engine)
+- scripts/extract/measure_pilots.py: over every VERIFIED_PILOTS row — (1) scans the matching milestone-delivery
+  repo (w3f/Crust/POSG) for the project's delivery doc and extracts the ACTUAL deliverable repo it names
+  ("Repository: github.com/..." or first non-upstream code link), flags repo_mismatch vs the listed repo (no
+  silent override — human adjudicates); (2) shallow-clones the listed repo, pins commit SHA+date, runs cloc
+  (excludes node_modules/target/dist/vendor/etc) → code_lines, ksloc. Emits data/calibration/pilot_sizes.csv.
+- .github/workflows/measure_pilots.yml: installs cloc, runs it, publishes pilot_sizes.csv to census branch.
+- Purpose: fixes the calibration gap (size measured for all 100, not just the original ~86) AND gives a
+  delivery-doc repo cross-check that kills the prior-art-repo trap for the ongoing push to 161.
+- NEXT: push → dispatch measure-pilots → read pilot_sizes.csv → adjudicate mismatches/clone-fails → calibrate
+  Effort=A*Size^E on n=100 (+ gold-6 actual-hours sensitivity).

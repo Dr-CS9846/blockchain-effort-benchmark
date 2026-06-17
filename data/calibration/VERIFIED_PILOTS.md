@@ -12,9 +12,11 @@ W3F (and equivalent) grant — believed as written.** Self-reconstructed effort 
 and will not be revisited; grantee surveys are not relied upon. Rationale: an on-record figure the builder
 themselves signed up to is more trustworthy than any number we reconstruct.
 
-- **Sources (ecosystem diversity):** W3F/Polkadot (#1–90) + **Crust Grants Program (#91–92, decentralized storage)** —
-  first non-W3F source admitted 2026-06-17; same believe-stated-FTE matched-triple rule, distinct ecosystem & teams.
-- **Calibration set = the full matched-triple corpus, n = 91 (and growing):** every row is {grantee-stated
+- **Sources (ecosystem diversity):** W3F/Polkadot (#1–90, #97–101) + **Crust Grants Program (#91–92, decentralized
+  storage)** + **Polkadot Open Source Dev Grants / POSG (#93–96, treasury-funded, distinct curators)** — non-W3F
+  sources admitted 2026-06-17; same believe-stated-FTE matched-triple rule, distinct programs/teams; adds Lua,
+  Java, Haskell-shop & TS-tooling stacks.
+- **Calibration set = the full matched-triple corpus, n = 100 (and growing):** every row is {grantee-stated
   effort (FTE×duration → PM, or hours where given) · the ONE repo that produced it · on-chain/milestone delivery
   proof}. The headline constant A is fit on this set. The earlier GOLD/EXTENDED wall is REMOVED — all delivery-
   proven triples sit on one footing.
@@ -122,6 +124,15 @@ taken as the grantee-stated FTE×duration. No proxy reconstruction, no survey de
 | 90 | **RainbowDAO Protocol ink!** (DAO contract suite) | W3F | Forward grant | Greenfield (ink!) | 8 FTE × 1.84 mo | **14.72** | RainbowcityFoundation/RainbowDAO-Protocol-Ink-milestone_1 | W3F delivered (M1) |
 | 91 | **CruTransfer** (decentralized file-transfer dApp) | **Crust** 2021 | Forward grant | Greenfield (Angular/Node, IPFS/Crust) | 1 FTE × 2 mo | **2.0** | h2qutc/CruTransfer | Crust: 2 milestones delivered |
 | 92 | **crust-explorer** (blockchain explorer + open API) | **Crust** 2021 | Forward grant | Greenfield (front+back+DB) | 3 FTE × 2 mo | **6.0** | HuaZhuangNan/crust-explorer | Crust: 2 milestones delivered |
+| 93 | **OpenGov Voting Tool** (DAO voting automation) | **POSG** 2025 | Forward grant | Greenfield (TS/Express) | 2.5 FTE × 2 mo | **5.0** | ZelmaCorp/VotingTool | POSG: delivered (2 ML) |
+| 94 | **SubLua** (Substrate SDK for Lua) | **POSG** 2025 | Forward grant | Greenfield (Lua + Rust FFI) | 1.5 FTE × 3 mo | **4.5** | MontaQLabs/sublua | POSG: delivered (2 ML) |
+| 95 | **Create Dot App** (dApp scaffolding CLI) | **POSG** 2025 | Forward grant | Greenfield (CLI/TS) | 1 FTE × 2 mo (overview said 2 FTE; solo team → 1) | **2.0** | preschian/create-dot-app | POSG: delivered (2 ML) |
+| 96 | **Polkadot Java SDK (Jot)** (JVM Substrate SDK) | **POSG** 2025 | Forward grant | Greenfield (Java) | 2.5 FTE × 3 mo | **7.5** | methodfive/jot | POSG: all milestones delivered |
+| 97 | **Nolik** (censorship-resistant messaging protocol) | W3F | Forward grant | Greenfield (Substrate + Rust CLI) | 1 FTE × 2 mo | **2.0** | chainify/nolik | W3F delivered (2 ML) |
+| 98 | **Typechain-Polkadot** (ink! TS type generator) | W3F | Forward grant | Greenfield (TS tooling) | 2 FTE × 1.84 mo (M1) | **3.68** | Supercolony-net/typechain-polkadot | W3F delivered (M1) |
+| 99 | **Calamar** (multi-chain block explorer) | W3F | Forward grant | Greenfield (TS/React/GraphQL) | 1 FTE × 2.53 mo | **2.53** | topmonks/calamar | W3F delivered |
+| 100 | **TuxedoDApp** (UTXO dApp + wallet) | W3F | Forward grant | Greenfield (React/TS + Rust/Axum) | 2 FTE × 3 mo | **6.0** | mlabs-haskell/TuxedoDapp | W3F delivered (2 ML) |
+| 101 | **Ventur** (business-process pallets) | W3F | Forward grant | Greenfield (Substrate pallets) | 4 FTE × 2 mo | **8.0** | Popular-Coding/ventur | W3F delivered (2 ML) |
 
 Spread so far: **0.95 → 24.7 PM** (26×), two chains, five project types (governance app / language-compiler /
 no-code dApp / treasury-explorer maintenance slice / ZKP crypto library), greenfield + brownfield, forward +
