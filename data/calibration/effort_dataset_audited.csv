@@ -1,0 +1,208 @@
+id,cat,name,hours,pm,drop,url
+155,A1_dev,Subsquare (gov app),3760.0,24.7,,https://polkadot.subsquare.io/referenda/relevant
+35,A1_dev,TrueBlocks  EF Grant FY22-0772 (Ethereum indexing tool),3840.0,24.0,,tjayrush.medium https://tjayrush.medium.com/trueblocks-final-report-for-ef-grant-d784653c830d
+161,A1_dev,TrueBlocks v1.0.0 (Go port),12.0,24.0,,https://tjayrush.medium.com/trueblocks-final-report-for-ef-grant-d784653c830d
+37,A1_dev,Subsquare  Retroactive 12-month maintenance & new features (Polkadot governance platform),3760.0,23.5,,polkadot.subsquare https://polkadot.subsquare.io/referenda/1225
+96,A1_dev,ORML / Chopsticks / Subway  Open Source Tooling Retroactive (Ref #459),3200.0,20.0,,https://polkadot.subsquare.io/referenda/459
+149,A1_dev,Subsquare & Dotreasury Dev Plan (OpenSquare),2104.0,13.84,,SubSquare
+48,A1_dev,"Gitcoin Grants Lead Engineer  Retroactive GTC Allocation (Kevin Seagraves, Gitcoin Grants V1)",1920.0,12.0,,gov.gitcoin https://gov.gitcoin.co/t/proposal-retroactive-gtc-allocation-to-lead-engineer-of-gitcoin-grants-v1/9343
+146,A1_dev,Polkassembly Fellowship (Polkassembly),2025.0,12.0,,SubSquare / Google Docdocs.google
+207,A1_dev,[Retroactive] SubWallet Development Aug 2024Mar 2025  Ref #1745,52.0,10.4,,https://polkadot.subsquare.io/referenda/1745 polkadot.subsquare
+75,A1_dev,JUST Retroactive Compensation 3.0  Otar (30 h/wk  ~52 wks),1560.0,9.75,,https://polkadot.subsquare.io/treasury/spends/198 polkadot.subsquare
+152,A1_dev,JUST Retroactive 3.0 (JUST Ventures),1300.0,8.55,,SubSquarepolkadot.subsquare
+60,A1_dev,Subsquare  Referendum Detail Page Enhancement (retroactive feature),1200.0,7.89,,
+157,A1_dev,Remarker,1100.0,7.24,,Remarkers/Remarkers-market
+74,A1_dev,JUST Retroactive Compensation 3.0  Raul (20 h/wk  ~52 wks),1040.0,6.5,,https://polkadot.subsquare.io/treasury/spends/198 polkadot.subsquare
+71,A1_dev,Integritee AG  Private Transfers (Incognitee Sidechain) Retroactive,926.0,6.09,,https://polkadot.subsquare.io/referenda/426 polkadot.subsquare
+102,A1_dev,Just Ventures  Retroactive JUST 2.0 (Ref Treasury Spend #119),640.0,4.0,,https://polkadot.subsquare.io/treasury/spends/119
+148,A1_dev,"Flez Retroactive (Flez, PM/Designer)",498.0,3.28,,SubSquare
+158,A1_dev,Kheopswap,480.0,3.16,,kheopswap/kheopswap
+144,A1_dev,Polkadot Cloud Website & Branding (Flez),498.0,3.11,,Ref #1706polkadot.subsquare
+154,A1_dev,Subscan Q4 2024 (Subscan),466.0,3.07,,PolkAssemblypolkadot.polkassembly
+72,A1_dev,Polkassembly Retroactive Q3+Q4 2024 Feature Dev,466.0,2.91,,https://polkadot.polkassembly.io/referenda/1366 polkadot.polkassembly
+159,A1_dev,ink! analyzer,424.0,2.79,,ink-analyzer/ink-analyzer
+27,A1_dev,Kusama Ref 83  Report (2023-07-18),428.0,2.68,,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/referendum-83-report-20230718.md
+24,A1_dev,Kusama Prop 164  Report (2022-09-12),346.0,2.16,,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-164-report-20220912.md
+26,A1_dev,Kusama Prop 214  Report (2023-01-10),326.0,2.04,,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-214-report-20230110.md
+97,A1_dev,"PolkaGate MetaMask Snap  Retroactive (Oct 2024Jan 2025, Ref #1489)",320.0,2.0,,https://polkadot.subsquare.io/referenda/1489
+23,A1_dev,Kusama Prop 57  Report 2 (2021-02-16),250.0,1.56,,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-57-report-20210216.md
+36,A1_dev,JAM Knowledge Base Search Engine (FluffyLabs)  Retroactive Polkadot Treasury Proposal,250.0,1.56,,polkadot.subsquare https://polkadot.subsquare.io/polkassembly/posts/3296
+141,A1_dev,JAM Knowledge Base Search Engine (FluffyLabs),250.0,1.56,,Polkassembly #3296 / Ref #1724polkadot.subsquare
+25,A1_dev,Kusama Prop 173  Report (2022-09-12),240.0,1.5,,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-173-report-20220912.md
+84,A1_dev,Polkadot SDK Assets Contributions  Retroactive Tip (Ref #1657),196.0,1.225,,polkadot.subsquare https://polkadot.subsquare.io/referenda/1657
+100,A1_dev,Subsquare Treasury Spend #198  Development Retroactive,160.0,1.0,,https://polkadot.subsquare.io/treasury/spends/198
+147,A1_dev,Gitorial VS Code Extension (Andrzej Sulkowski),83.0,1.0,,SubSquare
+150,A1_dev,DotCode School PoC,144.0,1.0,,SubSquarepolkadot.subsquare
+151,A1_dev,JAM GrayPaper Reader (FluffyLabs),210.0,1.0,,SubSquare / Google Doc
+153,A1_dev,Statescan Maintenance (OpenSquare),800.0,1.0,,SubSquarepolkadot.subsquare
+156,A1_dev,dotreasury,20.0,0.95,,opensquare-network/dotreasury
+160,A1_dev,Dot Code School,144.0,0.95,,iammasterbrucewayne/dotcodeschool
+67,A1_dev,Dot Code School PoC  Retroactive Development,144.0,0.9,,https://polkadot.subsquare.io/treasury/proposals/563 polkadot.subsquare
+22,A1_dev,Kusama Prop 57  Report 1 (2021-01-11),139.0,0.87,,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-57-report-20210111.md
+145,A1_dev,PVM Debugger (FluffyLabs),160.0,0.7,,SubSquarepolkadot.subsquare
+143,A1_dev,Gitorial VS Code Extension (Interactive Git Tutorials),83.0,0.52,,Ref #1583 / Treasury #1023polkadot.subsquare
+39,A1_dev,"Polkadot Treasury Spending Report (Retroactive analytics work, Alice und Bob)",40.0,0.25,,polkadot.polkassembly https://polkadot.polkassembly.io/referenda/459
+142,A1_dev,RFCs Referenda Bot (Matrix Bot for Fellowship),32.0,0.2,,Ref #504 / Polkassemblypolkadot.polkassembly
+104,A2_maintenance_periodic,Polkascan Social Contract  Polkadot Q4 2020 (Retroactive),414.0,2.588,,https://raw.githubusercontent.com/polkascan/social-contract/master/
+13,A2_maintenance_periodic,Polkascan DOT Prop 008  Q4 2021,382.0,2.39,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2021Q4.md
+42,A2_maintenance_periodic,Polkascan  Polkadot/Kusama Explorer UI Improvements (Treasury Proposal),100.0,2.25,,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-038.md
+123,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q2Q3 2023),327.0,2.04,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q2-Q3.md
+128,A2_maintenance_periodic,Kusama TP #173  Polkascan Explorer API (PolkADAPT + Explorer),296.0,1.85,,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-173-report-20220912.md
+201,A2_maintenance_periodic,Polkascan PolkADAPT  Kusama TP-57 Progress Report 2,289.0,1.81,,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-57-report-20210216.md raw.githubusercontent
+125,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q1 2024),285.0,1.78,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2024Q1.md
+45,A2_maintenance_periodic,Polkascan Python API  Q2 2022 Maintenance,100.0,1.69,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q2.md
+121,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q4 2022),212.0,1.33,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q4.md
+117,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q4 2021),203.0,1.27,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2021Q4.md
+18,A2_maintenance_periodic,Polkascan DOT Prop 008  Q1 2023,202.0,1.26,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2023Q1.md
+47,A2_maintenance_periodic,Polkascan Python API  Q2 & Q3 2023 combined report,198.0,1.24,,polkadot.polkassembly https://polkadot.polkassembly.io/referenda/167
+118,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q1 2022),189.0,1.18,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q1.md
+119,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q2 2022),179.0,1.12,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q2.md
+17,A2_maintenance_periodic,Polkascan DOT Prop 008  Q4 2022,174.0,1.09,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q4.md
+19,A2_maintenance_periodic,Polkascan DOT Prop 008  Q2Q3 2023,164.0,1.03,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2023Q2-Q3.md
+10,A2_maintenance_periodic,Polkascan DOT Prop 008  Jul 2021,162.0,1.01,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202107.md
+113,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Jun 2021),162.0,1.01,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202106.md
+46,A2_maintenance_periodic,Polkascan Python API  Q3 2022,150.0,0.94,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q3.md
+114,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Jul 2021),144.0,0.9,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202107.md
+1,A2_maintenance_periodic,Polkascan DOT Prop 008  Oct 2020,142.0,0.89,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202010.md
+120,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q3 2022),142.0,0.89,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q3.md
+6,A2_maintenance_periodic,Polkascan DOT Prop 008  Mar 2021,140.0,0.88,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202103.md
+9,A2_maintenance_periodic,Polkascan DOT Prop 008  Jun 2021,141.0,0.88,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202106.md
+4,A2_maintenance_periodic,Polkascan DOT Prop 008  Jan 2021,139.0,0.87,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202101.md
+12,A2_maintenance_periodic,Polkascan DOT Prop 008  Sep 2021,139.0,0.87,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202109.md
+3,A2_maintenance_periodic,Polkascan DOT Prop 008  Dec 2020,138.0,0.86,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202012.md
+2,A2_maintenance_periodic,Polkascan DOT Prop 008  Nov 2020,136.0,0.85,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202011.md
+11,A2_maintenance_periodic,Polkascan DOT Prop 008  Aug 2021,136.0,0.85,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202108.md
+44,A2_maintenance_periodic,Polkascan  Polkadot/Kusama Python Library December 2020 Report,136.0,0.85,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202012.md
+116,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Sep 2021),134.0,0.84,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202109.md
+8,A2_maintenance_periodic,Polkascan DOT Prop 008  May 2021,132.0,0.83,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202105.md
+5,A2_maintenance_periodic,Polkascan DOT Prop 008  Feb 2021,130.0,0.81,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202102.md
+7,A2_maintenance_periodic,Polkascan DOT Prop 008  Apr 2021,128.0,0.8,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-202104.md
+20,A2_maintenance_periodic,Polkascan DOT Prop 008  Q4 2023,127.0,0.79,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2023Q4.md
+43,A2_maintenance_periodic,Polkascan Python API  Apr 2021 Report (Proposal 38 Month 1),140.0,0.75,,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202104.md
+115,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Aug 2021),114.0,0.71,,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202108.md
+93,A2_maintenance_periodic,Polkascan py-substrate-interface  Q2/Q3 2023,112.0,0.7,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2023Q2-Q3.md
+200,A2_maintenance_periodic,Polkascan PolkADAPT  Kusama TP-57 Progress Report 1,96.0,0.6,,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-57-report-20210111.md raw.githubusercontent
+14,A2_maintenance_periodic,Polkascan DOT Prop 008  Q1 2022,92.0,0.58,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q1.md
+16,A2_maintenance_periodic,Polkascan DOT Prop 008  Q3 2022,91.0,0.57,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q3.md
+135,A2_maintenance_periodic,Stakeworld Q2 2023 Kusama SNA/maint,87.0,0.54,,2023-Q2-kusama-maintenance-innovation.md
+51,A2_maintenance_periodic,Polkascan Python API  February 2022 (peak month within Q1),82.0,0.51,,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q1.md
+21,A2_maintenance_periodic,Polkascan DOT Prop 008  Q1 2024,65.0,0.41,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2024Q1.md
+134,A2_maintenance_periodic,Stakeworld Q2 2023 Polkadot (setup+maint),62.0,0.39,,2023-Q2-polkadot.md
+15,A2_maintenance_periodic,Polkascan DOT Prop 008  Q2 2022,59.0,0.37,,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q2.md
+133,A2_maintenance_periodic,Stakeworld Q3 2023 Kusama (pre-funded),45.0,0.28,,2023-Q3-kusama.md
+132,A2_maintenance_periodic,Stakeworld Q3 2023 Kusama Extra (retroactive),30.0,0.19,,2023-Q3-kusama-2.md
+137,A2_maintenance_periodic,Stakeworld Q1 2023 (Kusama+Polkadot),27.0,0.17,,2023-Q1-maintenance.md
+73,A2_maintenance_periodic,Polkascan Treasury Spending Report (Polkadot Gov launch2023 Q3),16.0,0.11,,https://polkadot.polkassembly.io/referenda/459 polkadot.polkassembly
+136,A2_maintenance_periodic,Stakeworld Q4 2023 / Q1 2024 Kusama,12.0,0.08,,2023-Q4.kusama.md
+56,B_category_component,JAM Search Engine  Backend Development Component,120.0,0.75,,polkadot.subsquare https://polkadot.subsquare.io/polkassembly/posts/3296
+57,B_category_component,JAM Search Engine  Frontend Development Component,80.0,0.5,,polkadot.subsquare https://polkadot.subsquare.io/polkassembly/posts/3296
+52,B_category_component,Polkascan  November 2020 Technical Debt Component only,52.0,0.33,,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md
+54,B_category_component,Polkascan  Nov 2020 Bugs & Maintenance Component,34.0,0.21,,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md
+53,B_category_component,Polkascan  Nov 2020 Community Support Component,30.0,0.19,,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md
+55,B_category_component,Polkascan  Nov 2020 Feature Development Component,20.0,0.13,,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md
+86,C_infra_ops,SQD/Subsquid  Public Data Indexing Infrastructure Q4 2024 (Ref #1730),480.0,3.0,,polkadot.subsquare https://polkadot.subsquare.io/referenda/1730
+101,C_infra_ops,RadiumBlock  RPC Infrastructure Retroactive,480.0,3.0,,https://polkadot.subsquare.io/referenda/544
+99,C_infra_ops,Subsquare Referendum #1688  Retroactive Infra Work,240.0,1.5,,https://polkadot.subsquare.io/referenda/1688
+38,C_infra_ops,Stakeworld  Polkadot RPC & Bootnode Infrastructure Setup & Maintenance,17.0,0.78,,github https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-polkadot.md
+190,C_infra_ops,Stakeworld RPC+Snapshot+Bootnode infra,87.0,0.57,,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-kusama-maintenance-innovation.md
+188,C_infra_ops,Stakeworld RPC+Bootnode infra,62.0,0.41,,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-polkadot.md
+50,C_infra_ops,Stakeworld  Polkadot Coretime Infrastructure (retroactive child bounty),60.0,0.38,,polkadot.subsquare https://polkadot.subsquare.io/treasury/child-bounties/32_861
+70,C_infra_ops,Stakeworld RPC/Bootnode Infra Q2 2023  Retroactive,53.0,0.33,,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-polkadot.md github
+191,C_infra_ops,Stakeworld RPC+Bootnode infra,45.0,0.3,,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q3-kusama.md
+140,C_infra_ops,Stakeworld Q3 2022 Snapshot setup+maint,38.0,0.24,,Q3-setup-maintenance.md
+76,C_infra_ops,RadiumBlock Khala Snapshot Service Q2Q4 2023 (labour only),30.0,0.19,,https://khala.subsquare.io/treasury/proposals/93 khala.subsquare
+189,C_infra_ops,Stakeworld RPC infra,18.0,0.12,,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q3-polkadot.md
+192,C_infra_ops,Stakeworld snapshot/install service,18.0,0.12,,https://github.com/stakeworld/stakeworld-treasury/blob/master/Q4-maintenance.md
+131,C_infra_ops,Stakeworld Q3 2023 Polkadot RPC (retroactive),18.0,0.11,,2023-Q3-polkadot.md
+139,C_infra_ops,Stakeworld Q4 2022 Snapshot maintenance,18.0,0.11,,Q4-maintenance.md
+58,C_infra_ops,Stakeworld Q2 2023  RPC Node Setup (one-time),12.0,0.075,,github https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-polkadot.md
+138,C_infra_ops,Stakeworld Q4 2022 RPC maintenance,8.0,0.05,,Q4-RPC-setup-maintenance.md
+59,C_infra_ops,Stakeworld Q2 2023  Bootnode Setup & Testing,5.0,0.031,,github https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-polkadot.md
+49,D_non_dev,PolkaBiz  Business Development Retroactive Treasury Request,,3.0,,polkadot.subsquare https://polkadot.subsquare.io/referenda/1686
+83,D_non_dev,"Retroactive Ecosystem Activities  BD, Events, Education (Ref #1352)",450.0,2.813,,polkadot.subsquare https://polkadot.subsquare.io/referenda/1352
+69,A1_dev,Subsquare 12-month Maintenance  Retroactive (dev features only),3760.0,23.5,duplicate,https://polkadot.subsquare.io/referenda/1225 polkadot.subsquare
+82,A1_dev,Subsquare  12-month maintenance & features dev (Ref #1225),3760.0,23.5,duplicate,polkadot.subsquare https://polkadot.subsquare.io/referenda/1225
+41,A1_dev,YieldScan Phase 2  W3F Grant (staking UX on Polkadot/Kusama),10.0,10.0,not_retroactive,tjayrush.medium https://raw.githubusercontent.com/w3f/Grants-Program/master/applications/yieldscan_phase_2.md
+40,A1_dev,ink! Analyzer  W3F Grant (semantic analysis libraries for ink! smart contracts),,9.0,not_retroactive,tjayrush.medium https://raw.githubusercontent.com/w3f/Grants-Program/master/applications/ink-analyzer.md
+85,A1_dev,Subscan  Q3/Q4 2024 Feature Development (Ref #1366),466.0,2.913,duplicate,polkadot.subsquare https://polkadot.subsquare.io/referenda/1366
+205,A1_dev,Subscan Q3/Q4 2024 Funding  Development Cost (Q3 portion)  Ref #1366,466.0,2.91,duplicate,https://polkadot.subsquare.io/referenda/1366 polkadot.subsquare
+130,A1_dev,Kusama Ref #83  Explorer Upgrade + Subsquid Integration,428.0,2.68,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/referendum-83-report-20230718.md
+87,A1_dev,JAM Search Engine  Retroactive Funding (FluffyLabs),250.0,1.563,duplicate,polkadot.subsquare https://polkadot.subsquare.io/polkassembly/posts/3296
+68,A1_dev,JAM Knowledge Base Search Engine  Retroactive,250.0,1.5625,duplicate,https://polkadot.subsquare.io/polkassembly/posts/3296 polkadot.subsquare
+204,A1_dev,Retroactive Tip for Assets-related Contributions to Polkadot SDK  Ref #1657,196.0,1.23,duplicate,https://polkadot.subsquare.io/referenda/1657 polkadot.subsquare
+81,A1_dev,Dot Code School PoC  Retroactive development funding,144.0,0.9,duplicate,polkadot.subsquare https://polkadot.subsquare.io/treasury/proposals/563
+103,A1_dev,Polkadot.subsquare.io Ref #563  Dot Code School,144.0,0.9,duplicate,https://polkadot.subsquare.io/treasury/proposals/563
+126,A1_dev,Kusama TP #57  PolkADAPT + Explorer API maintenance,139.0,0.87,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-57-report-20210111.md
+Row,A1_dev,Project / Report,,,missing,Source
+77,A1_dev,Substrate-ETL Retroactive Funding Q3+Q4 2022Q1+Q2 2023,,,missing,https://polkadot.polkassembly.io/treasury/509 polkadot.polkassembly
+187,A2_maintenance_periodic,Polkascan PolkADAPT+Explorer UI (Subsquid),428.0,2.82,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/referendum-83-report-20230718.md
+203,A2_maintenance_periodic,Polkascan Explorer Upgrade + Subsquid Integration  Kusama Ref #83,428.0,2.68,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/referendum-83-report-20230718.md raw.githubusercontent
+174,A2_maintenance_periodic,Polkascan Substrate Python API,382.0,2.51,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2021Q4.md
+193,A2_maintenance_periodic,Polkascan Python Libraries Maintenance (TP-008)  Q4 2021,382.0,2.39,duplicate,polkadot.subsquare https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2021Q4.md raw.githubusercontent
+94,A2_maintenance_periodic,Polkascan py-substrate-interface  Q4 2021,382.0,2.388,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2021Q4.md
+184,A2_maintenance_periodic,Polkascan PolkADAPT+UI,346.0,2.28,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-164-report-20220912.md
+127,A2_maintenance_periodic,Kusama TP #164  Polkascan Explorer API (PolkADAPT + Explorer),346.0,2.16,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-164-report-20220912.md
+186,A2_maintenance_periodic,Polkascan Explorer,326.0,2.14,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-214-report-20230110.md
+129,A2_maintenance_periodic,Kusama TP #214  Polkascan Explorer Improvements,326.0,2.04,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-214-report-20230110.md
+202,A2_maintenance_periodic,Polkascan Explorer Improvements  Kusama TP-214 Delivery Report,326.0,2.04,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-214-report-20230110.md raw.githubusercontent
+185,A2_maintenance_periodic,Polkascan Explorer,240.0,1.58,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-173-report-20220912.md
+179,A2_maintenance_periodic,Polkascan Substrate Python API,202.0,1.33,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q1.md
+92,A2_maintenance_periodic,Polkascan py-substrate-interface  Q1 2023,202.0,1.263,duplicate,github https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2023Q1.md
+30,A2_maintenance_periodic,Polkascan  Substrate Python API Maintenance & Support,202.0,1.26,duplicate,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q1.md
+122,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q1 2023),202.0,1.26,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q1.md
+198,A2_maintenance_periodic,Polkascan Python Libraries Maintenance (TP-008)  Q1 2023,202.0,1.26,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2023Q1.md raw.githubusercontent
+178,A2_maintenance_periodic,Polkascan Substrate Python API,174.0,1.14,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q4.md
+31,A2_maintenance_periodic,Polkascan  Substrate Python API Maintenance & Support,174.0,1.09,duplicate,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q4.md
+197,A2_maintenance_periodic,Polkascan Python Libraries Maintenance (TP-008)  Q4 2022,174.0,1.09,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q4.md raw.githubusercontent
+80,A2_maintenance_periodic,Polkascan Python Libraries  Q4 2022,174.0,1.088,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q4.md github
+90,A2_maintenance_periodic,Polkascan py-substrate-interface  Q4 2022,174.0,1.088,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q4.md
+180,A2_maintenance_periodic,Polkascan Substrate Python API,164.0,1.08,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q2-Q3.md
+171,A2_maintenance_periodic,Polkascan Substrate Python API,162.0,1.07,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202107.md
+199,A2_maintenance_periodic,Polkascan Python Libraries Maintenance (TP-008)  Q2Q3 2023,164.0,1.03,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2023Q2-Q3.md raw.githubusercontent
+64,A2_maintenance_periodic,Polkascan Python Libraries Maintenance (Q2 2023 + Q3 2023),164.0,1.025,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q2-Q3.md polkadot.polkassembly
+162,A2_maintenance_periodic,Polkascan Substrate Python API,142.0,0.93,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202010.md
+170,A2_maintenance_periodic,Polkascan Substrate Python API,141.0,0.93,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202106.md
+167,A2_maintenance_periodic,Polkascan Substrate Python API,140.0,0.92,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202103.md
+164,A2_maintenance_periodic,Polkascan Substrate Python API,138.0,0.91,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202012.md
+165,A2_maintenance_periodic,Polkascan Substrate Python API,139.0,0.91,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202101.md
+173,A2_maintenance_periodic,Polkascan Substrate Python API,139.0,0.91,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202109.md
+183,A2_maintenance_periodic,Polkascan PolkADAPT+Explorer,139.0,0.91,duplicate,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-57-report-20210111.md
+34,A2_maintenance_periodic,Polkascan  Substrate Python API Maintenance & Support,142.0,0.89,duplicate,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202010.md
+61,A2_maintenance_periodic,Polkascan Python Libraries Maintenance,142.0,0.89,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202010.md github
+105,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Oct 2020),142.0,0.89,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202010.md
+163,A2_maintenance_periodic,Polkascan Substrate Python API,136.0,0.89,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md
+172,A2_maintenance_periodic,Polkascan Substrate Python API,136.0,0.89,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202108.md
+110,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Mar 2021),140.0,0.88,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202103.md
+108,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Jan 2021),139.0,0.87,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202101.md
+169,A2_maintenance_periodic,Polkascan Substrate Python API,132.0,0.87,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202105.md
+98,A2_maintenance_periodic,Kusama Proposal #57  Polkascan Explorer Q4 2020,139.0,0.869,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/kusama/treasury-proposal-57-report-20210111.md
+107,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Dec 2020),138.0,0.86,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202012.md
+166,A2_maintenance_periodic,Polkascan Substrate Python API,130.0,0.86,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202102.md
+33,A2_maintenance_periodic,Polkascan  Substrate Python API Maintenance & Support,136.0,0.85,duplicate,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md
+62,A2_maintenance_periodic,Polkascan Python Libraries Maintenance,136.0,0.85,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md github
+63,A2_maintenance_periodic,Polkascan Python Libraries Maintenance,136.0,0.85,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202108.md github
+106,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Nov 2020),136.0,0.85,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md
+168,A2_maintenance_periodic,Polkascan Substrate Python API,128.0,0.84,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202104.md
+181,A2_maintenance_periodic,Polkascan Substrate Python API,127.0,0.84,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q4.md
+112,A2_maintenance_periodic,Polkascan TP #8  Python Libs (May 2021),132.0,0.83,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202105.md
+109,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Feb 2021),130.0,0.81,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202102.md
+111,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Apr 2021),128.0,0.8,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202104.md
+65,A2_maintenance_periodic,Polkascan Python Libraries Maintenance Q4 2023,127.0,0.794,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q4.md github
+29,A2_maintenance_periodic,Polkascan  Substrate Python API Maintenance & Support,127.0,0.79,duplicate,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q4.md
+124,A2_maintenance_periodic,Polkascan TP #8  Python Libs (Q4 2023),127.0,0.79,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q4.md
+175,A2_maintenance_periodic,Polkascan Substrate Python API,92.0,0.61,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q1.md
+177,A2_maintenance_periodic,Polkascan Substrate Python API,91.0,0.6,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q3.md
+32,A2_maintenance_periodic,Polkascan  Substrate Python API Maintenance & Support,92.0,0.58,duplicate,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q1.md
+194,A2_maintenance_periodic,Polkascan Python Libraries Maintenance (TP-008)  Q1 2022,92.0,0.58,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q1.md raw.githubusercontent
+91,A2_maintenance_periodic,Polkascan py-substrate-interface  Q1 2022,92.0,0.575,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q1.md
+196,A2_maintenance_periodic,Polkascan Python Libraries Maintenance (TP-008)  Q3 2022,91.0,0.57,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q3.md raw.githubusercontent
+79,A2_maintenance_periodic,Polkascan Python Libraries  Q3 2022,91.0,0.569,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q3.md
+89,A2_maintenance_periodic,Polkascan py-substrate-interface  Q3 2022,91.0,0.569,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q3.md
+182,A2_maintenance_periodic,Polkascan Substrate Python API,65.0,0.43,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2024Q1.md
+28,A2_maintenance_periodic,Polkascan  Substrate Python API Maintenance & Support,65.0,0.41,duplicate,github https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2024Q1.md
+66,A2_maintenance_periodic,Polkascan Python Libraries Maintenance Q1 2024,65.0,0.406,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2024Q1.md github
+95,A2_maintenance_periodic,Polkascan py-substrate-interface  Q1 2024,65.0,0.406,duplicate,github https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2024Q1.md
+176,A2_maintenance_periodic,Polkascan Substrate Python API,59.0,0.39,duplicate,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q2.md
+195,A2_maintenance_periodic,Polkascan Python Libraries Maintenance (TP-008)  Q2 2022,59.0,0.37,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q2.md raw.githubusercontent
+88,A2_maintenance_periodic,Polkascan py-substrate-interface  Q2 2022,59.0,0.369,duplicate,https://raw.githubusercontent.com/polkascan/social-contract/master/polkadot/treasury-proposal-008-report-2022Q2.md
+206,D_non_dev,Retroactive Funding for Ecosystem Activities (W1ZSPR3)  Ref #1352,450.0,2.81,duplicate,https://polkadot.subsquare.io/referenda/1352 polkadot.subsquare

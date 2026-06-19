@@ -47,6 +47,7 @@ FINGERPRINTS = [
     '"hours" "EUR/hour" treasury proposal',
     '"person-months" delivered grant substrate',
 ]
+REPO_OK = re.compile(r"polkadot|kusama|substrate|web3|treasury|grant|\bink\b|dotsama|parachain|stakeworld|polkascan", re.I)
 def gh_repos():
     repos = set()
     for q in FINGERPRINTS:
@@ -54,7 +55,9 @@ def gh_repos():
             r = subprocess.run(["gh","search","code",q,"-L","60","--json","repository"],
                                capture_output=True, text=True, timeout=60)
             for it in json.loads(r.stdout or "[]"):
-                repos.add(it["repository"]["nameWithOwner"])
+                nm = it["repository"]["nameWithOwner"]
+                if REPO_OK.search(nm):              # drop unrelated student/personal projects
+                    repos.add(nm)
         except Exception as e:
             print("  gh search failed:", q, e)
         time.sleep(2)
@@ -92,32 +95,44 @@ def fetch_json(url):
     with urllib.request.urlopen(req, timeout=40) as r:
         return json.loads(r.read().decode("utf-8","ignore"))
 
+DETAIL = {
+  "polkadot-treasury":"https://polkadot-api.subsquare.io/treasury/proposals/%s",
+  "kusama-treasury":"https://kusama-api.subsquare.io/treasury/proposals/%s",
+  "polkadot-ref":"https://polkadot-api.subsquare.io/gov2/referendums/%s",
+  "kusama-ref":"https://kusama-api.subsquare.io/gov2/referendums/%s",
+}
 def harvest_subsquare(rows):
     for net, tmpl in APIS.items():
-        for page in range(1, 13):   # ~600 items per stream
+        pages = 40 if net.endswith("ref") else 16    # cover ~2000 referenda / ~800 treasury proposals
+        for page in range(1, pages+1):
             try: j = fetch_json(tmpl % page)
             except Exception as e:
                 print("  api fail", net, page, e); break
             items = j.get("items", j if isinstance(j,list) else [])
             if not items: break
             for it in items:
-                content = (it.get("content") or "")
-                title = (it.get("title") or "")[:80]
-                blob = title + "\n" + content
-                if not RETRO.search(blob):   # CLEAN constraint: retroactive only
+                title = (it.get("title") or "")
+                listcontent = (it.get("content") or "")
+                if not RETRO.search(title + "\n" + listcontent):   # CLEAN: retroactive only
                     continue
+                idx = it.get("referendumIndex", it.get("proposalIndex", it.get("_id","")))
+                # detail-fetch FULL content (list endpoint truncates the hour tables)
+                content = listcontent
+                try:
+                    dj = fetch_json(DETAIL[net] % idx); content = dj.get("content") or listcontent
+                except Exception: pass
+                time.sleep(0.3)
                 hv = all_hours(content); pv = pm_vals(content)
                 if not hv and not pv: continue
                 tot = sum(hv) if hv else (pv[0]*152 if pv else 0)
-                idx = it.get("referendumIndex", it.get("proposalIndex", it.get("_id","")))
                 base = "https://%s.subsquare.io" % net.split("-")[0]
                 path = ("/referenda/%s" % idx) if "ref" in net else ("/treasury/proposals/%s" % idx)
-                rows.append(dict(vein=net, source="subsquare", title=title,
+                rows.append(dict(vein=net, source="subsquare", title=title[:80],
                                  proposer=(it.get("proposer") or "")[:24], retroactive="Y",
-                                 completed=("Y" if DONE.search(blob) else ""),
+                                 completed=("Y" if DONE.search(title+content) else ""),
                                  hours=(int(tot) if hv else ""), pm_152=(round(tot/152.0,2) if tot else ""),
-                                 url=base+path, snippet=(("hours="+",".join(map(str,map(int,hv[:6])))) if hv else ("pm="+str(pv[:3])))[:90]))
-            time.sleep(1)
+                                 url=base+path, snippet=(("hours="+",".join(map(str,map(int,hv[:8])))) if hv else ("pm="+str(pv[:3])))[:90]))
+            time.sleep(0.3)
 
 def main():
     rows=[]

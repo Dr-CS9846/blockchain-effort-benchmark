@@ -37,3 +37,8 @@ SW2,Stakeworld RPC infra,Stakeworld.io,Polkadot,2023-Q3,INFRA-OPS,"18 h (3mo x 6
 SW3,Stakeworld RPC+Snapshot+Bootnode infra,Stakeworld.io,Kusama,2023-Q2,INFRA-OPS,"87 h (setup20 + maint36 + snap12 + boot setup10 + boot maint9)",87,0.57,Y,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-kusama-maintenance-innovation.md,Y,FLAG: infra/ops
 SW4,Stakeworld RPC+Bootnode infra,Stakeworld.io,Kusama,2023-Q3,INFRA-OPS,"45 h (maint36 + bootnode maint9)",45,0.30,Y,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q3-kusama.md,Y,FLAG: infra/ops
 SW5,Stakeworld snapshot/install service,Stakeworld.io,Kusama,2022-Q4,INFRA-OPS,"18 h (maint12 + updates6)",18,0.12,Y,https://github.com/stakeworld/stakeworld-treasury/blob/master/Q4-maintenance.md,Y,FLAG: infra/ops
+SQ1,Ideal Network (substrate network),Ideal Labs,Polkadot,2024,dev,"4380 h itemised (1680+2020+340+120+140+30)",4380,28.82,Y,https://polkadot.subsquare.io/referenda/1798,Y,Retroactive treasury; harvested+itemised; confirm-pending full detail
+SQ2,DotBot,DotBot team,Polkadot,2024,dev,"1032 h (672+120+120+120)",1032,6.79,Y,https://polkadot.subsquare.io/referenda/1848,Y,harvested; confirm-pending
+SQ3,DotBot... Gitorial VS Code Extension,Gitorial,Polkadot,2024,dev,"83 h",83,0.55,Y,https://polkadot.subsquare.io/treasury/proposals/1583,Y,Retroactive dev tool; harvested
+SQ4,Referendum Alert (Telegram OpenGov bot),Referendum Alert,Kusama,2024,dev,"94 h (30+10+8+46)",94,0.62,Y,https://kusama.subsquare.io/referenda/602,Y,harvested
+SQ5,Kitdot Development (Retroactive),Kitdot,Polkadot,2024,dev,"20 h",20,0.13,Y,https://polkadot.subsquare.io/referenda/1805,Y,Retroactive dev; small

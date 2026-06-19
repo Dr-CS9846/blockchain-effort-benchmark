@@ -1,0 +1,37 @@
+name: verify-report-totals
+
+# Recompute canonical total effort of every Polkascan + Stakeworld report from raw source.
+# Publishes data/calibration/report_totals_verified.csv to the 'census' branch.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Recompute report totals from source
+        run: |
+          python scripts/extract/verify_report_totals.py
+          echo "=== csv ==="; cat data/calibration/report_totals_verified.csv || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "verify-totals-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/report_totals_verified.csv /tmp/rtv.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/rtv.csv data/calibration/report_totals_verified.csv
+          git add data/calibration/report_totals_verified.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: recompute Polkascan+Stakeworld report totals from source [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
