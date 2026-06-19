@@ -1,0 +1,23 @@
+vein,source,title,proposer,retroactive,completed,hours,pm_152,url,snippet
+repo,2024ht66019/ACEest_Fitness,GITHUB-JENKINS-WEBHOOK.md,,,Y,2,0.01,https://github.com/2024ht66019/ACEest_Fitness/blob/master/GITHUB-JENKINS-WEBHOOK.md,"hours=1,1"
+repo,2024ht66019/ACEest_Fitness,JENKINS-PIPELINE.md,,,,6,0.04,https://github.com/2024ht66019/ACEest_Fitness/blob/master/JENKINS-PIPELINE.md,hours=6
+repo,Ashvin-KS/intent-flow,technical-specification.md,,,Y,77,0.51,https://github.com/Ashvin-KS/intent-flow/blob/master/technical-specification.md,"hours=64,2,4,1,1,1"
+repo,GiovanniAmadei/SnapTask,CLOUDKIT_SYNC_README.md,,,Y,24,0.16,https://github.com/GiovanniAmadei/SnapTask/blob/master/CLOUDKIT_SYNC_README.md,hours=24
+repo,GiovanniAmadei/SnapTask,TermsOfService.fr.md,,,,48,0.32,https://github.com/GiovanniAmadei/SnapTask/blob/master/TermsOfService.fr.md,"hours=24,24"
+repo,GiovanniAmadei/SnapTask,TermsOfService.es.md,,,,48,0.32,https://github.com/GiovanniAmadei/SnapTask/blob/master/TermsOfService.es.md,"hours=24,24"
+repo,GiovanniAmadei/SnapTask,SECURITY.md,,,,24,0.16,https://github.com/GiovanniAmadei/SnapTask/blob/master/SECURITY.md,hours=24
+repo,Saarathi-n/combined,technical-specification.md,,,Y,77,0.51,https://github.com/Saarathi-n/combined/blob/master/technical-specification.md,"hours=64,2,4,1,1,1"
+repo,abdelrahmanthelion142-a11y/DayTracker,API_DOCUMENTATION.md,,,Y,29,0.19,https://github.com/abdelrahmanthelion142-a11y/DayTracker/blob/master/API_DOCUMENTATION.md,"hours=2,2,2,2,2,2"
+repo,abdelrahmanthelion142-a11y/DayTracker,STITCH_PROMPT.md,,,Y,88,0.58,https://github.com/abdelrahmanthelion142-a11y/DayTracker/blob/master/STITCH_PROMPT.md,"hours=30,2,45,1,4,3"
+repo,abdelrahmanthelion142-a11y/DayTracker,commands.md,,,Y,4,0.03,https://github.com/abdelrahmanthelion142-a11y/DayTracker/blob/master/commands.md,"hours=2,2"
+repo,dushyanth-mcrps/End_Term_3,Read.md,,,Y,48,0.32,https://github.com/dushyanth-mcrps/End_Term_3/blob/master/Read.md,hours=48
+polkadot-treasury,subsquare,[Retroactive] Funding for Gitorial VS Code Extension (Interactive Git Tutorials),16iXE5kqstx7dXnYzCPUvFVV,Y,,83,0.55,https://polkadot.subsquare.io/treasury/proposals/1583,hours=83
+polkadot-treasury,subsquare,EasyA x Polkadot - Developer Growth via In-Person Hackathons and Crash Courses (,14M94kYk31k2hY8MpnfNPRvi,Y,Y,930,6.12,https://polkadot.subsquare.io/treasury/proposals/1135,hours=930
+polkadot-ref,subsquare,DeServe.network Global Paseo Archive RPC Deployment - Proposal #1,15fTH34bbKGMUjF1bLmTqxPY,Y,Y,96,0.63,https://polkadot.subsquare.io/referenda/1880,"hours=24,24,24,24"
+polkadot-ref,subsquare,DeServe.network Global Polkadot Archive RPC Deployment - Proposal #1,15fTH34bbKGMUjF1bLmTqxPY,Y,Y,96,0.63,https://polkadot.subsquare.io/referenda/1879,"hours=24,24,24,24"
+polkadot-ref,subsquare,DotBot,14Mh7BCdScxZMLYhAmX5dheP,Y,Y,1032,6.79,https://polkadot.subsquare.io/referenda/1848,"hours=672,120,120,120"
+polkadot-ref,subsquare,Kitdot Development Funding (Retroactive),1WnzAGy4czRWseZxJmHG6sgf,Y,Y,20,0.13,https://polkadot.subsquare.io/referenda/1805,hours=20
+polkadot-ref,subsquare,Retroactive Treasury Proposal: Ideal Network,1LX9m9Ee8u653hU1sxvvRNpV,Y,Y,4380,28.82,https://polkadot.subsquare.io/referenda/1798,"hours=1680,2020,340,120,140,30"
+kusama-ref,subsquare,DeServe.network Global Kusama Archive RPC Deployment - Proposal #1,Cb3ZF5tmeTEDR44MRLAPH3ag,Y,Y,96,0.63,https://kusama.subsquare.io/referenda/646,"hours=24,24,24,24"
+kusama-ref,subsquare,[Medium Spender] Referendum #617,D67W9MmqCjspzTVmNXL1uQXx,Y,Y,20,0.13,https://kusama.subsquare.io/referenda/617,hours=20
+kusama-ref,subsquare,Referendum Alert: Real-Time OpenGov Vote Notifications on Telegram,HnFho2ZxgQqJ2zCkxKzZ7nkR,Y,Y,94,0.62,https://kusama.subsquare.io/referenda/602,"hours=30,10,8,46"
