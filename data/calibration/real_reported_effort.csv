@@ -1,0 +1,39 @@
+id,project,team,ecosystem,period,type,actual_effort_reported,hours,PM_152,retroactive,source_url,verified,notes
+G1,Subsquare (gov app),OpenSquare,Polkadot,2024,dev,"3760 dev-hrs itemised",3760,24.7,Y,https://polkadot.subsquare.io/referenda/relevant,Y,already in our gold set
+G2,dotreasury,OpenSquare,Kusama,2021,dev,"~20 dev-days",,0.95,Y,opensquare-network/dotreasury,Y,gold
+G3,Remarker,Remarkers,Polkadot,2024,dev,"1100 work-hrs",1100,7.24,Y,Remarkers/Remarkers-market,Y,gold
+G4,Kheopswap,kheopswap,Polkadot,2024,dev,"480 dev-hrs",480,3.16,Y,kheopswap/kheopswap,Y,gold
+G5,ink! analyzer,David Semakula,Polkadot,2024,dev,"424 dev-hrs itemised",424,2.79,Y,ink-analyzer/ink-analyzer,Y,gold
+G6,Dot Code School,iammasterbrucewayne,Polkadot,2023,dev,"144 dev-hrs",144,0.95,Y,iammasterbrucewayne/dotcodeschool,Y,gold
+TB,TrueBlocks v1.0.0 (Go port),Thomas Jay Rush,Ethereum,Aug2022-Aug2023,dev,"2 FTE x 12 mo (derived, not itemised)",,24.0,Y,https://tjayrush.medium.com/trueblocks-final-report-for-ef-grant-d784653c830d,Y,EF grant FY22-0772 final report; effort DERIVED from team size+duration
+PK01,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2020-10,maintenance,"142 h (Tech10+Comm46+Bugs49+Feat37)",142,0.93,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202010.md,Y,verified exact
+PK02,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2020-11,maintenance,"136 h",136,0.89,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202011.md,Y,
+PK03,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2020-12,maintenance,"138 h",138,0.91,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202012.md,Y,
+PK04,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-01,maintenance,"139 h",139,0.91,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202101.md,Y,
+PK05,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-02,maintenance,"130 h",130,0.86,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202102.md,Y,
+PK06,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-03,maintenance,"140 h",140,0.92,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202103.md,Y,
+PK07,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-04,maintenance,"128 h",128,0.84,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202104.md,Y,
+PK08,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-05,maintenance,"132 h",132,0.87,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202105.md,Y,verified exact
+PK09,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-06,maintenance,"141 h",141,0.93,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202106.md,Y,
+PK10,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-07,maintenance,"162 h",162,1.07,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202107.md,Y,
+PK11,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-08,maintenance,"136 h",136,0.89,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202108.md,Y,
+PK12,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-09,maintenance,"139 h",139,0.91,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-202109.md,Y,
+PK13,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2021-Q4,maintenance,"382 h",382,2.51,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2021Q4.md,Y,
+PK14,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2022-Q1,maintenance,"92 h",92,0.61,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q1.md,Y,
+PK15,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2022-Q2,maintenance,"59 h",59,0.39,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q2.md,Y,
+PK16,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2022-Q3,maintenance,"91 h",91,0.60,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q3.md,Y,
+PK17,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2022-Q4,maintenance,"174 h",174,1.14,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2022Q4.md,Y,
+PK18,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2023-Q1,maintenance,"202 h",202,1.33,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q1.md,Y,
+PK19,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2023-Q2Q3,maintenance,"164 h",164,1.08,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q2-Q3.md,Y,
+PK20,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2023-Q4,maintenance,"127 h",127,0.84,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2023Q4.md,Y,
+PK21,Polkascan Substrate Python API,Polkascan Foundation,Polkadot,2024-Q1,maintenance,"65 h",65,0.43,Y,https://github.com/polkascan/social-contract/blob/master/polkadot/treasury-proposal-008-report-2024Q1.md,Y,
+PK22,Polkascan PolkADAPT+Explorer,Polkascan Foundation,Kusama,2021-01,dev,"139 h (PolkADAPT 96 + ExplorerAPI 43)",139,0.91,Y,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-57-report-20210111.md,Y,Kusama prop 57 report 1
+PK23,Polkascan PolkADAPT+UI,Polkascan Foundation,Kusama,2022-09,dev,"346 h",346,2.28,Y,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-164-report-20220912.md,Y,Kusama prop 164
+PK24,Polkascan Explorer,Polkascan Foundation,Kusama,2022-09,dev,"240 h",240,1.58,Y,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-173-report-20220912.md,Y,Kusama prop 173
+PK25,Polkascan Explorer,Polkascan Foundation,Kusama,2023-01,dev,"326 h",326,2.14,Y,https://github.com/polkascan/social-contract/blob/master/kusama/treasury-proposal-214-report-20230110.md,Y,Kusama prop 214
+PK26,Polkascan PolkADAPT+Explorer UI (Subsquid),Polkascan Foundation,Kusama,2023-07,dev,"428 h (PolkADAPT 264 + Explorer UI 164)",428,2.82,Y,https://github.com/polkascan/social-contract/blob/master/kusama/referendum-83-report-20230718.md,Y,verified exact; commit-linked
+SW1,Stakeworld RPC+Bootnode infra,Stakeworld.io,Polkadot,2023-Q2,INFRA-OPS,"62 h (setup12 + maint36 + bootnode5 + maint9)",62,0.41,Y,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-polkadot.md,Y,FLAG: infra/ops maintenance not software dev
+SW2,Stakeworld RPC infra,Stakeworld.io,Polkadot,2023-Q3,INFRA-OPS,"18 h (3mo x 6h maint)",18,0.12,Y,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q3-polkadot.md,Y,FLAG: infra/ops
+SW3,Stakeworld RPC+Snapshot+Bootnode infra,Stakeworld.io,Kusama,2023-Q2,INFRA-OPS,"87 h (setup20 + maint36 + snap12 + boot setup10 + boot maint9)",87,0.57,Y,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q2-kusama-maintenance-innovation.md,Y,FLAG: infra/ops
+SW4,Stakeworld RPC+Bootnode infra,Stakeworld.io,Kusama,2023-Q3,INFRA-OPS,"45 h (maint36 + bootnode maint9)",45,0.30,Y,https://github.com/stakeworld/stakeworld-treasury/blob/master/2023-Q3-kusama.md,Y,FLAG: infra/ops
+SW5,Stakeworld snapshot/install service,Stakeworld.io,Kusama,2022-Q4,INFRA-OPS,"18 h (maint12 + updates6)",18,0.12,Y,https://github.com/stakeworld/stakeworld-treasury/blob/master/Q4-maintenance.md,Y,FLAG: infra/ops

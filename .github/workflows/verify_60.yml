@@ -1,0 +1,37 @@
+name: verify-60
+
+# Deep verification of the friend-supplied 60-point candidate list.
+# Publishes data/calibration/verify_60.csv to the 'census' branch.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Verify 60 candidates against their source repos
+        run: |
+          python scripts/validate/verify_60.py
+          echo "=== full csv ==="; cat data/calibration/verify_60.csv || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "verify-60-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/verify_60.csv /tmp/verify_60.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/verify_60.csv data/calibration/verify_60.csv
+          git add data/calibration/verify_60.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: verify 60-point candidate list against source repos [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi

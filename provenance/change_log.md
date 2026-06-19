@@ -1426,3 +1426,30 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   equiv_ksloc, default `raw` on whole-repo cloc — so we can compare both fits + gold-6 head-to-head.
 - NEXT: push → dispatch measure-equiv → read pilot_equiv_sloc.csv → `python scripts/validate/calibrate_AE.py equiv`
   → compare A,E,R²,PRED30 vs raw (expect materially better fit if reuse/HEAD-growth was the culprit).
+
+## 2026-06-17 — reuse-adjusted re-fit: size measure improved, planned-effort is now the ceiling
+- measure-equiv ran (97 repos, grant-burst code additions, import-capped). Re-fit calibrate_AE.py equiv vs raw:
+  RAW : A=2.78 [1.92,4.11]  E=0.17 [0.05,0.28]  R²=0.083  Pearson=0.29  PRED30=24%  gold-A=1.80
+  EQUIV: A=2.17 [1.47,3.28]  E=0.31 [0.15,0.46]  R²=0.193  Pearson=0.44  PRED30=27% (E:=1 12%→30%)  gold-A=1.22
+- Reuse adjustment >2x'd explanatory power (R² 0.08→0.19), E rose 0.17→0.31 → size measure WAS part of the problem
+  (whole-repo/HEAD overcount of forks+post-grant growth). dotreasury/IPFS/Signet/Jot etc. corrected toward funded slice.
+- CEILING is now the EFFORT side: even with clean grant size, R²=0.19. Top residuals are planned-FTE artefacts —
+  #90 RainbowDAO (0.5 KSLOC burst vs 8-FTE/14.7-PM claim, under x8.4), #71 staking-miner (56 KSLOC vs 0.9-mo grant,
+  over x8.1). Gold-6 actual-hours A≈1.2 sits 44% below planned-set A → planned FTE overstates actual effort.
+- HONEST RESULT: PM ≈ 2.17·KSLOC^0.31 (n=97, reuse-adjusted) but WEAK (R²=0.19) — size loosely predicts PLANNED
+  effort; gold-actual A≈1.2. Not a strong estimator; the finding (reuse adj matters; planned effort noisy) is the contribution.
+- FORK for next: (a) multivariable COCOMO II drivers (22-driver synthesizer already built) to absorb variance, OR
+  (b) treat gold actual-hours as the real target + grow them. Pick deliberately, not chase n. Artefacts:
+  pilot_equiv_sloc.csv, calibrate_AE.py (raw|equiv). Note: long-line mount-truncation in bash → keep script lines <90 chars.
+
+## 2026-06-17 — ran the ESTABLISHED multivariable COCOMO II local calibration (no new fork)
+- cocomo_localcal.py (LOOCV forward-selection over prospective drivers, target pm_mid, n=190 measured-effort census):
+  prospective-only: SA=+0.45 PRED25 22% PRED30 27% MMRE 108% | +team-size(ln_authors): SA=+0.59 PRED25 27% PRED30 32% MMRE 81%.
+  selected: ln_equiv_sloc, ln_ksloc, ln_n_exports, ln_n_routes, lang_typescript (+ln_authors).
+- KEY: the reuse-adjusted EQUIVALENT SLOC (rebuilt this session) is the TOP-selected size driver — directly
+  feeds + validates the headline model. Multivariable SA +0.45→+0.59 (real effort-estimation territory), vs the
+  weak bivariate planned-FTE fit (R²=0.19). The gap is itself the finding: size-alone-on-planned-FTE weak;
+  reuse-adj-size + prospective drivers + team-size on measured effort works.
+- This session's deliverable = cleaner provenance for that model: delivery-verified n≈100 matched triples +
+  commit-pinned reuse-adjusted equivalent SLOC. NEXT (when resumed): fold the verified-100 + equiv into the
+  census so the established local-cal runs on higher-provenance data; continue n-growth toward 161 in parallel.

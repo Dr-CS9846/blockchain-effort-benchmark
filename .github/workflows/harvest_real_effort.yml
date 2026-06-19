@@ -1,0 +1,40 @@
+name: harvest-real-effort
+
+# Discover retroactive, completed, itemised-effort reports at scale (gh code-search repos + Subsquare governance API).
+# Publishes data/calibration/harvested_effort.csv to the 'census' branch for human verification.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Harvest candidates
+        run: |
+          python scripts/extract/harvest_real_effort.py
+          echo "=== csv head ==="; head -80 data/calibration/harvested_effort.csv || true
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "harvest-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/harvested_effort.csv /tmp/harvested_effort.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/harvested_effort.csv data/calibration/harvested_effort.csv
+          git add data/calibration/harvested_effort.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: harvest retroactive itemised-effort candidates [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi

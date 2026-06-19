@@ -1,0 +1,61 @@
+name: gh-codesearch
+
+# Discover ALL teams that publish itemized actual-hours reports, by searching the reporting
+# fingerprint across all of GitHub via the authenticated gh code-search API (not available to
+# external fetch tools). Publishes data/calibration/hours_report_candidates.csv to 'census'.
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  search:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Code-search the actual-hours reporting fingerprints
+        run: |
+          set -e
+          out=data/calibration/hours_report_candidates.csv
+          mkdir -p data/calibration
+          echo "query,repository,path,url" > "$out"
+          # distinctive phrases used by teams that report ACTUAL time spent
+          queries=(
+            '"Total Development Hours Spent"'
+            '"time spent per category"'
+            '"Hours spent" "Feature development" "Technical debt"'
+            '"hours spent" treasury proposal report'
+            '"person-months" "actually spent" OR "actual effort" substrate'
+            '"Development Hours Spent" polkadot OR kusama OR substrate'
+            '"time spent on each task" hours milestone delivery'
+          )
+          for q in "${queries[@]}"; do
+            echo "::group::search $q"
+            # up to 100 results per query; capture repo/path/url
+            gh search code "$q" -L 100 --json repository,path,url \
+              | jq -r --arg q "$q" '.[] | [$q, .repository.nameWithOwner, .path, .url] | @csv' \
+              >> "$out" 2>/dev/null || echo "  (query failed or 0 results)"
+            echo "::endgroup::"
+            sleep 3
+          done
+          echo "=== rows ==="; wc -l "$out"
+          echo "=== distinct repos ==="; tail -n +2 "$out" | cut -d, -f2 | sort -u
+          echo "=== full ==="; cat "$out"
+      - name: Publish to 'census'
+        run: |
+          git config user.name  "gh-codesearch-bot"
+          git config user.email "actions@users.noreply.github.com"
+          cp -f data/calibration/hours_report_candidates.csv /tmp/hrc.csv
+          git fetch origin census
+          git checkout -f -B census origin/census
+          mkdir -p data/calibration
+          cp -f /tmp/hrc.csv data/calibration/hours_report_candidates.csv
+          git add data/calibration/hours_report_candidates.csv
+          if git diff --cached --quiet; then echo "no change"; else
+            git commit -m "ci: github code-search for actual-hours report fingerprints [skip ci]"
+            git push --force-with-lease origin census || git push origin census
+          fi
