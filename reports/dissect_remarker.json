@@ -114,5 +114,8 @@
   "overrides": {},
   "PM_pred_A2_94": 3.369,
   "pct_err_A2_94": -53.5,
-  "A_local_for_PMeqPM": 6.317
+  "A_local_for_PMeqPM": 6.317,
+  "PM_pred_Abc": 0.665,
+  "A_bc_used": 0.58,
+  "pct_err_Abc": -90.8
 }
