@@ -1,0 +1,19 @@
+key,name,claimed,extracted_sum,extracted_max,n_hour_tokens,retro,done,status,url,snippet
+subsquare-1225,Subsquare 12-mo maintenance+features,3760,7520,3760,9,Y,Y,ok,https://polkadot.subsquare.io/referenda/1225,1200;240;360;360;640;480;240;240;3760
+orml-459,ORML/Chopsticks/Subway tooling,3200,,,0,Y,,ok,https://polkadot.subsquare.io/referenda/459,
+integritee-426,Integritee Private Transfers,926,,,0,Y,,ok,https://polkadot.subsquare.io/referenda/426,
+sdkassets-1657,Polkadot SDK Assets tip,196,196,196,1,Y,,ok,https://polkadot.subsquare.io/referenda/1657,196
+subscan-1366,Subscan Q3/Q4 2024 feature dev,466,1398,466,78,,Y,ok,https://polkadot.subsquare.io/referenda/1366,466;4;26;10;4;30;4;4;20;8
+sqd-1730,SQD/Subsquid indexing,480,7,6,2,Y,Y,ok,https://polkadot.subsquare.io/referenda/1730,6;1
+polkagate-1489,PolkaGate MetaMask Snap,320,,,0,Y,,ok,https://polkadot.subsquare.io/referenda/1489,
+subwallet-1745,SubWallet development,1664,,,0,Y,Y,ok,https://polkadot.subsquare.io/referenda/1745,
+polkadotcloud-1706,Polkadot Cloud website (Flez),498,553,498,3,Y,Y,ok,https://polkadot.subsquare.io/referenda/1706,25;30;498
+rfcbot-504,RFCs Referenda Bot,32,32,32,1,Y,,ok,https://polkadot.subsquare.io/referenda/504,32
+radiumblock-544,RadiumBlock RPC infra,480,,,0,Y,,ok,https://polkadot.subsquare.io/referenda/544,
+ecosystem-1352,Ecosystem Activities (BD/events),450,120,70,3,Y,Y,ok,https://polkadot.subsquare.io/referenda/1352,25;25;70
+polkabiz-1686,PolkaBiz BD,,,,0,Y,Y,ok,https://polkadot.subsquare.io/referenda/1686,
+subsquareinfra-1688,Subsquare infra work,240,,,0,,,ok,https://polkadot.subsquare.io/referenda/1688,
+just-spend198,JUST/Subsquare dev (spend 198),160,50,30,2,Y,Y,ok,https://polkadot.subsquare.io/treasury/spends/198,20;30
+justventures-spend119,Just Ventures JUST 2.0 (spend 119),640,,,0,Y,Y,ok,https://polkadot.subsquare.io/treasury/spends/119,
+jam-3296,JAM Knowledge-Base Search (FluffyLabs),250,,,0,,,fetch_fail:HTTP Error 404: Not Found,https://polkadot.subsquare.io/polkassembly/posts/3296,
+radium-khala93,RadiumBlock Khala snapshot,30,,,0,,,fetch_fail:<urlopen error [Errno -2] Name,https://khala.subsquare.io/treasury/proposals/93,
