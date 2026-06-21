@@ -19,3 +19,5 @@ rfc_bot;https://github.com/pandres95/fellowship-referenda-bot;0.21;whole;;;;;;1;
 gitorial;https://github.com/gitorial-sdk/gitorial-vscode;0.55;whole;;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;Gitorial VS Code extension (interactive git tutorials); 83h; whole-repo
 kitdot;https://github.com/w3b3d3v/kitdot;0.13;whole;;;;;;1;0;0;1;0;1;0;1;0;0;0;1;;;Kitdot CLI scaffolding (PolkaVM/Solidity templates); 20h; whole-repo
 referendum_alert;https://github.com/Grahovacc/ReferendumAlert;0.25;whole;;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;Referendum Alert TG bot; source-itemised 38h retro (30 dev+8 frontend); was 94h-corrected; whole-repo
+polkascan_polkadapt;https://github.com/polkascan/polkadapt;11.63;whole;;;;;;1;1;0;1;0;1;0;0;0;1;0;0;;;Polkascan component 2/3 (PolkADAPT lib); size only - sum into polkascan total
+polkascan_ui;https://github.com/polkascan/polkascan-ui;11.63;whole;;;;;;1;1;0;1;0;1;0;0;0;1;0;0;;;Polkascan component 3/3 (Explorer UI); size only - sum into polkascan total
