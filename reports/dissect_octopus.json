@@ -1,4 +1,121 @@
 {
   "project_id": "octopus",
-  "error": "octopus: measured 0 KSLOC (mode=whole); check refs/window"
+  "reported_pm": 7.37,
+  "sizing_mode": "whole",
+  "size_how": "cloc",
+  "churn": {},
+  "reuse": {
+    "new_phys": 8915,
+    "adapted_phys": 145,
+    "generated_phys": 145,
+    "forked_phys": 0,
+    "bulk_import_commits": 0,
+    "bulk_import_files": 0,
+    "adapted_fraction": 0.016,
+    "aam": 0.1
+  },
+  "ksloc": 7.466,
+  "equivalent_ksloc": 7.358,
+  "E": 1.07,
+  "sumSF": 16.0,
+  "prodEM": 1.3442,
+  "sf": {
+    "PREC": {
+      "rating": "N",
+      "value": 3.72
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "H",
+      "value": 2.83
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "H",
+      "value": 3.12
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "H",
+      "mult": 1.17
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "H",
+      "mult": 1.15
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "H",
+      "mult": 0.9
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 33.439,
+  "pct_err_A2_94": 353.7,
+  "A_local_for_PMeqPM": 0.648,
+  "PM_pred_Abc": 6.597,
+  "A_bc_used": 0.58,
+  "pct_err_Abc": -10.5
 }
