@@ -16,3 +16,6 @@ ideal_network;https://github.com/ideal-lab5/idn-sdk;13.29;whole;;;;;;1;1;0;1;0;1
 dodao;https://github.com/devopsdao/devopsdao;18.95;whole;;;;;;1;1;0;1;0;1;0;1;0;1;0;1;;;DoDAO task-marketplace dApp (Moonbeam); 2880h; whole-repo at HEAD (active repo - upper bound)
 octopus;https://github.com/octopus-network/astar-m1-deliverable;7.37;whole;;;;;;1;1;0;1;0;1;1;0;0;1;0;0;;;Octopus Astar-Cosmos IBC bridge M1; 1120h; whole-repo (frozen deliverable repo)
 rfc_bot;https://github.com/pandres95/fellowship-referenda-bot;0.21;whole;;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;RFC Referenda Matrix bot; 32h; whole-repo
+gitorial;https://github.com/gitorial-sdk/gitorial-vscode;0.55;whole;;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;Gitorial VS Code extension (interactive git tutorials); 83h; whole-repo
+kitdot;https://github.com/w3b3d3v/kitdot;0.13;whole;;;;;;1;0;0;1;0;1;0;1;0;0;0;1;;;Kitdot CLI scaffolding (PolkaVM/Solidity templates); 20h; whole-repo
+referendum_alert;https://github.com/Grahovacc/ReferendumAlert;0.25;whole;;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;Referendum Alert TG bot; source-itemised 38h retro (30 dev+8 frontend); was 94h-corrected; whole-repo
