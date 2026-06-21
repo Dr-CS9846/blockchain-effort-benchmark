@@ -1,25 +1,22 @@
 [
   {
-    "project_id": "polkascan_polkadapt",
-    "reported_pm": 11.63,
-    "sizing_mode": "whole",
-    "size_how": "cloc",
-    "churn": {},
-    "reuse": {
-      "new_phys": 9615,
-      "adapted_phys": 0,
-      "generated_phys": 0,
-      "forked_phys": 0,
-      "bulk_import_commits": 0,
-      "bulk_import_files": 0,
-      "adapted_fraction": 0.0,
-      "aam": 0.1
+    "project_id": "aeternity_sdk_q4_2024",
+    "reported_pm": 1.29,
+    "sizing_mode": "window",
+    "size_how": "git-window",
+    "churn": {
+      "added": 2050,
+      "deleted": 1018,
+      "start": "6c2dbfe0",
+      "end": "530cfbf1",
+      "metric": "net-delta(boundary-diff)"
     },
-    "ksloc": 8.033,
-    "equivalent_ksloc": 8.033,
+    "reuse": {},
+    "ksloc": 2.05,
+    "equivalent_ksloc": 2.05,
     "E": 1.07,
     "sumSF": 16.0,
-    "prodEM": 0.999,
+    "prodEM": 1.2974,
     "sf": {
       "PREC": {
         "rating": "N",
@@ -52,8 +49,8 @@
         "mult": 1.0
       },
       "CPLX": {
-        "rating": "N",
-        "mult": 1.0
+        "rating": "H",
+        "mult": 1.17
       },
       "RUSE": {
         "rating": "N",
@@ -64,8 +61,8 @@
         "mult": 1.11
       },
       "TIME": {
-        "rating": "N",
-        "mult": 1.0
+        "rating": "H",
+        "mult": 1.11
       },
       "STOR": {
         "rating": "N",
@@ -113,31 +110,28 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 27.298,
-    "pct_err_A2_94": 134.7,
-    "A_local_for_PMeqPM": 1.253
+    "PM_pred_A2_94": 8.222,
+    "pct_err_A2_94": 537.4,
+    "A_local_for_PMeqPM": 0.461
   },
   {
-    "project_id": "polkascan_ui",
-    "reported_pm": 11.63,
-    "sizing_mode": "whole",
-    "size_how": "cloc",
-    "churn": {},
-    "reuse": {
-      "new_phys": 5359,
-      "adapted_phys": 5753,
-      "generated_phys": 0,
-      "forked_phys": 5753,
-      "bulk_import_commits": 1,
-      "bulk_import_files": 200,
-      "adapted_fraction": 0.518,
-      "aam": 0.1
+    "project_id": "aeternity_sdk_q2_2024",
+    "reported_pm": 2.53,
+    "sizing_mode": "window",
+    "size_how": "git-window",
+    "churn": {
+      "added": 3735,
+      "deleted": 3440,
+      "start": "b000384b",
+      "end": "be9963a9",
+      "metric": "net-delta(boundary-diff)"
     },
-    "ksloc": 8.709,
-    "equivalent_ksloc": 4.651,
+    "reuse": {},
+    "ksloc": 3.735,
+    "equivalent_ksloc": 3.735,
     "E": 1.07,
     "sumSF": 16.0,
-    "prodEM": 0.999,
+    "prodEM": 1.2974,
     "sf": {
       "PREC": {
         "rating": "N",
@@ -170,8 +164,8 @@
         "mult": 1.0
       },
       "CPLX": {
-        "rating": "N",
-        "mult": 1.0
+        "rating": "H",
+        "mult": 1.17
       },
       "RUSE": {
         "rating": "N",
@@ -182,8 +176,8 @@
         "mult": 1.11
       },
       "TIME": {
-        "rating": "N",
-        "mult": 1.0
+        "rating": "H",
+        "mult": 1.11
       },
       "STOR": {
         "rating": "N",
@@ -231,8 +225,353 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 15.212,
-    "pct_err_A2_94": 30.8,
-    "A_local_for_PMeqPM": 2.248
+    "PM_pred_A2_94": 15.623,
+    "pct_err_A2_94": 517.5,
+    "A_local_for_PMeqPM": 0.476
+  },
+  {
+    "project_id": "aeternity_sdk_q3_2024",
+    "reported_pm": 1.67,
+    "sizing_mode": "window",
+    "size_how": "git-window",
+    "churn": {
+      "added": 8908,
+      "deleted": 5938,
+      "start": "be9963a9",
+      "end": "6c2dbfe0",
+      "metric": "net-delta(boundary-diff)"
+    },
+    "reuse": {},
+    "ksloc": 8.908,
+    "equivalent_ksloc": 8.908,
+    "E": 1.07,
+    "sumSF": 16.0,
+    "prodEM": 1.2974,
+    "sf": {
+      "PREC": {
+        "rating": "N",
+        "value": 3.72
+      },
+      "FLEX": {
+        "rating": "N",
+        "value": 3.04
+      },
+      "RESL": {
+        "rating": "H",
+        "value": 2.83
+      },
+      "TEAM": {
+        "rating": "N",
+        "value": 3.29
+      },
+      "PMAT": {
+        "rating": "H",
+        "value": 3.12
+      }
+    },
+    "em": {
+      "RELY": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DATA": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "CPLX": {
+        "rating": "H",
+        "mult": 1.17
+      },
+      "RUSE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DOCU": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "TIME": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "STOR": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PVOL": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "ACAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCON": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "APEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PLEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "LTEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "TOOL": {
+        "rating": "H",
+        "mult": 0.9
+      },
+      "SITE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "SCED": {
+        "rating": "N",
+        "mult": 1.0
+      }
+    },
+    "overrides": {},
+    "PM_pred_A2_94": 39.599,
+    "pct_err_A2_94": 2271.2,
+    "A_local_for_PMeqPM": 0.124
+  },
+  {
+    "project_id": "aeternity_sdk_q2_2023",
+    "reported_pm": 2.71,
+    "sizing_mode": "window",
+    "size_how": "git-window",
+    "churn": {
+      "added": 2052,
+      "deleted": 459,
+      "start": "44de66bb",
+      "end": "d3d6c886",
+      "metric": "net-delta(boundary-diff)"
+    },
+    "reuse": {},
+    "ksloc": 2.052,
+    "equivalent_ksloc": 2.052,
+    "E": 1.07,
+    "sumSF": 16.0,
+    "prodEM": 1.2974,
+    "sf": {
+      "PREC": {
+        "rating": "N",
+        "value": 3.72
+      },
+      "FLEX": {
+        "rating": "N",
+        "value": 3.04
+      },
+      "RESL": {
+        "rating": "H",
+        "value": 2.83
+      },
+      "TEAM": {
+        "rating": "N",
+        "value": 3.29
+      },
+      "PMAT": {
+        "rating": "H",
+        "value": 3.12
+      }
+    },
+    "em": {
+      "RELY": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DATA": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "CPLX": {
+        "rating": "H",
+        "mult": 1.17
+      },
+      "RUSE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DOCU": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "TIME": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "STOR": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PVOL": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "ACAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCON": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "APEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PLEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "LTEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "TOOL": {
+        "rating": "H",
+        "mult": 0.9
+      },
+      "SITE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "SCED": {
+        "rating": "N",
+        "mult": 1.0
+      }
+    },
+    "overrides": {},
+    "PM_pred_A2_94": 8.231,
+    "pct_err_A2_94": 203.7,
+    "A_local_for_PMeqPM": 0.968
+  },
+  {
+    "project_id": "aeternity_sdk_dec2022",
+    "reported_pm": 2.26,
+    "sizing_mode": "window",
+    "size_how": "git-window",
+    "churn": {
+      "added": 4909,
+      "deleted": 3710,
+      "start": "fd2b97fb",
+      "end": "44de66bb",
+      "metric": "net-delta(boundary-diff)"
+    },
+    "reuse": {},
+    "ksloc": 4.909,
+    "equivalent_ksloc": 4.909,
+    "E": 1.07,
+    "sumSF": 16.0,
+    "prodEM": 1.2974,
+    "sf": {
+      "PREC": {
+        "rating": "N",
+        "value": 3.72
+      },
+      "FLEX": {
+        "rating": "N",
+        "value": 3.04
+      },
+      "RESL": {
+        "rating": "H",
+        "value": 2.83
+      },
+      "TEAM": {
+        "rating": "N",
+        "value": 3.29
+      },
+      "PMAT": {
+        "rating": "H",
+        "value": 3.12
+      }
+    },
+    "em": {
+      "RELY": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DATA": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "CPLX": {
+        "rating": "H",
+        "mult": 1.17
+      },
+      "RUSE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DOCU": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "TIME": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "STOR": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PVOL": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "ACAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCON": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "APEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PLEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "LTEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "TOOL": {
+        "rating": "H",
+        "mult": 0.9
+      },
+      "SITE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "SCED": {
+        "rating": "N",
+        "mult": 1.0
+      }
+    },
+    "overrides": {},
+    "PM_pred_A2_94": 20.931,
+    "pct_err_A2_94": 826.1,
+    "A_local_for_PMeqPM": 0.317
   }
 ]

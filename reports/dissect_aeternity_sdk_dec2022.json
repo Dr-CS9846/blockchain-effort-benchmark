@@ -1,0 +1,115 @@
+{
+  "project_id": "aeternity_sdk_dec2022",
+  "reported_pm": 2.26,
+  "sizing_mode": "window",
+  "size_how": "git-window",
+  "churn": {
+    "added": 4909,
+    "deleted": 3710,
+    "start": "fd2b97fb",
+    "end": "44de66bb",
+    "metric": "net-delta(boundary-diff)"
+  },
+  "reuse": {},
+  "ksloc": 4.909,
+  "equivalent_ksloc": 4.909,
+  "E": 1.07,
+  "sumSF": 16.0,
+  "prodEM": 1.2974,
+  "sf": {
+    "PREC": {
+      "rating": "N",
+      "value": 3.72
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "H",
+      "value": 2.83
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "H",
+      "value": 3.12
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "H",
+      "mult": 1.17
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "H",
+      "mult": 0.9
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 20.931,
+  "pct_err_A2_94": 826.1,
+  "A_local_for_PMeqPM": 0.317
+}
