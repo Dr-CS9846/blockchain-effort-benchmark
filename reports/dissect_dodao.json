@@ -1,0 +1,121 @@
+{
+  "project_id": "dodao",
+  "reported_pm": 18.95,
+  "sizing_mode": "whole",
+  "size_how": "cloc",
+  "churn": {},
+  "reuse": {
+    "new_phys": 2591,
+    "adapted_phys": 77,
+    "generated_phys": 77,
+    "forked_phys": 0,
+    "bulk_import_commits": 0,
+    "bulk_import_files": 0,
+    "adapted_fraction": 0.029,
+    "aam": 0.1
+  },
+  "ksloc": 39.058,
+  "equivalent_ksloc": 38.043,
+  "E": 1.07,
+  "sumSF": 16.0,
+  "prodEM": 1.2974,
+  "sf": {
+    "PREC": {
+      "rating": "N",
+      "value": 3.72
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "H",
+      "value": 2.83
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "H",
+      "value": 3.12
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "H",
+      "mult": 1.17
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "H",
+      "mult": 0.9
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 187.207,
+  "pct_err_A2_94": 887.9,
+  "A_local_for_PMeqPM": 0.298,
+  "PM_pred_Abc": 36.932,
+  "A_bc_used": 0.58,
+  "pct_err_Abc": 94.9
+}

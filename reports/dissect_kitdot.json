@@ -1,0 +1,121 @@
+{
+  "project_id": "kitdot",
+  "reported_pm": 0.13,
+  "sizing_mode": "whole",
+  "size_how": "cloc",
+  "churn": {},
+  "reuse": {
+    "new_phys": 7937,
+    "adapted_phys": 0,
+    "generated_phys": 0,
+    "forked_phys": 0,
+    "bulk_import_commits": 0,
+    "bulk_import_files": 0,
+    "adapted_fraction": 0.0,
+    "aam": 0.1
+  },
+  "ksloc": 7.173,
+  "equivalent_ksloc": 7.173,
+  "E": 1.0997,
+  "sumSF": 18.97,
+  "prodEM": 1.2974,
+  "sf": {
+    "PREC": {
+      "rating": "N",
+      "value": 3.72
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "N",
+      "value": 4.24
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "N",
+      "value": 4.68
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "H",
+      "mult": 1.17
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "H",
+      "mult": 0.9
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 33.299,
+  "pct_err_A2_94": 25514.9,
+  "A_local_for_PMeqPM": 0.011,
+  "PM_pred_Abc": 6.569,
+  "A_bc_used": 0.58,
+  "pct_err_Abc": 4953.3
+}

@@ -1,0 +1,121 @@
+{
+  "project_id": "referendum_alert",
+  "reported_pm": 0.25,
+  "sizing_mode": "whole",
+  "size_how": "cloc",
+  "churn": {},
+  "reuse": {
+    "new_phys": 723,
+    "adapted_phys": 8470,
+    "generated_phys": 0,
+    "forked_phys": 8470,
+    "bulk_import_commits": 1,
+    "bulk_import_files": 4,
+    "adapted_fraction": 0.921,
+    "aam": 0.1
+  },
+  "ksloc": 5.288,
+  "equivalent_ksloc": 0.903,
+  "E": 1.0997,
+  "sumSF": 18.97,
+  "prodEM": 0.999,
+  "sf": {
+    "PREC": {
+      "rating": "N",
+      "value": 3.72
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "N",
+      "value": 4.24
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "N",
+      "value": 4.68
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "H",
+      "mult": 0.9
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 2.626,
+  "pct_err_A2_94": 950.3,
+  "A_local_for_PMeqPM": 0.28,
+  "PM_pred_Abc": 0.518,
+  "A_bc_used": 0.58,
+  "pct_err_Abc": 107.2
+}
