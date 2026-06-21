@@ -1,0 +1,15 @@
+project,ecosystem,category,effort_type,rate_usd_h,labour_separable,hours,PM_152,size_status,calib_eligible,reason,source_url
+Subsquare gov app,Polkadot,DEV_OFFCHAIN,actual,,,3760,24.7,measured,Y,explorer/gov UI; itemised hours; size measured,https://github.com/opensquare-network/subsquare
+Remarker NFT market,Polkadot,DEV_OFFCHAIN,actual,,,1100,7.24,measured,Y,NFT market UI; 1100 h,https://github.com/Remarkers/Remarkers-market
+ink! analyzer,Polkadot,DEV_OFFCHAIN,actual,,,424,2.79,measured,Y,dev tooling,https://github.com/ink-analyzer/ink-analyzer
+Kheopswap DEX UI,Polkadot,DEV_OFFCHAIN,actual,,,480,3.16,measured,Y,DEX UI; 480 h,https://github.com/kheopswap/kheopswap
+dotreasury,Kusama,DEV_OFFCHAIN,actual,,,,0.95,measured,Y,treasury explorer,https://github.com/opensquare-network/dotreasury
+Dot Code School,Polkadot,DEV_OFFCHAIN,actual,,,144,0.95,measured,Y,education dApp,https://github.com/iammasterbrucewayne/dotcodeschool
+Polkascan Explorer (collapsed),Kusama,DEV_OFFCHAIN,actual,,,1768,11.63,measurable,Y,explorer; 6 milestones->1 (no pseudo-rep),https://github.com/polkascan/explorer
+Ideal Network,Polkadot,DEV_ONCHAIN,actual,114,Y,2020,13.29,unmeasured,Y_after_size,randomness runtime; 2020 h ($114/h stated),https://polkadot.subsquare.io/referenda/1798
+DoDAO (DevOpsDAO),Moonbeam,DEV_OFFCHAIN,actual,,,2880,18.95,unmeasured,Y_after_size,retroactive; arweave/on-chain proof,https://forum.moonbeam.network/t/534
+Octopus Network (IBC Bridge),Astar,DEV_ONCHAIN,actual,,,1120,7.37,unmeasured,Y_after_size,IBC bridge; deliverable repo present,https://github.com/octopus-network/astar-m1-deliverable
+Referendum Alert (TG bot),Kusama,DEV_OFFCHAIN,actual,,,94,0.62,unmeasured,Y_after_size,alert bot,https://kusama.subsquare.io/referenda/602
+Gitorial VS Code ext,Polkadot,DEV_OFFCHAIN,actual,,,83,0.55,unmeasured,Y_after_size,VS Code extension,https://polkadot.subsquare.io/treasury/proposals/1583
+RFCs Referenda Bot,Polkadot,DEV_OFFCHAIN,actual,,,32,0.21,unmeasured,Y_after_size,Matrix bot; 32 h,https://polkadot.subsquare.io/referenda/504
+Kitdot,Polkadot,DEV_OFFCHAIN,actual,,,20,0.13,unmeasured,Y_after_size,tooling,https://polkadot.subsquare.io/referenda/1805

@@ -1,0 +1,38 @@
+project,ecosystem,category,effort_type,rate_usd_h,labour_separable,hours,PM_152,size_status,calib_eligible,reason,source_url
+Subsquare gov app,Polkadot,DEV_OFFCHAIN,actual,,,3760,24.7,measured,Y,explorer/gov UI; itemised hours; size measured,https://github.com/opensquare-network/subsquare
+Remarker NFT market,Polkadot,DEV_OFFCHAIN,actual,,,1100,7.24,measured,Y,NFT market UI; 1100 h,https://github.com/Remarkers/Remarkers-market
+ink! analyzer,Polkadot,DEV_OFFCHAIN,actual,,,424,2.79,measured,Y,dev tooling,https://github.com/ink-analyzer/ink-analyzer
+Kheopswap DEX UI,Polkadot,DEV_OFFCHAIN,actual,,,480,3.16,measured,Y,DEX UI; 480 h,https://github.com/kheopswap/kheopswap
+dotreasury,Kusama,DEV_OFFCHAIN,actual,,,,0.95,measured,Y,treasury explorer,https://github.com/opensquare-network/dotreasury
+Dot Code School,Polkadot,DEV_OFFCHAIN,actual,,,144,0.95,measured,Y,education dApp,https://github.com/iammasterbrucewayne/dotcodeschool
+Polkascan Explorer (collapsed),Kusama,DEV_OFFCHAIN,actual,,,1768,11.63,measurable,Y,explorer; 6 milestones->1 (no pseudo-rep),https://github.com/polkascan/explorer
+Ideal Network,Polkadot,DEV_ONCHAIN,actual,114,Y,2020,13.29,unmeasured,Y_after_size,randomness runtime; 2020 h ($114/h stated),https://polkadot.subsquare.io/referenda/1798
+DoDAO (DevOpsDAO),Moonbeam,DEV_OFFCHAIN,actual,,,2880,18.95,unmeasured,Y_after_size,retroactive; arweave/on-chain proof,https://forum.moonbeam.network/t/534
+Octopus Network (IBC Bridge),Astar,DEV_ONCHAIN,actual,,,1120,7.37,unmeasured,Y_after_size,IBC bridge; deliverable repo present,https://github.com/octopus-network/astar-m1-deliverable
+Referendum Alert (TG bot),Kusama,DEV_OFFCHAIN,actual,,,94,0.62,unmeasured,Y_after_size,alert bot,https://kusama.subsquare.io/referenda/602
+Gitorial VS Code ext,Polkadot,DEV_OFFCHAIN,actual,,,83,0.55,unmeasured,Y_after_size,VS Code extension,https://polkadot.subsquare.io/treasury/proposals/1583
+RFCs Referenda Bot,Polkadot,DEV_OFFCHAIN,actual,,,32,0.21,unmeasured,Y_after_size,Matrix bot; 32 h,https://polkadot.subsquare.io/referenda/504
+Kitdot,Polkadot,DEV_OFFCHAIN,actual,,,20,0.13,unmeasured,Y_after_size,tooling,https://polkadot.subsquare.io/referenda/1805
+Nova Wallet (ERC20 M1),Moonbeam/Moonriver,DEV_OFFCHAIN,awarded_forward,,,640,4.21,unmeasured,SENSITIVITY,"Retro=N (awarded, not delivered-actual); upgrade if delivery report found",https://forum.moonbeam.network/t/144
+Web3Go (Data Analytics Q2-23),Moonbeam/Moonriver,DEV_OFFCHAIN,awarded_forward,,,800,5.26,unmeasured,SENSITIVITY,Retro=N (awarded); upgrade if delivery confirmed,https://forum.moonbeam.network/t/486
+YieldScan Phase 2,Polkadot,DEV_OFFCHAIN,proposed,,,,10.0,n/a,SENSITIVITY,W3F proposed PM,https://github.com/yieldscan/yieldscan-app
+Integritee Incognitee,Polkadot,DEV_ONCHAIN,cost_no_rate,,n/a,,,n/a,DROPPED,"$87,377 but NO hourly rate stated -> not convertible",https://polkadot.subsquare.io/referenda/426
+SubWallet,Polkadot,DEV_OFFCHAIN,cost_no_rate,,n/a,,,n/a,DROPPED,"$795,500 but NO hourly rate stated -> not convertible",https://polkadot.subsquare.io/referenda/1745
+PolkaGate Snap,Polkadot,DEV_OFFCHAIN,cost_no_rate,,n/a,,,n/a,DROPPED,"$53,600 no rate + REJECTED",https://polkadot.subsquare.io/referenda/1489
+SQD / Subsquid,Polkadot,INFRA,cost_infra,27,Y,,,n/a,N,"rate stated but labour=archive maintenance/ops, not construction; mostly cloud cost; rejected",https://polkadot.subsquare.io/referenda/1730
+Subscan Q3/Q4-24 dev,Polkadot,DEV_OFFCHAIN,actual,,,466,3.07,unmeasurable_closed,N,466 h but backend closed-source,https://polkadot.subsquare.io/referenda/1366
+Polkadot SDK Assets PRs,Polkadot,DEV_ONCHAIN,actual,,,196,1.29,unmeasurable_monorepo,N,196 h but PRs into external monorepo,https://polkadot.subsquare.io/referenda/1657
+DotBot,Polkadot,DEV_OFFCHAIN,mixed,,,,6.79,unmeasured,N,completed + committed FUTURE deliverables,https://polkadot.subsquare.io/referenda/1848
+TrueBlocks v1.0.0,Ethereum,DEV_OFFCHAIN,derived,,,4160,27.37,unmeasured,OOD_sensitivity,Ethereum (OOD); has product+repo (trueblocks.io); hours DERIVED 2FTEx2080; PM=4160/152,https://tjayrush.medium.com/trueblocks-final-report-for-ef-grant-d784653c830d
+Polkascan py-substrate-interface (21 windows),Polkadot,MAINT_SUBCORPUS,actual,,,(per-window),(per-window),measurable,DEFER_PHASE2,one library/team; needs hierarchical model,https://github.com/polkascan/social-contract
+Stakeworld RPC/bootnode/snapshot (10 windows),Polkadot/Kusama,INFRA,actual,,,(per-window),(per-window),n/a,N,"server/devops ops, not construction",https://github.com/stakeworld/stakeworld-treasury
+DAppSCAN (smart-contract weakness dataset),Ethereum,ACADEMIC_RESEARCH,research_reported,,,6688,44.0,n/a,OOD_sensitivity,academic DATASET artifact (not delivered product); effort from paper not itemised dev-hrs; Ethereum OOD,https://ieeexplore.ieee.org/document/10486822/
+Informal+Hypha Cosmos Hub Dev&Maint 2024 (Prop 839),Cosmos-Hub,MAINT_SUBCORPUS,derived_forward,,,29120,191.58,n/a,SENSITIVITY,Retro=N (forward proposal); FTEx2080 derived; whole-Hub maintenance; 191 PM outlier,https://forum.cosmos.network/t/proposal-839-accepted-fund-2024-hub-development-by-informal-systems-and-hypha-worker-co-op/11597
+Hypha Gaia Core + 3rd-party Maint Q3-2024,Cosmos-Hub,MAINT_SUBCORPUS,derived_forward,,,520,3.42,n/a,SENSITIVITY,SUBSET of Prop 839 (overlap-do not co-count); Retro=N; 0.5 FTE maintenance,https://forum.cosmos.network/t/hypha-oversight-meeting-q3-wrap-up-q4-kickoff/14683
+Hydro Product Development (Prop 986),Cosmos,DEV_OFFCHAIN,derived_forward,,,3120,20.53,unmeasured,SENSITIVITY_planned,"dev-only effort: 3 of 6 FTE are construction (Tech Lead+2 Devs)=3120h/20.5PM; other 3 FTE (Project/Product/Growth) are non-dev, excluded. Retro=N (planned). UPGRADE to primary IF a delivered 2025-H1 actuals report surfaces (window now past).",https://forum.cosmos.network/t/prop-986-passed-funding-hydro-development-integrations-in-2025/14900
+Hypha Gaia/Testnet Maint Unit Q2-2024,Cosmos,MAINT_SUBCORPUS,derived_forward,,,520,3.42,measurable,SENSITIVITY,1.0 FTE-quarter (520h); subset of Prop 839; pairs with Q3 for repeated-measures,https://forum.cosmos.network/t/hypha-informal-oversight-kickoff-meeting/13069
+Hypha Public Testnet Ops 2026-27,Cosmos,MAINT_SUBCORPUS,cost_rate_stated,220,Y,756,4.97,measurable,SENSITIVITY,"forward ops; 63 dev-h/mo @ $220/h, infra separable (passes cost-guardrail) but maintenance/ops",https://forum.cosmos.network/t/draft-fund-hypha-to-operate-the-hubs-public-testnet-program-for-2026-2027/17033
+AADAO Core Contributor Operations,Cosmos,NON_DEV,governance_ops,,,64,0.42,n/a,N,"source: 'primarily governance/ops, not software construction'",https://forum.cosmos.network/t/proposal-draft-terminate-aadao-mandate-and-operations-within-60-days/15701
+Arbitrum Grants Council domain contributor,Arbitrum,MIXED_OPS_DEV,mixed_forward,100,,240,1.58,n/a,SENSITIVITY,"mixed ops+dev-support, forward, L2 OOD; ~$100/h",https://forum.arbitrum.foundation/t/arbitrum-d-a-o-grant-program-season-3-official-thread/28753
+CoW Protocol — 15 merged PRs (retro),Ethereum,DEV_ONCHAIN,actual,,,30,0.2,unmeasurable_monorepo,N,real retro governance proposal but PRs into existing protocol (no standalone repo); 30h tiny,https://forum.cow.fi/t/grant-application-retrospective-funding-for-15-merged-cow-protocol-prs/3321
+Hypha Testnet/ICS Testing Support Q1-Q2 2024,Cosmos,MAINT_SUBCORPUS,derived_range,, ,1560,10.26,measurable,SENSITIVITY,LOW-CONF: 2x derived range 1040-2080h (midpt 1560); testing/ops; OVERLAPS Prop 839 (do-not-sum),https://forum.cosmos.network/t/hypha-oversight-meeting-q1-wrap-up-q2-kickoff/13750

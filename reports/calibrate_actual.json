@@ -1,0 +1,118 @@
+{
+  "n": 6,
+  "target": "actual reported delivery PM",
+  "pairs": [
+    {
+      "project": "Subsquare gov app",
+      "pm_actual": 24.7,
+      "equiv_ksloc": 231.58
+    },
+    {
+      "project": "ink! analyzer",
+      "pm_actual": 2.79,
+      "equiv_ksloc": 37.849
+    },
+    {
+      "project": "dotreasury",
+      "pm_actual": 0.95,
+      "equiv_ksloc": 44.165
+    },
+    {
+      "project": "Kheopswap DEX UI",
+      "pm_actual": 3.16,
+      "equiv_ksloc": 21.21
+    },
+    {
+      "project": "Remarker NFT market",
+      "pm_actual": 7.24,
+      "equiv_ksloc": 16.794
+    },
+    {
+      "project": "Dot Code School",
+      "pm_actual": 0.95,
+      "equiv_ksloc": 2.783
+    }
+  ],
+  "free": {
+    "A": 0.484,
+    "E": 0.588,
+    "loocv": {
+      "SA": 0.219,
+      "MMRE": 1.683,
+      "MdMRE": 0.716,
+      "PRED25": 0.167,
+      "PRED30": 0.167
+    },
+    "insample_pred": [
+      11.87,
+      4.09,
+      4.48,
+      2.91,
+      2.54,
+      0.88
+    ]
+  },
+  "fixedE0.91": {
+    "A": 0.167,
+    "E": 0.91,
+    "loocv": {
+      "SA": 0.237,
+      "MMRE": 2.059,
+      "MdMRE": 0.64,
+      "PRED25": 0.0,
+      "PRED30": 0.0
+    },
+    "insample_pred": [
+      23.74,
+      4.57,
+      5.26,
+      2.7,
+      2.18,
+      0.42
+    ]
+  },
+  "free_insample": [
+    {
+      "project": "Subsquare gov app",
+      "pm_actual": 24.7,
+      "equiv_ksloc": 231.58,
+      "pm_pred": 11.87,
+      "pct_err": -52.0
+    },
+    {
+      "project": "ink! analyzer",
+      "pm_actual": 2.79,
+      "equiv_ksloc": 37.849,
+      "pm_pred": 4.09,
+      "pct_err": 46.7
+    },
+    {
+      "project": "dotreasury",
+      "pm_actual": 0.95,
+      "equiv_ksloc": 44.165,
+      "pm_pred": 4.48,
+      "pct_err": 371.8
+    },
+    {
+      "project": "Kheopswap DEX UI",
+      "pm_actual": 3.16,
+      "equiv_ksloc": 21.21,
+      "pm_pred": 2.91,
+      "pct_err": -7.8
+    },
+    {
+      "project": "Remarker NFT market",
+      "pm_actual": 7.24,
+      "equiv_ksloc": 16.794,
+      "pm_pred": 2.54,
+      "pct_err": -64.9
+    },
+    {
+      "project": "Dot Code School",
+      "pm_actual": 0.95,
+      "equiv_ksloc": 2.783,
+      "pm_pred": 0.88,
+      "pct_err": -7.0
+    }
+  ]
+}

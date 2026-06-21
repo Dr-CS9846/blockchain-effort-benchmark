@@ -1,0 +1,239 @@
+{
+  "n": 104,
+  "target": "planned_pm (reported FTE*duration)",
+  "note": "matched-pair calibration",
+  "size_only_free": {
+    "A": 5.604,
+    "E": 0.104,
+    "loocv": {
+      "SA": 0.477,
+      "MMRE": 2.441,
+      "MdMRE": 1.14,
+      "PRED25": 0.106,
+      "PRED30": 0.154
+    }
+  },
+  "size_only_fixedE0_91": {
+    "loocv": {
+      "SA": 0.326,
+      "MMRE": 11.175,
+      "MdMRE": 3.816,
+      "PRED25": 0.067,
+      "PRED30": 0.096
+    }
+  },
+  "full_cocomoII_fixedweight": {
+    "loocv": {
+      "MMRE": 33.962163425465114,
+      "MdMRE": 6.673823109260546,
+      "PRED25": 0.04807692307692308,
+      "PRED30": 0.057692307692307696,
+      "MAE": 286.77101247533324,
+      "SA": -0.10309549788717409
+    }
+  },
+  "worst_residuals": [
+    {
+      "project_id": "Knowledge-Oriented-Framework",
+      "reported_pm": 0.85,
+      "ksloc": 22.13,
+      "equiv_ksloc": 22.13,
+      "pred_size_pm": 16.29,
+      "pct_err": 1816.0
+    },
+    {
+      "project_id": "polkadot_analytics_platform",
+      "reported_pm": 0.85,
+      "ksloc": 0.69,
+      "equiv_ksloc": 0.69,
+      "pred_size_pm": 11.43,
+      "pct_err": 1245.1
+    },
+    {
+      "project_id": "galaxy",
+      "reported_pm": 1.0,
+      "ksloc": 1.87,
+      "equiv_ksloc": 1.75,
+      "pred_size_pm": 12.31,
+      "pct_err": 1131.2
+    },
+    {
+      "project_id": "distributedKeyManagement",
+      "reported_pm": 1.2,
+      "ksloc": 7.55,
+      "equiv_ksloc": 7.54,
+      "pred_size_pm": 14.26,
+      "pct_err": 1088.7
+    },
+    {
+      "project_id": "candle_auction_ink",
+      "reported_pm": 1.0,
+      "ksloc": 0.71,
+      "equiv_ksloc": 0.71,
+      "pred_size_pm": 11.44,
+      "pct_err": 1043.8
+    },
+    {
+      "project_id": "spacewalk",
+      "reported_pm": 1.5,
+      "ksloc": 24.65,
+      "equiv_ksloc": 24.41,
+      "pred_size_pm": 16.47,
+      "pct_err": 997.9
+    },
+    {
+      "project_id": "calamar",
+      "reported_pm": 1.66,
+      "ksloc": 15.33,
+      "equiv_ksloc": 15.26,
+      "pred_size_pm": 15.51,
+      "pct_err": 834.1
+    },
+    {
+      "project_id": "substrate_core_polywrapper",
+      "reported_pm": 2.0,
+      "ksloc": 34.23,
+      "equiv_ksloc": 34.23,
+      "pred_size_pm": 17.17,
+      "pct_err": 758.6
+    },
+    {
+      "project_id": "skynet-substrate-integration",
+      "reported_pm": 1.5,
+      "ksloc": 1.46,
+      "equiv_ksloc": 1.41,
+      "pred_size_pm": 12.08,
+      "pct_err": 705.6
+    },
+    {
+      "project_id": "Standard_Protocol",
+      "reported_pm": 2.0,
+      "ksloc": 15.75,
+      "equiv_ksloc": 15.6,
+      "pred_size_pm": 15.54,
+      "pct_err": 677.0
+    },
+    {
+      "project_id": "Plutonication",
+      "reported_pm": 1.66,
+      "ksloc": 1.45,
+      "equiv_ksloc": 1.45,
+      "pred_size_pm": 12.11,
+      "pct_err": 629.3
+    },
+    {
+      "project_id": "dotmog",
+      "reported_pm": 2.0,
+      "ksloc": 6.73,
+      "equiv_ksloc": 6.73,
+      "pred_size_pm": 14.11,
+      "pct_err": 605.7
+    },
+    {
+      "project_id": "stable-asset",
+      "reported_pm": 2.0,
+      "ksloc": 4.12,
+      "equiv_ksloc": 4.12,
+      "pred_size_pm": 13.4,
+      "pct_err": 569.9
+    },
+    {
+      "project_id": "xcm-domain-service",
+      "reported_pm": 2.0,
+      "ksloc": 2.63,
+      "equiv_ksloc": 2.63,
+      "pred_size_pm": 12.81,
+      "pct_err": 540.3
+    },
+    {
+      "project_id": "ParaSpell-followup2",
+      "reported_pm": 2.0,
+      "ksloc": 2.54,
+      "equiv_ksloc": 2.44,
+      "pred_size_pm": 12.71,
+      "pct_err": 535.5
+    }
+  ],
+  "best_residuals": [
+    {
+      "project_id": "yatima",
+      "reported_pm": 12.0,
+      "ksloc": 8.58,
+      "equiv_ksloc": 8.58,
+      "pred_size_pm": 14.28,
+      "pct_err": 19.0
+    },
+    {
+      "project_id": "polket_toearnfun",
+      "reported_pm": 16.0,
+      "ksloc": 8.92,
+      "equiv_ksloc": 7.31,
+      "pred_size_pm": 13.98,
+      "pct_err": 12.6
+    },
+    {
+      "project_id": "choko-wallet",
+      "reported_pm": 15.0,
+      "ksloc": 4.97,
+      "equiv_ksloc": 4.97,
+      "pred_size_pm": 13.45,
+      "pct_err": 10.3
+    },
+    {
+      "project_id": "daos",
+      "reported_pm": 12.0,
+      "ksloc": 3.99,
+      "equiv_ksloc": 3.86,
+      "pred_size_pm": 13.14,
+      "pct_err": 9.5
+    },
+    {
+      "project_id": "tribal_protocol",
+      "reported_pm": 12.0,
+      "ksloc": 0.83,
+      "equiv_ksloc": 0.83,
+      "pred_size_pm": 11.05,
+      "pct_err": 8.0
+    },
+    {
+      "project_id": "zk-plonk",
+      "reported_pm": 13.0,
+      "ksloc": 1.75,
+      "equiv_ksloc": 1.75,
+      "pred_size_pm": 12.03,
+      "pct_err": 7.5
+    },
+    {
+      "project_id": "gluon",
+      "reported_pm": 12.5,
+      "ksloc": 5.32,
+      "equiv_ksloc": 4.64,
+      "pred_size_pm": 13.39,
+      "pct_err": 7.1
+    },
+    {
+      "project_id": "solidity-trie-verifier",
+      "reported_pm": 13.5,
+      "ksloc": 2.55,
+      "equiv_ksloc": 2.55,
+      "pred_size_pm": 12.53,
+      "pct_err": 7.1
+    },
+    {
+      "project_id": "parallel",
+      "reported_pm": 16.0,
+      "ksloc": 15.02,
+      "equiv_ksloc": 14.86,
+      "pred_size_pm": 15.01,
+      "pct_err": 6.2
+    },
+    {
+      "project_id": "nulink",
+      "reported_pm": 12.0,
+      "ksloc": 2.22,
+      "equiv_ksloc": 2.03,
+      "pred_size_pm": 12.25,
+      "pct_err": 2.1
+    }
+  ]
+}

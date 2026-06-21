@@ -1,7 +1,7 @@
 category,group,project,ecosystem,period,hours,PM_152,retroactive,verification,source_url
+A1_dev,Governance-harvest,Ideal Network (randomness infra),Polkadot,retroactive,2020,13.29,Y,source-verified,https://polkadot.subsquare.io/referenda/1798
 A1_dev,Gold-measured,Subsquare gov app,Polkadot,completed,3760,24.7,Y,measured-repo,https://github.com/opensquare-network/subsquare
 A1_dev,TrueBlocks,TrueBlocks v1.0.0 (EF grant FY22-0772),Ethereum,2022-08..2023-08,3840,24.0,Y,derived(2FTEx12mo),https://tjayrush.medium.com/trueblocks-final-report-for-ef-grant-d784653c830d
-A1_dev,Governance-harvest,Ideal Network (randomness infra),Polkadot,retroactive,2020,13.29,Y,source-verified,https://polkadot.subsquare.io/referenda/1798
 A1_dev,Gold-measured,Remarker NFT market,Polkadot,completed,1100,7.24,Y,measured-repo,https://github.com/Remarkers/Remarkers-market
 A1_dev,Governance-harvest,DotBot,Polkadot,retroactive,1032,6.79,Y,harvested-itemised,https://polkadot.subsquare.io/referenda/1848
 A1_dev,Gold-measured,Kheopswap DEX UI,Polkadot,completed,480,3.16,Y,measured-repo,https://github.com/kheopswap/kheopswap
