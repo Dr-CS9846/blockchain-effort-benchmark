@@ -11,10 +11,10 @@ remarker;https://github.com/Remarkers/Remarkers-market;7.24;whole;2024-09-19;;;;
 kheopswap;https://github.com/kheopswap/kheopswap;3.16;whole;2024-08-19;;;;;1;0;0;1;0;1;0;0;0;1;0;0;;;P11 Asset Hub DEX UI PAPI+smoldot greenfield at proposal date (CLEAN anchor A_local 0.157 raw-SLOC)
 ink_analyzer;https://github.com/ink-analyzer/ink-analyzer;2.79;window;;;;2023-09-01;2024-04-01;1;1;0;1;0;1;0;0;0;0;0;0;;;P12 v5-support window - net-delta still OVERCOUNTS (all 7mo dev not v5-only) - upper bound - overrides stripped for baseline
 dotcodeschool;https://github.com/iammasterbrucewayne/dotcodeschool;0.95;whole;2023-12-14;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;P13 interactive coding school Next.js TS PoC at proposal date
-polkascan_explorer;https://github.com/polkascan/explorer;11.63;whole;;;;;;1;1;0;1;0;1;0;0;0;1;0;0;;;Polkascan Explorer (6 Kusama milestones collapsed to 1); whole-repo at HEAD (upper bound)
+polkascan_explorer;https://github.com/polkascan/explorer-api;11.63;whole;;;;;;1;1;0;1;0;1;0;0;0;1;0;0;;;Polkascan Explorer (6 Kusama milestones collapsed to 1); whole-repo at HEAD (upper bound)
 ideal_network;https://github.com/ideal-lab5/idn-sdk;13.29;whole;;;;;;1;1;0;1;0;1;1;0;1;1;1;0;;;Ideal Network randomness runtime; 2020h actual; whole-repo at HEAD (active repo - upper bound)
 dodao;https://github.com/devopsdao/devopsdao;18.95;whole;;;;;;1;1;0;1;0;1;0;1;0;1;0;1;;;DoDAO task-marketplace dApp (Moonbeam); 2880h; whole-repo at HEAD (active repo - upper bound)
-octopus;https://github.com/octopus-network/astar-m1-deliverable;7.37;whole;;;;;;1;1;0;1;0;1;1;0;0;1;0;0;;;Octopus Astar-Cosmos IBC bridge M1; 1120h; whole-repo (frozen deliverable repo)
+octopus;https://github.com/octopus-network/substrate-ibc;7.37;whole;;;;;;1;1;0;1;0;1;1;0;0;1;0;0;;;Octopus Astar-Cosmos IBC bridge M1; 1120h; whole-repo (frozen deliverable repo)
 rfc_bot;https://github.com/pandres95/fellowship-referenda-bot;0.21;whole;;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;RFC Referenda Matrix bot; 32h; whole-repo
 gitorial;https://github.com/gitorial-sdk/gitorial-vscode;0.55;whole;;;;;;1;0;0;1;0;1;0;0;0;0;0;0;;;Gitorial VS Code extension (interactive git tutorials); 83h; whole-repo
 kitdot;https://github.com/w3b3d3v/kitdot;0.13;whole;;;;;;1;0;0;1;0;1;0;1;0;0;0;1;;;Kitdot CLI scaffolding (PolkaVM/Solidity templates); 20h; whole-repo
