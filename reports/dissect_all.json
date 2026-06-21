@@ -1,22 +1,22 @@
 [
   {
-    "project_id": "polkascan_explorer",
+    "project_id": "polkascan_polkadapt",
     "reported_pm": 11.63,
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
     "reuse": {
-      "new_phys": 3013,
-      "adapted_phys": 391,
-      "generated_phys": 391,
+      "new_phys": 9615,
+      "adapted_phys": 0,
+      "generated_phys": 0,
       "forked_phys": 0,
       "bulk_import_commits": 0,
       "bulk_import_files": 0,
-      "adapted_fraction": 0.115,
+      "adapted_fraction": 0.0,
       "aam": 0.1
     },
-    "ksloc": 2.361,
-    "equivalent_ksloc": 2.117,
+    "ksloc": 8.033,
+    "equivalent_ksloc": 8.033,
     "E": 1.07,
     "sumSF": 16.0,
     "prodEM": 0.999,
@@ -113,34 +113,31 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 6.553,
-    "pct_err_A2_94": -43.7,
-    "A_local_for_PMeqPM": 5.218,
-    "PM_pred_Abc": 1.293,
-    "A_bc_used": 0.58,
-    "pct_err_Abc": -88.9
+    "PM_pred_A2_94": 27.298,
+    "pct_err_A2_94": 134.7,
+    "A_local_for_PMeqPM": 1.253
   },
   {
-    "project_id": "octopus",
-    "reported_pm": 7.37,
+    "project_id": "polkascan_ui",
+    "reported_pm": 11.63,
     "sizing_mode": "whole",
     "size_how": "cloc",
     "churn": {},
     "reuse": {
-      "new_phys": 8915,
-      "adapted_phys": 145,
-      "generated_phys": 145,
-      "forked_phys": 0,
-      "bulk_import_commits": 0,
-      "bulk_import_files": 0,
-      "adapted_fraction": 0.016,
+      "new_phys": 5359,
+      "adapted_phys": 5753,
+      "generated_phys": 0,
+      "forked_phys": 5753,
+      "bulk_import_commits": 1,
+      "bulk_import_files": 200,
+      "adapted_fraction": 0.518,
       "aam": 0.1
     },
-    "ksloc": 7.466,
-    "equivalent_ksloc": 7.358,
+    "ksloc": 8.709,
+    "equivalent_ksloc": 4.651,
     "E": 1.07,
     "sumSF": 16.0,
-    "prodEM": 1.3442,
+    "prodEM": 0.999,
     "sf": {
       "PREC": {
         "rating": "N",
@@ -173,8 +170,8 @@
         "mult": 1.0
       },
       "CPLX": {
-        "rating": "H",
-        "mult": 1.17
+        "rating": "N",
+        "mult": 1.0
       },
       "RUSE": {
         "rating": "N",
@@ -193,8 +190,8 @@
         "mult": 1.0
       },
       "PVOL": {
-        "rating": "H",
-        "mult": 1.15
+        "rating": "N",
+        "mult": 1.0
       },
       "ACAP": {
         "rating": "N",
@@ -234,11 +231,8 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 33.439,
-    "pct_err_A2_94": 353.7,
-    "A_local_for_PMeqPM": 0.648,
-    "PM_pred_Abc": 6.597,
-    "A_bc_used": 0.58,
-    "pct_err_Abc": -10.5
+    "PM_pred_A2_94": 15.212,
+    "pct_err_A2_94": 30.8,
+    "A_local_for_PMeqPM": 2.248
   }
 ]

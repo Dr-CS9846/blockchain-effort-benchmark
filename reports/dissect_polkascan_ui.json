@@ -1,0 +1,118 @@
+{
+  "project_id": "polkascan_ui",
+  "reported_pm": 11.63,
+  "sizing_mode": "whole",
+  "size_how": "cloc",
+  "churn": {},
+  "reuse": {
+    "new_phys": 5359,
+    "adapted_phys": 5753,
+    "generated_phys": 0,
+    "forked_phys": 5753,
+    "bulk_import_commits": 1,
+    "bulk_import_files": 200,
+    "adapted_fraction": 0.518,
+    "aam": 0.1
+  },
+  "ksloc": 8.709,
+  "equivalent_ksloc": 4.651,
+  "E": 1.07,
+  "sumSF": 16.0,
+  "prodEM": 0.999,
+  "sf": {
+    "PREC": {
+      "rating": "N",
+      "value": 3.72
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "H",
+      "value": 2.83
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "H",
+      "value": 3.12
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "H",
+      "mult": 0.9
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 15.212,
+  "pct_err_A2_94": 30.8,
+  "A_local_for_PMeqPM": 2.248
+}
