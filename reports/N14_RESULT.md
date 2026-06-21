@@ -3,18 +3,33 @@
 **Benchmark = actual reported delivery effort.** 14 matched triples (reported hours + measured whole-repo
 cloc of the delivery repo), 6 ecosystems. All 14 sizes measured in CI (dissect runs #9–#10).
 
-## Headline
+## Headline (clean n=14, Polkascan size = sum of its 3 repos = 19.10 KSLOC)
 
-As the clean actual-effort matched set grew, the size↔effort signal **emerged**:
+> **PM = 0.33 · KSLOC^0.71** — free-fit on 14 actual-effort matched triples (whole-repo cloc).
+> **Pearson r(lnKSLOC, lnPM) = 0.65** (real, positive size↔effort relationship).
+> **But LOOCV SA ≈ 0 (PRED30 14%)** — a *bare* power law is not yet a usable estimator.
 
-| set | A (free) | E (free) | Pearson r | size-only SA (LOOCV) | reading |
+| fit | A | E | r | size-only SA (LOOCV) | reading |
 |---|---|---|---|---|---|
-| n=6 (gold only) | 0.57 | 0.48 | 0.62 | **−0.05** | size law fails (worse than mean) |
-| **n=13 (clean sizes)** | **0.30** | **0.70** | **0.67** | **+0.12** | **size law beats the mean baseline** |
-| n=14 (incl. Polkascan) | 0.54 | 0.56 | 0.54 | −0.12 | dragged by one mis-sized point |
+| n=6 (gold only) | 0.57 | 0.48 | 0.62 | −0.05 | size law fails |
+| **clean n=14 (raw whole-repo)** | **0.33** | **0.71** | **0.65** | **≈0.0** | positive correlation, not yet predictive |
+| (n=13, Polkascan dropped) | 0.30 | 0.70 | 0.67 | +0.12 | sensitivity only |
 
-**The n=6 → n=13 trajectory is the result**: more real matched data turned a null into a positive,
-baseline-beating size→effort relationship (r=0.67). This is the empirical case for growing the corpus.
+**Honest reading:** the size↔effort signal is **real and positive (r=0.65)** — bigger blockchain projects do
+take more effort — but at n=14 a raw-size power law does **not** reach Conte accuracy thresholds. The scatter is
+**not random**; it is driven by three *fixable, measurable* causes (below), which is the roadmap, not a dead end.
+
+### Why the scatter (residual diagnosis — these are the next fixes, not noise)
+- **Effort-scope ≠ repo-scope.** dotreasury reports one maintenance quarter (0.95 PM) against a multi-year
+  72-KSLOC repo (+621%); the funded slice must be matched to the corresponding code slice, not the whole repo.
+- **Tiny-hours vs scaffold-heavy repo.** kitdot (20 h) sits on a 7-KSLOC template-generated repo (+927%) — 20 h
+  cannot author 7 000 lines; the repo is mostly generated.
+- **Reuse inflation.** ink!, Kheopswap, Referendum Alert, Gitorial carry forked/vendored code that inflates
+  whole-repo size; reuse-corrected (equivalent SLOC) is the declared fix.
+
+The **COCOMO route** (reuse-corrected equivalent size × the synthesized drivers, with a locally-calibrated A)
+is what absorbs this scatter — on the clean core it reached PRED30≈83% at A≈0.58. The bare power law here is the
+*lower bound*; the driver model is the upper track.
 
 ## The 14 points (whole-repo cloc)
 
@@ -23,7 +38,7 @@ baseline-beating size→effort relationship (r=0.67). This is the empirical case
 | Subsquare | Polkadot | 24.70 | 235.25 | ✓ |
 | DoDAO | Moonbeam | 18.95 | 39.06 | ✓ |
 | Ideal Network | Polkadot | 13.29 | 20.87 | ✓ |
-| Polkascan Explorer | Kusama | 11.63 | 2.36 | ✗ size-incomplete (1 of 3 repos) |
+| Polkascan Explorer | Kusama | 11.63 | 19.10 (3 repos summed) | ✓ |
 | Octopus IBC | Astar | 7.37 | 7.47 | ✓ |
 | Remarker | Polkadot | 7.24 | 29.98 | ✓ |
 | Kheopswap | Polkadot | 3.16 | 56.83 | ✓ |
