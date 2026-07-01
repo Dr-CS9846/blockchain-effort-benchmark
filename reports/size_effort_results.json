@@ -1,0 +1,69 @@
+{
+  "conte_1986": {
+    "MMRE<": 0.25,
+    "PRED25>=": 0.75
+  },
+  "reliable_only": true,
+  "plausible_only": false,
+  "pm_estimate": "pm_mid",
+  "dedup_by_repo": true,
+  "size_effort_corr_log": 0.9683255282521593,
+  "in_sample": {
+    "n": 6,
+    "MMRE": 0.2692033865407024,
+    "MdMRE": 0.16103734629453897,
+    "PRED25": 0.8333333333333334,
+    "PRED30": 0.8333333333333334,
+    "MAE": 1.9192351968963652,
+    "MARP0_random_baseline": 8.515813333333334,
+    "SA_vs_random": 0.7746269062305619
+  },
+  "loocv": {
+    "n": 6,
+    "MMRE": 0.39306884249822094,
+    "MdMRE": 0.21627730369502907,
+    "PRED25": 0.6666666666666666,
+    "PRED30": 0.8333333333333334,
+    "MAE": 2.8593366820462003,
+    "MARP0_random_baseline": 8.515813333333334,
+    "SA_vs_random": 0.6642321091217516
+  },
+  "loocv_conte_pass": false,
+  "planned_vs_measured": {
+    "corr_log": 0.23613064335701625,
+    "median_measured_over_planned": 0.6633338333333334,
+    "n": 6
+  },
+  "projects": [
+    "Fennel Protocol",
+    "ParaSpell XCM SDK",
+    "Societal",
+    "Bright Treasury",
+    "Fair Squares",
+    "Lastic"
+  ],
+  "size": [
+    2.167,
+    1.346,
+    29.347,
+    47.604,
+    17.405,
+    9.664
+  ],
+  "effort_actual": [
+    1.0526,
+    0.7368,
+    6.4211,
+    20.7895,
+    9.8947,
+    5.4737
+  ],
+  "loocv_pred": [
+    1.2830116825139701,
+    0.8268748465236014,
+    14.738205203519385,
+    16.36406139996026,
+    6.971204244138056,
+    4.304205996181441
+  ]
+}
