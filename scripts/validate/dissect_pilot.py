@@ -34,7 +34,7 @@ HERE = Path(__file__).parent.resolve()
 CACHE = HERE / "dissect_cache"
 SRC_EXTS = {".rs",".ts",".tsx",".js",".jsx",".vue",".sol",".ink",".py",".go",".java",".kt",
             ".c",".cc",".cpp",".h",".hpp",".cs",".rb",".php",".scala",".move",".cairo",".swift",
-            ".nix",".lean",".circom"}
+            ".nix",".lean",".circom",".ex",".exs"}
 VENDOR = ("node_modules/","vendor/","dist/","build/","target/","third_party/","thirdparty/",
           ".git/","bower_components/","__pycache__/")
 
@@ -121,7 +121,7 @@ def size_diff(d, ref_a, ref_b):
 
 SOURCE_LANGS_FALLBACK = {"Rust","Go","TypeScript","JavaScript","JSX","TSX","Python","Solidity","C",
     "C++","C/C++ Header","Java","Kotlin","Swift","C#","Ruby","Scala","Vyper","Move","Cairo","PHP",
-    "Dart","Vuejs Component","Nix","Lean","Circom"}
+    "Dart","Vuejs Component","Nix","Lean","Circom","Elixir"}
 
 # ── reuse-adjusted equivalent SLOC (COCOMO II reuse model) ───────────────────────────
 # equivalent = new + AAM*adapted. ADAPTED = generated code (markers) OR forked/imported code
