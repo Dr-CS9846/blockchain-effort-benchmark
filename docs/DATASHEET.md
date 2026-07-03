@@ -64,3 +64,29 @@ _Dataset version: pre-release (pending v0.1 tag) · Last updated: 2026-05-30_
 
 ### Reference
 Gebru, T., Morgenstern, J., Vecchione, B., Vaughan, J. W., Wallach, H., Daumé III, H., & Crawford, K. (2021). *Datasheets for Datasets.* Communications of the ACM, 64(12), 86–92. (arXiv:1803.09010)
+
+---
+
+## Addendum 2026-07-03 — composition change: actual-effort corpus (supersedes §2 counts)
+
+The dataset's ground truth pivoted from *planned* (FTE×duration) to **actual reported delivery effort**
+(itemised hours ÷ 152 → PM). Current composition:
+
+- **Primary calibration set:** n = **16 distinct projects across 7 ecosystems** (Polkadot, Kusama,
+  Moonbeam, Astar, Ethereum-adjacent tooling, Cosmos-adjacent, æternity), each a matched triple
+  {actual reported PM, delivery repo, CI-measured size}. Spec: `data/calibration/pilots_cocomo.csv`;
+  measurements: per-project `dissect_*.json` on the `census` branch.
+- **Candidate ledger:** `data/calibration/corpus_reclassified_offchain.csv` — 43 rows, every candidate
+  carrying `effort_type` (actual / proposed / milestone_reported / cost_no_rate / derived) and a
+  `calib_eligible` verdict incl. explicit `DROPPED` reasons. Gate: §2.1 of
+  `reports/PROJECT_STATUS_FOR_REVIEWER.md`.
+- **Longitudinal panels (no pseudo-replication):** æternity JS SDK (7 itemised quarters, one developer —
+  collapse to one aggregate point) and AEKnow (2 repos, one grant — .org component sized; .chain
+  vendored-inflated, disclosed).
+- **Planned-PM track (n=104)** retained as the *contrast* dataset: planned grant FTE is size-decoupled
+  (E≈0.10) — the dataset's headline negative finding.
+- **Maintenance sub-corpus** (Polkascan-PyAPI 21 windows; Cosmos Hypha/Gaia) reserved for a Phase-2
+  hierarchical model; **infra/ops** (Stakeworld) excluded from construction effort.
+
+Known-limitation flags (§3.1 notes of the status doc): dotreasury and Kitdot retained as disclosed
+scope-mismatch outliers; TrueBlocks held out as OOD external-validity check (derived hours).

@@ -36,3 +36,25 @@ To freeze the chain at the source:
 Once `data/raw/` + hashes exist and C6 is produced, C1–C6 each have an unbroken
 **raw → extracted → script → frozen output → reproduced** chain — the definition of
 a calibration corpus, not merely a reproducible engine.
+
+---
+
+## Addendum 2026-07-03 — actual-effort pivot claims (C7–C10) and one retraction
+
+_The project's ground-truth pivoted (June 2026) from planned/git-proxy effort to **actual reported
+delivery effort**. The claims below supersede C1–C4 as the publishable core; C1–C4 remain valid as
+history of the planned-PM track._
+
+| # | Claim | Value | Produced by | Input data | Reproduced? |
+|---|-------|-------|-------------|-----------|-------------|
+| C7 | Actual-effort bare size law (n=16, 7 ecosystems) | PM = 0.33·KSLOC^0.73; r=0.65; LOOCV SA≈0; PRED(30)=12% | `calibrate_AE.py` / dissect runs #9–#16 | `pilots_cocomo.csv` + per-project `dissect_*.json` (census) | **YES — independently recomputed 2026-07-03 (A=0.330, E=0.734, r=0.655, SA=−0.01, PRED30=12%)** |
+| C8 | Planned grant FTE is size-decoupled | free-fit E≈0.10 (n=104); SA 0.48; PRED30 15% | `matched_pair_calibrate.py` | `matched_pair_pm.json` (census) | YES (census artifact) |
+| C9 | Within-developer churn ⊥ hours (æternity panel) | Pearson r = −0.25 (5 quarters; now 7 measured) | `dissect_pilot.py` window mode | `dissect_aeternity_sdk_*.json` | **YES — independently recomputed (r=−0.251)** |
+| C10 | æternity aggregate point complete | 13.50 PM / 25.38 KSLOC (7 quarters itemised) | CI dissect runs | same as C9 | YES |
+
+**Retraction (R1).** The n=8 full-driver headline **A = 0.56, PRED(30) = 88 %** is retracted as a claim
+(see `reports/HONEST_RECALIBRATION.md`): (i) target contamination — 4 of 8 points carried
+milestone/proposed PM absent from the actual-effort master; (ii) provenance mismatch — headline sizes
+did not match the cited `dissect_all.json`. Retained only as an exploratory hypothesis
+(status doc §4.3 Appendix A). Ledger rows for megaclite/elara/fennel/ask!/bagpipes added to
+`corpus_reclassified_offchain.csv` as DROPPED with reasons.
