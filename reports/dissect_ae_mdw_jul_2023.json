@@ -4,15 +4,15 @@
   "sizing_mode": "window",
   "size_how": "git-window",
   "churn": {
-    "added": 18,
-    "deleted": 8,
+    "added": 4053,
+    "deleted": 1911,
     "start": "8af28313",
     "end": "231b1694",
     "metric": "net-delta(boundary-diff)"
   },
   "reuse": {},
-  "ksloc": 0.018,
-  "equivalent_ksloc": 0.018,
+  "ksloc": 4.053,
+  "equivalent_ksloc": 4.053,
   "E": 1.07,
   "sumSF": 16.0,
   "prodEM": 0.999,
@@ -109,7 +109,7 @@
     }
   },
   "overrides": {},
-  "PM_pred_A2_94": 0.04,
-  "pct_err_A2_94": -98.1,
-  "A_local_for_PMeqPM": 151.024
+  "PM_pred_A2_94": 13.129,
+  "pct_err_A2_94": 540.4,
+  "A_local_for_PMeqPM": 0.459
 }

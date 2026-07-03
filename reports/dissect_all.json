@@ -5,15 +5,15 @@
     "sizing_mode": "window",
     "size_how": "git-window",
     "churn": {
-      "added": 6,
-      "deleted": 0,
+      "added": 10242,
+      "deleted": 4074,
       "start": "d3489877",
       "end": "e06eaa82",
       "metric": "net-delta(boundary-diff)"
     },
     "reuse": {},
-    "ksloc": 0.006,
-    "equivalent_ksloc": 0.006,
+    "ksloc": 10.242,
+    "equivalent_ksloc": 10.242,
     "E": 1.07,
     "sumSF": 16.0,
     "prodEM": 0.999,
@@ -110,9 +110,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 0.012,
-    "pct_err_A2_94": -99.9,
-    "A_local_for_PMeqPM": 2188.679
+    "PM_pred_A2_94": 35.402,
+    "pct_err_A2_94": 286.1,
+    "A_local_for_PMeqPM": 0.762
   },
   {
     "project_id": "ae_mdw_q2_2023",
@@ -120,15 +120,15 @@
     "sizing_mode": "window",
     "size_how": "git-window",
     "churn": {
-      "added": 84,
-      "deleted": 7,
+      "added": 6919,
+      "deleted": 1821,
       "start": "e06eaa82",
       "end": "8af28313",
       "metric": "net-delta(boundary-diff)"
     },
     "reuse": {},
-    "ksloc": 0.084,
-    "equivalent_ksloc": 0.084,
+    "ksloc": 6.919,
+    "equivalent_ksloc": 6.919,
     "E": 1.07,
     "sumSF": 16.0,
     "prodEM": 0.999,
@@ -225,9 +225,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 0.207,
-    "pct_err_A2_94": -96.5,
-    "A_local_for_PMeqPM": 83.761
+    "PM_pred_A2_94": 23.268,
+    "pct_err_A2_94": 293.7,
+    "A_local_for_PMeqPM": 0.747
   },
   {
     "project_id": "ae_mdw_jul_2023",
@@ -235,15 +235,15 @@
     "sizing_mode": "window",
     "size_how": "git-window",
     "churn": {
-      "added": 18,
-      "deleted": 8,
+      "added": 4053,
+      "deleted": 1911,
       "start": "8af28313",
       "end": "231b1694",
       "metric": "net-delta(boundary-diff)"
     },
     "reuse": {},
-    "ksloc": 0.018,
-    "equivalent_ksloc": 0.018,
+    "ksloc": 4.053,
+    "equivalent_ksloc": 4.053,
     "E": 1.07,
     "sumSF": 16.0,
     "prodEM": 0.999,
@@ -340,9 +340,9 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 0.04,
-    "pct_err_A2_94": -98.1,
-    "A_local_for_PMeqPM": 151.024
+    "PM_pred_A2_94": 13.129,
+    "pct_err_A2_94": 540.4,
+    "A_local_for_PMeqPM": 0.459
   },
   {
     "project_id": "ae_mdw_aug_oct_2023",
@@ -350,15 +350,15 @@
     "sizing_mode": "window",
     "size_how": "git-window",
     "churn": {
-      "added": 3,
-      "deleted": 0,
+      "added": 7641,
+      "deleted": 4497,
       "start": "231b1694",
       "end": "cb07826e",
       "metric": "net-delta(boundary-diff)"
     },
     "reuse": {},
-    "ksloc": 0.003,
-    "equivalent_ksloc": 0.003,
+    "ksloc": 7.641,
+    "equivalent_ksloc": 7.641,
     "E": 1.07,
     "sumSF": 16.0,
     "prodEM": 0.999,
@@ -455,123 +455,8 @@
       }
     },
     "overrides": {},
-    "PM_pred_A2_94": 0.006,
-    "pct_err_A2_94": -99.8,
-    "A_local_for_PMeqPM": 1478.212
-  },
-  {
-    "project_id": "aeternity_sdk_q1_2025",
-    "reported_pm": 1.85,
-    "sizing_mode": "window",
-    "size_how": "git-window",
-    "churn": {
-      "added": 1236,
-      "deleted": 793,
-      "start": "530cfbf1",
-      "end": "356864d8",
-      "metric": "net-delta(boundary-diff)"
-    },
-    "reuse": {},
-    "ksloc": 1.236,
-    "equivalent_ksloc": 1.236,
-    "E": 1.07,
-    "sumSF": 16.0,
-    "prodEM": 1.2974,
-    "sf": {
-      "PREC": {
-        "rating": "N",
-        "value": 3.72
-      },
-      "FLEX": {
-        "rating": "N",
-        "value": 3.04
-      },
-      "RESL": {
-        "rating": "H",
-        "value": 2.83
-      },
-      "TEAM": {
-        "rating": "N",
-        "value": 3.29
-      },
-      "PMAT": {
-        "rating": "H",
-        "value": 3.12
-      }
-    },
-    "em": {
-      "RELY": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "DATA": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "CPLX": {
-        "rating": "H",
-        "mult": 1.17
-      },
-      "RUSE": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "DOCU": {
-        "rating": "H",
-        "mult": 1.11
-      },
-      "TIME": {
-        "rating": "H",
-        "mult": 1.11
-      },
-      "STOR": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "PVOL": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "ACAP": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "PCAP": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "PCON": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "APEX": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "PLEX": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "LTEX": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "TOOL": {
-        "rating": "H",
-        "mult": 0.9
-      },
-      "SITE": {
-        "rating": "N",
-        "mult": 1.0
-      },
-      "SCED": {
-        "rating": "N",
-        "mult": 1.0
-      }
-    },
-    "overrides": {},
-    "PM_pred_A2_94": 4.785,
-    "pct_err_A2_94": 158.6,
-    "A_local_for_PMeqPM": 1.137
+    "PM_pred_A2_94": 25.875,
+    "pct_err_A2_94": 777.1,
+    "A_local_for_PMeqPM": 0.335
   }
 ]
