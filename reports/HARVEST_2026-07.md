@@ -1,5 +1,21 @@
 # Actual-effort harvest, July 2026 — n=16 → n=17(+1 provisional)
 
+**Update 2026-07-03 (same day):** the CI size measurement for the 4 `ae_mdw_*` windows initially came
+back with near-zero churn (6/84/18/3 lines added against 1394.5/898/312/448 reported hours — an obvious
+red flag). Root cause: `scripts/validate/dissect_pilot.py`'s source-file filter (`SRC_EXTS` /
+`SOURCE_LANGS_FALLBACK`) never included Elixir (`.ex`/`.exs`), so `aeternity/ae_mdw` (Elixir) had its
+entire diff silently filtered to near-nothing instead of erroring. Verified via GitHub's own compare API
+that the true diff for the first window is 7,231 additions / 6,215 deletions across 196 files — not 6.
+**Confirmed this bug does not affect the existing published n=16 headline**: scanned every repo in
+`pilots_cocomo.csv` and `aeternity/ae_mdw` is the only Elixir project in the spec. Fixed (commit `f077f94`,
+adds `.ex`/`.exs` and `"Elixir"` to the two allowlists) and re-ran CI (run #16) — corrected churn now
+10,242 / 6,919 / 4,053 / 7,641 added lines per window, in the right order of magnitude. **Corrected
+aggregate: 20.08 PM / 28.855 KSLOC** (own LOOCV residual MRE 57%, mid-pack — not an outlier like
+dotreasury/kitdot). Re-running the n=17 headline fit with this point: **A=0.337, E=0.761, r=0.653,
+LOOCV SA=−0.124 (down from −0.01), PRED30=6% (down from 12%)** — the corrected point makes the bare-law
+fit modestly *worse*, not better; reported here without curation. Full n=17 fit is exploratory pending
+formal re-verification and is not yet promoted into `PROJECT_STATUS_FOR_REVIEWER.md` §4.2.
+
 **Goal:** grow the actual-effort matched-triple set toward n≈30 (roadmap item 1 of
 `PROJECT_STATUS_FOR_REVIEWER.md` §8). **Gate applied** (§2.1): retroactive/delivered + itemised actual
 hours + software construction + single measurable delivery repo.
