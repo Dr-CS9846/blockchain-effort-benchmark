@@ -11,10 +11,25 @@ that the true diff for the first window is 7,231 additions / 6,215 deletions acr
 adds `.ex`/`.exs` and `"Elixir"` to the two allowlists) and re-ran CI (run #16) — corrected churn now
 10,242 / 6,919 / 4,053 / 7,641 added lines per window, in the right order of magnitude. **Corrected
 aggregate: 20.08 PM / 28.855 KSLOC** (own LOOCV residual MRE 57%, mid-pack — not an outlier like
-dotreasury/kitdot). Re-running the n=17 headline fit with this point: **A=0.337, E=0.761, r=0.653,
-LOOCV SA=−0.124 (down from −0.01), PRED30=6% (down from 12%)** — the corrected point makes the bare-law
-fit modestly *worse*, not better; reported here without curation. Full n=17 fit is exploratory pending
-formal re-verification and is not yet promoted into `PROJECT_STATUS_FOR_REVIEWER.md` §4.2.
+dotreasury/kitdot).
+
+**Second update, same day — scope-consistency analysis.** Naively appending the corrected point to the old
+tabulation gives A=0.337, E=0.761, r=0.653, LOOCV SA=−0.124, PRED30=6% — *worse* than n=16. Diagnosis: the
+old tabulation itself carried two sizes that **violate the spec's own pre-registered `sizing_mode`**:
+`subsquare_maint` and `dotreasury` are declared `window` in `pilots_cocomo.csv`, but the fit used legacy
+whole-repo figures (235.25 / 72.34 KSLOC) from the N14 table against maintenance-slice PMs. Substituting the
+CI-measured matched windows (76.89 / 2.365 KSLOC — both already in the census dissect artifacts):
+
+| fit (n=17, same points) | A | E | r | LOOCV SA | PRED30 | MdMRE |
+|---|---|---|---|---|---|---|
+| mixed-scope (legacy sizes) | 0.337 | 0.761 | 0.653 | **−0.124** | 6% | 80% |
+| **protocol-consistent (spec rule)** | **0.283** | **0.914** | **0.731** | **+0.176** | **35%** | **47%** |
+
+The ≈0.30-SA gap **quantifies residual cause (a)** (effort-scope ≠ repo-scope) and resolves the §3.1
+dotreasury item (no longer an outlier at matched scope; Kitdot remains, different failure mode). The free-fit
+E=0.914 is consistent with COCOMO II's structural base exponent 0.91 (wide CI at n=17 — convergence, not
+confirmation). The protocol-consistent fit is **promoted to §4.2 of `PROJECT_STATUS_FOR_REVIEWER.md`** with
+the mixed-scope number disclosed alongside as the sensitivity.
 
 **Goal:** grow the actual-effort matched-triple set toward n≈30 (roadmap item 1 of
 `PROJECT_STATUS_FOR_REVIEWER.md` §8). **Gate applied** (§2.1): retroactive/delivered + itemised actual

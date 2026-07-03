@@ -1,8 +1,10 @@
 # Blockchain-COCOMO — Project Status for Reviewer
 *Calibrating a software cost-estimation model (COCOMO II) to actual blockchain-grant development effort.*
-*Status as of 2026-06-22; **revised 2026-07-03** — §4.2 promoted to result of record (independently
-re-verified from CI-measured sizes); the n=8 driver headline moved to an explicitly-retracted exploratory
-appendix (§4.3); scope/OOD disclosures added (§3.1, §4.5, §6). Repository: `Dr-CS9846/blockchain-effort-benchmark`.*
+*Status as of 2026-06-22; **revised 2026-07-03** — (i) §4.2 promoted to result of record and independently
+re-verified from CI-measured sizes; (ii) the n=8 driver headline moved to an explicitly-retracted exploratory
+appendix (§4.3); (iii) scope/OOD disclosures added (§3.1, §4.5, §6); (iv) **corpus grown to n = 17**
+(æternity Middleware, 3 052 itemised hours — `HARVEST_2026-07.md`) and the headline re-fit under the
+protocol-consistent sizing rule, mixed-scope sensitivity disclosed. Repository: `Dr-CS9846/blockchain-effort-benchmark`.*
 
 ---
 
@@ -53,13 +55,13 @@ effort figure traces to a live `source_url`.
 
 ## 3. Dataset (current)
 
-### 3.1 Cross-project calibration set — **n = 16 distinct projects, 7 ecosystems**
+### 3.1 Cross-project calibration set — **n = 17 distinct projects, 7 ecosystems**
 Ecosystems: Polkadot, Kusama, Moonbeam, Astar, Ethereum, Cosmos, æternity.
 Effort range 0.13 → 24.7 PM.
 
 | # | project | ecosystem | PM (actual) | size basis |
 |---|---|---|---|---|
-| 1 | Subsquare (gov app) | Polkadot | 24.70 | whole-repo |
+| 1 | Subsquare (gov app) | Polkadot | 24.70 | window (12-mo funded slice) |
 | 2 | DoDAO | Moonbeam | 18.95 | whole-repo |
 | 3 | Ideal Network | Polkadot | 13.29 | whole-repo |
 | 4 | Polkascan Explorer (3 repos summed) | Kusama | 11.63 | whole-repo |
@@ -68,15 +70,21 @@ Effort range 0.13 → 24.7 PM.
 | 7 | Remarker | Polkadot | 7.24 | whole-repo |
 | 8 | Kheopswap | Polkadot | 3.16 | whole-repo |
 | 9 | ink! analyzer | Polkadot | 2.79 | whole-repo |
-| 10 | dotreasury | Kusama | 0.95 | whole-repo |
+| 10 | dotreasury | Kusama | 0.95 | window (funded quarter) |
 | 11 | DotCodeSchool | Polkadot | 0.95 | whole-repo |
 | 12 | AEKnow (.org authored) | æternity | 1.00 | window |
 | 13 | Gitorial | Polkadot | 0.55 | whole-repo |
 | 14 | Referendum Alert | Kusama | 0.25 | whole-repo |
 | 15 | RFC Bot | Polkadot | 0.21 | whole-repo |
 | 16 | Kitdot | Polkadot | 0.13 | whole-repo |
+| 17 | æternity Middleware `ae_mdw` (team of 2) | æternity | 20.08 | window (Σ 4 grant windows) |
 
 **Notes on table composition (disclosed, not hidden):**
+- **Point 17 (added 2026-07-03, `HARVEST_2026-07.md`)**: 3 052.5 h of per-person per-task weekly itemised
+  hours across 4 consecutive grant windows (Dec 2022 – Oct 2023) on the single Elixir repo
+  `aeternity/ae_mdw`; the 4 dependent windows collapse to one aggregate point and double as a **second
+  within-team longitudinal panel**. Its LOOCV residual is mid-pack (≈ 57 % MRE) — the pipeline
+  generalises to a new team/language without special treatment.
 - **æternity SDK aggregate is now complete**: all 7 quarters' churn measured (CI); Σ = 2 052.6 h = 13.50 PM
   on 25.38 KSLOC summed window churn. The 7 dependent quarters collapse to this one independent point
   (no pseudo-replication).
@@ -84,14 +92,18 @@ Effort range 0.13 → 24.7 PM.
   **out-of-domain external-validity check** (`OOD_sensitivity` in the corpus ledger), not pooled into the
   Substrate-dominant primary set. Its hours are derived (2 FTE × duration), not itemised — a second reason
   it is not a primary matched triple.
-- **dotreasury and Kitdot are known scope-mismatch outliers, retained pending window-matched re-measurement**:
-  dotreasury reports one funded maintenance quarter (0.95 PM) against a multi-year repo; Kitdot's 20 h sit on
-  a largely template-generated repo. In LOOCV they are the two worst residuals (≈ +2 100 % / +2 400 %). They
-  are kept in the n=16 fit so the reported accuracy is not curated upward; the §8 roadmap item (effort-scope ↔
-  code-scope matching) addresses them.
+- **dotreasury: scope-mismatch RESOLVED (2026-07-03).** Its funded maintenance quarter (0.95 PM) is now
+  matched against the CI-measured window churn (2.37 KSLOC) per the spec's own `window` sizing rule, instead
+  of the legacy 72 KSLOC whole-repo figure. At matched scope it is **no longer an outlier**. Subsquare's
+  size was corrected the same way (12-month window churn 76.9 KSLOC, not the 235 KSLOC multi-year repo; the
+  window is an upper bound on funded work, disclosed in the spec notes).
+- **Kitdot remains the disclosed outlier** (20 h on a largely template-generated repo — a *reuse/scaffold*
+  failure mode, not a scope mismatch; window-matching cannot fix it, the reuse-adjusted equivalent-SLOC
+  track can). It is kept in the primary fit so reported accuracy is not curated upward.
 
-### 3.2 Two within-developer longitudinal panels
+### 3.2 Three within-project longitudinal panels
 - **æternity JS SDK**: 7 quarterly reports, one developer (Denis Davidyuk), one repo — itemised hours.
+- **æternity Middleware**: 4 grant windows of weekly per-person hours, one 2-dev team, one repo (new 2026-07).
 - **AEKnow**: weekly task-level reports, one developer (Liu Yang), two repos.
 
 ### 3.3 Broader tiered corpus (for the data paper)
@@ -109,17 +121,31 @@ On the large **W3F planned-PM** set (n=104), a size law degenerates: free-fit ex
 PRED30 15% — grant FTE is set administratively, not by eventual code size. This is a citable negative result
 and the reason the calibration rests on *actual* delivery effort.
 
-### 4.2 Cross-project size→effort (actual effort, n=16) — THE HEADLINE RESULT
-**PM = 0.33 · KSLOC^0.73**, **Pearson r = 0.65** (positive, real). But **LOOCV SA ≈ 0, PRED30 = 12%** — a
-*bare* power law does not yet reach Conte accuracy thresholds. *(Independently re-verified 2026-07-03 from
-the CI-measured sizes with the completed 7-quarter æternity aggregate: A = 0.330, E = 0.734, r = 0.655,
-LOOCV SA = −0.01 vs mean baseline, PRED25 = PRED30 = 12 %, MdMRE = 70 %.)* The residuals are **not random**; they trace to
-three measurable causes: (a) effort-scope ≠ repo-scope (e.g. one maintenance quarter vs a multi-year repo),
-(b) tiny-hours vs template/generated repos, (c) reuse/fork inflation. The size signal strengthened as the
-clean set grew (n=6 SA −0.05 → n=13 SA +0.12), which is the empirical case for the dataset.
+### 4.2 Cross-project size→effort (actual effort, n=17) — THE HEADLINE RESULT
+**PM = 0.28 · KSLOC^0.91, Pearson r = 0.73, LOOCV SA = +0.18, PRED(30) = 35 %, MdMRE = 47 %** (n = 17,
+2026-07-03) — the first **positive-SA** bare-law result on actual effort, under the **protocol-consistent
+sizing rule**: every point sized at the scope its effort was reported for (whole-repo for greenfield
+deliveries; CI-measured window churn for funded maintenance slices, exactly as each row's `sizing_mode`
+declares in `pilots_cocomo.csv`). Notably the free-fit exponent lands at **E = 0.914 — consistent with
+COCOMO II's structural base exponent (0.91 + 0.01·ΣSF)** that this project had until now *fixed by
+assumption*; at n = 17 the CI on a free E is wide, so this is convergence, not confirmation.
+
+**Sensitivity (mixed-scope, disclosed):** the earlier tabulation carried two sizes that violated the
+spec's own window rule (Subsquare's 12-month maintenance PM against the 235 KSLOC multi-year repo;
+dotreasury's funded quarter against its 72 KSLOC whole repo). With those legacy whole-repo sizes the same
+n = 17 fit gives **A = 0.34, E = 0.76, r = 0.65, LOOCV SA = −0.12, PRED30 = 6 %** (and at n = 16,
+SA = −0.01, PRED30 = 12 %). The gap between the two fits — **≈ 0.30 of SA from scope-matching alone** — is
+the quantified version of residual cause (a) below and is itself a finding: *how you match effort-scope to
+code-scope dominates bare-law accuracy at pilot n.*
+
+The remaining residuals trace to the same three measurable causes: (a) effort-scope ≠ repo-scope (now the
+smallest, post scope-matching), (b) template/generated repos vs tiny hours (Kitdot — still the worst
+residual, retained and disclosed), (c) reuse/fork inflation (ink!-analyzer, Kheopswap — next in line for
+the reuse-adjusted track). The size signal has strengthened monotonically as the clean set grew
+(n=6 SA −0.05 → n=13 +0.12 → n=17 scope-matched +0.18), which is the empirical case for the dataset.
 
 ### 4.3 Full COCOMO II driver calibration — EXPLORATORY ONLY (no current headline claim)
-The full-driver COCOMO II calibration has **not yet been re-run** on the corrected n=16 set with
+The full-driver COCOMO II calibration has **not yet been re-run** on the corrected n=17 set with
 pre-registered sizes. There is therefore **no current driver-calibrated accuracy claim**; §4.2 is the
 result of record. The exploratory n=8 driver result is retained in **Appendix A** below strictly as a
 hypothesis-generating exercise.
@@ -158,20 +184,22 @@ before any churn↔hours correlation is asserted.
   the rigorous justification for fixing E structurally (0.91 + 0.01·ΣSF) and calibrating only A (Boehm-faithful).
   Identifying E freely to ±0.1 needs ~100 matched triples.
 - **Residual battery / sensitivity protocol** (heteroscedasticity, temporal-drift, Cook's-D influence, ±20 %
-  effort-perturbation): the *procedures* are established and scripted; they must be re-run on the n=16 set
+  effort-perturbation): the *procedures* are established and scripted; they must be re-run on the n=17 set
   before their numeric outcomes are quoted.
 
 ---
 
 ## 5. Headline claims a reviewer can rely on
-1. First **actual-effort** blockchain size→effort benchmark: **n = 16 projects, 7 ecosystems**, every point
+1. First **actual-effort** blockchain size→effort benchmark: **n = 17 projects, 7 ecosystems**, every point
    source-cited.
 2. **Planned grant effort is size-decoupled (E≈0.10); actual effort is positively size-related (r≈0.65)** —
    the planned-vs-actual contrast is novel and defensible.
-3. On the full actual-effort set (n=16), the honest calibration state is: **size↔effort is real (r = 0.65)
-   but a bare size law is not yet an accurate estimator (LOOCV SA ≈ 0, PRED(30) = 12 %)**, with the residuals
-   traced to three measurable, fixable causes (§4.2). The full-driver Blockchain-COCOMO is an **exploratory
-   hypothesis only** (Appendix A in §4.3) pending re-validation at larger n with pre-registered sizes.
+3. On the full actual-effort set (n=17) under the protocol-consistent sizing rule: **PM = 0.28·KSLOC^0.91,
+   r = 0.73, LOOCV SA = +0.18, PRED(30) = 35 %** — a real but still-modest bare-law baseline (Conte
+   thresholds not yet met), with the mixed-scope sensitivity (SA = −0.12) disclosed alongside and the
+   ≈0.30-SA gap between them quantifying the scope-matching effect (§4.2). The full-driver
+   Blockchain-COCOMO remains an **exploratory hypothesis only** (Appendix A in §4.3) pending re-validation
+   with pre-registered sizes.
 4. A **controlled within-developer result**: the same developer's effort-per-KSLOC swings **~7×**
    quarter-to-quarter under fixed team/language/toolchain, motivating multivariable models. (The
    churn↔hours *correlation* claim is withdrawn — sign-unstable at panel n; see §4.4.)
@@ -207,7 +235,7 @@ discipline is what makes the admitted n credible.
 ## 8. Roadmap
 1. **Grow the actual-effort matched set** toward n≈30 (the single highest-value action; the æternity
    "[Completed]" grant vein is a repeatable source).
-2. **Reuse-corrected + full-driver fit** on the current n=16 (upper-track vs the bare-law lower bound).
+2. **Reuse-corrected + full-driver fit** on the current n=17 (upper-track vs the bare-law lower bound).
 3. **Data paper** first (the corpus + provenance + planned-vs-actual finding), then the **pilot calibration
    paper** (A≈0.56, within-developer result), then multivariable driver estimation.
 4. **Housekeeping for citability**: v0.1 tagged release/DOI; refresh datasheet/source-map; lock the
