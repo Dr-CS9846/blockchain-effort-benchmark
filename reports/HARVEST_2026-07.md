@@ -7,7 +7,7 @@ red flag). Root cause: `scripts/validate/dissect_pilot.py`'s source-file filter 
 entire diff silently filtered to near-nothing instead of erroring. Verified via GitHub's own compare API
 that the true diff for the first window is 7,231 additions / 6,215 deletions across 196 files — not 6.
 **Confirmed this bug does not affect the existing published n=16 headline**: scanned every repo in
-`pilots_cocomo.csv` and `aeternity/ae_mdw` is the only Elixir project in the spec. Fixed (commit `f077f94`,
+`pilots_cocomo.csv` and `aeternity/ae_mdw` is the only Elixir project in the spec. Fixed (the fix commit
 adds `.ex`/`.exs` and `"Elixir"` to the two allowlists) and re-ran CI (run #16) — corrected churn now
 10,242 / 6,919 / 4,053 / 7,641 added lines per window, in the right order of magnitude. **Corrected
 aggregate: 20.08 PM / 28.855 KSLOC** (own LOOCV residual MRE 57%, mid-pack — not an outlier like

@@ -65,5 +65,5 @@ sizing (each point at its spec-declared `sizing_mode`; Subsquare & dotreasury at
 verify script over census dissect artifacts + `HARVEST_2026-07.md` hours; new point C-input: æternity
 Middleware 3 052.5 h / 28.855 KSLOC (4 windows, forum topics 11073/11320/11635/11693). Mixed-scope
 sensitivity on the same 17 points: SA = −0.124, PRED30 = 6 % — the ≈0.30-SA gap is the quantified
-scope-matching effect. C7 (n=16, mixed-scope) remains valid as history. Elixir measurement bug fixed in
-`f077f94` before this claim (ae_mdw is the only Elixir repo in the spec; earlier claims unaffected).
+scope-matching effect. C7 (n=16, mixed-scope) remains valid as history. Elixir measurement bug fixed
+before this claim (ae_mdw is the only Elixir repo in the spec; earlier claims unaffected).

@@ -22,7 +22,7 @@ _Last updated: 2026-05-30_
 | `reports/bc_cocomo_results.json` | locked honest baseline (LOOCV MMRE 41.1%, PRED25 30.8%) | **CALIBRATION result** | the actual, reproducible result |
 | `reports/bc_cocomo_params.json` | locked baseline parameters | **CALIBRATION result** | the fitted model |
 | `data/external_holdout/` | ESP / audit-mined sources (when added) | **HOLDOUT (context)** | generalisation, NOT calibration |
-| `docs/method/WORKFLOW.md`, `docs/BOOTSTRAP.md` | how to run / publish | **DOCS** | method |
+| `docs/method/WORKFLOW.md` | how to run / publish | **DOCS** | method |
 | `provenance/*` | this map, fact sheet, change log | **PROVENANCE (audit)** | governance |
 
 ## B. Broader thesis corpus (mapped, not all imported)

@@ -15,6 +15,10 @@ projects_manifest.online.csv
 /size_effort_results.json
 # ---- working draft manuscript (kept local; not for the public repo until polished) ----
 PUBLICATION_blockchain_effort_benchmark.md
+# ---- local measurement caches (regenerable; never evidence) ----
+scripts/validate/dissect_cache/
+*.log
+
 # ---- env / os / editor ----
 .venv/
 venv/
