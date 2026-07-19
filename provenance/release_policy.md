@@ -10,14 +10,14 @@ never silently change a published claim. This policy keeps the living aspect
 |-----|------|-----------|----------|
 | `main` | The **published** state | Changes ONLY via a reviewed, tagged release | Yes — but cite the tag, not `main` |
 | tags `vX.Y` | Frozen, reviewed releases | Immutable | **Yes — the only thing a paper/deck/grant cites** |
-| `rolling` | Latest automated CI snapshot | Reset each CI run via `--force-with-lease` | No — explicitly non-authoritative |
+| `census` | Automated CI measurement artifacts | Machine-written each CI run | No — explicitly non-authoritative |
 
-- **GitHub Actions writes measurement outputs to `rolling` only.** It never commits to `main`.
+- **GitHub Actions writes measurement outputs to `census` only.** It never commits to `main`.
 - A result becomes part of the published claim only when a human **promotes** it: review → update `canonical_factsheet.md` + `change_log.md` → merge to `main` → tag `vX.Y`.
 
 ## Promotion gate (every release)
 
-A `rolling` snapshot may be promoted to a tagged release only if **all** hold:
+A `census` snapshot may be promoted to a tagged release only if **all** hold:
 1. The pipeline reproduces the numbers deterministically (re-run matches).
 2. `canonical_factsheet.md` is updated to the new locked numbers, with provenance.
 3. `change_log.md` records what changed and why (append-only).
@@ -30,7 +30,7 @@ claim was made against, even as the benchmark keeps growing.
 
 ## Git push conventions
 - **Routine work:** plain `git push` (fast-forward only).
-- **Intentional reset to a known-good state** (the bootstrap of the complete set; the CI `rolling` snapshot): `git fetch` first, then `git push --force-with-lease` — it refuses if the remote moved unexpectedly since the fetch.
+- **Intentional reset to a known-good state** (the bootstrap of the complete set; the CI `census` snapshot): `git fetch` first, then `git push --force-with-lease` — it refuses if the remote moved unexpectedly since the fetch.
 - **Never** plain `git push --force` — it can silently clobber commits.
 
 ## Why
