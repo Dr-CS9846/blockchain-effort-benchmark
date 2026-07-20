@@ -1382,7 +1382,7 @@ Newest first. Each entry records what changed and why, for reproducibility and r
   420 (IPFS Utilities); most 5–100 KSLOC. Output: data/calibration/pilot_sizes.csv on census branch.
 - INTEGRITY (the point of the cross-check):
   * DUPLICATE removed — #53 RainbowDAO == #90 RainbowDAO Protocol ink! (same team/effort/repo). I introduced
-    #90 this session without spotting #53 (census bulk-admit). Removed #53; kept #90 (working+measured repo).
+    #90 in this pass without spotting #53 (census bulk-admit). Removed #53; kept #90 (working+measured repo).
     n: 100 → 99 unique. Need +1 clean admit to legitimately re-reach 100.
   * repo CORRECTIONS from delivery-doc cross-check: #92 crust-explorer HuaZhuangNan→Grasspig-Tech (repo moved;
     fixes clone_failed); #97 Nolik chainify/nolik→chainify/pallet-nolik (we'd measured the messenger, not the
@@ -1446,7 +1446,7 @@ Newest first. Each entry records what changed and why, for reproducibility and r
 - cocomo_localcal.py (LOOCV forward-selection over prospective drivers, target pm_mid, n=190 measured-effort census):
   prospective-only: SA=+0.45 PRED25 22% PRED30 27% MMRE 108% | +team-size(ln_authors): SA=+0.59 PRED25 27% PRED30 32% MMRE 81%.
   selected: ln_equiv_sloc, ln_ksloc, ln_n_exports, ln_n_routes, lang_typescript (+ln_authors).
-- KEY: the reuse-adjusted EQUIVALENT SLOC (rebuilt this session) is the TOP-selected size driver — directly
+- KEY: the reuse-adjusted EQUIVALENT SLOC (rebuilt in this pass) is the TOP-selected size driver — directly
   feeds + validates the headline model. Multivariable SA +0.45→+0.59 (real effort-estimation territory), vs the
   weak bivariate planned-FTE fit (R²=0.19). The gap is itself the finding: size-alone-on-planned-FTE weak;
   reuse-adj-size + prospective drivers + team-size on measured effort works.

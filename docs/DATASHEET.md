@@ -79,7 +79,7 @@ The dataset's ground truth pivoted from *planned* (FTE×duration) to **actual re
 - **Candidate ledger:** `data/calibration/corpus_reclassified_offchain.csv` — 43 rows, every candidate
   carrying `effort_type` (actual / proposed / milestone_reported / cost_no_rate / derived) and a
   `calib_eligible` verdict incl. explicit `DROPPED` reasons. Gate: §2.1 of
-  `reports/PROJECT_STATUS_FOR_REVIEWER.md`.
+  `reports/RESULTS.md`.
 - **Longitudinal panels (no pseudo-replication):** æternity JS SDK (7 itemised quarters, one developer —
   collapse to one aggregate point) and AEKnow (2 repos, one grant — .org component sized; .chain
   vendored-inflated, disclosed).
