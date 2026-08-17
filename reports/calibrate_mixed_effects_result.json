@@ -1,0 +1,203 @@
+{
+  "n_observations": 64,
+  "n_groups": 44,
+  "fixed_effects": {
+    "lnA": 1.1533,
+    "E": 0.1134,
+    "E_se": 0.0604,
+    "E_95ci": [
+      -0.0049,
+      0.2317
+    ]
+  },
+  "variance_components": {
+    "sigma_u2_between_project": 1.1564,
+    "sigma_eps2_within_project": 0.2621,
+    "ICC": 0.8152
+  },
+  "loocv_group_level": {
+    "SA": 0.273,
+    "MMRE": 4.229,
+    "MdMRE": 0.861,
+    "PRED25": 0.205,
+    "PRED30": 0.205
+  },
+  "loocv_group_predictions": {
+    "ae_node_AGG": {
+      "actual_pm": 63.57,
+      "pred_pm": 36.50446576460433
+    },
+    "aeternity_sdk_AGG": {
+      "actual_pm": 13.5,
+      "pred_pm": 52.77706960956777
+    },
+    "ae_mdw_AGG": {
+      "actual_pm": 20.080000000000002,
+      "pred_pm": 32.78944513629172
+    },
+    "reactivedot_AGG": {
+      "actual_pm": 20.62,
+      "pred_pm": 47.653235610589704
+    },
+    "zgo_AGG": {
+      "actual_pm": 9.47,
+      "pred_pm": 9.151290250146841
+    },
+    "aeknow_AGG": {
+      "actual_pm": 1.0,
+      "pred_pm": 8.260522962359547
+    },
+    "ink_analyzer_779_AGG": {
+      "actual_pm": 5.974,
+      "pred_pm": 8.86009535815458
+    },
+    "polkascan_AGG": {
+      "actual_pm": 11.63,
+      "pred_pm": 8.789910208784965
+    },
+    "subsquare_maint": {
+      "actual_pm": 24.7,
+      "pred_pm": 9.782775842472798
+    },
+    "ask_v01": {
+      "actual_pm": 6.9,
+      "pred_pm": 8.14833234598096
+    },
+    "bagpipes": {
+      "actual_pm": 9.97,
+      "pred_pm": 6.556556990724585
+    },
+    "dotreasury": {
+      "actual_pm": 0.95,
+      "pred_pm": 7.305249852241217
+    },
+    "megaclite": {
+      "actual_pm": 3.45,
+      "pred_pm": 7.765905494206541
+    },
+    "subsquare_newfeat": {
+      "actual_pm": 11.4,
+      "pred_pm": 10.178761477391491
+    },
+    "fennel": {
+      "actual_pm": 9.0,
+      "pred_pm": 7.854151976996849
+    },
+    "elara": {
+      "actual_pm": 4.6,
+      "pred_pm": 9.127549571799047
+    },
+    "remarker": {
+      "actual_pm": 7.24,
+      "pred_pm": 6.499257710044822
+    },
+    "kheopswap": {
+      "actual_pm": 3.16,
+      "pred_pm": 7.862381859469361
+    },
+    "ink_analyzer": {
+      "actual_pm": 2.79,
+      "pred_pm": 9.981148473134297
+    },
+    "dotcodeschool": {
+      "actual_pm": 0.95,
+      "pred_pm": 6.936793514363293
+    },
+    "ideal_network": {
+      "actual_pm": 13.29,
+      "pred_pm": 8.98979149764312
+    },
+    "dodao": {
+      "actual_pm": 18.95,
+      "pred_pm": 6.757998245061302
+    },
+    "octopus": {
+      "actual_pm": 7.37,
+      "pred_pm": 8.242675730511206
+    },
+    "rfc_bot": {
+      "actual_pm": 0.21,
+      "pred_pm": 6.019598490118424
+    },
+    "gitorial": {
+      "actual_pm": 0.55,
+      "pred_pm": 7.854556836780574
+    },
+    "kitdot": {
+      "actual_pm": 0.13,
+      "pred_pm": 7.779980511798465
+    },
+    "referendum_alert": {
+      "actual_pm": 0.25,
+      "pred_pm": 6.771127942585367
+    },
+    "algocash": {
+      "actual_pm": 2.25,
+      "pred_pm": 7.165262712158189
+    },
+    "dot_login": {
+      "actual_pm": 18.0,
+      "pred_pm": 6.599347326709998
+    },
+    "dotpay": {
+      "actual_pm": 10.0,
+      "pred_pm": 7.559069019215388
+    },
+    "escrow_pallet": {
+      "actual_pm": 3.0,
+      "pred_pm": 7.169604181236384
+    },
+    "kodadot_m2": {
+      "actual_pm": 6.0,
+      "pred_pm": 6.313327380896343
+    },
+    "paraspell_maint_2025_26": {
+      "actual_pm": 37.9,
+      "pred_pm": 9.679014360212417
+    },
+    "sandox_ide": {
+      "actual_pm": 16.0,
+      "pred_pm": 6.6573712311137125
+    },
+    "scout_poc": {
+      "actual_pm": 5.0,
+      "pred_pm": 7.685794530152225
+    },
+    "subsmt": {
+      "actual_pm": 3.0,
+      "pred_pm": 7.433354180811317
+    },
+    "tdot": {
+      "actual_pm": 2.0,
+      "pred_pm": 5.775073207889151
+    },
+    "w3f_dtss": {
+      "actual_pm": 3.0,
+      "pred_pm": 7.092337485578783
+    },
+    "w3f_faucet": {
+      "actual_pm": 1.0,
+      "pred_pm": 6.71304832473329
+    },
+    "w3f_libra": {
+      "actual_pm": 6.0,
+      "pred_pm": 7.95367452470261
+    },
+    "w3f_primis": {
+      "actual_pm": 4.15,
+      "pred_pm": 7.897610278772829
+    },
+    "w3f_tokenguard_frontend": {
+      "actual_pm": 2.0,
+      "pred_pm": 8.405526041845501
+    },
+    "w3f_validators_selection": {
+      "actual_pm": 1.58,
+      "pred_pm": 6.291361471052514
+    },
+    "zcg_zecnam_zair": {
+      "actual_pm": 5.0,
+      "pred_pm": 9.09679055188987
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "project_id": "ae_node_q2_2022",
+  "reported_pm": 9.47,
+  "sizing_mode": "window",
+  "size_how": "git-window",
+  "churn": {
+    "added": 0,
+    "deleted": 0,
+    "start": "60f69765",
+    "end": "ed9c601c",
+    "metric": "net-delta(boundary-diff)"
+  },
+  "ksloc": 0.0,
+  "equivalent_ksloc": 0.0,
+  "note": "ksloc genuinely 0 under the current pipeline methodology: this window (per verified primary-source since/until) only touched .erl files, and .erl is not in dissect_pilot.py SRC_EXTS -- a pre-existing, corpus-wide gap (affects all ae_node/ae_mdw Erlang/Elixir rows, not unique to this row), disclosed 2026-08-17, not fixed in this pass."
+}

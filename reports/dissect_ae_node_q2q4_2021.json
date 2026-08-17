@@ -1,0 +1,121 @@
+{
+  "project_id": "ae_node_q2q4_2021",
+  "reported_pm": 15.21,
+  "sizing_mode": "window",
+  "size_how": "git-window",
+  "churn": {
+    "added": 11762,
+    "deleted": 2344,
+    "start": "3554c8e0",
+    "end": "c5207cb9",
+    "metric": "net-delta(boundary-diff)-minus-excluded-commits",
+    "excluded_commits": [
+      "window covers all reported weeks). Panel-authored=97.9% of window's git-log added lines (local numstat check vs 12-person core team roster) - passes matched-scope gate. NOT the full thread total (SOPHIA/UI/OTHERDEV/NONDEV hours in same thread excluded",
+      "see TIER1_EXPANSION doc). | Q2-Q4-2021 NODE hours corrected 2073.8->2311.55 after undercount reconciliation (+237.75h recovered inline-format Dimitar hours)"
+    ],
+    "excluded_added": 0,
+    "excluded_deleted": 0
+  },
+  "reuse": {},
+  "ksloc": 11.762,
+  "equivalent_ksloc": 11.762,
+  "E": 1.07,
+  "sumSF": 16.0,
+  "prodEM": 1.492,
+  "sf": {
+    "PREC": {
+      "rating": "N",
+      "value": 3.72
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "H",
+      "value": 2.83
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "H",
+      "value": 3.12
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "H",
+      "mult": 1.17
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "H",
+      "mult": 1.15
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "H",
+      "mult": 0.9
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 61.31,
+  "pct_err_A2_94": 303.1,
+  "A_local_for_PMeqPM": 0.729
+}

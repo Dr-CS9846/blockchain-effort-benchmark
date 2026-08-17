@@ -1,0 +1,565 @@
+{
+  "full_corpus_fit": {
+    "n": 44,
+    "ids": [
+      "ae_node_AGG",
+      "aeternity_sdk_AGG",
+      "ae_mdw_AGG",
+      "reactivedot_AGG",
+      "zgo_AGG",
+      "aeknow_AGG",
+      "ink_analyzer_779_AGG",
+      "polkascan_AGG",
+      "subsquare_maint",
+      "ask_v01",
+      "bagpipes",
+      "dotreasury",
+      "megaclite",
+      "subsquare_newfeat",
+      "fennel",
+      "elara",
+      "remarker",
+      "kheopswap",
+      "ink_analyzer",
+      "dotcodeschool",
+      "ideal_network",
+      "dodao",
+      "octopus",
+      "rfc_bot",
+      "gitorial",
+      "kitdot",
+      "referendum_alert",
+      "algocash",
+      "dot_login",
+      "dotpay",
+      "escrow_pallet",
+      "kodadot_m2",
+      "paraspell_maint_2025_26",
+      "sandox_ide",
+      "scout_poc",
+      "subsmt",
+      "tdot",
+      "w3f_dtss",
+      "w3f_faucet",
+      "w3f_libra",
+      "w3f_primis",
+      "w3f_tokenguard_frontend",
+      "w3f_validators_selection",
+      "zcg_zecnam_zair"
+    ],
+    "free": {
+      "A": 1.842,
+      "E": 0.51,
+      "r_lnln": 0.529,
+      "loocv": {
+        "SA": 0.329,
+        "MMRE": 4.03,
+        "MdMRE": 0.755,
+        "PRED25": 0.136,
+        "PRED30": 0.159
+      }
+    },
+    "fixedE0.91": {
+      "A": 0.917,
+      "E": 0.91,
+      "r_lnln": 0.529,
+      "loocv": {
+        "SA": -0.605,
+        "MMRE": 5.248,
+        "MdMRE": 1.33,
+        "PRED25": 0.068,
+        "PRED30": 0.091
+      }
+    },
+    "robust_theilsen": {
+      "A": 2.218,
+      "E": 0.549,
+      "E_95ci": [
+        0.273,
+        0.743
+      ],
+      "r_lnln": 0.529,
+      "loocv": {
+        "SA": 0.072,
+        "MMRE": 5.487,
+        "MdMRE": 1.246,
+        "PRED25": 0.068,
+        "PRED30": 0.136
+      }
+    }
+  },
+  "naive_contrast": {
+    "n": 69,
+    "ids": [
+      "subsquare_maint",
+      "ask_v01",
+      "bagpipes",
+      "dotreasury",
+      "megaclite",
+      "subsquare_newfeat",
+      "fennel",
+      "elara",
+      "remarker",
+      "kheopswap",
+      "ink_analyzer",
+      "dotcodeschool",
+      "polkascan_explorer",
+      "ideal_network",
+      "dodao",
+      "octopus",
+      "rfc_bot",
+      "gitorial",
+      "kitdot",
+      "referendum_alert",
+      "polkascan_polkadapt",
+      "polkascan_ui",
+      "aeternity_sdk_q4_2024",
+      "aeternity_sdk_q2_2024",
+      "aeternity_sdk_q3_2024",
+      "aeternity_sdk_q2_2023",
+      "aeternity_sdk_dec2022",
+      "aeternity_sdk_q4_2023",
+      "aeternity_sdk_q1_2024",
+      "aeknow_org",
+      "ae_mdw_dec22_mar23",
+      "ae_mdw_q2_2023",
+      "ae_mdw_jul_2023",
+      "ae_mdw_aug_oct_2023",
+      "ae_node_q2q4_2021",
+      "ae_node_q1_2022",
+      "ae_node_q3_2022",
+      "ae_node_q4_2022",
+      "ae_node_q2_2023",
+      "ae_node_q3_2023",
+      "ae_node_q4_2023",
+      "algocash",
+      "dot_login",
+      "dotpay",
+      "escrow_pallet",
+      "ink_analyzer_779_main",
+      "ink_analyzer_779_vscode",
+      "kodadot_m2",
+      "paraspell_maint_2025_26",
+      "reactivedot_r1_812",
+      "reactivedot_r2_948",
+      "reactivedot_r3_1334",
+      "reactivedot_r4_1477",
+      "reactivedot_r5_1625",
+      "reactivedot_r6_1800",
+      "sandox_ide",
+      "scout_poc",
+      "subsmt",
+      "tdot",
+      "w3f_dtss",
+      "w3f_faucet",
+      "w3f_libra",
+      "w3f_primis",
+      "w3f_tokenguard_frontend",
+      "w3f_validators_selection",
+      "zcg_zecnam_zair",
+      "zcg_zenith_2025",
+      "zcg_zgo_frontend_2025",
+      "zcg_zgo_ng_2025"
+    ],
+    "free": {
+      "A": 3.206,
+      "E": 0.17,
+      "r_lnln": 0.237,
+      "loocv": {
+        "SA": 0.237,
+        "MMRE": 3.074,
+        "MdMRE": 0.785,
+        "PRED25": 0.203,
+        "PRED30": 0.275
+      }
+    },
+    "fixedE0.91": {
+      "A": 1.201,
+      "E": 0.91,
+      "r_lnln": 0.237,
+      "loocv": {
+        "SA": -2.945,
+        "MMRE": 8.142,
+        "MdMRE": 3.121,
+        "PRED25": 0.043,
+        "PRED30": 0.043
+      }
+    },
+    "robust_theilsen": {
+      "A": 2.826,
+      "E": 0.326,
+      "E_95ci": [
+        0.091,
+        0.572
+      ],
+      "r_lnln": 0.237,
+      "loocv": {
+        "SA": 0.166,
+        "MMRE": 3.362,
+        "MdMRE": 0.968,
+        "PRED25": 0.217,
+        "PRED30": 0.261
+      }
+    }
+  },
+  "flagged_not_excluded": {
+    "outliers": [
+      "dodao",
+      "dot_login",
+      "polkascan_AGG",
+      "sandox_ide"
+    ],
+    "rejected": [
+      "kitdot",
+      "remarker"
+    ],
+    "scope_mismatch": [
+      "ink_analyzer"
+    ],
+    "gate_violation": [
+      "ask_v01",
+      "bagpipes",
+      "elara",
+      "fennel",
+      "megaclite",
+      "paraspell_maint_2025_26"
+    ]
+  },
+  "points": {
+    "ae_node_AGG": {
+      "pm": 80.1,
+      "ksloc": 28.835,
+      "members": [
+        "ae_node_q1_2022",
+        "ae_node_q1_2023",
+        "ae_node_q2_2022",
+        "ae_node_q2_2023",
+        "ae_node_q2q4_2021",
+        "ae_node_q3_2022",
+        "ae_node_q3_2023",
+        "ae_node_q4_2022",
+        "ae_node_q4_2023"
+      ]
+    },
+    "aeternity_sdk_AGG": {
+      "pm": 13.5,
+      "ksloc": 25.381,
+      "members": [
+        "aeternity_sdk_dec2022",
+        "aeternity_sdk_q1_2024",
+        "aeternity_sdk_q2_2023",
+        "aeternity_sdk_q2_2024",
+        "aeternity_sdk_q3_2024",
+        "aeternity_sdk_q4_2023",
+        "aeternity_sdk_q4_2024"
+      ]
+    },
+    "ae_mdw_AGG": {
+      "pm": 20.08,
+      "ksloc": 29.859,
+      "members": [
+        "ae_mdw_aug_oct_2023",
+        "ae_mdw_dec22_mar23",
+        "ae_mdw_jul_2023",
+        "ae_mdw_q2_2023"
+      ]
+    },
+    "reactivedot_AGG": {
+      "pm": 20.62,
+      "ksloc": 30.619,
+      "members": [
+        "reactivedot_r1_812",
+        "reactivedot_r2_948",
+        "reactivedot_r3_1334",
+        "reactivedot_r4_1477",
+        "reactivedot_r5_1625",
+        "reactivedot_r6_1800"
+      ]
+    },
+    "zgo_AGG": {
+      "pm": 9.47,
+      "ksloc": 24.488,
+      "members": [
+        "zcg_zgo_ng_2025",
+        "zcg_zenith_2025",
+        "zcg_zgo_frontend_2025"
+      ]
+    },
+    "aeknow_AGG": {
+      "pm": 1.0,
+      "ksloc": 7.192,
+      "members": [
+        "aeknow_org"
+      ]
+    },
+    "ink_analyzer_779_AGG": {
+      "pm": 5.974,
+      "ksloc": 15.741,
+      "members": [
+        "ink_analyzer_779_main",
+        "ink_analyzer_779_vscode"
+      ]
+    },
+    "polkascan_AGG": {
+      "pm": 11.63,
+      "ksloc": 18.601,
+      "members": [
+        "polkascan_explorer",
+        "polkascan_polkadapt",
+        "polkascan_ui"
+      ]
+    },
+    "subsquare_maint": {
+      "pm": 24.7,
+      "ksloc": 76.89,
+      "members": [
+        "subsquare_maint"
+      ]
+    },
+    "ask_v01": {
+      "pm": 6.9,
+      "ksloc": 7.915,
+      "members": [
+        "ask_v01"
+      ]
+    },
+    "bagpipes": {
+      "pm": 9.97,
+      "ksloc": 1.503,
+      "members": [
+        "bagpipes"
+      ]
+    },
+    "dotreasury": {
+      "pm": 0.95,
+      "ksloc": 2.365,
+      "members": [
+        "dotreasury"
+      ]
+    },
+    "megaclite": {
+      "pm": 3.45,
+      "ksloc": 4.396,
+      "members": [
+        "megaclite"
+      ]
+    },
+    "subsquare_newfeat": {
+      "pm": 11.4,
+      "ksloc": 69.971,
+      "members": [
+        "subsquare_newfeat"
+      ]
+    },
+    "fennel": {
+      "pm": 9.0,
+      "ksloc": 6.315,
+      "members": [
+        "fennel"
+      ]
+    },
+    "elara": {
+      "pm": 4.6,
+      "ksloc": 19.068,
+      "members": [
+        "elara"
+      ]
+    },
+    "remarker": {
+      "pm": 7.24,
+      "ksloc": 1.221,
+      "members": [
+        "remarker"
+      ]
+    },
+    "kheopswap": {
+      "pm": 3.16,
+      "ksloc": 4.825,
+      "members": [
+        "kheopswap"
+      ]
+    },
+    "ink_analyzer": {
+      "pm": 2.79,
+      "ksloc": 37.067,
+      "members": [
+        "ink_analyzer"
+      ]
+    },
+    "dotcodeschool": {
+      "pm": 0.95,
+      "ksloc": 1.445,
+      "members": [
+        "dotcodeschool"
+      ]
+    },
+    "ideal_network": {
+      "pm": 13.29,
+      "ksloc": 24.152,
+      "members": [
+        "ideal_network"
+      ]
+    },
+    "dodao": {
+      "pm": 18.95,
+      "ksloc": 2.599,
+      "members": [
+        "dodao"
+      ]
+    },
+    "octopus": {
+      "pm": 7.37,
+      "ksloc": 8.93,
+      "members": [
+        "octopus"
+      ]
+    },
+    "rfc_bot": {
+      "pm": 0.21,
+      "ksloc": 0.437,
+      "members": [
+        "rfc_bot"
+      ]
+    },
+    "gitorial": {
+      "pm": 0.55,
+      "ksloc": 5.06,
+      "members": [
+        "gitorial"
+      ]
+    },
+    "kitdot": {
+      "pm": 0.13,
+      "ksloc": 7.937,
+      "members": [
+        "kitdot"
+      ]
+    },
+    "referendum_alert": {
+      "pm": 0.25,
+      "ksloc": 1.57,
+      "members": [
+        "referendum_alert"
+      ]
+    },
+    "algocash": {
+      "pm": 2.25,
+      "ksloc": 2.02,
+      "members": [
+        "algocash"
+      ]
+    },
+    "dot_login": {
+      "pm": 18.0,
+      "ksloc": 2.112,
+      "members": [
+        "dot_login"
+      ]
+    },
+    "dotpay": {
+      "pm": 10.0,
+      "ksloc": 4.756,
+      "members": [
+        "dotpay"
+      ]
+    },
+    "escrow_pallet": {
+      "pm": 3.0,
+      "ksloc": 2.127,
+      "members": [
+        "escrow_pallet"
+      ]
+    },
+    "kodadot_m2": {
+      "pm": 6.0,
+      "ksloc": 0.897,
+      "members": [
+        "kodadot_m2"
+      ]
+    },
+    "paraspell_maint_2025_26": {
+      "pm": 37.9,
+      "ksloc": 97.383,
+      "members": [
+        "paraspell_maint_2025_26"
+      ]
+    },
+    "sandox_ide": {
+      "pm": 16.0,
+      "ksloc": 2.123,
+      "members": [
+        "sandox_ide"
+      ]
+    },
+    "scout_poc": {
+      "pm": 5.0,
+      "ksloc": 4.362,
+      "members": [
+        "scout_poc"
+      ]
+    },
+    "subsmt": {
+      "pm": 3.0,
+      "ksloc": 2.922,
+      "members": [
+        "subsmt"
+      ]
+    },
+    "tdot": {
+      "pm": 2.0,
+      "ksloc": 0.283,
+      "members": [
+        "tdot"
+      ]
+    },
+    "w3f_dtss": {
+      "pm": 3.0,
+      "ksloc": 1.934,
+      "members": [
+        "w3f_dtss"
+      ]
+    },
+    "w3f_faucet": {
+      "pm": 1.0,
+      "ksloc": 1.05,
+      "members": [
+        "w3f_faucet"
+      ]
+    },
+    "w3f_libra": {
+      "pm": 6.0,
+      "ksloc": 6.16,
+      "members": [
+        "w3f_libra"
+      ]
+    },
+    "w3f_primis": {
+      "pm": 4.15,
+      "ksloc": 5.281,
+      "members": [
+        "w3f_primis"
+      ]
+    },
+    "w3f_tokenguard_frontend": {
+      "pm": 2.0,
+      "ksloc": 8.265,
+      "members": [
+        "w3f_tokenguard_frontend"
+      ]
+    },
+    "w3f_validators_selection": {
+      "pm": 1.58,
+      "ksloc": 0.585,
+      "members": [
+        "w3f_validators_selection"
+      ]
+    },
+    "zcg_zecnam_zair": {
+      "pm": 5.0,
+      "ksloc": 18.897,
+      "members": [
+        "zcg_zecnam_zair"
+      ]
+    }
+  }
+}

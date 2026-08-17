@@ -1,0 +1,232 @@
+[
+  {
+    "project_id": "ink_analyzer_779_main",
+    "reported_pm": 5.974,
+    "sizing_mode": "window",
+    "size_how": "git-window",
+    "churn": {
+      "added": 15083,
+      "deleted": 6082,
+      "start": "3e7959cc",
+      "end": "ef1fea65",
+      "metric": "net-delta(boundary-diff)"
+    },
+    "reuse": {},
+    "ksloc": 15.083,
+    "equivalent_ksloc": 15.083,
+    "E": 1.07,
+    "sumSF": 16.0,
+    "prodEM": 0.999,
+    "sf": {
+      "PREC": {
+        "rating": "N",
+        "value": 3.72
+      },
+      "FLEX": {
+        "rating": "N",
+        "value": 3.04
+      },
+      "RESL": {
+        "rating": "H",
+        "value": 2.83
+      },
+      "TEAM": {
+        "rating": "N",
+        "value": 3.29
+      },
+      "PMAT": {
+        "rating": "H",
+        "value": 3.12
+      }
+    },
+    "em": {
+      "RELY": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DATA": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "CPLX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "RUSE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DOCU": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "TIME": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "STOR": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PVOL": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "ACAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCON": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "APEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PLEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "LTEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "TOOL": {
+        "rating": "H",
+        "mult": 0.9
+      },
+      "SITE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "SCED": {
+        "rating": "N",
+        "mult": 1.0
+      }
+    },
+    "overrides": {},
+    "PM_pred_A2_94": 53.567,
+    "pct_err_A2_94": 796.7,
+    "A_local_for_PMeqPM": 0.328
+  },
+  {
+    "project_id": "ink_analyzer_779_vscode",
+    "reported_pm": 5.974,
+    "sizing_mode": "window",
+    "size_how": "git-window",
+    "churn": {
+      "added": 658,
+      "deleted": 284,
+      "start": "e6e8a524",
+      "end": "b7f5a127",
+      "metric": "net-delta(boundary-diff)"
+    },
+    "reuse": {},
+    "ksloc": 0.658,
+    "equivalent_ksloc": 0.658,
+    "E": 1.07,
+    "sumSF": 16.0,
+    "prodEM": 0.999,
+    "sf": {
+      "PREC": {
+        "rating": "N",
+        "value": 3.72
+      },
+      "FLEX": {
+        "rating": "N",
+        "value": 3.04
+      },
+      "RESL": {
+        "rating": "H",
+        "value": 2.83
+      },
+      "TEAM": {
+        "rating": "N",
+        "value": 3.29
+      },
+      "PMAT": {
+        "rating": "H",
+        "value": 3.12
+      }
+    },
+    "em": {
+      "RELY": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DATA": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "CPLX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "RUSE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "DOCU": {
+        "rating": "H",
+        "mult": 1.11
+      },
+      "TIME": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "STOR": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PVOL": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "ACAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCAP": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PCON": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "APEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "PLEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "LTEX": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "TOOL": {
+        "rating": "H",
+        "mult": 0.9
+      },
+      "SITE": {
+        "rating": "N",
+        "mult": 1.0
+      },
+      "SCED": {
+        "rating": "N",
+        "mult": 1.0
+      }
+    },
+    "overrides": {},
+    "PM_pred_A2_94": 1.877,
+    "pct_err_A2_94": -68.6,
+    "A_local_for_PMeqPM": 9.358
+  }
+]

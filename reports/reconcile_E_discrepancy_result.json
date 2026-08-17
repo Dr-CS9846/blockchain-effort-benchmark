@@ -1,0 +1,34 @@
+{
+  "per_project_within_slope": {
+    "ae_node_AGG": {
+      "E": 0.009666697008514854,
+      "lnA": 2.1492799596710292,
+      "r": 0.0819309135469913
+    },
+    "aeternity_sdk_AGG": {
+      "E": 0.3387082489708367,
+      "lnA": 0.23495765679213554,
+      "r": 0.6397642283411998
+    },
+    "ae_mdw_AGG": {
+      "E": 1.5020394630730922,
+      "lnA": -1.4919045978797767,
+      "r": 0.8775908117782032
+    },
+    "reactivedot_AGG": {
+      "E": 1.3597006249395895,
+      "lnA": -1.0227121682838853,
+      "r": 0.8350625024147511
+    }
+  },
+  "E_within_pooled": 0.0527,
+  "E_between_reused": 0.523,
+  "theta_g": {
+    "ae_node_AGG": 0.8229,
+    "aeternity_sdk_AGG": 0.8229,
+    "ae_mdw_AGG": 0.7684,
+    "reactivedot_AGG": 0.8092
+  },
+  "theta_singleton": 0.5701,
+  "illustrative_single_weight_blend": 0.2549
+}

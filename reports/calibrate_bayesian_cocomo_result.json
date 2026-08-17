@@ -1,0 +1,298 @@
+{
+  "corpus_n": 44,
+  "point_ids": [
+    "ae_node_AGG",
+    "aeternity_sdk_AGG",
+    "ae_mdw_AGG",
+    "reactivedot_AGG",
+    "zgo_AGG",
+    "aeknow_AGG",
+    "ink_analyzer_779_AGG",
+    "polkascan_AGG",
+    "subsquare_maint",
+    "ask_v01",
+    "bagpipes",
+    "dotreasury",
+    "megaclite",
+    "subsquare_newfeat",
+    "fennel",
+    "elara",
+    "remarker",
+    "kheopswap",
+    "ink_analyzer",
+    "dotcodeschool",
+    "ideal_network",
+    "dodao",
+    "octopus",
+    "rfc_bot",
+    "gitorial",
+    "kitdot",
+    "referendum_alert",
+    "algocash",
+    "dot_login",
+    "dotpay",
+    "escrow_pallet",
+    "kodadot_m2",
+    "paraspell_maint_2025_26",
+    "sandox_ide",
+    "scout_poc",
+    "subsmt",
+    "tdot",
+    "w3f_dtss",
+    "w3f_faucet",
+    "w3f_libra",
+    "w3f_primis",
+    "w3f_tokenguard_frontend",
+    "w3f_validators_selection",
+    "zcg_zecnam_zair"
+  ],
+  "cocomo_priors_used": {
+    "TOOL_high": 0.9,
+    "CPLX_high": 1.17,
+    "PMAT_high": 3.12,
+    "PMAT_nominal": 4.68,
+    "PREC_low": 4.96,
+    "PREC_nominal": 3.72,
+    "B": 0.91
+  },
+  "models": {
+    "em": {
+      "process_tooling": {
+        "n": 44,
+        "drivers": [
+          "has_ci",
+          "has_tests",
+          "has_docker",
+          "has_lintfmt"
+        ],
+        "alpha": 20.1876,
+        "prior_mean": {
+          "ln(KSLOC)": 0.91,
+          "has_ci": -0.1054,
+          "has_tests": -0.1054,
+          "has_docker": -0.1054,
+          "has_lintfmt": -0.1054
+        },
+        "posterior_mean": {
+          "ln(KSLOC)": 0.6709,
+          "has_ci": -0.3618,
+          "has_tests": 0.1293,
+          "has_docker": 0.3431,
+          "has_lintfmt": -0.1844
+        },
+        "loocv": {
+          "SA": 0.247,
+          "MMRE": 3.462,
+          "MdMRE": 0.808,
+          "PRED25": 0.159,
+          "PRED30": 0.182
+        }
+      },
+      "blockchain_domain": {
+        "n": 44,
+        "drivers": [
+          "onchain_runtime",
+          "has_contracts",
+          "dep_consensus",
+          "dep_crosschain",
+          "dep_zkcrypto",
+          "dep_contract"
+        ],
+        "alpha": 16.6088,
+        "prior_mean": {
+          "ln(KSLOC)": 0.91,
+          "onchain_runtime": 0.157,
+          "has_contracts": 0.157,
+          "dep_consensus": 0.157,
+          "dep_crosschain": 0.157,
+          "dep_zkcrypto": 0.157,
+          "dep_contract": 0.157
+        },
+        "posterior_mean": {
+          "ln(KSLOC)": 0.5837,
+          "onchain_runtime": 0.4667,
+          "has_contracts": 0.0407,
+          "dep_consensus": 0.3888,
+          "dep_crosschain": 0.5442,
+          "dep_zkcrypto": -0.0728,
+          "dep_contract": 0.3219
+        },
+        "loocv": {
+          "SA": 0.041,
+          "MMRE": 3.904,
+          "MdMRE": 0.822,
+          "PRED25": 0.114,
+          "PRED30": 0.159
+        }
+      },
+      "full": {
+        "n": 44,
+        "drivers": [
+          "has_ci",
+          "has_tests",
+          "has_docker",
+          "has_lintfmt",
+          "onchain_runtime",
+          "has_contracts",
+          "dep_consensus",
+          "dep_crosschain",
+          "dep_zkcrypto",
+          "dep_contract"
+        ],
+        "alpha": 29.8247,
+        "prior_mean": {
+          "ln(KSLOC)": 0.91,
+          "has_ci": -0.1054,
+          "has_tests": -0.1054,
+          "has_docker": -0.1054,
+          "has_lintfmt": -0.1054,
+          "onchain_runtime": 0.157,
+          "has_contracts": 0.157,
+          "dep_consensus": 0.157,
+          "dep_crosschain": 0.157,
+          "dep_zkcrypto": 0.157,
+          "dep_contract": 0.157
+        },
+        "posterior_mean": {
+          "ln(KSLOC)": 0.6822,
+          "has_ci": -0.4388,
+          "has_tests": 0.0743,
+          "has_docker": 0.3116,
+          "has_lintfmt": -0.2372,
+          "onchain_runtime": 0.4264,
+          "has_contracts": 0.1426,
+          "dep_consensus": 0.3143,
+          "dep_crosschain": 0.5848,
+          "dep_zkcrypto": 0.0474,
+          "dep_contract": 0.1273
+        },
+        "loocv": {
+          "SA": 0.103,
+          "MMRE": 3.169,
+          "MdMRE": 0.934,
+          "PRED25": 0.091,
+          "PRED30": 0.091
+        }
+      }
+    },
+    "sf": {
+      "process_tooling": {
+        "n": 44,
+        "drivers": [
+          "has_ci",
+          "has_tests",
+          "has_docker",
+          "has_lintfmt"
+        ],
+        "alpha": 65.0968,
+        "prior_mean": {
+          "ln(KSLOC)_centered [B]": 0.91,
+          "has_ci x lnS [SF]": -0.0156,
+          "has_tests x lnS [SF]": -0.0156,
+          "has_docker x lnS [SF]": -0.0156,
+          "has_lintfmt x lnS [SF]": -0.0156
+        },
+        "posterior_mean": {
+          "ln(KSLOC)_centered [B]": 0.8221,
+          "has_ci x lnS [SF]": -0.0944,
+          "has_tests x lnS [SF]": -0.0577,
+          "has_docker x lnS [SF]": -0.1185,
+          "has_lintfmt x lnS [SF]": -0.0516
+        },
+        "loocv": {
+          "SA": 0.136,
+          "MMRE": 4.55,
+          "MdMRE": 0.794,
+          "PRED25": 0.091,
+          "PRED30": 0.114
+        }
+      },
+      "blockchain_domain": {
+        "n": 44,
+        "drivers": [
+          "onchain_runtime",
+          "has_contracts",
+          "dep_consensus",
+          "dep_crosschain",
+          "dep_zkcrypto",
+          "dep_contract"
+        ],
+        "alpha": 65.0968,
+        "prior_mean": {
+          "ln(KSLOC)_centered [B]": 0.91,
+          "onchain_runtime x lnS [SF]": 0.0124,
+          "has_contracts x lnS [SF]": 0.0124,
+          "dep_consensus x lnS [SF]": 0.0124,
+          "dep_crosschain x lnS [SF]": 0.0124,
+          "dep_zkcrypto x lnS [SF]": 0.0124,
+          "dep_contract x lnS [SF]": 0.0124
+        },
+        "posterior_mean": {
+          "ln(KSLOC)_centered [B]": 0.7967,
+          "onchain_runtime x lnS [SF]": -0.1413,
+          "has_contracts x lnS [SF]": 0.0191,
+          "dep_consensus x lnS [SF]": -0.0956,
+          "dep_crosschain x lnS [SF]": -0.1231,
+          "dep_zkcrypto x lnS [SF]": -0.1015,
+          "dep_contract x lnS [SF]": -0.0569
+        },
+        "loocv": {
+          "SA": 0.078,
+          "MMRE": 4.208,
+          "MdMRE": 0.798,
+          "PRED25": 0.136,
+          "PRED30": 0.159
+        }
+      },
+      "full": {
+        "n": 44,
+        "drivers": [
+          "has_ci",
+          "has_tests",
+          "has_docker",
+          "has_lintfmt",
+          "onchain_runtime",
+          "has_contracts",
+          "dep_consensus",
+          "dep_crosschain",
+          "dep_zkcrypto",
+          "dep_contract"
+        ],
+        "alpha": 142.0831,
+        "prior_mean": {
+          "ln(KSLOC)_centered [B]": 0.91,
+          "has_ci x lnS [SF]": -0.0156,
+          "has_tests x lnS [SF]": -0.0156,
+          "has_docker x lnS [SF]": -0.0156,
+          "has_lintfmt x lnS [SF]": -0.0156,
+          "onchain_runtime x lnS [SF]": 0.0124,
+          "has_contracts x lnS [SF]": 0.0124,
+          "dep_consensus x lnS [SF]": 0.0124,
+          "dep_crosschain x lnS [SF]": 0.0124,
+          "dep_zkcrypto x lnS [SF]": 0.0124,
+          "dep_contract x lnS [SF]": 0.0124
+        },
+        "posterior_mean": {
+          "ln(KSLOC)_centered [B]": 0.8615,
+          "has_ci x lnS [SF]": -0.0623,
+          "has_tests x lnS [SF]": -0.0483,
+          "has_docker x lnS [SF]": -0.073,
+          "has_lintfmt x lnS [SF]": -0.0438,
+          "onchain_runtime x lnS [SF]": -0.0878,
+          "has_contracts x lnS [SF]": 0.0232,
+          "dep_consensus x lnS [SF]": -0.0611,
+          "dep_crosschain x lnS [SF]": -0.0554,
+          "dep_zkcrypto x lnS [SF]": -0.0568,
+          "dep_contract x lnS [SF]": -0.0272
+        },
+        "loocv": {
+          "SA": 0.129,
+          "MMRE": 4.246,
+          "MdMRE": 0.798,
+          "PRED25": 0.136,
+          "PRED30": 0.136
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "project_id": "subsmt",
+  "reported_pm": 3.0,
+  "sizing_mode": "whole",
+  "size_how": "linecount",
+  "churn": {},
+  "reuse": {
+    "new_phys": 2916,
+    "adapted_phys": 62,
+    "generated_phys": 62,
+    "forked_phys": 0,
+    "bulk_import_commits": 0,
+    "bulk_import_files": 0,
+    "adapted_fraction": 0.021,
+    "aam": 0.1
+  },
+  "ksloc": 2.978,
+  "equivalent_ksloc": 2.922,
+  "E": 1.0856,
+  "sumSF": 17.56,
+  "prodEM": 1.807,
+  "sf": {
+    "PREC": {
+      "rating": "N",
+      "value": 3.72
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "H",
+      "value": 2.83
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "N",
+      "value": 4.68
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "H",
+      "mult": 1.17
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "H",
+      "mult": 1.15
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "L",
+      "mult": 1.09
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 17.017,
+  "pct_err_A2_94": 467.2,
+  "A_local_for_PMeqPM": 0.518
+}

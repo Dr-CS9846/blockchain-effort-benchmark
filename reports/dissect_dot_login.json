@@ -1,0 +1,118 @@
+{
+  "project_id": "dot_login",
+  "reported_pm": 18.0,
+  "sizing_mode": "whole",
+  "size_how": "linecount",
+  "churn": {},
+  "reuse": {
+    "new_phys": 2104,
+    "adapted_phys": 83,
+    "generated_phys": 83,
+    "forked_phys": 0,
+    "bulk_import_commits": 0,
+    "bulk_import_files": 0,
+    "adapted_fraction": 0.038,
+    "aam": 0.1
+  },
+  "ksloc": 2.187,
+  "equivalent_ksloc": 2.112,
+  "E": 1.098,
+  "sumSF": 18.8,
+  "prodEM": 1.7105,
+  "sf": {
+    "PREC": {
+      "rating": "L",
+      "value": 4.96
+    },
+    "FLEX": {
+      "rating": "N",
+      "value": 3.04
+    },
+    "RESL": {
+      "rating": "H",
+      "value": 2.83
+    },
+    "TEAM": {
+      "rating": "N",
+      "value": 3.29
+    },
+    "PMAT": {
+      "rating": "N",
+      "value": 4.68
+    }
+  },
+  "em": {
+    "RELY": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DATA": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "CPLX": {
+      "rating": "VH",
+      "mult": 1.34
+    },
+    "RUSE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "DOCU": {
+      "rating": "H",
+      "mult": 1.11
+    },
+    "TIME": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "STOR": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PVOL": {
+      "rating": "H",
+      "mult": 1.15
+    },
+    "ACAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCAP": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PCON": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "APEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "PLEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "LTEX": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "TOOL": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SITE": {
+      "rating": "N",
+      "mult": 1.0
+    },
+    "SCED": {
+      "rating": "N",
+      "mult": 1.0
+    }
+  },
+  "overrides": {},
+  "PM_pred_A2_94": 11.43,
+  "pct_err_A2_94": -36.5,
+  "A_local_for_PMeqPM": 4.63
+}
