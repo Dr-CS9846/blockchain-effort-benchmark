@@ -26,3 +26,11 @@ venv/
 Thumbs.db
 .vscode/
 .idea/
+
+# ---- tool project settings: track only the shared, non-local config ----
+# (the machine's global gitignore blanket-excludes this directory; this repo deliberately
+# tracks settings.json so the attribution-off policy travels with the repo itself,
+# not just this one machine)
+!.claude/
+.claude/*
+!.claude/settings.json
