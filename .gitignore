@@ -27,10 +27,9 @@ Thumbs.db
 .vscode/
 .idea/
 
-# ---- tool project settings: track only the shared, non-local config ----
-# (the machine's global gitignore blanket-excludes this directory; this repo deliberately
-# tracks settings.json so the attribution-off policy travels with the repo itself,
-# not just this one machine)
-!.claude/
-.claude/*
-!.claude/settings.json
+# ---- tool project settings: kept local, not tracked ----
+# (.claude/settings.json holds this project's attribution-off policy for Claude Code;
+# it stays on disk and applies locally, but is not committed, so it does not appear
+# as the first folder in the repository's file listing. The same policy is also set
+# at this machine's global Claude Code config level, independent of this file.)
+.claude/
