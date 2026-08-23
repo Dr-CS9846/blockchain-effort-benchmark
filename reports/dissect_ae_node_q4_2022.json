@@ -4,20 +4,15 @@
   "sizing_mode": "window",
   "size_how": "git-window",
   "churn": {
-    "added": 3937,
-    "deleted": 1415,
+    "added": 8743,
+    "deleted": 1703,
     "start": "b573fd60",
     "end": "d59ae570",
-    "metric": "net-delta(boundary-diff)-minus-excluded-commits",
-    "excluded_commits": [
-      "d7704394e11f0e957d61dc6428ef37330230f72d"
-    ],
-    "excluded_added": 4806,
-    "excluded_deleted": 288
+    "metric": "net-delta(boundary-diff)"
   },
   "reuse": {},
-  "ksloc": 3.937,
-  "equivalent_ksloc": 3.937,
+  "ksloc": 8.743,
+  "equivalent_ksloc": 8.743,
   "E": 1.07,
   "sumSF": 16.0,
   "prodEM": 1.492,
@@ -114,7 +109,7 @@
     }
   },
   "overrides": {},
-  "PM_pred_A2_94": 19.008,
-  "pct_err_A2_94": 119.2,
-  "A_local_for_PMeqPM": 1.341
+  "PM_pred_A2_94": 44.637,
+  "pct_err_A2_94": 414.8,
+  "A_local_for_PMeqPM": 0.571
 }

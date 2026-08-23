@@ -8,13 +8,7 @@
     "deleted": 314,
     "start": "8c19f118",
     "end": "cebaf292",
-    "metric": "net-delta(boundary-diff)-minus-excluded-commits",
-    "excluded_commits": [
-      "window covers all reported weeks). Panel-authored=91.8% of window's git-log added lines (local numstat check vs 12-person core team roster) - passes matched-scope gate. NOT the full thread total (SOPHIA/UI/OTHERDEV/NONDEV hours in same thread excluded",
-      "see TIER1_EXPANSION doc)."
-    ],
-    "excluded_added": 0,
-    "excluded_deleted": 0
+    "metric": "net-delta(boundary-diff)"
   },
   "reuse": {},
   "ksloc": 0.901,
@@ -115,7 +109,7 @@
     }
   },
   "overrides": {},
-  "PM_pred_A2_94": 3.924,
+  "PM_pred_A2_94": 3.923,
   "pct_err_A2_94": -10.8,
   "A_local_for_PMeqPM": 3.297
 }

@@ -24,7 +24,7 @@ Sizing modes:
   window  : git log --since <since> --until <until> --numstat -> added SOURCE lines (brownfield slice).
   diff    : git diff <ref_a>..<ref_b> --numstat -> added+modified SOURCE lines (exact developer range).
 """
-import argparse, csv, json, math, os, re, subprocess, sys
+import argparse, csv, json, math, os, re, shutil, subprocess, sys
 from pathlib import Path
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import cocomo2_tables as T
@@ -34,7 +34,7 @@ HERE = Path(__file__).parent.resolve()
 CACHE = HERE / "dissect_cache"
 SRC_EXTS = {".rs",".ts",".tsx",".js",".jsx",".vue",".sol",".ink",".py",".go",".java",".kt",
             ".c",".cc",".cpp",".h",".hpp",".cs",".rb",".php",".scala",".move",".cairo",".swift",
-            ".nix",".lean",".circom",".ex",".exs"}
+            ".nix",".lean",".circom",".ex",".exs",".erl",".hrl",".hs"}
 VENDOR = ("node_modules/","vendor/","dist/","build/","target/","third_party/","thirdparty/",
           ".git/","bower_components/","__pycache__/")
 
@@ -44,6 +44,14 @@ def sh(args, cwd=None):
 def clone(repo_url, pid):
     CACHE.mkdir(exist_ok=True)
     d = CACHE / pid
+    # An existing cache dir might be a leftover from an interrupted clone (network drop,
+    # killed process, full disk): valid-looking but with no reachable HEAD. Reusing it
+    # silently would make every later measurement on this project read as 0 KSLOC with no
+    # explanation. Validate it; wipe and reclone if it is not a real, usable checkout.
+    if d.exists():
+        ok = sh(["git","rev-parse","--verify","HEAD"], cwd=d).returncode == 0
+        if not ok:
+            shutil.rmtree(d, ignore_errors=True)
     if not d.exists():
         r = sh(["git","clone","--quiet",repo_url,str(d)])
         if r.returncode != 0:
@@ -57,7 +65,15 @@ def _is_src(path):
 
 EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
 def _resolve_before(d, when):
-    """Last commit on HEAD at/just before a YYYY-MM-DD date (repo state at that date)."""
+    """Last commit on HEAD at/just before a YYYY-MM-DD date (repo state at that date).
+    An empty/blank `when` means no lower bound was given at all (e.g. size_window's `since`
+    left blank because the repo began inside the window) -- must return "" here so callers'
+    `if start else EMPTY_TREE` fallback actually triggers. Without this check, git's
+    --before with a blank date silently resolves to the latest commit on HEAD (not "no
+    bound"), which made `start` collapse to nearly the same commit as `end` and measured a
+    near-zero diff instead of the whole repo."""
+    if not when or not when.strip():
+        return ""
     r = sh(["git","rev-list","-1",f"--before={when} 23:59:59","HEAD"], cwd=d)
     return r.stdout.strip()
 
@@ -69,9 +85,15 @@ def size_whole(d, ref):
             raise RuntimeError(f"cutoff {ref} predates first commit (no checkout) - pick a later date/commit")
         sh(["git","checkout","--quiet",c], cwd=d)
     elif ref: sh(["git","checkout","--quiet",ref], cwd=d)
-    # prefer cloc; fallback to line count over source files
-    r = sh(["cloc","--quiet","--json","--exclude-dir="+",".join(v.strip("/") for v in VENDOR)] + [str(d)])
-    if r.returncode == 0 and r.stdout.strip():
+    # prefer cloc; fallback to line count over source files (also covers cloc not being
+    # installed at all, which subprocess raises as FileNotFoundError rather than a
+    # non-zero return code -- the fallback below was unreachable on a machine without
+    # cloc until this was caught here)
+    try:
+        r = sh(["cloc","--quiet","--json","--exclude-dir="+",".join(v.strip("/") for v in VENDOR)] + [str(d)])
+    except FileNotFoundError:
+        r = None
+    if r is not None and r.returncode == 0 and r.stdout.strip():
         try:
             j = json.loads(r.stdout)
             code = sum(v["code"] for k,v in j.items()
@@ -109,13 +131,17 @@ def size_window(d, since, until):
     start = _resolve_before(d, since)
     end = _resolve_before(d, until) or "HEAD"
     a_ref = start if start else EMPTY_TREE     # empty tree if repo began inside the window
-    add, dele = _numstat(d, ["diff","--numstat",f"{a_ref}..{end}"])
+    # two separate ref args, not a joined "a..b" string: some git builds (observed: git
+    # 2.54 on Windows) misparse a single long "A..B" argument as a pathspec and fail with
+    # "fatal: failed to stat ...: Filename too long" instead of diffing the two commits.
+    # `git diff A B` is exactly equivalent to `git diff A..B`.
+    add, dele = _numstat(d, ["diff","--numstat",a_ref,end])
     return add/1000.0, {"added": add, "deleted": dele, "start": (start[:8] or "EMPTY"),
                         "end": end[:8], "metric": "net-delta(boundary-diff)"}
 
 def size_diff(d, ref_a, ref_b):
     sh(["git","fetch","--quiet","--tags"], cwd=d)
-    add, dele = _numstat(d, ["diff","--numstat",f"{ref_a}..{ref_b}"])
+    add, dele = _numstat(d, ["diff","--numstat",ref_a,ref_b])
     # exact range: added + modified(=deleted overlap) ~ added captures new+modified-new lines
     return add/1000.0, {"added": add, "deleted": dele}
 
@@ -249,6 +275,13 @@ def dissect(row, A_bc=None, aam=0.10):
     return out
 
 def main():
+    # Windows consoles often default to cp1252, which cannot encode the sigma/product
+    # symbols in the summary print below; force utf-8 so the run completes instead of
+    # crashing after the measurement (and JSON write) has already succeeded.
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
     ap = argparse.ArgumentParser()
     root = os.path.dirname(os.path.dirname(HERE))
     ap.add_argument("--spec", default=os.path.join(root,"data/calibration/pilots_cocomo.csv"))

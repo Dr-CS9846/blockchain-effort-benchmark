@@ -21,7 +21,7 @@ def ver(tool):
         return ""
 
 print("="*64)
-print("  ENVIRONMENT CHECK  —  Size/Effort measurement toolkit")
+print("  ENVIRONMENT CHECK - Size/Effort measurement toolkit")
 print("="*64)
 
 # Python
@@ -41,23 +41,19 @@ except Exception:
     npok=False; npv=""
 print(f"[{ok(npok)}] numpy         {npv if npok else '-- install: pip install numpy'}")
 
-# manifest present + repo_url filled? (layered path, with flat fallback)
-man = "data/calibration/projects_manifest.csv"
-if not os.path.exists(man) and os.path.exists("projects_manifest.csv"):
-    man = "projects_manifest.csv"
+# dataset specification present + repo_url filled?
+man = "data/calibration/pilots_cocomo.csv"
 if os.path.exists(man):
     import csv
-    rows=list(csv.DictReader(open(man)))
+    rows=list(csv.DictReader(open(man, encoding="utf-8"), delimiter=";"))
     filled=sum(1 for r in rows if r.get("repo_url","").strip())
-    print(f"[{ok(True)}] manifest      {len(rows)} rows, {filled} have repo_url")
-    if filled==0:
-        print("        -> next: run resolve_repos.py, then fill repo_url + commit_sha/cutoff_date")
+    print(f"[{ok(True)}] specification {len(rows)} rows, {filled} have repo_url")
 else:
-    print(f"[{ok(False)}] manifest      projects_manifest.csv NOT found (looked in data/calibration/)")
+    print(f"[{ok(False)}] specification data/calibration/pilots_cocomo.csv NOT found")
 
 print("-"*64)
 allgood = pyok and g and c and npok
-print("  RESULT:", "ALL GOOD — you can run measure_repos.py" if allgood
+print("  RESULT:", "ALL GOOD - you can run the measurement scripts next" if allgood
       else "Fix the MISS lines above, then re-run this check.")
 print("="*64)
 sys.exit(0 if allgood else 1)
