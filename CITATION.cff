@@ -1,0 +1,41 @@
+cff-version: 1.2.0
+message: "If you use this dataset or pipeline, please cite it as below. Cite a tagged release and its Zenodo DOI, not the main branch."
+title: "Blockchain Effort Benchmark: A Verified, Commit-Traced Dataset of Actual Blockchain Software Development Effort"
+type: dataset
+authors:
+  - family-names: "Rashid"
+    given-names: "Chaudhry Hamza"
+    affiliation: "Abasyn University Islamabad"
+    orcid: "https://orcid.org/0000-0002-1915-3766"
+version: 1.0.1
+date-released: "2026-08-19"
+doi: "10.5281/zenodo.22015799"
+url: "https://github.com/Dr-CS9846/blockchain-effort-benchmark-dataset"
+repository-code: "https://github.com/Dr-CS9846/blockchain-effort-benchmark-dataset"
+license: MIT
+keywords:
+  - blockchain
+  - software effort estimation
+  - COCOMO II
+  - empirical software engineering
+  - benchmark dataset
+  - software cost estimation
+  - PROMISE
+abstract: >
+  A reproducible, commit-traced benchmark dataset of actual blockchain software
+  development effort, built to calibrate and test COCOMO-style software cost
+  estimation models for blockchain projects. 44 independently verified
+  calibration points (73 raw source rows before dependent-window collapse of
+  repeated measurements of the same project). Candidates were screened from
+  four contributing sources (the Web3 Foundation Grants Program, the aeternity
+  community forum, Polkadot OpenGov and treasury governance records, and Zcash
+  Community Grants) plus two further sources that were fully screened and
+  correctly produced zero eligible rows (Crust Grants and the Polkadot Open
+  Source Developer Grants program, both because their delivered projects report
+  only planned effort, not the actual effort this dataset requires). Each point
+  pairs a reported actual development-effort figure with an independently
+  measured code size (KSLOC, reuse-adjusted) of the exact delivered repository
+  at the exact delivered commit. Constructed via a PRISMA-style identification,
+  screening, eligibility, and inclusion pipeline, with the same admission rule
+  applied to every candidate regardless of source, and raw sources frozen with
+  SHA-256 checksums for independent verification.
