@@ -1,41 +1,46 @@
-# Source Map — every artifact classified by the decision rule
+# Source map: every artifact in this repository, classified
 
-**Decision rule.** *Effort → calibration. Pipeline → provenance. Context/system behaviour → benchmark/holdout. None of these → archive.*
-This map is the panel-facing answer to "what is evidence, and what is illustration?"
+**Decision rule.** Effort and size measurements are evidence. Scripts that produce those
+measurements are pipeline. Everything else is either documentation or a governance record.
 
-_Last updated: 2026-05-30_
+_Last updated: 2026-08-18, to match the current 73-row, 44-point corpus. Earlier versions of this
+map described an earlier, smaller pilot corpus; see `provenance/change_log.md` for that history._
 
-## A. Inside this repository (the reproducibility backbone)
+## Evidence
 
-| Artifact | Role | Classification | Evidence of |
-|----------|------|----------------|-------------|
-| `data/calibration/w3f_benchmark_dataset.csv` | Real, delivery-verified W3F effort data (n=13, real costs) | **CALIBRATION (evidence)** | effort ground truth |
-| `data/calibration/projects_manifest.csv` | Scalable input defining the calibration set (13 → 150) | **CALIBRATION (evidence)** | dataset definition |
-| `data/calibration/measurements.csv` | CI-produced measured size + git-effort, per pinned commit | **CALIBRATION (evidence)** | measured effort & size |
-| `scripts/extract/measure_repos.py` | clone → cloc → git person-months | **PROVENANCE (pipeline)** | how measurements are produced |
-| `scripts/extract/resolve_repos_online.py` | resolve delivered repos from public records | **PROVENANCE (pipeline)** | source resolution |
-| `scripts/extract/resolve_repos.py` | local-stub resolver (helper) | **PROVENANCE (pipeline)** | source resolution |
-| `scripts/validate/calibrate_size_effort.py` | `PM = A·KSLOC^E`, LOOCV, Conte verdict | **PROVENANCE (pipeline)** | how the model is fit & tested |
-| `scripts/validate/calibrate_bc_cocomo.py` | honest ESF baseline on the real set | **PROVENANCE (pipeline)** | reproducible baseline |
-| `scripts/validate/00_check_environment.py` | environment / tool check | **PROVENANCE (pipeline)** | runnability |
-| `.github/workflows/measure.yml` | cloud CI that reruns everything | **PROVENANCE (pipeline)** | reproducibility engine |
-| `reports/bc_cocomo_results.json` | locked honest baseline (LOOCV MMRE 41.1%, PRED25 30.8%) | **CALIBRATION result** | the actual, reproducible result |
-| `reports/bc_cocomo_params.json` | locked baseline parameters | **CALIBRATION result** | the fitted model |
-| `data/external_holdout/` | ESP / audit-mined sources (when added) | **HOLDOUT (context)** | generalisation, NOT calibration |
-| `docs/method/WORKFLOW.md` | how to run / publish | **DOCS** | method |
-| `provenance/*` | this map, fact sheet, change log | **PROVENANCE (audit)** | governance |
-
-## B. Broader thesis corpus (mapped, not all imported)
-
-| Artifact (in 5. Pipeline / sibling folders) | Classification | Disposition |
+| Artifact | Role | Evidence of |
 |---|---|---|
-| `04_cocomo_dataset/` real CSV + scripts + results | **CALIBRATION + PROVENANCE** | mirrored into this repo (source of truth) |
-| Ethereum pilot (`4. Ethereum/`, n=5, proxy effort) | **ILLUSTRATION (not calibration)** | keep as illustrative only; never feed calibration |
-| QI-GAN docs / claimed augmentation results | **UNBACKED** | archive until code + data make them reproducible (see Provenance Trace) |
-| Strategy / feasibility / provenance / foundation memos | **PROVENANCE (audit trail)** | keep in thesis docs; summarised here |
-| Blockbench / TrustedBench (external suites) | **CONTEXT only** | `docs/related_work/` citation — NOT a data layer |
+| `data/calibration/pilots_cocomo.csv` | The 73-row master specification: reported effort, repository, sizing mode, and driver flags for every admitted project | effort ground truth and project attributes |
+| `data/calibration/calibration_points_n44.csv` | The 44 independent points after collapsing repeated measurements of the same project | the dataset's final calibration points |
+| `reports/dissect_<project_id>.json`, one per spec row | Per-project measured size, reuse split, and driver ratings | measured size and driver evidence, traceable to a specific repository state |
+| `data/raw/` | Frozen copies of the original public grant and delivery documents, with checksums | the original source record, independent of this pipeline |
 
-## C. Excluded by the rule
-- Performance-benchmark workloads as calibration data — excluded (measure system speed, not effort).
-- Regenerable intermediates (`repo_candidates*.csv`, `*.suggested*.csv`, caches) — git-ignored, never evidence.
-- Any figure or demo that proves neither effort, nor the pipeline, nor context — archive.
+## Pipeline
+
+| Artifact | Role |
+|---|---|
+| `scripts/extract/harvest_deliveries.py` | Scans the Web3 Foundation delivery repository and groups files into candidate projects |
+| `scripts/extract/crust_prescreen.py`, `scripts/extract/posg_prescreen.py` | Screen the Crust Grants and Polkadot Open Source Developer Grants programs |
+| `scripts/validate/dissect_pilot.py` | Measures one project's code size and assigns its COCOMO drivers from repository signals |
+| `scripts/extract/build_calibration_points.py` | Collapses the 73 spec rows into the 44 final points, deterministically |
+| `scripts/validate/effort_truth.py` | Reconciles independent effort signals into the ground truth figure used in the spec |
+| `scripts/validate/validate_pm.py` | Records validity and reliability evidence for the measured effort figures |
+| `scripts/validate/00_check_environment.py` | Checks that the tools needed to run the pipeline are present |
+
+## Documentation and governance
+
+| Artifact | Role |
+|---|---|
+| `docs/DATASHEET.md` | The full dataset description, in the standard datasheet format |
+| `docs/PRISMA_FLOW.md` | The identification-to-inclusion path, with the real count at every step |
+| `provenance/change_log.md` | The append-only record of what changed in this dataset, and why |
+| `provenance/release_policy.md` | How a measurement becomes part of a citable, tagged release |
+| `provenance/claims_ledger.md` | What is currently an established result versus what is still open |
+
+## Excluded from this repository
+
+- The model-calibration and estimation work built on top of this dataset. It lives in the larger
+  development repository linked from the main README and will be released on its own once it is
+  finished.
+- Regenerable intermediates, such as repository clone caches. These are never evidence and are
+  not committed anywhere in this project.

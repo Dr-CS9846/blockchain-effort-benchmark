@@ -1,31 +1,46 @@
-# Real reported-effort dataset — verified, classified (2026-06-18)
+# Real reported-effort dataset: verified and classified (2026-06-18)
 
-**38 reported-effort observations, every one verified against its primary source, normalised and classified.**
-This is the *rigour* layer to put on the table — not just rows, but rows you can defend line-by-line.
+38 reported-effort observations, every one verified against its primary source, normalised, and
+classified. This is meant to be a rigorous layer, not just a list of rows: rows you can defend
+one at a time, with the source behind each one.
 
-## What makes this different from a raw link-list
-1. **Primary-source verified.** Each row's reported hours were read directly from the source file/post (Polkascan
-   Oct-2020 = 10+46+49+37 = 142 h ✓; Kusama Ref-83 = 264+164 = 428 h ✓; stakeworld €85/h tables read in full).
-2. **PM normalised to Boehm's 152 h/PM** (not the 160 h/PM some sheets use) — so it slots into COCOMO directly.
-3. **Classified by work type** — the critical distinction most lists miss:
-   - `dev` = software development (TrueBlocks Go port, Polkascan PolkADAPT/Explorer, the 6 gold grants).
-   - `maintenance` = software maintenance of a codebase with reported hours (Polkascan Python API periods).
-   - `INFRA-OPS` = **flagged**: RPC/bootnode/snapshot *operations* (stakeworld). Real reported hours, but this is
-     DevOps, **not** software construction — it must NOT be mixed into a software-effort calibration. Including it
-     unflagged is a category error.
-4. **Multi-ecosystem, multi-platform** — Polkadot, Kusama, **Ethereum (EF grant)** — sourced from GitHub repos,
-   Medium, and (extensible) governance platforms. The data is internet-wide, exactly as noted.
+## What makes this different from a raw list of links
 
-## Honest accounting (so it can't be challenged)
-- These 38 rows are **observations across ~9 distinct projects/teams**, not 38 independent projects. The Polkascan
-  rows (PK01-PK21) are 21 monthly/quarterly slices of ONE ongoing project — legitimate as *periodic effort
-  observations*, but they must be modelled as repeated measures, **not** treated as 21 independent datapoints
-  (doing so is pseudo-replication and inflates n artificially).
-- `TrueBlocks` PM is **derived** (2 FTE × 12 mo), not itemised hours — flagged as such.
-- `INFRA-OPS` rows are real but excluded from software-effort modelling (kept for completeness/transparency).
+1. **Primary-source verified.** Each row's reported hours were read directly from the source
+   file or post. For example: Polkascan, October 2020, 10 plus 46 plus 49 plus 37 equals 142
+   hours, confirmed. Kusama Referendum 83, 264 plus 164 equals 428 hours, confirmed. The
+   stakeworld tables, given in euros per hour, were read in full.
+2. **Person-months are normalised to Boehm's 152 hours per person-month**, not the 160 hours per
+   month some source sheets use, so the figures slot directly into COCOMO.
+3. **Classified by work type**, which is the distinction most lists like this miss:
+   - `dev`: software development. The TrueBlocks Go port, Polkascan PolkADAPT and Explorer, and
+     six other grants with itemised hours.
+   - `maintenance`: software maintenance of a codebase with reported hours, such as the Polkascan
+     Python API periods.
+   - `INFRA-OPS`, explicitly flagged: RPC, bootnode, and snapshot operations, such as stakeworld.
+     These are real reported hours, but they are DevOps work, not software construction. Mixing
+     them into a software-effort calibration unflagged would be a category error.
+4. **Spans more than one ecosystem and platform**: Polkadot, Kusama, and an Ethereum Foundation
+   grant, sourced from GitHub repositories, Medium posts, and governance platforms.
 
-## How this scales (the proven method)
-Voluntary actual-effort reports live across the whole internet: team treasury-report repos (Polkascan, stakeworld),
-Medium grant retrospectives (TrueBlocks/EF), OpenGov referenda + Polkassembly/Subsquare posts, Gitcoin/Optimism
-RetroPGF. Discovery = enumerate team repos (jsDelivr) + mine governance APIs (Subsquare) + read the post. Each new
-diligent-reporter team adds several verified rows. The constraint was scope, not supply.
+## Honest accounting, so this cannot be challenged later
+
+- These 38 rows are observations across roughly 9 distinct projects and teams, not 38 independent
+  projects. The Polkascan rows, PK01 through PK21, are 21 monthly or quarterly slices of one
+  ongoing project. They are legitimate as periodic effort observations, but they have to be
+  modelled as repeated measures, not treated as 21 independent data points. Doing the latter is
+  pseudo-replication, and it would inflate the sample size artificially.
+- The TrueBlocks person-months figure is derived, 2 FTE times 12 months, not itemised hours. This
+  is flagged as such rather than presented as an equally strong observation.
+- The INFRA-OPS rows are real, but excluded from any software-effort modelling. They are kept in
+  this file for completeness and transparency, not as usable calibration data.
+
+## How this could scale further
+
+Voluntary actual-effort reports exist across many places: team treasury-report repositories such
+as Polkascan and stakeworld, grant retrospectives on Medium such as TrueBlocks and the Ethereum
+Foundation, OpenGov referenda and posts on Polkassembly and Subsquare, and programs like Gitcoin
+and Optimism RetroPGF. The discovery method is straightforward: enumerate team repositories,
+mine governance APIs, and read the underlying post. Each additional team that reports its effort
+carefully adds several more verifiable rows. What limited this so far was scope, not the supply
+of source material.
